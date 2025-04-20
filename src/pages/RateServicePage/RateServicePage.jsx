@@ -28,7 +28,7 @@ const RateServicePage = () => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       console.log("Form values", values);
-      navigate("/evaluation");
+      navigate("/evaluation", { state: values });
     },
   });
 
