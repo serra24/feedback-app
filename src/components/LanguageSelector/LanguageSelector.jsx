@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Box, FormControl, MenuItem, Select } from '@mui/material';
 import { LanguageContext } from '../../context/LanguageContext';
-import worldIcon from '../../assets/icons/world.png';
+import worldIcon from '../../assets/icons/world.svg';
 import saFlag from '../../assets/icons/sa-flag.png'; // Saudi Arabia flag
 import usFlag from '../../assets/icons/us-flag.png'; // USA flag
 

@@ -46,8 +46,8 @@ const Header = ({
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          px: { xs: 0, sm: 0, md: 2 },
-          py: 2,
+          px: { xs: 0, sm: 0, md: 6.2},
+          py: 3,
         }}
       >
         {/* Drawer for Small Screens */}
