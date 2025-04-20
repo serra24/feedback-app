@@ -49,7 +49,7 @@ const RateServicePage = () => {
         fontFamily: "Almarai, sans-serif",
         fontWeight: 700,
         fontSize: { xs: "24px", sm: "30px" }, // Smaller font size on small screens
-        lineHeight: "100%",
+        // lineHeight: "100%",
         textAlign: "right",
         mb: 3,
         color: "var( --white-color)",
@@ -63,7 +63,7 @@ const RateServicePage = () => {
         fontFamily: "Almarai, sans-serif",
         fontWeight: 400,
         fontSize: { xs: "16px", sm: "24px" }, // Smaller font size on small screens
-        lineHeight: "100%",
+        // lineHeight: "100%",
         textAlign: "center",
         mb: 5,
         color: "var( --white-color)",
