@@ -38,7 +38,7 @@ const Header = ({
 
   return (
     <AppBar
-      position="sticky"
+      position="relative"
       sx={{ background: "transparent", boxShadow: "none" }}
     >
       <Toolbar
