@@ -6,7 +6,9 @@ import secretNumberIcon from "../../assets/icons/secret-number.png";
 import { LanguageContext } from "../../context/LanguageContext";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useNavigate } from "react-router-dom";
 const RateServicePage = () => {
+    const navigate = useNavigate(); // Initialize navigate hook
   // Validation Schema using Yup
   const validationSchema = Yup.object({
     bookingNumber: Yup.string()
@@ -26,7 +28,7 @@ const RateServicePage = () => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       console.log("Form values", values);
-      // Handle form submission (e.g., API call)
+      navigate("/evaluation");
     },
   });
 
