@@ -79,3 +79,16 @@ body {
   background-color: #084267 !important;
   height: 13px !important;
 }
+/* Change autofilled input background color and text color */
+input:-internal-autofill-selected {
+  appearance: menulist-button; /* Makes sure it behaves like a dropdown */
+  background-image: none !important; /* Removes any background image */
+  background-color: rgba(8, 66, 103, 0.3) !important; /* Custom background color */
+  color: #084267 !important; /* Custom text color */
+  border: 1px solid #084267 !important; /* Optional: Border color if needed */
+}
+
+/* Optional: Customize the border color when autofilled */
+input:-internal-autofill-selected:focus {
+  border-color: rgba(8, 66, 103, 0.7) !important; /* Focused border color */
+}
