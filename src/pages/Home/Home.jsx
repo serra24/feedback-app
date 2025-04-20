@@ -76,7 +76,7 @@ const Home = () => {
             fontFamily: "Almarai, sans-serif",
             fontWeight: 400,
             fontSize: "24px",
-            // lineHeight: "100%",
+            lineHeight: "1.7",
             letterSpacing: "0%",
             // textAlign: "right",
             mb: 7.5,
