@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from './components/Header/Header';
 import { Box } from '@mui/material';
 import logo from './assets/logos/logo.png'; 
@@ -7,9 +7,21 @@ import { Outlet } from "react-router-dom";
 import backgroundImage from './assets/backgrounds/background.jpg';
 import homeIcon from './assets/icons/home.png';  
 import aboutIcon from './assets/icons/about.png'; 
+import Loader from './components/Loader/Loader';
 
 function App() {
   const { language, setLanguage, translations: t } = React.useContext(LanguageContext);
+  const [loading, setLoading] = useState(true);  // State to control the loader visibility
+
+  useEffect(() => {
+    // Simulating loading for 2 seconds (you can replace this with real data fetching logic)
+    const timer = setTimeout(() => {
+      setLoading(false);  // Set loading to false after 2 seconds
+    }, 2000);
+
+    return () => clearTimeout(timer);  // Cleanup timer on component unmount
+  }, []);
+
   const headerProps = {
     isRtl: language === 'ar',
     logoSrc: logo,
@@ -19,6 +31,11 @@ function App() {
     homeIcon,
     aboutIcon
   };
+
+if (loading) {
+    return <Loader />; 
+  }
+
 
   return (
    
