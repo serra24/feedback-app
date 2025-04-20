@@ -41,10 +41,10 @@ body {
 ::-webkit-scrollbar-corner {
   background-color: transparent;
 }
-.css-1bm5wxm-MuiInputBase-root-MuiInput-root-MuiSelect-root .MuiSvgIcon-root,.css-15jcktb-MuiInputBase-root-MuiInput-root-MuiSelect-root .MuiSvgIcon-root{
+.css-1bm5wxm-MuiInputBase-root-MuiInput-root-MuiSelect-root .MuiSvgIcon-root,.css-15jcktb-MuiInputBase-root-MuiInput-root-MuiSelect-root .MuiSvgIcon-root,.css-1r1c6tg .MuiSvgIcon-root{
   display: none !important;
 }
-.css-5lvf42-MuiSelect-select-MuiInputBase-input-MuiInput-input.css-5lvf42-MuiSelect-select-MuiInputBase-input-MuiInput-input.css-5lvf42-MuiSelect-select-MuiInputBase-input-MuiInput-input{
+.css-5lvf42-MuiSelect-select-MuiInputBase-input-MuiInput-input.css-5lvf42-MuiSelect-select-MuiInputBase-input-MuiInput-input.css-5lvf42-MuiSelect-select-MuiInputBase-input-MuiInput-input,.css-1wcjd45.css-1wcjd45.css-1wcjd45{
   padding-right: 0px !important;
 }
 .css-axw7ok{
@@ -70,7 +70,7 @@ body {
 .MuiSlider-root {
   font-family: 'Almarai', sans-serif !important;
 }
-.css-mb7bu8-MuiFormControl-root {
+.css-mb7bu8-MuiFormControl-root,.css-1wcjd45.css-1wcjd45.css-1wcjd45 {
 
   min-width: 10px !important;
 }
