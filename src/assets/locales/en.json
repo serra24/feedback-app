@@ -1,0 +1,44 @@
+{
+  "navigation": {
+    "home": "Home",
+    "about": "About"
+  },
+  "language": {
+    "english": "English",
+    "arabic": "Arabic"
+  },
+  "home": {
+    "mainHeading": "A Unique Religious Tourism Experience",
+    "subHeading": "At Nawazi, your comfort matters — rate your experience or request the service you need so we can serve you at our best during your religious journey.",
+    "cards": {
+      "rateService": {
+        "topTitle": "Rate Services",
+        "description": "Share your opinion about your hotel experience"
+      },
+      "requestService": {
+        "topTitle": "Request Service",
+        "description": "You can request any of our various services"
+      }
+    }
+  }
+  ,
+  "rateServicePage": {
+    "header": {
+      "mainTitle": "Rate Hotel Services",
+      "subTitle": "We value your feedback and always strive to improve our services based on your comments"
+    },
+    "form": {
+      "bookingDetailsTitle": "Enter Your Booking Details",
+      "bookingNumber": {
+        "label": "Booking Number",
+        "placeholder": "Enter your booking number here"
+      },
+      "secretNumber": {
+        "label": "Secret Number",
+        "placeholder": "Enter your booking number here"
+      },
+      "description":"Please enter your reservation number and PIN to submit a review.",
+      "submitButton": "Submit"
+    }
+  }
+}

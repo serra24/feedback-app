@@ -1,0 +1,76 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --gold-color: #CFAE78;
+  --gold-color-2: #CFAE7824;
+  --primary-bg-color: #02395C;
+  --secondary-bg-color: #13537C;
+  --white-color: #fff;
+
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  line-height: 1.5;
+  font-family: 'Almarai', sans-serif;
+}
+/* Style the scrollbar itself */
+::-webkit-scrollbar {
+  width: 11px;  /* Width of the scrollbar */
+  height: 11px; /* Height of the scrollbar on horizontal scroll */
+}
+
+/* Style the scrollbar track (background) */
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* Light gray background for the track */
+  border-radius: 10px;
+}
+
+/* Style the scrollbar thumb (the draggable part) */
+::-webkit-scrollbar-thumb {
+  background-color: var(--primary-bg-color); /* Set color to your desired thumb color */
+  border-radius: 10px;
+}
+
+/* Style the scrollbar thumb when it's hovered */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #2980b9; /* Darker color when hovered */
+}
+
+/* Style the scrollbar corner (where the horizontal and vertical scrollbars meet) */
+::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+.css-1bm5wxm-MuiInputBase-root-MuiInput-root-MuiSelect-root .MuiSvgIcon-root,.css-15jcktb-MuiInputBase-root-MuiInput-root-MuiSelect-root .MuiSvgIcon-root{
+  display: none !important;
+}
+.css-5lvf42-MuiSelect-select-MuiInputBase-input-MuiInput-input.css-5lvf42-MuiSelect-select-MuiInputBase-input-MuiInput-input.css-5lvf42-MuiSelect-select-MuiInputBase-input-MuiInput-input{
+  padding-right: 0px !important;
+}
+.css-axw7ok{
+  gap: 6px !important;
+}
+/* index.css */
+
+.MuiTypography-root,
+.MuiButton-root,
+.MuiAppBar-root,
+.MuiPaper-root,
+.MuiDrawer-root,
+.MuiSelect-root,
+.MuiFormControl-root,
+.MuiTextField-root,
+.MuiListItem-root,
+.MuiTable-root,
+.MuiDialog-root,
+.MuiCard-root,
+.MuiCheckbox-root,
+.MuiRadio-root,
+.MuiSwitch-root,
+.MuiSlider-root {
+  font-family: 'Almarai', sans-serif !important;
+}
+.css-mb7bu8-MuiFormControl-root {
+
+  min-width: 10px !important;
+}
