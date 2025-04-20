@@ -8,7 +8,10 @@ import LanguageProvider from "./context/LanguageContext.jsx";
 import RateServicePage from "./pages/RateServicePage/RateServicePage.jsx";
 import RequestServicePage from "./pages/RequestServicePage/RequestServicePage.jsx";
 import EvaluationPage from "./pages/EvaluationPage/EvaluationPage.jsx";
-
+import MaintenanceServicePage from "./pages/MaintenanceServicePage/MaintenanceServicePage.jsx";
+import RoomServicePage from "./pages/RoomServicePage/RoomServicePage.jsx";
+import LuggageServicePage from "./pages/LuggageServicePage/LuggageServicePage.jsx";
+import GuestServicePage from './pages/GuestServicePage/GuestServicePage.jsx'
 // Directly add routing logic here
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -21,6 +24,11 @@ createRoot(document.getElementById("root")).render(
             <Route path="/rate-service" element={<RateServicePage />} />
             <Route path="/request-service" element={<RequestServicePage />} />
             <Route path="/evaluation" element={<EvaluationPage />} />
+            <Route path="/guest-service" element={<GuestServicePage />} />
+        <Route path="/maintenance-service" element={<MaintenanceServicePage />} />
+        <Route path="/room-service" element={<RoomServicePage />} />
+        <Route path="/luggage-service" element={<LuggageServicePage />} />
+
           </Route>
         </Routes>
       </Router>
