@@ -30,9 +30,9 @@ const InputField = ({ label, value, onChange, onBlur, error, touched, iconSrc, p
             "& input": {
               color: "#fff",
             },
-            "& fieldset": {
-              borderColor: "#00395D", // Border color
-            },
+            // "& fieldset": {
+            //   borderColor: "#00395D", // Border color
+            // },
           },
         }}
         value={value}
