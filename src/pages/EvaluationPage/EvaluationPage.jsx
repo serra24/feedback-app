@@ -2,28 +2,26 @@ import React, { useState } from "react";
 import { Box, Typography, Button, TextField } from "@mui/material";
 import starFilled from "../../assets/icons/star-filled.svg";
 import starEmpty from "../../assets/icons/star-empty.svg";
-import { useLocation } from "react-router-dom";
-
+// import { useLocation } from "react-router-dom";
+import { motion } from "framer-motion";
 const ratingLabels = [
-    " النظافه",
-    " الخدمه",
-    " المرافق",
-    " الموقع",
-    <>
-      القيمه مقابل<br />السعر
-    </>,
-  ];
-  
+  " النظافه",
+  " الخدمه",
+  " المرافق",
+  " الموقع",
+  <>
+    القيمه مقابل
+    <br />
+    السعر
+  </>,
+];
 
 const EvaluationPage = () => {
   const [ratings, setRatings] = useState(Array(5).fill(0));
   const [hovered, setHovered] = useState({ index: null, value: 0 });
-  const location = useLocation();
-  const { bookingNumber, secretNumber } = location.state || {};
-  console.log("Booking Number:", bookingNumber);
-  console.log("Secret Number:", secretNumber);
-
   const [comment, setComment] = useState("");
+  // const location = useLocation();
+  // const { bookingNumber, secretNumber } = location.state || {};
 
   const handleRating = (index, value) => {
     const newRatings = [...ratings];
@@ -39,11 +37,17 @@ const EvaluationPage = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        minHeight: {md:"70vh", xs:"auto"},
+        minHeight: { md: "70vh", xs: "auto" },
         p: 3,
         flexDirection: "column",
       }}
     >
+        {/* Animated Header */}
+        <motion.div
+        initial={{ opacity: 0, y: -30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
       <Typography
         sx={{
           fontFamily: "Almarai, sans-serif",
@@ -56,6 +60,7 @@ const EvaluationPage = () => {
       >
         تقييم الخدمات الفندقيه
       </Typography>
+      </motion.div>
 
       <Typography
         sx={{
@@ -69,7 +74,12 @@ const EvaluationPage = () => {
       >
         نقدر آرائكم ونسعي دائماً لتحسين خدماتنا بناءاً علي ملاحظاتكم.
       </Typography>
-
+  {/* Animated Card Container */}
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
       <Box
         sx={{
           width: { xs: "90%", sm: "440px" }, // Adjust width for small screens
@@ -96,8 +106,14 @@ const EvaluationPage = () => {
         </Typography>
 
         {ratingLabels.map((label, index) => (
-          <Box
+            <motion.div
             key={index}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.15, duration: 0.4 }}
+          >
+          <Box
+            // key={index}
             sx={{
               display: "flex",
               justifyContent: "space-between",
@@ -116,29 +132,38 @@ const EvaluationPage = () => {
               {label}
             </Typography>
             <Box>
-              {[1, 2, 3, 4, 5].map((star) => (
-                <img
-                  key={star}
-                  src={
-                    star <=
-                    (hovered.index === index ? hovered.value : ratings[index])
-                      ? starFilled
-                      : starEmpty
-                  }
-                  alt="star"
-                  style={{
-                    width: 22,
-                    height: 22,
-                    cursor: "pointer",
-                    marginLeft: 4,
-                  }}
-                  onClick={() => handleRating(index, star)}
-                  onMouseEnter={() => setHovered({ index, value: star })}
-                  onMouseLeave={() => setHovered({ index: null, value: 0 })}
-                />
-              ))}
+            {[1, 2, 3, 4, 5].map((star) => (
+                    <motion.img
+                      key={star}
+                      src={
+                        star <=
+                        (hovered.index === index
+                          ? hovered.value
+                          : ratings[index])
+                          ? starFilled
+                          : starEmpty
+                      }
+                      alt="star"
+                      style={{
+                        width: 22,
+                        height: 22,
+                        cursor: "pointer",
+                        marginLeft: 4,
+                      }}
+                      whileHover={{ scale: 1.2 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                      onClick={() => handleRating(index, star)}
+                      onMouseEnter={() =>
+                        setHovered({ index, value: star })
+                      }
+                      onMouseLeave={() =>
+                        setHovered({ index: null, value: 0 })
+                      }
+                    />
+                  ))}
             </Box>
           </Box>
+          </motion.div>
         ))}
 
         {/* Comment Section */}
@@ -184,26 +209,33 @@ const EvaluationPage = () => {
         </Box>
 
         {/* Submit Button */}
-        <Button
-          variant="contained"
-          sx={{
-            mt: "6px",
-            width: "100%",
-            height: 48,
-            borderRadius: "5px",
-            backgroundColor: "#00395D",
-            fontFamily: "Almarai, sans-serif",
-            fontWeight: 400,
-            fontSize: "18px",
-            lineHeight: "100%",
-            "&:hover": {
-              backgroundColor: "#002d4d",
-            },
-          }}
-        >
-          إرسال التقييم
-        </Button>
+        <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ duration: 0.2 }}
+          >
+            <Button
+              variant="contained"
+              sx={{
+                mt: "6px",
+                width: "100%",
+                height: 48,
+                borderRadius: "5px",
+                backgroundColor: "#00395D",
+                fontFamily: "Almarai, sans-serif",
+                fontWeight: 400,
+                fontSize: "18px",
+                lineHeight: "100%",
+                "&:hover": {
+                  backgroundColor: "#002d4d",
+                },
+              }}
+            >
+              إرسال التقييم
+            </Button>
+          </motion.div>
       </Box>
+      </motion.div>
     </Box>
   );
 };
