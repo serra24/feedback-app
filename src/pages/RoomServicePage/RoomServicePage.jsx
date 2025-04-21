@@ -2,8 +2,8 @@ import React from "react";
 import { Box, Typography } from "@mui/material";
 
 // Sample images (you can replace these with actual image imports or URLs)
-import cleaning from "../../assets/icons/cleaning.png";  // Example image
-import resources from "../../assets/icons/resources.png"; // Example image
+import cleaning from "../../assets/icons/cleaning.svg";  // Example image
+import resources from "../../assets/icons/resources.svg"; // Example image
 
 const RoomServicePage = () => {
   return (
@@ -24,7 +24,7 @@ const RoomServicePage = () => {
           fontWeight: 700,
           fontSize: { xs: "24px", sm: "30px" },
           textAlign: "right",
-          mb: 3,
+          mb: 2,
           color: "var(--white-color)",
         }}
       >

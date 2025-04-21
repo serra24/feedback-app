@@ -2,8 +2,8 @@ import React from "react";
 import { Box, Typography } from "@mui/material";
 
 // Sample images (you can replace these with actual image imports or URLs)
-import complaintImg from "../../assets/icons/complaint.png";  // Example image
-import otherImg from "../../assets/icons/other.png"; // Example image
+import complaintImg from "../../assets/icons/complaint.svg";  // Example image
+import otherImg from "../../assets/icons/other.svg"; // Example image
 
 const GuestServicePage = () => {
   return (

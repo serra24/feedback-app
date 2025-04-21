@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Box, Typography, Button, TextField } from "@mui/material";
-import starFilled from "../../assets/icons/star-filled.png";
-import starEmpty from "../../assets/icons/star-empty.png";
+import starFilled from "../../assets/icons/star-filled.svg";
+import starEmpty from "../../assets/icons/star-empty.svg";
 import { useLocation } from "react-router-dom";
 
 const ratingLabels = [

@@ -2,15 +2,15 @@ import React from "react";
 import { Box, Typography } from "@mui/material";
 import { LanguageContext } from "../../context/LanguageContext";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
-import guestIcon from "../../assets/icons/guest.png";
-import maintenanceIcon from "../../assets/icons/maintenance.png";
-import roomIcon from "../../assets/icons/room.png";
-import luggageIcon from "../../assets/icons/luggage.png";
+import guestIcon from "../../assets/icons/guest.svg";
+import maintenanceIcon from "../../assets/icons/maintenance.svg";
+import roomIcon from "../../assets/icons/room.svg";
+import luggageIcon from "../../assets/icons/luggage.svg";
 
 const services = [
   {
     icon: guestIcon,
-    title: "مركز خدمة الضيوف",
+    title: "الشكوى ",
     description: "دعم متكامل لضيوفنا على مدار الساعة.",
     link: "/guest-service", // Add a link for each service
   },
@@ -47,7 +47,7 @@ const RequestServicePage = () => {
         flexDirection: "column",
         alignItems: "center",
         p: 3,
-        minHeight: "100vh",
+        minHeight: {md:"70vh", xs:"auto"},
       }}
     >
       {/* Header */}
@@ -57,7 +57,7 @@ const RequestServicePage = () => {
           fontWeight: 700,
           fontSize: { xs: "24px", sm: "30px" },
           textAlign: "right",
-          mb: 3,
+          mb: 2,
           color: "var(--white-color)",
         }}
       >
@@ -72,6 +72,7 @@ const RequestServicePage = () => {
           textAlign: "center",
           mb: 5,
           color: "var(--white-color)",
+          maxWidth: "900px",
         }}
       >
         في نوازي، نوفر لك مجموعة متنوعة من الخدمات المصممة بعناية لتلبية
@@ -84,7 +85,8 @@ const RequestServicePage = () => {
         sx={{
           display: "flex",
           flexWrap: "wrap",
-          justifyContent: "space-between",
+          justifyContent: {md:"space-between", xs:"center"},
+          gap: {md:"none", xs: 2}, // Adjust gap for smaller screens
           maxWidth: 650, // عرض الصف الكامل (259 * 2 + المسافة بين الكروت)
         }}
       >

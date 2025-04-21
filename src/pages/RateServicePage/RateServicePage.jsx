@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { Box, Typography, Button } from "@mui/material";
 import InputField from "../../components/InputField/InputField";
-import bookingNumberIcon from "../../assets/icons/booking-number.png";
-import secretNumberIcon from "../../assets/icons/secret-number.png";
+import bookingNumberIcon from "../../assets/icons/booking-number.svg";
+import secretNumberIcon from "../../assets/icons/secret-number.svg";
 import { LanguageContext } from "../../context/LanguageContext";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -40,7 +40,7 @@ const RateServicePage = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        minHeight: "100vh", // Full viewport height
+        minHeight: {md:"70vh", xs:"auto"},
         p: 3,
         flexDirection: "column",
       }}
@@ -53,7 +53,7 @@ const RateServicePage = () => {
           fontSize: { xs: "24px", sm: "30px" }, // Smaller font size on small screens
           // lineHeight: "100%",
           textAlign: "right",
-          mb: 3,
+          mb: 2,
           color: "var( --white-color)",
         }}
       >

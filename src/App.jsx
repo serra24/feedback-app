@@ -5,8 +5,8 @@ import logo from './assets/logos/logo.png';
 import { LanguageContext } from './context/LanguageContext'; 
 import { Outlet } from "react-router-dom"; 
 import backgroundImage from './assets/backgrounds/background.jpg';
-import homeIcon from './assets/icons/home.png';  
-import aboutIcon from './assets/icons/about.png'; 
+import homeIcon from './assets/icons/home.svg';  
+import aboutIcon from './assets/icons/about.svg'; 
 import Loader from './components/Loader/Loader';
 
 function App() {

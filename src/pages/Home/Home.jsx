@@ -3,8 +3,8 @@ import Header from "../../components/Header/Header";
 import { Box, Typography } from "@mui/material";
 import { LanguageContext } from "../../context/LanguageContext";
 import Card from "../../components/Card/Card";
-import star from "../../assets/icons/star.png";
-import notification from "../../assets/icons/notification.png";
+import star from "../../assets/icons/star.svg";
+import notification from "../../assets/icons/notification.svg";
 import arrowIcon from "../../assets/icons/arrowIcon.png";
 
 const Home = () => {
@@ -51,7 +51,7 @@ const Home = () => {
               fontFamily: "Almarai, sans-serif",
               fontWeight: 700,
               fontSize: { xs: "24px", sm: "28px", md: "30px" },
-              mb: { xs: 1, md: 3 }, //should be 2 in md
+              mb: { xs: 1, md: 2}, //should be 2 in md
             }}
           >
             {t.home.mainHeading}
