@@ -113,3 +113,10 @@ input:-internal-autofill-selected {
 .css-lohd6h-MuiSvgIcon-root-MuiSelect-icon,.css-d551zc-MuiSvgIcon-root-MuiSelect-icon{
   color:#FFFFFF80 !important;
 }
+.css-lohd6h-MuiSvgIcon-root-MuiSelect-icon:dir(rtl),.css-d551zc-MuiSvgIcon-root-MuiSelect-icon:dir(rtl){
+  left:7px !important;
+  right: auto !important;
+}
+.css-w76bbz-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input{
+  border-radius: 5px !important;
+}
