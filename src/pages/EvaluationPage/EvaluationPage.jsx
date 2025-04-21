@@ -5,12 +5,15 @@ import starEmpty from "../../assets/icons/star-empty.png";
 import { useLocation } from "react-router-dom";
 
 const ratingLabels = [
-  " النظافه",
-  " الخدمه",
-  " المرافق",
-  " الموقع",
-  " القيمه مقابل السعر",
-];
+    " النظافه",
+    " الخدمه",
+    " المرافق",
+    " الموقع",
+    <>
+      القيمه مقابل<br />السعر
+    </>,
+  ];
+  
 
 const EvaluationPage = () => {
   const [ratings, setRatings] = useState(Array(5).fill(0));
@@ -107,7 +110,7 @@ const EvaluationPage = () => {
               sx={{
                 fontFamily: "Almarai, sans-serif",
                 fontWeight: 400,
-                fontSize: "20px",
+                fontSize: "18px",
               }}
             >
               {label}
@@ -124,8 +127,8 @@ const EvaluationPage = () => {
                   }
                   alt="star"
                   style={{
-                    width: 24,
-                    height: 24,
+                    width: 22,
+                    height: 22,
                     cursor: "pointer",
                     marginLeft: 4,
                   }}

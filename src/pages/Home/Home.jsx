@@ -13,7 +13,7 @@ const Home = () => {
   return (
     <Box
       sx={{
-        minHeight: {md:"100vh", xs:"auto"},
+        minHeight: {md:"70vh", xs:"auto"},
         display: "flex",
         flexDirection: "column",
         position: "relative",
