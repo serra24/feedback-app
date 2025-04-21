@@ -11,7 +11,7 @@ const InputField = ({ label, value, onChange, onBlur, error, touched, iconSrc, p
           fontSize: "18px",
           lineHeight: "100%",
           color: "var(--white-color)",
-          marginBottom: "15px",
+          marginBottom: "12px",
         }}
       >
         {label}
