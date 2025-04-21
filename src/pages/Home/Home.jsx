@@ -51,7 +51,7 @@ const Home = () => {
               fontFamily: "Almarai, sans-serif",
               fontWeight: 700,
               fontSize: { xs: "24px", sm: "28px", md: "30px" },
-              mb: { xs: 1, md: 2}, //should be 2 in md
+              mb: { xs: 1, md: 1.5}, //should be 2 in md
             }}
           >
             {t.home.mainHeading}
@@ -63,7 +63,7 @@ const Home = () => {
               fontWeight: 400,
               fontSize: { xs: "16px", sm: "20px", md: "24px" },
               lineHeight: "1.5",
-              mb: { xs: 3, md: 5 },
+              mb: { xs: 3, md: 4 },
               //   maxWidth: "800px",
             }}
           >

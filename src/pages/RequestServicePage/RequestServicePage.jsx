@@ -57,7 +57,7 @@ const RequestServicePage = () => {
           fontWeight: 700,
           fontSize: { xs: "24px", sm: "30px" },
           textAlign: "right",
-          mb: 2,
+          mb: 1.5,
           color: "var(--white-color)",
         }}
       >
@@ -70,7 +70,7 @@ const RequestServicePage = () => {
           fontWeight: 400,
           fontSize: { xs: "16px", sm: "24px" },
           textAlign: "center",
-          mb: 5,
+          mb: 4,
           color: "var(--white-color)",
           maxWidth: "900px",
         }}

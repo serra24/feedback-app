@@ -50,7 +50,7 @@ const EvaluationPage = () => {
           fontWeight: 700,
           fontSize: { xs: "22px", sm: "30px" },
           textAlign: "center",
-          mb: 2,
+          mb: 1.5,
           color: "#ffffff",
         }}
       >

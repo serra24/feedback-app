@@ -53,7 +53,7 @@ const RateServicePage = () => {
           fontSize: { xs: "24px", sm: "30px" }, // Smaller font size on small screens
           // lineHeight: "100%",
           textAlign: "right",
-          mb: 2,
+          mb:1.5,
           color: "var( --white-color)",
         }}
       >
@@ -67,7 +67,7 @@ const RateServicePage = () => {
           fontSize: { xs: "16px", sm: "24px" }, // Smaller font size on small screens
           // lineHeight: "100%",
           textAlign: "center",
-          mb: 5,
+          mb: 4,
           color: "var( --white-color)",
         }}
       >
