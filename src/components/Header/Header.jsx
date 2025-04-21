@@ -19,14 +19,10 @@ const Header = ({
   isRtl,
 }) => {
   const navigate = useNavigate();
-  console.log("isRtl", isRtl);
-
   // Handler for logo click (logs message and redirects to home)
   const handleLogoClick = () => {
-    console.log("Logo clicked! Navigating to home...");
     navigate("/"); // Redirect to the home page
   };
-
   // State for handling the drawer open/close
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false); // New state for menu open/close
@@ -70,7 +66,8 @@ const Header = ({
               style={{ cursor: "pointer" }}
               onClick={handleLogoClick} // Handle logo click
               whileHover={{ scale: 1.1 }} // Hover animation to scale up the logo
-              transition={{ duration: 0.3 }} // Duration of the animation
+              transition={{ duration: 0.3 }} 
+               className="responsive-logo"
             />
           </Box>
 

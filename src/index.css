@@ -97,3 +97,13 @@ input:-internal-autofill-selected {
     transform: rotate(360deg);
   }
 }
+/* Responsive logo styles */
+.responsive-logo {
+  /* height: 70px;  */
+}
+
+@media (max-width: 600px) {
+  .responsive-logo {
+    height: 80px; 
+  }
+}
