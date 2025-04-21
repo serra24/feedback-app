@@ -6,6 +6,7 @@ import Card from "../../components/Card/Card";
 import star from "../../assets/icons/star.svg";
 import notification from "../../assets/icons/notification.svg";
 import arrowIcon from "../../assets/icons/arrowIcon.png";
+import { motion } from "framer-motion";
 
 const Home = () => {
   const { translations: t } = useContext(LanguageContext);
@@ -13,7 +14,7 @@ const Home = () => {
   return (
     <Box
       sx={{
-        minHeight: {md:"70vh", xs:"auto"},
+        minHeight: { md: "70vh", xs: "auto" },
         display: "flex",
         flexDirection: "column",
         position: "relative",
@@ -46,17 +47,23 @@ const Home = () => {
             },
           }}
         >
-          <Typography
-            sx={{
-              fontFamily: "Almarai, sans-serif",
-              fontWeight: 700,
-              fontSize: { xs: "24px", sm: "28px", md: "30px" },
-              mb: { xs: 1, md: 1.5}, //should be 2 in md
-            }}
+          {/* Animated Header */}
+          <motion.div
+            initial={{ opacity: 0, y: -30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
           >
-            {t.home.mainHeading}
-          </Typography>
-
+            <Typography
+              sx={{
+                fontFamily: "Almarai, sans-serif",
+                fontWeight: 700,
+                fontSize: { xs: "24px", sm: "28px", md: "30px" },
+                mb: { xs: 1, md: 1.5 }, //should be 2 in md
+              }}
+            >
+              {t.home.mainHeading}
+            </Typography>
+          </motion.div>
           <Typography
             sx={{
               fontFamily: "Almarai, sans-serif",
@@ -72,6 +79,7 @@ const Home = () => {
             {'"'}
           </Typography>
         </Box>
+
         <Box
           sx={{
             display: {

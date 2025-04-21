@@ -110,3 +110,6 @@ input:-internal-autofill-selected {
 .css-zsp0bh-MuiInputBase-root-MuiOutlinedInput-root{
   padding: 12px  !important;
 }
+.css-lohd6h-MuiSvgIcon-root-MuiSelect-icon,.css-d551zc-MuiSvgIcon-root-MuiSelect-icon{
+  color:#FFFFFF80 !important;
+}

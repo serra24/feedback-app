@@ -52,8 +52,8 @@ const GuestServicePage = () => {
           maxWidth: 500,
         }}
       >
-        {/* First Card: شكوي */}
-        <Box
+       
+        {/* <Box
           sx={{
             width: 135,
             height: 122,
@@ -104,7 +104,7 @@ const GuestServicePage = () => {
           </Typography>
         </Box>
 
-        {/* Second Card: أخري */}
+    
         <Box
           sx={{
             width: 135,
@@ -154,7 +154,7 @@ const GuestServicePage = () => {
           >
             أخري
           </Typography>
-        </Box>
+        </Box>  */}
       </Box>
     </Box>
   );
