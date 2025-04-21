@@ -159,7 +159,7 @@ const MaintenanceServicePage = () => {
               fullWidth
               multiline
               rows={6}
-              placeholder="أدخل أي تفاصيل إضافية..."
+              placeholder="اكتب وصفاً تفصيلياً للمشكله..."
               sx={{
                 "& .MuiOutlinedInput-root": {
                   border: "1px solid #FFFFFF80",
