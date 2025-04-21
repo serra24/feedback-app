@@ -56,7 +56,8 @@ const MaintenanceServicePage = () => {
           color: "var(--white-color)",
         }}
       >
-        نقدّم لك خدمة صيانة سريعة وآمنة على مدار الساعة لتلبية أي احتياج داخل الغرف أو المرافق.
+        نقدّم لك خدمة صيانة سريعة وآمنة على مدار الساعة لتلبية أي احتياج داخل
+        الغرف أو المرافق.
       </Typography>
 
       <Box
@@ -97,7 +98,13 @@ const MaintenanceServicePage = () => {
           {formFields.map((field, index) => (
             <Box key={index} sx={{ flex: 1, minWidth: "calc(50% - 8px)" }}>
               <Typography
-                sx={{ mb: 1, fontFamily: "Almarai", color: "var(--white-color)" ,fontSize: 18,fontWeight: 400}}
+                sx={{
+                  mb: 1,
+                  fontFamily: "Almarai",
+                  color: "var(--white-color)",
+                  fontSize: 18,
+                  fontWeight: 400,
+                }}
               >
                 {field.label}
               </Typography>
@@ -108,7 +115,7 @@ const MaintenanceServicePage = () => {
                   "& .MuiOutlinedInput-root": {
                     border: "1px solid #FFFFFF80",
                     borderRadius: "4px",
-                    // backgroundColor: "#fff1", 
+                    // backgroundColor: "#fff1",
                     color: "#fff",
                   },
                   "& .MuiInputBase-input": {
@@ -137,7 +144,15 @@ const MaintenanceServicePage = () => {
         >
           {/* Notes */}
           <Box sx={{ flex: 1 }}>
-            <Typography sx={{ mb: 1, fontFamily: "Almarai", color: "var(--white-color)" }}>
+            <Typography
+              sx={{
+                mb: 1,
+                fontFamily: "Almarai",
+                color: "var(--white-color)",
+                fontSize: 18,
+                fontWeight: 400,
+              }}
+            >
               ملاحظات
             </Typography>
             <TextField
@@ -159,46 +174,60 @@ const MaintenanceServicePage = () => {
             />
           </Box>
           <Box sx={{ flex: 1 }}>
-          <Typography
-                sx={{ mb: 1, fontFamily: "Almarai", color: "var(--white-color)" }}
-              >
-                المرفقات
-              </Typography>
-          {/* Attachments */}
-          <Box
-            sx={{
-              flex: 1,
-              border: "1px dashed #FFFFFF80",
-              borderRadius: "5px",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              height: 112,
-              p: 3,
-              textAlign: "center",
-            }}
-          >
-           
-            <img
-              src={uploadicon}
-              alt="Upload"
-              style={{  marginBottom: "12px"}}
-            />
             <Typography
               sx={{
+                mb: 1,
                 fontFamily: "Almarai",
-                fontSize: "14px",
-                color: "rgba(255, 255, 255, 0.8)",
+                color: "var(--white-color)",
+                fontSize: 18,
+                fontWeight: 400,
               }}
             >
-              Drag & drop files or <span style={{ textDecoration: "underline" }}>Browse</span>
+              المرفقات
             </Typography>
+            {/* Attachments */}
+            <Box
+              sx={{
+                flex: 1,
+                border: "1px dashed #FFFFFF80",
+                borderRadius: "5px",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                height: 112,
+                p: 3,
+                textAlign: "center",
+              }}
+            >
+              <img
+                src={uploadicon}
+                alt="Upload"
+                style={{ marginBottom: "12px" }}
+              />
+              <Typography
+                sx={{
+                  fontFamily: "Almarai",
+                  fontSize: "14px",
+                  color: "rgba(255, 255, 255, 0.8)",
+                }}
+              >
+                Drag & drop files or{" "}
+                <span style={{ textDecoration: "underline" }}>Browse</span>
+              </Typography>
+            </Box>
           </Box>
-          </Box>
-          </Box>
+        </Box>
         {/* Buttons */}
-        <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2, flexWrap: "wrap", gap: 2 }}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            mt: 2,
+            flexWrap: "wrap",
+            gap: 2,
+          }}
+        >
           <Button
             variant="contained"
             sx={{
