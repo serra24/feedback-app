@@ -97,7 +97,7 @@ const MaintenanceServicePage = () => {
           {formFields.map((field, index) => (
             <Box key={index} sx={{ flex: 1, minWidth: "calc(50% - 8px)" }}>
               <Typography
-                sx={{ mb: 1, fontFamily: "Almarai", color: "var(--white-color)" }}
+                sx={{ mb: 1, fontFamily: "Almarai", color: "var(--white-color)" ,fontSize: 18,fontWeight: 400}}
               >
                 {field.label}
               </Typography>
