@@ -107,3 +107,6 @@ input:-internal-autofill-selected {
     height: 80px; 
   }
 }
+.css-zsp0bh-MuiInputBase-root-MuiOutlinedInput-root{
+  padding: 12px  !important;
+}
