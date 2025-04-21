@@ -40,7 +40,7 @@ const RateServicePage = () => {
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
-      height: "100vh", // Full viewport height
+      minHeight: "100vh", // Full viewport height
       p: 3,
       flexDirection: "column",
     }}
@@ -78,8 +78,8 @@ const RateServicePage = () => {
     <Box
       sx={{
         width: { xs: "90%", sm: "400px" }, // Adjust width for small screens
-        height: { xs: "auto", sm: "400px" }, // Adjust height for small screens
-        p: { xs: 2, sm: 3.7 }, // Padding adjustment
+        height: { xs: "auto", sm: "auto" }, // Adjust height for small screens
+        p: { xs: 2, sm: 3 }, // Padding adjustment
         position: "relative",
         display: "flex",
         flexDirection: "column",
@@ -93,7 +93,7 @@ const RateServicePage = () => {
         sx={{
           fontFamily: "Almarai, sans-serif",
           fontWeight: 700,
-          fontSize: { xs: "18px", sm: "24px" }, // Smaller font size for small screens
+          fontSize: { xs: "18px", sm: "20px" }, // Smaller font size for small screens
           lineHeight: "100%",
           mb: 3,
           color: "var( --white-color)",
@@ -149,8 +149,8 @@ const RateServicePage = () => {
           borderRadius: "5px",
           backgroundColor: "#00395D",
           fontFamily: "Almarai, sans-serif",
-          fontWeight: 700,
-          fontSize: { xs: "16px", sm: "20px" }, // Smaller font size for small screens
+          fontWeight: 400,
+          fontSize: { xs: "16px", sm: "18px" }, // Smaller font size for small screens
           textAlign: "center",
           "&:hover": {
             backgroundColor: "#002d4d",

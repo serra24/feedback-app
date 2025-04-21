@@ -69,24 +69,24 @@ const EvaluationPage = () => {
 
       <Box
         sx={{
-            width: { xs: "90%", sm: "440px" }, // Adjust width for small screens
-            // height: { xs: "auto", sm: "400px" },
+          width: { xs: "90%", sm: "440px" }, // Adjust width for small screens
+          // height: { xs: "auto", sm: "400px" },
           borderRadius: "8px",
           background: "linear-gradient(180deg, #02395C 0%, #13537C 100%)",
-          p: { xs: 2, sm: 4 },
+          p: { xs: 2, sm: 3 },
           color: "#fff",
           display: "flex",
           flexDirection: "column",
-          gap: 2,
+          gap: 3,
         }}
       >
         <Typography
           sx={{
             fontFamily: "Almarai, sans-serif",
             fontWeight: 700,
-            fontSize: "24px",
+            fontSize: "20px",
             textAlign: "right",
-            mb: 3,
+            // mb: 3,
           }}
         >
           قيم إقامتك
@@ -145,7 +145,7 @@ const EvaluationPage = () => {
               fontFamily: "Almarai, sans-serif",
               fontWeight: 400,
               fontSize: "18px",
-              mb: 1,
+              mb: 2,
             }}
           >
             تعليقك (إختياري)
@@ -184,14 +184,14 @@ const EvaluationPage = () => {
         <Button
           variant="contained"
           sx={{
-            mt: "30px",
+            mt: "6px",
             width: "100%",
             height: 48,
             borderRadius: "5px",
             backgroundColor: "#00395D",
             fontFamily: "Almarai, sans-serif",
-            fontWeight: 700,
-            fontSize: "20px",
+            fontWeight: 400,
+            fontSize: "18px",
             lineHeight: "100%",
             "&:hover": {
               backgroundColor: "#002d4d",

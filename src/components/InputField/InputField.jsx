@@ -8,7 +8,7 @@ const InputField = ({ label, value, onChange, onBlur, error, touched, iconSrc, p
         sx={{
           fontFamily: "Almarai, sans-serif",
           fontWeight: 400,
-          fontSize: "20px",
+          fontSize: "18px",
           lineHeight: "100%",
           color: "var(--white-color)",
           marginBottom: "15px",

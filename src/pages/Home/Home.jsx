@@ -1,48 +1,29 @@
-import React, { useContext, useState } from "react";
-// import backgroundImage from "../../assets/backgrounds/background.jpg";
+import React, { useContext } from "react";
 import Header from "../../components/Header/Header";
-
-import { Box, Typography, Drawer, IconButton } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { LanguageContext } from "../../context/LanguageContext";
 import Card from "../../components/Card/Card";
 import star from "../../assets/icons/star.png";
 import notification from "../../assets/icons/notification.png";
 import arrowIcon from "../../assets/icons/arrowIcon.png";
-import MenuIcon from "@mui/icons-material/Menu"; // Material-UI Menu icon
-import LanguageSelector from "../../components/LanguageSelector/LanguageSelector"; // Assuming you have this component
-import { Link } from "react-router-dom";
-
 
 const Home = () => {
-  const {  translations: t } = useContext(LanguageContext);
+  const { translations: t } = useContext(LanguageContext);
+
   return (
     <Box
       sx={{
-        // position: "relative",
         minHeight: "100vh",
-        // backgroundImage: `url(${backgroundImage})`,
-        // backgroundSize: "cover",
-        // backgroundPosition: "center",
-        // "&::before": {
-        //   content: '""',
-        //   position: "absolute",
-        //   inset: 0,
-        //   backdropFilter: "blur(4px)",
-        //   background:
-        //     "linear-gradient(180deg, #00395D 0%, rgba(0, 0, 0, 0.6) 100%)",
-        // },
+        display: "flex",
+        flexDirection: "column",
+        position: "relative",
+        zIndex: 2,
       }}
     >
-     
-
-     
-
       {/* Main Content */}
       <Box
         sx={{
-          position: "relative",
-          zIndex: 2,
-          height: "calc(100vh - 64px)", 
+          flex: 1,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -50,68 +31,103 @@ const Home = () => {
           color: "white",
           textAlign: "center",
           px: 2,
-          '@media (max-width: 600px)': {
-            height: "auto", // Allow for auto height on small screens
-            padding: "20px", // Adjust padding if needed
-          },
+          py: 4,
         }}
       >
-        {/* Main Text */}
-        <Typography
+        {/* Welcome Heading - Simplified for mobile */}
+        <Box
           sx={{
-            fontFamily: "Almarai, sans-serif",
-            fontWeight: 700,
-            fontSize: "30px",
-            // lineHeight: "100%",
-            letterSpacing: "0%",
-            // textAlign: "right",
-            mb: 3,
+            // mb: { xs: 2, md: 3 }
+
+            display: {
+              xs: "none", // hide on extra small screens
+              sm: "none", // hide on small screens
+              md: "block", // show on medium and larger
+            },
           }}
         >
-          {t.home.mainHeading}
-        </Typography>
+          <Typography
+            sx={{
+              fontFamily: "Almarai, sans-serif",
+              fontWeight: 700,
+              fontSize: { xs: "24px", sm: "28px", md: "30px" },
+              mb: { xs: 1, md: 3 }, //should be 2 in md
+            }}
+          >
+            {t.home.mainHeading}
+          </Typography>
 
-        <Typography
+          <Typography
+            sx={{
+              fontFamily: "Almarai, sans-serif",
+              fontWeight: 400,
+              fontSize: { xs: "16px", sm: "20px", md: "24px" },
+              lineHeight: "1.5",
+              mb: { xs: 3, md: 5 },
+              //   maxWidth: "800px",
+            }}
+          >
+            {'"'}
+            {t.home.subHeading}
+            {'"'}
+          </Typography>
+        </Box>
+        <Box
           sx={{
-            fontFamily: "Almarai, sans-serif",
-            fontWeight: 400,
-            fontSize: "24px",
-            lineHeight: "1.7",
-            letterSpacing: "0%",
-            // textAlign: "right",
-            mb: 7.5,
+            display: {
+              xs: "block",
+              sm: "block",
+              md: "none",
+            },
+            mb: 5,
           }}
         >
-         {"\""}{t.home.subHeading}{"\""}
-        </Typography>
-
+          <Typography
+            sx={{
+              fontFamily: "Almarai, sans-serif",
+              fontWeight: 700,
+              fontSize: "20px",
+            }}
+          >
+            {t.home.welcomeMessage}
+          </Typography>
+        </Box>
         {/* Cards */}
-        <Box sx={{ display: "flex", gap: 3, p: 3, flexDirection: { xs: "column", sm: "column", md: "row" } }}>
-  <Card
-    topTitle={t.home.cards.rateService.topTitle}
-    title={t.home.cards.rateService.topTitle}
-    description={t.home.cards.rateService.description}
-    bgColor={["var(--primary-bg-color)", "var(--secondary-bg-color)"]}
-    iconColor="var(--gold-color-2)"
-    iconSize="50px"
-    imageSrc={star}
-    arrowIcon={arrowIcon}
-    navigateTo="/rate-service"  // Specify the route to navigate to
-  />
+        <Box
+          sx={{
+            width: "100%",
+            maxWidth: "1200px",
+            display: "flex",
+            gap: { xs: 2, md: 3 },
+            flexDirection: { xs: "column", sm: "column", md: "row" },
+            justifyContent: "center",
+            px: { xs: 1, sm: 2 },
+          }}
+        >
+          <Card
+            topTitle={t.home.cards.rateService.topTitle}
+            title={t.home.cards.rateService.topTitle}
+            description={t.home.cards.rateService.description}
+            bgColor={["var(--primary-bg-color)", "var(--secondary-bg-color)"]}
+            iconColor="var(--gold-color-2)"
+            iconSize="50px"
+            imageSrc={star}
+            arrowIcon={arrowIcon}
+            navigateTo="/rate-service"
+          />
 
-  <Card
-    topTitle={t.home.cards.requestService.topTitle}
-    title={t.home.cards.requestService.topTitle}
-    description={t.home.cards.requestService.description}
-    bgColor={["var(--primary-bg-color)", "var(--secondary-bg-color)"]}
-    iconColor="var(--gold-color-2)"
-    iconSize="50px"
-    imageSrc={notification}
-    arrowIcon={arrowIcon}
-    navigateTo="/request-service"  // Specify the route to navigate to
-  />
-</Box>
-
+          <Card
+            topTitle={t.home.cards.requestService.topTitle}
+            title={t.home.cards.requestService.topTitle}
+            description={t.home.cards.requestService.description}
+            bgColor={["var(--primary-bg-color)", "var(--secondary-bg-color)"]}
+            iconColor="var(--gold-color-2)"
+            iconSize="50px"
+            imageSrc={notification}
+            arrowIcon={arrowIcon}
+            navigateTo="/request-service"
+          />
+        </Box>
       </Box>
     </Box>
   );

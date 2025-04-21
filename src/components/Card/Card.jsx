@@ -26,13 +26,13 @@ const Card = ({
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}  
-      animate={{ opacity: 1, scale: 1 }}   
-      transition={{ duration: 0.5 }}        
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5 }}
       whileHover={{
-        scale: 1.05,                      
-        boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.2)", 
-        transition: { duration: 0.3 },    
+        scale: 1.05,
+        boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.2)",
+        transition: { duration: 0.3 },
       }}
       onClick={handleClick}
     >
@@ -42,15 +42,15 @@ const Card = ({
           borderRadius: 2,
           p: 3,
           width: {
-            xs: 'auto',
-            sm: 'auto',
-            md: 'auto',
-            lg: '400px',
-            xl: '400px',
+            xs: "auto",
+            sm: "auto",
+            md: "auto",
+            lg: "400px",
+            xl: "400px",
           },
           position: "relative",
           overflow: "hidden",
-          cursor: "pointer", 
+          cursor: "pointer",
         }}
       >
         <Box
@@ -74,7 +74,7 @@ const Card = ({
           </Typography>
 
           {/* Circular Icon with Image */}
-          <Box
+          {/* <Box
             sx={{
               width: iconSize,
               height: iconSize,
@@ -90,8 +90,46 @@ const Card = ({
           >
             {imageSrc && <img src={imageSrc} alt="icon" />}
           </Box>
+        </Box> */}
+          <Box
+            sx={{
+              width: {
+                xs: "40px", // Smaller on mobile
+                sm: "45px",
+                md: iconSize, // Use passed iconSize from md and up
+              },
+              height: {
+                xs: "40px",
+                sm: "45px",
+                md: iconSize,
+              },
+              borderRadius: "50%",
+              overflow: "hidden",
+              boxShadow: "0px 4px 4px 0px #0000001C",
+              background: iconColor,
+              flexShrink: 0,
+              justifyContent: "center",
+              alignItems: "center",
+              display: "flex",
+            }}
+          >
+            {imageSrc && (
+              <Box
+                component="img"
+                src={imageSrc}
+                alt="icon"
+                sx={{
+                  width: {
+                    xs: "20px", // Adjust image size on small screens
+                    sm: "24px",
+                    md: "auto", // Default size on larger screens
+                  },
+                  height: "auto",
+                }}
+              />
+            )}
+          </Box>
         </Box>
-
         {/* Description */}
         <Typography
           sx={{
@@ -132,7 +170,7 @@ const Card = ({
           <img
             src={arrowIcon}
             style={{
-              transform: isRtl ? "rotate(0deg)" : "rotate(180deg)", 
+              transform: isRtl ? "rotate(0deg)" : "rotate(180deg)",
               marginLeft: isRtl ? "0" : "12px",
               marginRight: isRtl ? "12px" : "0",
             }}
