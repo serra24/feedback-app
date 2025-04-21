@@ -15,7 +15,7 @@ const RoomServicePage = () => {
         flexDirection: "column",
         alignItems: "center",
         p: 3,
-        minHeight: "100vh",
+        minHeight: {md:"70vh", xs:"auto"},
       }}
     >
       <Typography

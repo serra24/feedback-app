@@ -39,7 +39,7 @@ const EvaluationPage = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        minHeight: "100vh", // Full viewport height
+        minHeight: {md:"70vh", xs:"auto"},
         p: 3,
         flexDirection: "column",
       }}
