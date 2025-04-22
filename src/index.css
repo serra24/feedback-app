@@ -123,14 +123,15 @@ input:-internal-autofill-selected {
 }
 .css-lohd6h-MuiSvgIcon-root-MuiSelect-icon:dir(rtl),
 .css-d551zc-MuiSvgIcon-root-MuiSelect-icon:dir(rtl),
-.css-1l3b12y:dir(rtl) ,.css-1y30b8s:dir(rtl){
+.css-1l3b12y:dir(rtl),
+.css-1y30b8s:dir(rtl) {
   left: 7px !important;
   right: auto !important;
 }
 .css-w76bbz-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
   border-radius: 5px !important;
 }
-.css-vycme6-MuiPickersInputBase-root-MuiPickersOutlinedInput-root,.css-gpxgpk {
+.css-vycme6-MuiPickersInputBase-root-MuiPickersOutlinedInput-root {
   color: #ffffff80 !important;
   font-family: Almarai !important;
   font-weight: 400 !important;
@@ -141,10 +142,12 @@ input:-internal-autofill-selected {
   border-radius: 5px !important;
   height: 49px !important;
 }
-.css-1umw9bq-MuiSvgIcon-root,.css-q7mezt {
+.css-1umw9bq-MuiSvgIcon-root,
+.css-q7mezt {
   color: #ffffff80 !important;
 }
-.css-1wqp779-MuiFormControl-root-MuiPickersTextField-root,.css-1pv2xcc {
+.css-1wqp779-MuiFormControl-root-MuiPickersTextField-root,
+.css-1pv2xcc {
   width: 100% !important;
 }
 .css-1y4gq5a-MuiPickersSectionList-root-MuiPickersInputBase-sectionsContainer-MuiPickersOutlinedInput-sectionsContainer:dir(
@@ -160,11 +163,15 @@ input:-internal-autofill-selected {
   padding: 0px !important;
 }
 .css-1ll44ll-MuiOutlinedInput-notchedOutline,
-.css-lqwr9g-MuiPickersOutlinedInput-notchedOutline,.css-5v2ak0 ,.css-1l1mqzp,.css-1l1mqzp   {
+.css-lqwr9g-MuiPickersOutlinedInput-notchedOutline,
+.css-5v2ak0,
+.css-1l1mqzp,
+.css-1l1mqzp {
   border-color: #ffffff80 !important;
 }
 .css-1blp12k-MuiInputBase-root-MuiOutlinedInput-root.Mui-error
-  .MuiOutlinedInput-notchedOutline,.css-ehlix4.Mui-error .MuiOutlinedInput-notchedOutline {
+  .MuiOutlinedInput-notchedOutline,
+.css-ehlix4.Mui-error .MuiOutlinedInput-notchedOutline {
   border-color: #d32f2f !important;
 }
 .css-1blp12k-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused
@@ -172,8 +179,11 @@ input:-internal-autofill-selected {
 .css-vycme6-MuiPickersInputBase-root-MuiPickersOutlinedInput-root.Mui-focused:not(
     .Mui-error
   )
-  .MuiPickersOutlinedInput-notchedOutline,.css-xhkvgb.Mui-focused .MuiOutlinedInput-notchedOutline,.css-1p8sp1h.Mui-focused:not(.Mui-error) .MuiPickersOutlinedInput-notchedOutline
-  ,.css-ehlix4.Mui-focused .MuiOutlinedInput-notchedOutline {
+  .MuiPickersOutlinedInput-notchedOutline,
+.css-xhkvgb.Mui-focused .MuiOutlinedInput-notchedOutline,
+.css-1p8sp1h.Mui-focused:not(.Mui-error)
+  .MuiPickersOutlinedInput-notchedOutline,
+.css-ehlix4.Mui-focused .MuiOutlinedInput-notchedOutline {
   border-color: #1976d2 !important;
 }
 .css-joz0rk-MuiPickersSectionList-section-MuiPickersInputBase-section {
@@ -182,7 +192,8 @@ input:-internal-autofill-selected {
   font-size: 18px !important;
   text-transform: lowercase !important;
 }
-.css-1jlr7fa-MuiFormControlLabel-root,.css-v3aylg-MuiFormControlLabel-root {
+.css-1jlr7fa-MuiFormControlLabel-root,
+.css-v3aylg-MuiFormControlLabel-root {
   margin-left: 0px !important;
   margin-right: 0px !important;
 }
@@ -207,12 +218,17 @@ input:-internal-autofill-selected {
   line-height: 100%;
   letter-spacing: 0%;
   vertical-align: middle;
-  color: #FFFFFF80;
+  color: #ffffff80;
   padding: 12px !important;
-
 }
 @media (max-width: 600px) {
   .styled-placeholder {
-    width: 90% !important; /* Enforcing width change for smaller screens */
+    width: 99% !important; /* Enforcing width change for smaller screens */
   }
+}
+.css-gpxgpk {
+  font-family: Almarai;
+  font-weight: 400 !important;
+  font-size: 18px !important;
+  color: #ffffff80 !important;
 }

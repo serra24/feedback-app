@@ -196,7 +196,7 @@ const MaintenanceServicePage = () => {
                   borderRadius: "4px",
                   backgroundColor: "transparent",
                   color: "#fff",
-                  width:"100%"
+                  // width:"100%"
               }}
             />
           </Box>
