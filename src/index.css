@@ -165,9 +165,10 @@ input:-internal-autofill-selected {
 .css-1ll44ll-MuiOutlinedInput-notchedOutline,
 .css-lqwr9g-MuiPickersOutlinedInput-notchedOutline,
 .css-5v2ak0,
-.css-1l1mqzp,
-.css-1l1mqzp {
+.css-1l1mqzp{
   border-color: #ffffff80 !important;
+  height: 49px !important;
+
 }
 .css-1blp12k-MuiInputBase-root-MuiOutlinedInput-root.Mui-error
   .MuiOutlinedInput-notchedOutline,
@@ -231,4 +232,7 @@ input:-internal-autofill-selected {
   font-weight: 400 !important;
   font-size: 18px !important;
   color: #ffffff80 !important;
+  display: flex !important;
+  align-items: center !important;
+  text-align: center !important;
 }
