@@ -194,7 +194,7 @@ input:-internal-autofill-selected {
   text-transform: lowercase !important;
 }
 .css-1jlr7fa-MuiFormControlLabel-root,
-.css-v3aylg-MuiFormControlLabel-root {
+.css-v3aylg-MuiFormControlLabel-root,.css-63b40r {
   margin-left: 0px !important;
   margin-right: 0px !important;
 }
