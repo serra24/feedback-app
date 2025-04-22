@@ -7,6 +7,7 @@ import {
   Button,
   FormControl,
   Select,
+  TextareaAutosize,
 } from "@mui/material";
 import uploadicon from "../../assets/icons/upload-icon.svg";
 import { LanguageContext } from "../../context/LanguageContext";
@@ -184,26 +185,17 @@ const MaintenanceServicePage = () => {
             >
              {t.Maintenance.notes}
             </Typography>
-            <TextField
-              fullWidth
-              multiline
-              rows={5.2}
+            <TextareaAutosize
+              name="Maintenancenotes"
+              minRows={9.3}
               placeholder={t.Maintenance.notes_placeholder}
-              sx={{
-                "& .MuiOutlinedInput-root": {
+                className="styled-placeholder"
+              style={{
                   border: "1px solid #FFFFFF80",
                   borderRadius: "4px",
-                  // backgroundColor: "#fff1",
+                  backgroundColor: "transparent",
                   color: "#fff",
-                },
-                "& .MuiInputBase-input": {
-                  color: "#fff",
-                  "&::placeholder": {
-                    fontSize: "16px",
-                    fontWeight: 300,
-                    fontFamily: "Almarai",
-                  },
-                },
+                  width:"100%"
               }}
             />
           </Box>

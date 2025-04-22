@@ -1,23 +1,22 @@
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  --gold-color: #CFAE78;
-  --gold-color-2: #CFAE7824;
-  --primary-bg-color: #02395C;
-  --secondary-bg-color: #13537C;
+  --gold-color: #cfae78;
+  --gold-color-2: #cfae7824;
+  --primary-bg-color: #02395c;
+  --secondary-bg-color: #13537c;
   --white-color: #fff;
-  --light-grey-bg: #E4E4E7;
-
+  --light-grey-bg: #e4e4e7;
 }
 body {
   margin: 0;
   padding: 0;
   font-size: 16px;
   line-height: 1.5;
-  font-family: 'Almarai', sans-serif;
+  font-family: "Almarai", sans-serif;
 }
 /* Style the scrollbar itself */
 ::-webkit-scrollbar {
-  width: 11px;  /* Width of the scrollbar */
+  width: 11px; /* Width of the scrollbar */
   height: 11px; /* Height of the scrollbar on horizontal scroll */
 }
 
@@ -29,7 +28,9 @@ body {
 
 /* Style the scrollbar thumb (the draggable part) */
 ::-webkit-scrollbar-thumb {
-  background-color: var(--primary-bg-color); /* Set color to your desired thumb color */
+  background-color: var(
+    --primary-bg-color
+  ); /* Set color to your desired thumb color */
   border-radius: 10px;
 }
 
@@ -42,13 +43,16 @@ body {
 ::-webkit-scrollbar-corner {
   background-color: transparent;
 }
-.css-1bm5wxm-MuiInputBase-root-MuiInput-root-MuiSelect-root .MuiSvgIcon-root,.css-15jcktb-MuiInputBase-root-MuiInput-root-MuiSelect-root .MuiSvgIcon-root,.css-1r1c6tg .MuiSvgIcon-root{
+.css-1bm5wxm-MuiInputBase-root-MuiInput-root-MuiSelect-root .MuiSvgIcon-root,
+.css-15jcktb-MuiInputBase-root-MuiInput-root-MuiSelect-root .MuiSvgIcon-root,
+.css-1r1c6tg .MuiSvgIcon-root {
   display: none !important;
 }
-.css-5lvf42-MuiSelect-select-MuiInputBase-input-MuiInput-input.css-5lvf42-MuiSelect-select-MuiInputBase-input-MuiInput-input.css-5lvf42-MuiSelect-select-MuiInputBase-input-MuiInput-input,.css-1wcjd45.css-1wcjd45.css-1wcjd45{
+.css-5lvf42-MuiSelect-select-MuiInputBase-input-MuiInput-input.css-5lvf42-MuiSelect-select-MuiInputBase-input-MuiInput-input.css-5lvf42-MuiSelect-select-MuiInputBase-input-MuiInput-input,
+.css-1wcjd45.css-1wcjd45.css-1wcjd45 {
   padding-right: 0px !important;
 }
-.css-axw7ok{
+.css-axw7ok {
   gap: 6px !important;
 }
 /* index.css */
@@ -68,14 +72,17 @@ body {
 .MuiCheckbox-root,
 .MuiRadio-root,
 .MuiSwitch-root,
-.MuiSlider-root {
-  font-family: 'Almarai', sans-serif !important;
+.MuiSlider-root,
+.css-1y4gq5a-MuiPickersSectionList-root-MuiPickersInputBase-sectionsContainer-MuiPickersOutlinedInput-sectionsContainer,
+.css-joz0rk-MuiPickersSectionList-section-MuiPickersInputBase-section {
+  font-family: "Almarai", sans-serif !important;
 }
-.css-mb7bu8-MuiFormControl-root,.css-1wcjd45.css-1wcjd45.css-1wcjd45,.css-1dd2tu0 {
-
+.css-mb7bu8-MuiFormControl-root,
+.css-1wcjd45.css-1wcjd45.css-1wcjd45,
+.css-1dd2tu0 {
   min-width: 10px !important;
 }
-.css-2u11ia-MuiInputBase-input-MuiOutlinedInput-input{
+.css-2u11ia-MuiInputBase-input-MuiOutlinedInput-input {
   background-color: #084267 !important;
   height: 13px !important;
 }
@@ -104,19 +111,100 @@ input:-internal-autofill-selected {
 
 @media (max-width: 600px) {
   .responsive-logo {
-    height: 80px; 
+    height: 80px;
   }
 }
-.css-zsp0bh-MuiInputBase-root-MuiOutlinedInput-root{
-  padding: 12px  !important;
+.css-zsp0bh-MuiInputBase-root-MuiOutlinedInput-root {
+  padding: 12px !important;
 }
-.css-lohd6h-MuiSvgIcon-root-MuiSelect-icon,.css-d551zc-MuiSvgIcon-root-MuiSelect-icon{
-  color:#FFFFFF80 !important;
+.css-lohd6h-MuiSvgIcon-root-MuiSelect-icon,
+.css-d551zc-MuiSvgIcon-root-MuiSelect-icon {
+  color: #ffffff80 !important;
 }
-.css-lohd6h-MuiSvgIcon-root-MuiSelect-icon:dir(rtl),.css-d551zc-MuiSvgIcon-root-MuiSelect-icon:dir(rtl),.css-1l3b12y:dir(rtl){
-  left:7px !important;
+.css-lohd6h-MuiSvgIcon-root-MuiSelect-icon:dir(rtl),
+.css-d551zc-MuiSvgIcon-root-MuiSelect-icon:dir(rtl),
+.css-1l3b12y:dir(rtl) ,.css-1y30b8s:dir(rtl){
+  left: 7px !important;
   right: auto !important;
 }
-.css-w76bbz-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input{
+.css-w76bbz-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
   border-radius: 5px !important;
+}
+.css-vycme6-MuiPickersInputBase-root-MuiPickersOutlinedInput-root {
+  color: #ffffff80 !important;
+  font-family: Almarai !important;
+  font-weight: 400 !important;
+  font-size: 18px !important;
+  line-height: 100% !important;
+  letter-spacing: 0% !important;
+  border-color: #ffffff80 !important;
+  border-radius: 5px !important;
+  height: 49px !important;
+}
+.css-1umw9bq-MuiSvgIcon-root {
+  color: #ffffff80 !important;
+}
+.css-1wqp779-MuiFormControl-root-MuiPickersTextField-root {
+  width: 100% !important;
+}
+.css-1y4gq5a-MuiPickersSectionList-root-MuiPickersInputBase-sectionsContainer-MuiPickersOutlinedInput-sectionsContainer:dir(
+    rtl
+  ),
+.css-1fb7els-MuiPickersSectionList-root-MuiPickersInputBase-sectionsContainer-MuiPickersOutlinedInput-sectionsContainer:dir(
+    rtl
+  ) {
+  direction: rtl !important;
+}
+.css-1ysp02-MuiButtonBase-root-MuiIconButton-root:dir(rtl) {
+  margin-left: -12px !important;
+  padding: 0px !important;
+}
+.css-1ll44ll-MuiOutlinedInput-notchedOutline,
+.css-lqwr9g-MuiPickersOutlinedInput-notchedOutline {
+  border-color: #ffffff80 !important;
+}
+.css-1blp12k-MuiInputBase-root-MuiOutlinedInput-root.Mui-error
+  .MuiOutlinedInput-notchedOutline {
+  border-color: #d32f2f !important;
+}
+.css-1blp12k-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused
+  .MuiOutlinedInput-notchedOutline,
+.css-vycme6-MuiPickersInputBase-root-MuiPickersOutlinedInput-root.Mui-focused:not(
+    .Mui-error
+  )
+  .MuiPickersOutlinedInput-notchedOutline {
+  border-color: #1976d2 !important;
+}
+.css-joz0rk-MuiPickersSectionList-section-MuiPickersInputBase-section {
+  font-family: Almarai !important;
+  font-weight: 400 !important;
+  font-size: 18px !important;
+  text-transform: lowercase !important;
+}
+.css-1jlr7fa-MuiFormControlLabel-root,.css-v3aylg-MuiFormControlLabel-root {
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+}
+.css-imrjgg-MuiButtonBase-root-MuiCheckbox-root {
+  padding: 0px !important;
+}
+.css-1jlr7fa-MuiFormControlLabel-root {
+  gap: 3px !important;
+}
+.css-1mcjc5q-MuiFormControlLabel-root .MuiFormControlLabel-label {
+  font-size: 14px !important;
+}
+.css-tocb7-MuiButtonBase-root-MuiCheckbox-root .MuiSvgIcon-root {
+  color: #cfae78 !important;
+  width: 14px !important;
+  height: 14px !important;
+}
+.styled-placeholder::placeholder {
+  font-family: Almarai;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  vertical-align: middle;
+  color: #FFFFFF80;
 }

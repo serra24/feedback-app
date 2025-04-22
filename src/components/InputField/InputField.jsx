@@ -1,9 +1,20 @@
 import React from "react";
 import { Box, Typography, TextField, InputAdornment } from "@mui/material";
 
-const InputField = ({ label, value, onChange, onBlur, error, touched, iconSrc, placeholder ,name}) => {
+const InputField = ({
+  label,
+  value,
+  onChange,
+  onBlur,
+  error,
+  touched,
+  iconSrc,
+  placeholder,
+  name,
+  type = "text", // Add type prop with default as "text"
+}) => {
   return (
-    <Box sx={{ }}>
+    <Box>
       <Typography
         sx={{
           fontFamily: "Almarai, sans-serif",
@@ -20,37 +31,41 @@ const InputField = ({ label, value, onChange, onBlur, error, touched, iconSrc, p
       <TextField
         variant="outlined"
         name={name}
+        type={type === "date" ? "date" : "text"} // Use native date input if type is date
         fullWidth
         sx={{
           "& .MuiOutlinedInput-root": {
             borderRadius: "5px",
             height: "48px",
-            backgroundColor: "#084267",
-            border: "1px solid #FFFFFF80",
+            // backgroundColor: "#084267",
+            backgroundColor: "transparent",
+            // border: "1px solid #FFFFFF80",
             "& input": {
               color: "#fff",
             },
-            // "& fieldset": {
-            //   borderColor: "#00395D", // Border color
-            // },
           },
+          // Hide the label float for date inputs
+          ...(type === "date" && {
+            "& input::-webkit-calendar-picker-indicator": {
+              filter: "invert(1)", // Make calendar icon visible on dark background
+            },
+          }),
         }}
         value={value}
         onChange={onChange}
         onBlur={onBlur}
-        
-        placeholder={placeholder}
+        placeholder={type !== "date" ? placeholder : undefined} // Don't show placeholder on date input
         InputProps={{
-          startAdornment: iconSrc && (
-            <InputAdornment position="start">
-              <img src={iconSrc} alt="input-icon" />
-            </InputAdornment>
-          ),
+          startAdornment:
+            iconSrc && type !== "date" ? (
+              <InputAdornment position="start">
+                <img src={iconSrc} alt="input-icon" />
+              </InputAdornment>
+            ) : undefined,
         }}
-        error={touched && error} // Show error if the field is touched and has an error
-        helperText={touched && error ? error : " "} // Display error message if touched
+        error={touched && Boolean(error)}
+        helperText={touched && error ? error : " "}
       />
-      
     </Box>
   );
 };
