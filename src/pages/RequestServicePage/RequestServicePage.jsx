@@ -11,7 +11,7 @@ const services = [
   {
     icon: guestIcon,
     title: "الشكوى ",
-    description: "دعم متكامل لضيوفنا على مدار الساعة.",
+    description: "المساعده في الإستفسارات و الشكاوي ",
     link: "/guest-service", // Add a link for each service
   },
   {
