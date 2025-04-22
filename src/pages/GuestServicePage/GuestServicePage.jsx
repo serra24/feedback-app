@@ -246,7 +246,7 @@ const GuestServicePage = () => {
                   key={rowIndex}
                   sx={{
                     display: "flex",
-                    // gap: 2,
+                    gap:1,
                     justifyContent: "flex-start",
                     flexDirection: "row", // Ensure checkboxes stay in rows
                     flexWrap: "wrap",
