@@ -107,7 +107,7 @@ const GuestServicePage = () => {
            display: "flex",
            flexDirection: "column",
            alignItems: "center",
-           p: { xs: 2, sm: 3 }, 
+           p: 3,
            minHeight: { md: "70vh", xs: "auto" },
          }}
        >
