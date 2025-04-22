@@ -244,7 +244,7 @@ input:-internal-autofill-selected {
     width: 98.6% !important; 
   }
 }
-.css-8zvnql .MuiSvgIcon-root,.css-q7mezt{
+.css-8zvnql .MuiSvgIcon-root{
   color: var(--gold-color) !important;
 }
 .css-gpxgpk:dir(rtl),.css-oljenl:dir(rtl) {
