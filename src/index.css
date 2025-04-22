@@ -244,3 +244,13 @@ input:-internal-autofill-selected {
     width: 98.6% !important; 
   }
 }
+.css-8zvnql .MuiSvgIcon-root,.css-q7mezt{
+  color: var(--gold-color) !important;
+}
+.css-gpxgpk:dir(rtl),.css-oljenl:dir(rtl) {
+  direction: rtl !important;
+}
+.css-yxqbup{
+  margin-left: 0px !important;
+  margin-right: 8px !important;
+}

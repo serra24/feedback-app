@@ -135,7 +135,7 @@ const MaintenanceServicePage = () => {
                   value={selectedValues[index]}
                   onChange={(e) => handleChange(index, e.target.value)}
                   sx={{
-                    border: "1px solid #FFFFFF80",
+                    // border: "1px solid #FFFFFF80",
                     borderRadius: "4px",
                     height: "48px",
                     color: "#fff",

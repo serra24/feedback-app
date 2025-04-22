@@ -53,7 +53,7 @@ const Loader = () => {
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%) rotate(0deg)", // Default rotation
-            width: 50,
+            width: 80,
             height: "auto",
           }}
         />
