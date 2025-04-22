@@ -101,16 +101,16 @@ const GuestServicePage = () => {
 
   return (
     <Box
-      sx={{
-        position: "relative",
-        zIndex: 2,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        p: 3,
-        minHeight: { md: "70vh", xs: "auto" },
-      }}
-    >
+         sx={{
+           position: "relative",
+           zIndex: 2,
+           display: "flex",
+           flexDirection: "column",
+           alignItems: "center",
+           p: { xs: 2, sm: 3 }, 
+           minHeight: { md: "70vh", xs: "auto" },
+         }}
+       >
       <Typography
         sx={{
           fontFamily: "Almarai, sans-serif",
@@ -141,12 +141,14 @@ const GuestServicePage = () => {
         component="form"
         onSubmit={formik.handleSubmit}
         sx={{
-          width: { xs: "80%", sm: "440px", md: "776px" },
+          width: { xs: "90%", sm: "440px", md: "776px" },
+          height: "auto",
           background: "linear-gradient(180deg, #00395D 0%, #13537C 100%)",
-          padding: "32px",
-          fontFamily: "Almarai",
-          mx: "auto",
-          borderRadius: "8px",
+          borderRadius: 3,
+          p: 3,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
         }}
       >
         <Typography

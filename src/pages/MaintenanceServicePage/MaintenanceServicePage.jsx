@@ -87,7 +87,7 @@ const MaintenanceServicePage = () => {
           height: "auto",
           background: "linear-gradient(180deg, #00395D 0%, #13537C 100%)",
           borderRadius: 3,
-          p: 4,
+          p: { xs: 2, sm: 3 }, 
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
