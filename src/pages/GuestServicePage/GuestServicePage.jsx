@@ -67,15 +67,35 @@ const GuestServicePage = () => {
 
   // Input fields configuration
   const inputFields = [
-    { name: "hotelName", label: "اسم الفندق", placeholder: "أدخل اسم الفندق" },
-    { name: "startDate", label: "التاريخ", placeholder: "اختر التاريخ" }, // Custom date field
-    { name: "roomNumber", label: "رقم الغرفة", placeholder: "أدخل رقم الغرفة" },
-    { name: "guestName", label: "اسم الضيف", placeholder: "أدخل اسم الضيف" },
-    { name: "phone", label: "رقم التواصل", placeholder: "أدخل رقم الهاتف" },
+    {
+      name: "hotelName",
+      label: t.Complaint.hotelName.label,
+      placeholder: t.Complaint.hotelName.placeholder,
+    },
+    {
+      name: "startDate",
+      label: t.Complaint.startDate.label,
+      placeholder: t.Complaint.startDate.placeholder,
+    }, // Custom date field
+    {
+      name: "roomNumber",
+      label: t.Complaint.roomNumber.label,
+      placeholder: t.Complaint.roomNumber.placeholder,
+    },
+    {
+      name: "guestName",
+      label: t.Complaint.guestName.label,
+      placeholder: t.Complaint.guestName.placeholder,
+    },
+    {
+      name: "phone",
+      label: t.Complaint.phone.label,
+      placeholder: t.Complaint.phone.placeholder,
+    },
     {
       name: "email",
-      label: "البريد الإلكتروني",
-      placeholder: "أدخل البريد الإلكتروني",
+      label: t.Complaint.email.label,
+      placeholder: t.Complaint.email.placeholder,
     },
   ];
 
@@ -101,7 +121,7 @@ const GuestServicePage = () => {
           color: "var(--white-color)",
         }}
       >
-        شكوي
+        {t.Complaint.formTitle}
       </Typography>
 
       <Typography
@@ -114,14 +134,14 @@ const GuestServicePage = () => {
           color: "var(--white-color)",
         }}
       >
-        "نوازي تهتم برأيك... أرسل شكواك وسنعمل على معالجتها بعناية."
+        {'"'} {t.Complaint.description} {'"'}
       </Typography>
 
       <Box
         component="form"
         onSubmit={formik.handleSubmit}
         sx={{
-          width: { xs: "100%", md: "776px" },
+          width: { xs: "70%", sm: "440px", md: "776px" },
           background: "linear-gradient(180deg, #00395D 0%, #13537C 100%)",
           padding: "32px",
           fontFamily: "Almarai",
@@ -138,7 +158,7 @@ const GuestServicePage = () => {
             mb: 3,
           }}
         >
-          يرجي ملء النموذج التالي لتقديم الشكوي.
+          {t.Complaint.formInstructions}
         </Typography>
 
         <Box
@@ -153,7 +173,7 @@ const GuestServicePage = () => {
               key={field.name}
               sx={{
                 flex: "1 1 calc(50% - 16px)", // account for the 32px columnGap
-                minWidth: "300px",
+                minWidth: "230px",
               }}
             >
               {field.name === "startDate" ? (
@@ -197,7 +217,7 @@ const GuestServicePage = () => {
               mb: "6px",
             }}
           >
-            طبيعة الشكوى (يرجى تحديد جميع ما ينطبق)
+            {t.Complaint.complaintTypesTitle}
           </Typography>
           <Typography
             sx={{
@@ -208,7 +228,7 @@ const GuestServicePage = () => {
               mb: "12px",
             }}
           >
-            يمكنك اختيار أكثر من خيار
+            {t.Complaint.complaintTypesDescription}
           </Typography>
 
           <FormGroup sx={{ display: "flex", flexDirection: "column" }}>
@@ -231,39 +251,41 @@ const GuestServicePage = () => {
                   }}
                 >
                   {row.map((type) => (
-               <FormControlLabel
-               key={type.id}
-               control={
-                 <Checkbox
-                   checked={formik.values.complaintTypes.includes(type.id)}
-                   onChange={() => {
-                     const newTypes =
-                       formik.values.complaintTypes.includes(type.id)
-                         ? formik.values.complaintTypes.filter((id) => id !== type.id)
-                         : [...formik.values.complaintTypes, type.id];
-                     formik.setFieldValue("complaintTypes", newTypes);
-                   }}
-                   sx={{
-                     '& .MuiSvgIcon-root': {
-                       color: "#CFAE78", // Icon color for unchecked state
-                     },
-                     '&.Mui-checked .MuiSvgIcon-root': {
-                       color: "#CFAE78", // Icon color for checked state
-                     },
-                   }}
-                 />
-               }
-               label={type.label}
-               sx={{
-                '& .MuiFormControlLabel-label': {
-                  color: "#fff", // Label text color
-                  width: "200px",
-                  fontSize: "14px !important",
-                 
-                },
-              }}
-             />
-             
+                    <FormControlLabel
+                      key={type.id}
+                      control={
+                        <Checkbox
+                          checked={formik.values.complaintTypes.includes(
+                            type.id
+                          )}
+                          onChange={() => {
+                            const newTypes =
+                              formik.values.complaintTypes.includes(type.id)
+                                ? formik.values.complaintTypes.filter(
+                                    (id) => id !== type.id
+                                  )
+                                : [...formik.values.complaintTypes, type.id];
+                            formik.setFieldValue("complaintTypes", newTypes);
+                          }}
+                          sx={{
+                            "& .MuiSvgIcon-root": {
+                              color: "#CFAE78", // Icon color for unchecked state
+                            },
+                            "&.Mui-checked .MuiSvgIcon-root": {
+                              color: "#CFAE78", // Icon color for checked state
+                            },
+                          }}
+                        />
+                      }
+                      label={type.label}
+                      sx={{
+                        "& .MuiFormControlLabel-label": {
+                          color: "#fff", // Label text color
+                          width: "200px",
+                          fontSize: "14px !important",
+                        },
+                      }}
+                    />
                   ))}
                 </Box>
               ))}
@@ -281,7 +303,7 @@ const GuestServicePage = () => {
               mb: 1,
             }}
           >
-            تفاصيل الشكوي
+           {t.Complaint.complaintDetails.label}
           </Typography>
           <Typography
             sx={{
@@ -289,36 +311,40 @@ const GuestServicePage = () => {
               fontWeight: 300,
               fontSize: "16px",
               color: "var(--gold-color)",
-             
+
               borderRadius: "5px",
               mb: 2,
             }}
           >
-            يرجي وصف المشكله بالتفصيل بما في ذلك التاريخ و الوقت و أي موظفين
-            مشاركين (إن وجد).
+           {t.Complaint.complaintDetails.description}
           </Typography>
           <TextareaAutosize
-  name="complaintDetails"
-  value={formik.values.complaintDetails}
-  onChange={formik.handleChange}
-  onBlur={formik.handleBlur}
-  placeholder="اكتب وصفاً تفصيلياً للمشكله..."
-  minRows={5}
-  className="styled-placeholder"
-  style={{
-    width: "352px",
-    backgroundColor: "transparent",
-    border:
-      formik.touched.complaintDetails && formik.errors.complaintDetails
-        ? "1px solid #f44336"
-        : "1px solid #FFFFFF80",
-    borderRadius: "5px",
-    padding: "12px",
-    fontFamily: "Almarai",
-    fontSize: "16px",
-    color: "#000",
-  }}
-/>
+            name="complaintDetails"
+            value={formik.values.complaintDetails}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            placeholder=  {t.Complaint.complaintDetails.placeholder}
+            minRows={5}
+            className="styled-placeholder"
+            style={{
+              width: "352px",
+              
+              backgroundColor: "transparent",
+              border:
+                formik.touched.complaintDetails &&
+                formik.errors.complaintDetails
+                  ? "1px solid #f44336"
+                  : "1px solid #FFFFFF80",
+              borderRadius: "5px",
+              padding: "12px",
+              fontFamily: "Almarai",
+              fontSize: "16px",
+              color: "#fff",
+              "@media (max-width: 600px)": {
+      width: "80%",  // Adjust the width for small screens
+    }
+            }}
+          />
 
           {formik.touched.complaintDetails &&
             formik.errors.complaintDetails && (
@@ -339,14 +365,14 @@ const GuestServicePage = () => {
               mb: 1,
             }}
           >
-            الإجراء المتوقع أو المطلوب
+             {t.Complaint.expectedAction.label}
           </Typography>
           <TextareaAutosize
             name="expectedAction"
             value={formik.values.expectedAction}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            placeholder="اكتب وصفاً تفصيلياً للإجراء المطلوب..."
+            placeholder= {t.Complaint.expectedAction.placeholder}
             className="styled-placeholder"
             minRows={5}
             style={{
@@ -360,7 +386,10 @@ const GuestServicePage = () => {
               padding: "12px",
               fontFamily: "Almarai",
               fontSize: "16px",
-              color: "#000",
+              color: "#fff",
+              "@media (max-width: 600px)": {
+      width: "80%",  // Adjust the width for small screens
+    }
             }}
           />
           {formik.touched.expectedAction && formik.errors.expectedAction && (
@@ -370,48 +399,47 @@ const GuestServicePage = () => {
           )}
         </Box>
 
-         {/* Buttons */}
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  mt: 2,
-                  flexWrap: "wrap",
-                  gap: 2,
-                }}
-              >
-                <Button
-                  variant="contained"
-                  sx={{
-                    flex: 1,
-                    minWidth: 150,
-                    height: 48,
-                    borderRadius: "5px",
-                    backgroundColor: "#00395D",
-                    fontFamily: "Almarai",
-                    fontWeight: 400,
-                    fontSize: 18,
-                  }}
-                >
-                  إرسال الشكوي
-                 
-                </Button>
-                <Button
-                  variant="contained"
-                  sx={{
-                    flex: 1,
-                    minWidth: 150,
-                    height: 48,
-                    borderRadius: "5px",
-                    backgroundColor: "#7C8A93",
-                    fontFamily: "Almarai",
-                    fontWeight: 400,
-                    fontSize: 18,
-                  }}
-                >
-                {t.cancel}
-                </Button>
-              </Box>
+        {/* Buttons */}
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            mt: 2,
+            flexWrap: "wrap",
+            gap: 2,
+          }}
+        >
+          <Button
+            variant="contained"
+            sx={{
+              flex: 1,
+              minWidth: 150,
+              height: 48,
+              borderRadius: "5px",
+              backgroundColor: "#00395D",
+              fontFamily: "Almarai",
+              fontWeight: 400,
+              fontSize: 18,
+            }}
+          >
+           {t.Complaint.submitButton}
+          </Button>
+          <Button
+            variant="contained"
+            sx={{
+              flex: 1,
+              minWidth: 150,
+              height: 48,
+              borderRadius: "5px",
+              backgroundColor: "#7C8A93",
+              fontFamily: "Almarai",
+              fontWeight: 400,
+              fontSize: 18,
+            }}
+          >
+            {t.cancel}
+          </Button>
+        </Box>
       </Box>
     </Box>
   );

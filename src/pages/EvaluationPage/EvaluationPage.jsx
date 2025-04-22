@@ -42,24 +42,24 @@ const EvaluationPage = () => {
         flexDirection: "column",
       }}
     >
-        {/* Animated Header */}
-        <motion.div
+      {/* Animated Header */}
+      <motion.div
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-      <Typography
-        sx={{
-          fontFamily: "Almarai, sans-serif",
-          fontWeight: 700,
-          fontSize: { xs: "22px", sm: "30px" },
-          textAlign: "center",
-          mb: 1.5,
-          color: "#ffffff",
-        }}
-      >
-        تقييم الخدمات الفندقيه
-      </Typography>
+        <Typography
+          sx={{
+            fontFamily: "Almarai, sans-serif",
+            fontWeight: 700,
+            fontSize: { xs: "22px", sm: "30px" },
+            textAlign: "center",
+            mb: 1.5,
+            color: "#ffffff",
+          }}
+        >
+          تقييم الخدمات الفندقيه
+        </Typography>
       </motion.div>
 
       <Typography
@@ -74,65 +74,65 @@ const EvaluationPage = () => {
       >
         نقدر آرائكم ونسعي دائماً لتحسين خدماتنا بناءاً علي ملاحظاتكم.
       </Typography>
-  {/* Animated Card Container */}
+      {/* Animated Card Container */}
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
-      <Box
-        sx={{
-          width: { xs: "90%", sm: "440px" }, // Adjust width for small screens
-          // height: { xs: "auto", sm: "400px" },
-          borderRadius: "8px",
-          background: "linear-gradient(180deg, #02395C 0%, #13537C 100%)",
-          p: { xs: 2, sm: 3 },
-          color: "#fff",
-          display: "flex",
-          flexDirection: "column",
-          gap: 3,
-        }}
-      >
-        <Typography
+        <Box
           sx={{
-            fontFamily: "Almarai, sans-serif",
-            fontWeight: 700,
-            fontSize: "20px",
-            textAlign: "right",
-            // mb: 3,
+            width: { xs: "90%", sm: "440px" }, // Adjust width for small screens
+            // height: { xs: "auto", sm: "400px" },
+            borderRadius: "8px",
+            background: "linear-gradient(180deg, #02395C 0%, #13537C 100%)",
+            p: { xs: 2, sm: 3 },
+            color: "#fff",
+            display: "flex",
+            flexDirection: "column",
+            gap: 3,
           }}
         >
-          قيم إقامتك
-        </Typography>
-
-        {ratingLabels.map((label, index) => (
-            <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.15, duration: 0.4 }}
-          >
-          <Box
-            // key={index}
+          <Typography
             sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              flexWrap: "wrap",
-              gap: 2,
+              fontFamily: "Almarai, sans-serif",
+              fontWeight: 700,
+              fontSize: "20px",
+              textAlign: "right",
+              // mb: 3,
             }}
           >
-            <Typography
-              sx={{
-                fontFamily: "Almarai, sans-serif",
-                fontWeight: 400,
-                fontSize: "18px",
-              }}
+            قيم إقامتك
+          </Typography>
+
+          {ratingLabels.map((label, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.15, duration: 0.4 }}
             >
-              {label}
-            </Typography>
-            <Box>
-            {[1, 2, 3, 4, 5].map((star) => (
+              <Box
+                // key={index}
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  flexWrap: "wrap",
+                  gap: 2,
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontFamily: "Almarai, sans-serif",
+                    fontWeight: 400,
+                    fontSize: "18px",
+                  }}
+                >
+                  {label}
+                </Typography>
+                <Box>
+                  {[1, 2, 3, 4, 5].map((star) => (
                     <motion.img
                       key={star}
                       src={
@@ -153,63 +153,59 @@ const EvaluationPage = () => {
                       whileHover={{ scale: 1.2 }}
                       transition={{ type: "spring", stiffness: 300 }}
                       onClick={() => handleRating(index, star)}
-                      onMouseEnter={() =>
-                        setHovered({ index, value: star })
-                      }
-                      onMouseLeave={() =>
-                        setHovered({ index: null, value: 0 })
-                      }
+                      onMouseEnter={() => setHovered({ index, value: star })}
+                      onMouseLeave={() => setHovered({ index: null, value: 0 })}
                     />
                   ))}
-            </Box>
-          </Box>
-          </motion.div>
-        ))}
+                </Box>
+              </Box>
+            </motion.div>
+          ))}
 
-        {/* Comment Section */}
-        <Box>
-          <Typography
-            sx={{
-              fontFamily: "Almarai, sans-serif",
-              fontWeight: 400,
-              fontSize: "18px",
-              mb: 2,
-            }}
-          >
-            تعليقك (إختياري)
-          </Typography>
-          <TextField
-            fullWidth
-            multiline
-            rows={3}
-            variant="outlined"
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-            placeholder="أخبرنا عن تجربتك في الفندق..."
-            sx={{
-              backgroundColor: "#084267",
-              border: "1px solid #E4E4E766",
-              borderRadius: "5px",
-              fontFamily: "Almarai, sans-serif",
-              "& .MuiOutlinedInput-root": {
-                color: "#fff",
+          {/* Comment Section */}
+          <Box>
+            <Typography
+              sx={{
                 fontFamily: "Almarai, sans-serif",
-                "& textarea::placeholder": {
+                fontWeight: 400,
+                fontSize: "18px",
+                mb: 2,
+              }}
+            >
+              تعليقك (إختياري)
+            </Typography>
+            <TextField
+              fullWidth
+              multiline
+              rows={3}
+              variant="outlined"
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              placeholder="أخبرنا عن تجربتك في الفندق..."
+              sx={{
+                backgroundColor: "#084267",
+                border: "1px solid #E4E4E766",
+                borderRadius: "5px",
+                fontFamily: "Almarai, sans-serif",
+                "& .MuiOutlinedInput-root": {
+                  color: "#fff",
                   fontFamily: "Almarai, sans-serif",
-                  fontWeight: 300,
-                  fontSize: "16px",
-                  lineHeight: "100%",
-                  letterSpacing: 0,
-                  verticalAlign: "middle",
-                  color: "#FFFFFF80",
+                  "& textarea::placeholder": {
+                    fontFamily: "Almarai, sans-serif",
+                    fontWeight: 300,
+                    fontSize: "16px",
+                    lineHeight: "100%",
+                    letterSpacing: 0,
+                    verticalAlign: "middle",
+                    color: "#FFFFFF80",
+                  },
                 },
-              },
-            }}
-          />
-        </Box>
+              }}
+            />
+          </Box>
 
-        {/* Submit Button */}
-        <motion.div
+          {/* Submit Button */}
+          <motion.div
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             transition={{ duration: 0.2 }}
@@ -234,7 +230,7 @@ const EvaluationPage = () => {
               إرسال التقييم
             </Button>
           </motion.div>
-      </Box>
+        </Box>
       </motion.div>
     </Box>
   );

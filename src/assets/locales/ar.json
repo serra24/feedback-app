@@ -54,5 +54,47 @@
     "submit": "إرسال طلب الصيانه"
   }
   ,
-    "cancel": "إلغاء"
+    "cancel": "إلغاء",
+    "Complaint": {
+      "formTitle": "شكوي",
+      "description": "نوازي تهتم برأيك... أرسل شكواك وسنعمل على معالجتها بعناية.",
+      "formInstructions": "يرجي ملء النموذج التالي لتقديم الشكوي.",
+      "hotelName": {
+        "label": "اسم الفندق",
+        "placeholder": "أدخل اسم الفندق"
+      },
+      "startDate": {
+        "label": "التاريخ",
+        "placeholder": "اختر التاريخ"
+      },
+      "roomNumber": {
+        "label": "رقم الغرفة",
+        "placeholder": "أدخل رقم الغرفة"
+      },
+      "guestName": {
+        "label": "اسم الضيف",
+        "placeholder": "أدخل اسم الضيف"
+      },
+      "phone": {
+        "label": "رقم التواصل",
+        "placeholder": "أدخل رقم الهاتف"
+      },
+      "email": {
+        "label": "البريد الإلكتروني",
+        "placeholder": "أدخل البريد الإلكتروني"
+      },
+      "complaintTypesTitle": "طبيعة الشكوى (يرجى تحديد جميع ما ينطبق)",
+      "complaintTypesDescription": "يمكنك اختيار أكثر من خيار",
+      "complaintDetails": {
+        "label": "تفاصيل الشكوي",
+        "description": "يرجي وصف المشكله بالتفصيل بما في ذلك التاريخ و الوقت و أي موظفين مشاركين (إن وجد).",
+        "placeholder": "اكتب وصفاً تفصيلياً للمشكله..."
+      },
+      "expectedAction": {
+        "label": "الإجراء المتوقع أو المطلوب",
+        "placeholder": "اكتب وصفاً تفصيلياً للإجراء المطلوب..."
+      },
+      "submitButton": "إرسال الشكوي"
+    
+    }
 }

@@ -207,4 +207,10 @@ input:-internal-autofill-selected {
   letter-spacing: 0%;
   vertical-align: middle;
   color: #FFFFFF80;
+
+}
+@media (max-width: 600px) {
+  .styled-placeholder {
+    width: 90% !important; /* Enforcing width change for smaller screens */
+  }
 }

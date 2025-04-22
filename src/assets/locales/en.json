@@ -53,5 +53,47 @@
     "submit": "Submit Request"
    
   },
-   "cancel": "Cancel"
+   "cancel": "Cancel",
+   "Complaint": {
+    "formTitle": "Complaint",
+    "description": "We value your feedback... Submit your complaint, and we will address it carefully.",
+    "formInstructions": "Please fill out the form below to submit your complaint.",
+    "hotelName": {
+      "label": "Hotel Name",
+      "placeholder": "Enter hotel name"
+    },
+    "startDate": {
+      "label": "Date",
+      "placeholder": "Select date"
+    },
+    "roomNumber": {
+      "label": "Room Number",
+      "placeholder": "Enter room number"
+    },
+    "guestName": {
+      "label": "Guest Name",
+      "placeholder": "Enter guest name"
+    },
+    "phone": {
+      "label": "Phone Number",
+      "placeholder": "Enter phone number"
+    },
+    "email": {
+      "label": "Email",
+      "placeholder": "Enter email"
+    },
+    "complaintTypesTitle": "Nature of the Complaint (Please select all that apply)",
+    "complaintTypesDescription": "You can select more than one option",
+    "complaintDetails": {
+      "label": "Complaint Details",
+      "description": "Please describe the issue in detail, including date and time, and any involved staff (if applicable).",
+      "placeholder": "Write a detailed description of the issue..."
+    },
+    "expectedAction": {
+      "label": "Expected Action or Request",
+      "placeholder": "Write a detailed description of the expected action..."
+    },
+    "submitButton": "Submit Complaint"
+  }
+  
 }
