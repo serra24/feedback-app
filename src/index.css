@@ -263,3 +263,6 @@ input:-internal-autofill-selected {
 .css-1p8sp1h {
   height: 49px !important;
 }
+.css-w76bbz-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-w76bbz-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-w76bbz-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input{
+  padding-right:14px !important;
+}

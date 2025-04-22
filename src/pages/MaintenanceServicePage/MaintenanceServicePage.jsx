@@ -105,7 +105,7 @@ const MaintenanceServicePage = () => {
         >
           {t.Maintenance.form_title}
         </Typography>
-        {/* Select Fields */};
+        {/* Select Fields */}
         <Box
           sx={{
             display: "flex",
@@ -147,7 +147,7 @@ const MaintenanceServicePage = () => {
                         ? "#fff"
                         : "rgba(255, 255, 255, 0.5)",
                       fontSize: selectedValues[index] ? "16px" : "14px",
-                      fontStyle: selectedValues[index] ? "normal" : "italic",
+                      fontStyle: selectedValues[index] ? "normal" : "normal",
                     },
                   }}
                 >
