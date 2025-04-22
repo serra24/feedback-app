@@ -101,16 +101,16 @@ const GuestServicePage = () => {
 
   return (
     <Box
-         sx={{
-           position: "relative",
-           zIndex: 2,
-           display: "flex",
-           flexDirection: "column",
-           alignItems: "center",
-           p: 3,
-           minHeight: { md: "70vh", xs: "auto" },
-         }}
-       >
+      sx={{
+        position: "relative",
+        zIndex: 2,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        p: 3,
+        minHeight: { md: "70vh", xs: "auto" },
+      }}
+    >
       <Typography
         sx={{
           fontFamily: "Almarai, sans-serif",
@@ -305,7 +305,7 @@ const GuestServicePage = () => {
               mb: 1,
             }}
           >
-           {t.Complaint.complaintDetails.label}
+            {t.Complaint.complaintDetails.label}
           </Typography>
           <Typography
             sx={{
@@ -318,19 +318,20 @@ const GuestServicePage = () => {
               mb: 2,
             }}
           >
-           {t.Complaint.complaintDetails.description}
+            {t.Complaint.complaintDetails.description}
           </Typography>
+          
           <TextareaAutosize
             name="complaintDetails"
             value={formik.values.complaintDetails}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            placeholder=  {t.Complaint.complaintDetails.placeholder}
+            placeholder={t.Complaint.complaintDetails.placeholder}
             minRows={5}
-            className="styled-placeholder"
+            className="styled-placeholder2"
             style={{
               width: "352px",
-              
+
               backgroundColor: "transparent",
               border:
                 formik.touched.complaintDetails &&
@@ -338,13 +339,13 @@ const GuestServicePage = () => {
                   ? "1px solid #f44336"
                   : "1px solid #FFFFFF80",
               borderRadius: "5px",
-              padding: "12px",
+             
               fontFamily: "Almarai",
               fontSize: "16px",
               color: "#fff",
               "@media (max-width: 600px)": {
-      width: "80%",  // Adjust the width for small screens
-    }
+                width: "90% !important", // Adjust the width for small screens
+              },
             }}
           />
 
@@ -367,15 +368,15 @@ const GuestServicePage = () => {
               mb: 1,
             }}
           >
-             {t.Complaint.expectedAction.label}
+            {t.Complaint.expectedAction.label}
           </Typography>
           <TextareaAutosize
             name="expectedAction"
             value={formik.values.expectedAction}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            placeholder= {t.Complaint.expectedAction.placeholder}
-            className="styled-placeholder"
+            placeholder={t.Complaint.expectedAction.placeholder}
+            className="styled-placeholder2"
             minRows={5}
             style={{
               width: "352px",
@@ -385,13 +386,13 @@ const GuestServicePage = () => {
                   ? "1px solid #f44336"
                   : "1px solid #FFFFFF80",
               borderRadius: "5px",
-              padding: "12px",
+             
               fontFamily: "Almarai",
               fontSize: "16px",
               color: "#fff",
               "@media (max-width: 600px)": {
-      width: "80%",  // Adjust the width for small screens
-    }
+                width: "80%", // Adjust the width for small screens
+              },
             }}
           />
           {formik.touched.expectedAction && formik.errors.expectedAction && (
@@ -424,7 +425,7 @@ const GuestServicePage = () => {
               fontSize: 18,
             }}
           >
-           {t.Complaint.submitButton}
+            {t.Complaint.submitButton}
           </Button>
           <Button
             variant="contained"

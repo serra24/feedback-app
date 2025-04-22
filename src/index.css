@@ -212,7 +212,7 @@ input:-internal-autofill-selected {
   width: 14px !important;
   height: 14px !important;
 }
-.styled-placeholder::placeholder {
+.styled-placeholder::placeholder, .styled-placeholder2::placeholder{
   font-family: Almarai;
   font-weight: 300;
   font-size: 16px;
@@ -222,11 +222,11 @@ input:-internal-autofill-selected {
   color: #ffffff80;
   padding: 12px !important;
 }
-@media (max-width: 600px) {
+/* @media (max-width: 600px) {
   .styled-placeholder {
-    width: 99% !important; /* Enforcing width change for smaller screens */
+    width: 99% !important; 
   }
-}
+} */
 .css-gpxgpk {
   font-family: Almarai;
   font-weight: 400 !important;
@@ -238,4 +238,9 @@ input:-internal-autofill-selected {
 }
 .css-oljenl{
   color: #ffffff80 !important;
+}
+@media (max-width: 600px) {
+  .styled-placeholder2 {
+    width: 98.6% !important; 
+  }
 }
