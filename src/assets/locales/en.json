@@ -94,6 +94,32 @@
       "placeholder": "Write a detailed description of the expected action..."
     },
     "submitButton": "Submit Complaint"
+  },
+  "RequestServicePage": {
+    "header": {
+      "title": "Choose the service you need",
+      "description": "At Nawazi, we provide you with a variety of services carefully designed to meet your needs during your religious journey. Choose the service that suits you, and let us take care of the rest."
+    },
+        "Complaint": "Complaint",
+        "Complaintdescription": "Assistance with inquiries and complaints",
+        "Maintenance": "Maintenance Service",
+        "Maintenancedescription": "Instant solutions for room or device malfunctions.",
+        "Room": "Room Services",
+        "Roomdescription": "Complete comfort and exceptional service inside your room.",
+        "Luggage": "Luggage Transfer",
+        "Luggagedescription": "Transport your luggage safely and easily within the hotel."
+
   }
-  
+  ,
+  "mainMaintenanceRequest": "Main Maintenance Request",
+  "subMaintenanceRequest": "Sub Maintenance Request",
+  "jobTitle": "Job Title",
+  "assignTo": "Assign To",
+  "electricity": "Electricity",
+  "plumbing": "Plumbing",
+  "other": "Other",
+  "firstFloor": "First Floor",
+  "secondFloor": "Second Floor",
+  "thirdFloor": "Third Floor",
+  "Select":"Select"
 }

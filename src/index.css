@@ -207,6 +207,7 @@ input:-internal-autofill-selected {
   letter-spacing: 0%;
   vertical-align: middle;
   color: #FFFFFF80;
+  padding: 12px !important;
 
 }
 @media (max-width: 600px) {

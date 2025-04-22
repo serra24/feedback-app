@@ -97,4 +97,32 @@
       "submitButton": "إرسال الشكوي"
     
     }
+    ,
+      "RequestServicePage": {
+        "header": {
+          "title": "اختَر الخدمة التي تحتاجها",
+          "description": "في نوازي، نوفر لك مجموعة متنوعة من الخدمات المصممة بعناية لتلبية احتياجاتك أثناء رحلتك الدينية. اختر الخدمة المناسبة لك، ودعنا نهتم بالباقي."
+        },
+        "Complaint": "الشكوى",
+        "Complaintdescription": "المساعدة في الاستفسارات والشكاوى",
+        "Maintenance": "خدمة الصيانة",
+        "Maintenancedescription": "حلول فورية لأعطال الغرف أو الأجهزة.",
+        "Room": "خدمات الغرف",
+        "Roomdescription": "راحة تامة وخدمة مميزة داخل غرفتك.",
+        "Luggage": "نقل الأمتعة",
+        "Luggagedescription": "نقل أمتعتك بأمان وسهولة داخل الفندق."
+      },
+      "mainMaintenanceRequest": "طلب الصيانة الرئيسي",
+      "subMaintenanceRequest": "طلب الصيانة الفرعي",
+      "jobTitle": "الوظيفه",
+      "assignTo": "تعيين ل",
+      "electricity": "كهرباء",
+      "plumbing": "سباكة",
+      "other": "أخرى",
+      "firstFloor": "الدور الأول",
+      "secondFloor": "الدور الثاني",
+      "thirdFloor": "الدور الثالث",
+      "Select":"اختر"
+    
+    
 }

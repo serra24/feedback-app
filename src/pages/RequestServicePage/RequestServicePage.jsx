@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Box, Typography } from "@mui/material";
 import { LanguageContext } from "../../context/LanguageContext";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
@@ -7,37 +7,37 @@ import maintenanceIcon from "../../assets/icons/maintenance.svg";
 import roomIcon from "../../assets/icons/room.svg";
 import luggageIcon from "../../assets/icons/luggage.svg";
 
-const services = [
-  {
-    icon: guestIcon,
-    title: "الشكوى ",
-    description: "المساعده في الإستفسارات و الشكاوي ",
-    link: "/guest-service", // Add a link for each service
-  },
-  {
-    icon: maintenanceIcon,
-    title: "خدمة الصيانة",
-    description: "حلول فورية لأعطال الغرف أو الأجهزة.",
-    link: "/maintenance-service",
-  },
-  {
-    icon: roomIcon,
-    title: "خدمات الغرف",
-    description: "راحة تامة وخدمة مميزة داخل غرفتك.",
-    link: "/room-service",
-  },
-  {
-    icon: luggageIcon,
-    title: "نقل الأمتعة",
-    description: "نقل أمتعتك بأمان وسهولة داخل الفندق.",
-    link: "/luggage-service",
-  },
-];
 
 const RequestServicePage = () => {
   const navigate = useNavigate(); // Initialize useNavigate hook
-  // const { translations: t } = useContext(LanguageContext);
-
+  const { translations: t } = useContext(LanguageContext);
+  const services = [
+    {
+      icon: guestIcon,
+      title: t.RequestServicePage.Complaint,
+      description: t.RequestServicePage.Complaintdescription,
+      link: "/guest-service", // Add a link for each service
+    },
+    {
+      icon: maintenanceIcon,
+      title: t.RequestServicePage.Maintenance,
+      description: t.RequestServicePage.Maintenancedescription,
+      link: "/maintenance-service",
+    },
+    {
+      icon: roomIcon,
+      title: t.RequestServicePage.Room,
+      description: t.RequestServicePage.Roomdescription,
+      link: "/room-service",
+    },
+    {
+      icon: luggageIcon,
+      title: t.RequestServicePage.Luggage,
+      description:t.RequestServicePage.Luggagedescription,
+      link: "/luggage-service",
+    },
+  ];
+  
   return (
     <Box
       sx={{
@@ -61,7 +61,7 @@ const RequestServicePage = () => {
           color: "var(--white-color)",
         }}
       >
-        اختَر الخدمة التي تحتاجها
+       {t.RequestServicePage.header.title}
       </Typography>
 
       <Typography
@@ -75,9 +75,7 @@ const RequestServicePage = () => {
           maxWidth: "900px",
         }}
       >
-        في نوازي، نوفر لك مجموعة متنوعة من الخدمات المصممة بعناية لتلبية
-        احتياجاتك أثناء رحلتك الدينية. اختر الخدمة المناسبة لك، ودعنا نهتم
-        بالباقي.
+          {t.RequestServicePage.header.description}
       </Typography>
 
       {/* Cards */}

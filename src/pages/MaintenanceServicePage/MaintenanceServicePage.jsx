@@ -12,27 +12,28 @@ import {
 import uploadicon from "../../assets/icons/upload-icon.svg";
 import { LanguageContext } from "../../context/LanguageContext";
 
-const formFields = [
-  {
-    label: "طلب الصيانة الرئيسي",
-    options: ["كهرباء", "سباكة", "أخرى"],
-  },
-  {
-    label: "طلب الصيانة الفرعي",
-    options: ["الدور الأول", "الدور الثاني", "الدور الثالث"],
-  },
-  {
-    label: "الوظيفه",
-    options: ["كهرباء", "سباكة", "أخرى"],
-  },
-  {
-    label: "تعيين ل",
-    options: ["الدور الأول", "الدور الثاني", "الدور الثالث"],
-  },
-];
 
 const MaintenanceServicePage = () => {
   const { translations: t } = useContext(LanguageContext);
+  const formFields = [
+    {
+      label: t.mainMaintenanceRequest,
+      options: ["كهرباء", "سباكة", "أخرى"],
+    },
+    {
+      label: t.subMaintenanceRequest,
+      options: ["الدور الأول", "الدور الثاني", "الدور الثالث"],
+    },
+    {
+      label: t.jobTitle,
+      options: ["كهرباء", "سباكة", "أخرى"],
+    },
+    {
+      label: t.assignTo,
+      options: ["الدور الأول", "الدور الثاني", "الدور الثالث"],
+    },
+  ];
+  
   const [selectedValues, setSelectedValues] = useState(
     Array(formFields.length).fill("")
   );
@@ -151,7 +152,7 @@ const MaintenanceServicePage = () => {
                   }}
                 >
                   <MenuItem value="" disabled>
-                    اختر {field.label}
+                    {t.Select} {field.label}
                   </MenuItem>
                   {field.options.map((option, idx) => (
                     <MenuItem key={idx} value={option}>

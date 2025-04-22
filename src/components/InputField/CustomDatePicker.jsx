@@ -16,7 +16,7 @@ const CustomDatePicker = ({
   const handleClose = () => setOpen(false);
 
   return (
-    <Box>
+    <Box sx={{mb:{md:"0px",xs:"20px"}}}>
       <Typography
         sx={{
           fontFamily: "Almarai, sans-serif",
