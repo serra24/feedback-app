@@ -201,7 +201,7 @@ input:-internal-autofill-selected {
 .css-imrjgg-MuiButtonBase-root-MuiCheckbox-root {
   padding: 0px !important;
 }
-.css-1jlr7fa-MuiFormControlLabel-root {
+.css-1jlr7fa-MuiFormControlLabel-root ,.css-63b40r   {
   gap: 3px !important;
 }
 .css-1mcjc5q-MuiFormControlLabel-root .MuiFormControlLabel-label {
@@ -246,6 +246,12 @@ input:-internal-autofill-selected {
 }
 .css-8zvnql .MuiSvgIcon-root{
   color: var(--gold-color) !important;
+  width: 14px !important;
+  height: 14px !important;
+
+}
+.css-8zvnql{
+  padding: 0px !important;
 }
 .css-gpxgpk:dir(rtl),.css-oljenl:dir(rtl) {
   direction: rtl !important;
@@ -253,4 +259,7 @@ input:-internal-autofill-selected {
 .css-yxqbup{
   margin-left: 0px !important;
   margin-right: 8px !important;
+}
+.css-1p8sp1h {
+  height: 49px !important;
 }
