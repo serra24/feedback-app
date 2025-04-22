@@ -141,7 +141,7 @@ const GuestServicePage = () => {
         component="form"
         onSubmit={formik.handleSubmit}
         sx={{
-          width: { xs: "70%", sm: "440px", md: "776px" },
+          width: { xs: "80%", sm: "440px", md: "776px" },
           background: "linear-gradient(180deg, #00395D 0%, #13537C 100%)",
           padding: "32px",
           fontFamily: "Almarai",
