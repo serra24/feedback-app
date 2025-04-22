@@ -1,6 +1,7 @@
-import React from "react";
-import { Box, Typography, TextField, MenuItem, Button } from "@mui/material";
+import React, { useState } from "react";
+import { Box, Typography, TextField, MenuItem, Button, FormControl, Select } from "@mui/material";
 import uploadicon from "../../assets/icons/upload-icon.svg";
+
 const formFields = [
   {
     label: "طلب الصيانة الرئيسي",
@@ -21,6 +22,15 @@ const formFields = [
 ];
 
 const MaintenanceServicePage = () => {
+  const [selectedValues, setSelectedValues] = useState(
+    Array(formFields.length).fill("")
+  );
+
+  const handleChange = (index, value) => {
+    const updated = [...selectedValues];
+    updated[index] = value;
+    setSelectedValues(updated);
+  };
   return (
     <Box
       sx={{
@@ -84,55 +94,65 @@ const MaintenanceServicePage = () => {
         >
           يرجي ملء النموذج التالي لتقديم طلب صيانه .
         </Typography>
-
-        {/* Select Fields */}
+        {/* Select Fields */};
         <Box
-          sx={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: 2,
-            mb: 3,
-            flexDirection: { xs: "column", md: "row" },
-          }}
-        >
-          {formFields.map((field, index) => (
-            <Box key={index} sx={{ flex: 1, minWidth: "calc(50% - 8px)" }}>
-              <Typography
-                sx={{
-                  mb: 1,
-                  fontFamily: "Almarai",
-                  color: "var(--white-color)",
-                  fontSize: 18,
-                  fontWeight: 400,
-                }}
-              >
-                {field.label}
-              </Typography>
-              <TextField
-                fullWidth
-                select
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    border: "1px solid #FFFFFF80",
-                    borderRadius: "4px",
-                    // backgroundColor: "#fff1",
-                    color: "#fff",
-                  },
-                  "& .MuiInputBase-input": {
-                    color: "#fff",
-                  },
-                }}
-              >
-                {field.options.map((option, idx) => (
-                  <MenuItem key={idx} value={option}>
-                    {option}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </Box>
-          ))}
-        </Box>
+      sx={{
+        display: "flex",
+        flexWrap: "wrap",
+        gap: 2,
+        mb: 3,
+        flexDirection: { xs: "column", md: "row" },
+      }}
+    >
+      {formFields.map((field, index) => (
+        <Box key={index} sx={{ flex: 1, minWidth: "calc(50% - 8px)" }}>
+          <Typography
+            sx={{
+              mb: 1,
+              fontFamily: "Almarai",
+              color: "var(--white-color)",
+              fontSize: 18,
+              fontWeight: 400,
+            }}
+          >
+            {field.label}
+          </Typography>
 
+          <FormControl fullWidth>
+            <Select
+              displayEmpty
+              value={selectedValues[index]}
+              onChange={(e) => handleChange(index, e.target.value)}
+              sx={{
+                border: "1px solid #FFFFFF80",
+                borderRadius: "4px",
+                height: "48px",
+                color: "#fff",
+                "& .MuiSelect-icon": {
+                  color: "#fff",
+                },
+                "& .MuiSelect-select": {
+                  color: selectedValues[index]
+                    ? "#fff"
+                    : "rgba(255, 255, 255, 0.5)",
+                  fontSize: selectedValues[index] ? "16px" : "14px",
+                  fontStyle: selectedValues[index] ? "normal" : "italic",
+                },
+              }}
+            >
+              <MenuItem value="" disabled>
+                اختر {field.label}
+              </MenuItem>
+              {field.options.map((option, idx) => (
+                <MenuItem key={idx} value={option}>
+                  {option}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Box>
+      ))}
+    </Box>
         {/* Notes & Attachments */}
         <Box
           sx={{
@@ -158,7 +178,7 @@ const MaintenanceServicePage = () => {
             <TextField
               fullWidth
               multiline
-              rows={6}
+              rows={5.2}
               placeholder="اكتب وصفاً تفصيلياً للمشكله..."
               sx={{
                 "& .MuiOutlinedInput-root": {
@@ -169,6 +189,11 @@ const MaintenanceServicePage = () => {
                 },
                 "& .MuiInputBase-input": {
                   color: "#fff",
+                  "&::placeholder": {
+                    fontSize: "16px",
+                    fontWeight: 300,
+                    fontFamily: "Almarai",
+                  },
                 },
               }}
             />
@@ -195,7 +220,8 @@ const MaintenanceServicePage = () => {
                 flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
-                height: 112,
+                height: 96,
+
                 p: 3,
                 textAlign: "center",
               }}
@@ -209,11 +235,19 @@ const MaintenanceServicePage = () => {
                 sx={{
                   fontFamily: "Almarai",
                   fontSize: "14px",
+                  fontWeight: 400,
                   color: "rgba(255, 255, 255, 0.8)",
                 }}
               >
                 Drag & drop files or{" "}
-                <span style={{ textDecoration: "underline" }}>Browse</span>
+                <span
+                  style={{
+                    textDecoration: "underline",
+                    color: "var( --gold-color)",
+                  }}
+                >
+                  Browse
+                </span>
               </Typography>
             </Box>
           </Box>
