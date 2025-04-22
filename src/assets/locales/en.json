@@ -41,5 +41,17 @@
       "description":"Please enter your reservation number and PIN to submit a review.",
       "submitButton": "Submit"
     }
-  }
+  },"Maintenance":{
+    "title": "Maintenance Service",
+    "description": "We provide you with fast and secure maintenance service around the clock to meet any needs inside rooms or facilities.",
+    "form_title": "Please fill out the following form to submit a maintenance request.",
+    "notes": "Notes",
+    "notes_placeholder": "Write a detailed description of the issue...",
+    "attachments": "Attachments",
+    "drag_and_drop": "Drag & drop files or",
+    "browse": "Browse",
+    "submit": "Submit Request"
+   
+  },
+   "cancel": "Cancel"
 }

@@ -1,6 +1,15 @@
-import React, { useState } from "react";
-import { Box, Typography, TextField, MenuItem, Button, FormControl, Select } from "@mui/material";
+import React, { useContext, useState } from "react";
+import {
+  Box,
+  Typography,
+  TextField,
+  MenuItem,
+  Button,
+  FormControl,
+  Select,
+} from "@mui/material";
 import uploadicon from "../../assets/icons/upload-icon.svg";
+import { LanguageContext } from "../../context/LanguageContext";
 
 const formFields = [
   {
@@ -22,6 +31,7 @@ const formFields = [
 ];
 
 const MaintenanceServicePage = () => {
+  const { translations: t } = useContext(LanguageContext);
   const [selectedValues, setSelectedValues] = useState(
     Array(formFields.length).fill("")
   );
@@ -53,7 +63,7 @@ const MaintenanceServicePage = () => {
           color: "var(--white-color)",
         }}
       >
-        خدمة الصيانه
+        {t.Maintenance.title}
       </Typography>
 
       <Typography
@@ -66,8 +76,7 @@ const MaintenanceServicePage = () => {
           color: "var(--white-color)",
         }}
       >
-        نقدّم لك خدمة صيانة سريعة وآمنة على مدار الساعة لتلبية أي احتياج داخل
-        الغرف أو المرافق.
+        {t.Maintenance.description}
       </Typography>
 
       <Box
@@ -92,67 +101,67 @@ const MaintenanceServicePage = () => {
             color: "var(--white-color)",
           }}
         >
-          يرجي ملء النموذج التالي لتقديم طلب صيانه .
+          {t.Maintenance.form_title}
         </Typography>
         {/* Select Fields */};
         <Box
-      sx={{
-        display: "flex",
-        flexWrap: "wrap",
-        gap: 2,
-        mb: 3,
-        flexDirection: { xs: "column", md: "row" },
-      }}
-    >
-      {formFields.map((field, index) => (
-        <Box key={index} sx={{ flex: 1, minWidth: "calc(50% - 8px)" }}>
-          <Typography
-            sx={{
-              mb: 1,
-              fontFamily: "Almarai",
-              color: "var(--white-color)",
-              fontSize: 18,
-              fontWeight: 400,
-            }}
-          >
-            {field.label}
-          </Typography>
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: 2,
+            mb: 3,
+            flexDirection: { xs: "column", md: "row" },
+          }}
+        >
+          {formFields.map((field, index) => (
+            <Box key={index} sx={{ flex: 1, minWidth: "calc(50% - 8px)" }}>
+              <Typography
+                sx={{
+                  mb: 1,
+                  fontFamily: "Almarai",
+                  color: "var(--white-color)",
+                  fontSize: 18,
+                  fontWeight: 400,
+                }}
+              >
+                {field.label}
+              </Typography>
 
-          <FormControl fullWidth>
-            <Select
-              displayEmpty
-              value={selectedValues[index]}
-              onChange={(e) => handleChange(index, e.target.value)}
-              sx={{
-                border: "1px solid #FFFFFF80",
-                borderRadius: "4px",
-                height: "48px",
-                color: "#fff",
-                "& .MuiSelect-icon": {
-                  color: "#fff",
-                },
-                "& .MuiSelect-select": {
-                  color: selectedValues[index]
-                    ? "#fff"
-                    : "rgba(255, 255, 255, 0.5)",
-                  fontSize: selectedValues[index] ? "16px" : "14px",
-                  fontStyle: selectedValues[index] ? "normal" : "italic",
-                },
-              }}
-            >
-              <MenuItem value="" disabled>
-                اختر {field.label}
-              </MenuItem>
-              {field.options.map((option, idx) => (
-                <MenuItem key={idx} value={option}>
-                  {option}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+              <FormControl fullWidth>
+                <Select
+                  displayEmpty
+                  value={selectedValues[index]}
+                  onChange={(e) => handleChange(index, e.target.value)}
+                  sx={{
+                    border: "1px solid #FFFFFF80",
+                    borderRadius: "4px",
+                    height: "48px",
+                    color: "#fff",
+                    "& .MuiSelect-icon": {
+                      color: "#fff",
+                    },
+                    "& .MuiSelect-select": {
+                      color: selectedValues[index]
+                        ? "#fff"
+                        : "rgba(255, 255, 255, 0.5)",
+                      fontSize: selectedValues[index] ? "16px" : "14px",
+                      fontStyle: selectedValues[index] ? "normal" : "italic",
+                    },
+                  }}
+                >
+                  <MenuItem value="" disabled>
+                    اختر {field.label}
+                  </MenuItem>
+                  {field.options.map((option, idx) => (
+                    <MenuItem key={idx} value={option}>
+                      {option}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Box>
+          ))}
         </Box>
-      ))}
-    </Box>
         {/* Notes & Attachments */}
         <Box
           sx={{
@@ -173,13 +182,13 @@ const MaintenanceServicePage = () => {
                 fontWeight: 400,
               }}
             >
-              ملاحظات
+             {t.Maintenance.notes}
             </Typography>
             <TextField
               fullWidth
               multiline
               rows={5.2}
-              placeholder="اكتب وصفاً تفصيلياً للمشكله..."
+              placeholder={t.Maintenance.notes_placeholder}
               sx={{
                 "& .MuiOutlinedInput-root": {
                   border: "1px solid #FFFFFF80",
@@ -208,7 +217,7 @@ const MaintenanceServicePage = () => {
                 fontWeight: 400,
               }}
             >
-              المرفقات
+              {t.Maintenance.attachments}
             </Typography>
             {/* Attachments */}
             <Box
@@ -239,14 +248,14 @@ const MaintenanceServicePage = () => {
                   color: "rgba(255, 255, 255, 0.8)",
                 }}
               >
-                Drag & drop files or{" "}
+                 {t.Maintenance.drag_and_drop}{" "}
                 <span
                   style={{
                     textDecoration: "underline",
                     color: "var( --gold-color)",
                   }}
                 >
-                  Browse
+                  {t.Maintenance.browse}
                 </span>
               </Typography>
             </Box>
@@ -269,13 +278,14 @@ const MaintenanceServicePage = () => {
               minWidth: 150,
               height: 48,
               borderRadius: "5px",
-              backgroundColor: "#7C8A93",
+              backgroundColor: "#00395D",
               fontFamily: "Almarai",
               fontWeight: 400,
               fontSize: 18,
             }}
           >
-            إلغاء
+             {t.Maintenance.submit}
+           
           </Button>
           <Button
             variant="contained"
@@ -284,13 +294,13 @@ const MaintenanceServicePage = () => {
               minWidth: 150,
               height: 48,
               borderRadius: "5px",
-              backgroundColor: "#00395D",
+              backgroundColor: "#7C8A93",
               fontFamily: "Almarai",
               fontWeight: 400,
               fontSize: 18,
             }}
           >
-            إرسال طلب الصيانه
+          {t.cancel}
           </Button>
         </Box>
       </Box>
