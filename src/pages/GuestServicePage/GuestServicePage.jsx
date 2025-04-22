@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import {
@@ -14,7 +14,9 @@ import {
 import { MdCheckBox } from "react-icons/md";
 import InputField from "../../components/InputField/InputField";
 import CustomDatePicker from "../../components/InputField/CustomDatePicker";
+import { LanguageContext } from "../../context/LanguageContext";
 const GuestServicePage = () => {
+  const { translations: t } = useContext(LanguageContext);
   // Form validation schema
   const validationSchema = Yup.object().shape({
     hotelName: Yup.string().required("اسم الفندق مطلوب"),
@@ -345,6 +347,7 @@ const GuestServicePage = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             placeholder="اكتب وصفاً تفصيلياً للإجراء المطلوب..."
+            className="styled-placeholder"
             minRows={5}
             style={{
               width: "352px",
@@ -367,28 +370,48 @@ const GuestServicePage = () => {
           )}
         </Box>
 
-        {/* Submit Button */}
-        <Box mt={4} display="flex" justifyContent="center">
-          <Button
-            type="submit"
-            variant="contained"
-            sx={{
-              backgroundColor: "#CFAE78",
-              color: "#000",
-              fontFamily: "Almarai",
-              fontWeight: 700,
-              fontSize: "16px",
-              px: 4,
-              py: 1.5,
-              borderRadius: "5px",
-              "&:hover": {
-                backgroundColor: "#b8996a",
-              },
-            }}
-          >
-            إرسال الشكوى
-          </Button>
-        </Box>
+         {/* Buttons */}
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  mt: 2,
+                  flexWrap: "wrap",
+                  gap: 2,
+                }}
+              >
+                <Button
+                  variant="contained"
+                  sx={{
+                    flex: 1,
+                    minWidth: 150,
+                    height: 48,
+                    borderRadius: "5px",
+                    backgroundColor: "#00395D",
+                    fontFamily: "Almarai",
+                    fontWeight: 400,
+                    fontSize: 18,
+                  }}
+                >
+                  إرسال الشكوي
+                 
+                </Button>
+                <Button
+                  variant="contained"
+                  sx={{
+                    flex: 1,
+                    minWidth: 150,
+                    height: 48,
+                    borderRadius: "5px",
+                    backgroundColor: "#7C8A93",
+                    fontFamily: "Almarai",
+                    fontWeight: 400,
+                    fontSize: 18,
+                  }}
+                >
+                {t.cancel}
+                </Button>
+              </Box>
       </Box>
     </Box>
   );
