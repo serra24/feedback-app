@@ -160,7 +160,7 @@ input:-internal-autofill-selected {
   padding: 0px !important;
 }
 .css-1ll44ll-MuiOutlinedInput-notchedOutline,
-.css-lqwr9g-MuiPickersOutlinedInput-notchedOutline,.css-5v2ak0 {
+.css-lqwr9g-MuiPickersOutlinedInput-notchedOutline,.css-5v2ak0 ,.css-1l1mqzp{
   border-color: #ffffff80 !important;
 }
 .css-1blp12k-MuiInputBase-root-MuiOutlinedInput-root.Mui-error
@@ -172,7 +172,8 @@ input:-internal-autofill-selected {
 .css-vycme6-MuiPickersInputBase-root-MuiPickersOutlinedInput-root.Mui-focused:not(
     .Mui-error
   )
-  .MuiPickersOutlinedInput-notchedOutline,.css-xhkvgb.Mui-focused .MuiOutlinedInput-notchedOutline {
+  .MuiPickersOutlinedInput-notchedOutline,.css-xhkvgb.Mui-focused .MuiOutlinedInput-notchedOutline,.css-1p8sp1h.Mui-focused:not(.Mui-error) .MuiPickersOutlinedInput-notchedOutline
+  ,.css-ehlix4.Mui-focused .MuiOutlinedInput-notchedOutline {
   border-color: #1976d2 !important;
 }
 .css-joz0rk-MuiPickersSectionList-section-MuiPickersInputBase-section {
