@@ -130,7 +130,7 @@ input:-internal-autofill-selected {
 .css-w76bbz-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
   border-radius: 5px !important;
 }
-.css-vycme6-MuiPickersInputBase-root-MuiPickersOutlinedInput-root {
+.css-vycme6-MuiPickersInputBase-root-MuiPickersOutlinedInput-root,.css-gpxgpk {
   color: #ffffff80 !important;
   font-family: Almarai !important;
   font-weight: 400 !important;
@@ -141,7 +141,7 @@ input:-internal-autofill-selected {
   border-radius: 5px !important;
   height: 49px !important;
 }
-.css-1umw9bq-MuiSvgIcon-root {
+.css-1umw9bq-MuiSvgIcon-root,.css-q7mezt {
   color: #ffffff80 !important;
 }
 .css-1wqp779-MuiFormControl-root-MuiPickersTextField-root,.css-1pv2xcc {
