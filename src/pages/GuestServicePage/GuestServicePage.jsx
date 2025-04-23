@@ -67,16 +67,17 @@ const GuestServicePage = () => {
 
   // Input fields configuration
   const inputFields = [
-    {
-      name: "hotelName",
-      label: t.Complaint.hotelName.label,
-      placeholder: t.Complaint.hotelName.placeholder,
-    },
+    
     {
       name: "startDate",
       label: t.Complaint.startDate.label,
       placeholder: t.Complaint.startDate.placeholder,
     }, // Custom date field
+    {
+      name: "hotelName",
+      label: t.Complaint.hotelName.label,
+      placeholder: t.Complaint.hotelName.placeholder,
+    },
     {
       name: "roomNumber",
       label: t.Complaint.roomNumber.label,
