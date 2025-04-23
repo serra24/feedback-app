@@ -223,11 +223,11 @@ input:-internal-autofill-selected {
   color: #ffffff80;
   /* padding: 12px !important; */
 }
-/* @media (max-width: 600px) {
+@media (max-width: 600px) {
   .styled-placeholder {
-    width: 99% !important; 
+    width: 90% !important; 
   }
-} */
+}
 .css-gpxgpk {
   font-family: Almarai;
   font-weight: 400 !important;
