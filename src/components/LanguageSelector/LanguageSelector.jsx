@@ -9,7 +9,8 @@ const LanguageSelector = () => {
   const { language, setLanguage, translations: t } = useContext(LanguageContext);
 
   const handleLanguageChange = (event) => {
-    setLanguage(event.target.value); // Update language context
+    setLanguage(event.target.value); 
+    window.location.reload(); 
   };
 
   // Dynamically set margin based on the language (LTR or RTL)

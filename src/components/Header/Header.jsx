@@ -81,7 +81,7 @@ const Header = ({
               }}
             >
               <Link
-                href="#"
+                href="/"
                 underline="none"
                 color="white"
                 sx={{
