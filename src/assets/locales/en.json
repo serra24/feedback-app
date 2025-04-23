@@ -136,5 +136,57 @@
     "commentLabel": "Your comment (optional)",
     "commentPlaceholder": "Tell us about your experience at the hotel...",
     "submit": "Submit Evaluation"
+  },
+  "roomServices": {
+    "title": "Room Services",
+    "description": "Request cleaning services or additional resources for your room"
+  },
+  "resources":"Resources",
+  "Cleaning":"Cleaning",
+  "cleaningForm": {
+    "cleaningService": "Cleaning Service",
+    "guarantee": "We guarantee you daily cleaning with high standards… for uninterrupted comfort.",
+    "formInstruction": "Please fill out the following form to request cleaning.",
+    "fullNameLabel": "Full Name",
+    "fullNamePlaceholder": "Enter full name",
+    "phoneLabel": "Phone Number",
+    "phonePlaceholder": "Enter phone number",
+    "roomNumberLabel": "Room Number",
+    "roomNumberPlaceholder": "Enter room number",
+    "preferredTimeLabel": "Preferred Time",
+    "hourPlaceholder": "hh",
+    "minutePlaceholder": "mm",
+    "periodPlaceholder": "aa",
+    "cleaningOptionsLabel": "Choose what you want cleaned:",
+    "multiSelectNote": "You can select more than one option",
+    "windowCleaning": "Window Cleaning",
+    "bedCleaning": "Make and Clean the Bed",
+    "bathroomCleaning": "Bathroom Cleaning",
+    "floorCleaning": "Floor Cleaning",
+    "trashEmptying": "Empty the Trash Bin",
+    "allOfTheAbove": "All of the above",
+    "descriptionLabel": "Description (Optional)",
+    "descriptionPlaceholder": "Write a detailed description..."
+  },"sendRequest": "Send Request",
+  "resourcesForm": {
+    "title": "Resource Service",
+    "description": "Quick service to meet all your in-hotel needs.",
+    "formInstruction": "Please fill out the form below to make a request.",
+    "fullNameLabel": "Full Name",
+    "fullNamePlaceholder": "Enter full name",
+  
+    "selectItemsLabel": "Select required items",
+    "items": {
+      "bathSupplies": "Bath Supplies",
+      "towels": "Towels",
+      "extraPillows": "Extra Pillows",
+      "bedSheets": "Bed Sheets",
+      "teaCoffee": "Tea & Coffee",
+      "mineralWater": "Mineral Water"
+    },
+    "quantityLabel": "Quantity",
+    "quantityNote": "Specify the required quantity for each item",
+    "additionalNotesLabel": "Additional Notes (Optional)",
+    "additionalNotesPlaceholder": "Any additional notes"
   }
 }

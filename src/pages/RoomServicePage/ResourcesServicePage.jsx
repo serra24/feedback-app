@@ -49,30 +49,30 @@ const ResourcesServicePage = () => {
 
   // Complaint types options
   const complaintTypes = [
-    { id: 1, label: "مستلزمات حمام" },
-    { id: 2, label: "مناشف" },
-    { id: 3, label: "وسائد إضافية" },
-    { id: 4, label: "أغطية سرير" },
-    { id: 5, label: "شاي وقهوة" },
-    { id: 6, label: "مياه معدنية" },
+    { id: 1, label: t.resourcesForm.items.bathSupplies },
+    { id: 2, label:  t.resourcesForm.items.towels },
+    { id: 3, label:  t.resourcesForm.items.extraPillows },
+    { id: 4, label:  t.resourcesForm.items.bedSheets },
+    { id: 5, label:  t.resourcesForm.items.teaCoffee },
+    { id: 6, label:  t.resourcesForm.items.mineralWater },
   ];
 
   // Input fields configuration
   const inputFields = [
     {
       name: "fullName",
-      label: "الإسم بالكامل",
-      placeholder: "الإسم بالكامل",
+      label: t.cleaningForm.fullNameLabel,
+      placeholder: t.cleaningForm.fullNamePlaceholder,
     },
     {
       name: "phone",
-      label: "رقم الهاتف",
-      placeholder: "رقم الهاتف",
+      label: t.cleaningForm.phoneLabel,
+      placeholder:  t.cleaningForm.phonePlaceholder,
     },
     {
       name: "roomNumber",
-      label: "رقم الغرفة",
-      placeholder: "رقم الغرفة",
+      label:  t.Complaint.roomNumber.label,
+      placeholder:  t.Complaint.roomNumber.placeholder,
     },
   ];
 
@@ -98,7 +98,7 @@ const ResourcesServicePage = () => {
           color: "var(--white-color)",
         }}
       >
-        خدمة الموارد
+       {t.resourcesForm.title}
       </Typography>
 
       <Typography
@@ -111,7 +111,7 @@ const ResourcesServicePage = () => {
           color: "var(--white-color)",
         }}
       >
-        {'"'}خدمة سريعة لتلبية جميع احتياجاتك داخل الفندق. {'"'}
+        {'"' } {t.resourcesForm.description} {'"'}
       </Typography>
 
       <Box
@@ -128,7 +128,7 @@ const ResourcesServicePage = () => {
           justifyContent: "space-between",
         }}
       >
-        <FormTitle title="يرجي ملء النموذج التالي لتقديم الطلب  ." />
+        <FormTitle title= {t.resourcesForm.formInstruction}/>
 
         <Box
           sx={{
@@ -171,7 +171,7 @@ const ResourcesServicePage = () => {
               mb: "6px",
             }}
           >
-            اختر الأصناف المطلوبه
+           {t.resourcesForm.selectItemsLabel}
           </Typography>
 
           <FormGroup
@@ -245,14 +245,14 @@ const ResourcesServicePage = () => {
         <InputField
           type={"number"}
           
-          label="الكميه"
+          label={t.resourcesForm.quantityLabel}
           name="quantity"
           value={formik.values.quantity}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           error={formik.touched.quantity && formik.errors.quantity}
           touched={formik.touched.quantity}
-          placeholder="حدد الكميه المطلوبه من كل صنف"
+          placeholder={t.resourcesForm.quantityNote}
         />
         </Box>
 
@@ -267,7 +267,7 @@ const ResourcesServicePage = () => {
               mb: 1,
             }}
           >
-            ملاحظات إضافية (إختياري)
+           {t.resourcesForm.additionalNotesLabel}
           </Typography>
 
           <TextareaAutosize
@@ -275,7 +275,7 @@ const ResourcesServicePage = () => {
             value={formik.values.complaintDetails}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            placeholder="أي ملاحظات إضافية"
+            placeholder={t.resourcesForm.additionalNotesPlaceholder}
             minRows={5}
             
            className="complaint-textarea"
@@ -313,7 +313,7 @@ const ResourcesServicePage = () => {
               fontSize: 18,
             }}
           >
-            إرسال
+            {t.rateServicePage.form.submitButton}
           </Button>
           <Button
             type="button"

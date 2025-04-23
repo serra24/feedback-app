@@ -48,25 +48,25 @@ const CleaningServicePage = () => {
   
   // Complaint types options
   const complaintTypes = [
-    { id: 1, label: "نظافة الشبابيك " },
-    { id: 2, label: "ترتيب وتنظيف السرير" },
-    { id: 3, label: "تنظيف الحمام" },
-    { id: 4, label: "تنظيف الأرضيه " },
-    { id: 5, label: "تفريغ سلة المهملات" },
-    { id: 6, label: "جميع ما سبق" },
+    { id: 1, label: t.cleaningForm.windowCleaning },
+    { id: 2, label: t.cleaningForm.bedCleaning },
+    { id: 3, label: t.cleaningForm.bathroomCleaning },
+    { id: 4, label:t.cleaningForm.floorCleaning },
+    { id: 5, label: t.cleaningForm.trashEmptying },
+    { id: 6, label: t.cleaningForm.allOfTheAbove },
   ];
 
   // Input fields configuration
   const inputFields = [
     {
       name: "fullName",
-      label: "الإسم بالكامل",
-      placeholder: "الإسم بالكامل",
+      label: t.cleaningForm.fullNameLabel,
+      placeholder:  t.cleaningForm.fullNamePlaceholder,
     },
     {
       name: "phone",
-      label: t.Complaint.phone.label,
-      placeholder: t.Complaint.phone.placeholder,
+      label: t.cleaningForm.phoneLabel,
+      placeholder: t.cleaningForm.phonePlaceholder,
     },
     {
       name: "roomNumber",
@@ -75,7 +75,7 @@ const CleaningServicePage = () => {
     },
     {
         name: "preferredTime",
-        label: "الوقت المفضل",
+        label:  t.cleaningForm.preferredTimeLabel,
         placeholder: "",
         type: "time", 
       },
@@ -103,7 +103,7 @@ const CleaningServicePage = () => {
           color: "var(--white-color)",
         }}
       >
-        خدمة النظافه
+    {t.cleaningForm.cleaningService}
       </Typography>
 
       <Typography
@@ -116,7 +116,7 @@ const CleaningServicePage = () => {
           color: "var(--white-color)",
         }}
       >
-        {'"'} نضمن لك نظافة يومية بمعايير عالية… لراحة لا تنقطع. {'"'}
+        {'"'} {t.cleaningForm.guarantee} {'"'}
       </Typography>
 
       <Box
@@ -133,7 +133,7 @@ const CleaningServicePage = () => {
           justifyContent: "space-between",
         }}
       >
-        <FormTitle title="يرجي ملء النموذج التالي لتقديم طلب نظافه ." />
+        <FormTitle title={t.cleaningForm.formInstruction}/>
 
         <Box
           sx={{
@@ -190,7 +190,7 @@ const CleaningServicePage = () => {
               mb: "6px",
             }}
           >
-            اختر ما تريد تنظيفه:
+          {t.cleaningForm.cleaningOptionsLabel}
           </Typography>
           <Typography
             sx={{
@@ -201,7 +201,7 @@ const CleaningServicePage = () => {
               mb: "12px",
             }}
           >
-            {t.Complaint.complaintTypesDescription}
+            {t.cleaningForm.multiSelectNote}
           </Typography>
 
           <FormGroup
@@ -261,7 +261,7 @@ const CleaningServicePage = () => {
                         "& .MuiFormControlLabel-label": {
                           color: "#fff", // Label text color
                           width: "200px",
-                          fontSize: "14px !important",
+                          fontSize: "16px !important",
                         },
                       }}
                     />
@@ -282,7 +282,7 @@ const CleaningServicePage = () => {
               mb: 1,
             }}
           >
-            الوصف ( إختياري )
+            {t.cleaningForm.descriptionLabel}
           </Typography>
           {/* <Typography
             sx={{
@@ -304,9 +304,9 @@ const CleaningServicePage = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             // placeholder={t.Complaint.complaintDetails.placeholder}
-            placeholder="اكتب وصفاً تفصيلياً ..."
+            placeholder={t.cleaningForm.descriptionPlaceholder}
             minRows={5}
-            className="styled-placeholder2"
+            className="complaint-textarea"
             style={{
               width: "352px",
               padding: "12px",
@@ -321,9 +321,7 @@ const CleaningServicePage = () => {
               fontFamily: "Almarai",
               fontSize: "16px",
               color: "#fff",
-              "@media (max-width: 600px)": {
-                width: "90% !important", // Adjust the width for small screens
-              },
+             
             }}
           />
 
@@ -358,7 +356,7 @@ const CleaningServicePage = () => {
               fontSize: 18,
             }}
           >
-            إرسال الطلب
+          {t.sendRequest}
           </Button>
           <Button
             variant="contained"

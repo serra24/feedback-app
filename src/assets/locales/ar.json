@@ -137,6 +137,56 @@
     "commentLabel": "تعليقك (إختياري)",
     "commentPlaceholder": "أخبرنا عن تجربتك في الفندق...",
     "submit": "إرسال التقييم"
+  },
+  "roomServices": {
+    "title": "خدمات الغرف",
+    "description": "اطلب خدمات النظافة أو الموارد الإضافية لغرفتك"
+  },
+   "resources":"موارد",
+  "Cleaning":"نظافة",
+  "cleaningForm": {
+    "cleaningService": "خدمة النظافة",
+    "guarantee": "نضمن لك نظافة يومية بمعايير عالية… لراحة لا تنقطع.",
+    "formInstruction": "يرجى ملء النموذج التالي لتقديم طلب نظافة.",
+    "fullNameLabel": "الاسم بالكامل",
+    "fullNamePlaceholder": "أدخل الاسم بالكامل",
+    "phoneLabel": "رقم التواصل",
+    "phonePlaceholder": "أدخل رقم التواصل",
+    "preferredTimeLabel": "الوقت المفضل",
+    "hourPlaceholder": "س",
+    "minutePlaceholder": "د",
+    "periodPlaceholder": "ص/م",
+    "cleaningOptionsLabel": "اختر ما تريد تنظيفه:",
+    "multiSelectNote": "يمكنك اختيار أكثر من خيار",
+    "windowCleaning": "نظافة الشبابيك",
+    "bedCleaning": "ترتيب وتنظيف السرير",
+    "bathroomCleaning": "تنظيف الحمام",
+    "floorCleaning": "تنظيف الأرضية",
+    "trashEmptying": "تفريغ سلة المهملات",
+    "allOfTheAbove": "جميع ما سبق",
+    "descriptionLabel": "الوصف (اختياري)",
+    "descriptionPlaceholder": "اكتب وصفاً تفصيلياً..."
+  },"sendRequest":"إرسال الطلب",
+  "resourcesForm": {
+    "title": "خدمة الموارد",
+    "description": "خدمة سريعة لتلبية جميع احتياجاتك داخل الفندق.",
+    "formInstruction": "يرجى ملء النموذج التالي لتقديم الطلب.",
+    "fullNameLabel": "الاسم بالكامل",
+    "fullNamePlaceholder": "الاسم بالكامل",
+ 
+    "selectItemsLabel": "اختر الأصناف المطلوبة",
+    "items": {
+      "bathSupplies": "مستلزمات حمام",
+      "towels": "مناشف",
+      "extraPillows": "وسائد إضافية",
+      "bedSheets": "أغطية سرير",
+      "teaCoffee": "شاي وقهوة",
+      "mineralWater": "مياه معدنية"
+    },
+    "quantityLabel": "الكمية",
+    "quantityNote": "حدد الكمية المطلوبة من كل صنف",
+    "additionalNotesLabel": "ملاحظات إضافية (اختياري)",
+    "additionalNotesPlaceholder": "أي ملاحظات إضافية"
   }
     
     

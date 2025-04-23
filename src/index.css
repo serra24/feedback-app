@@ -212,7 +212,7 @@ input:-internal-autofill-selected {
   width: 14px !important;
   height: 14px !important;
 }
-.styled-placeholder::placeholder, .styled-placeholder2::placeholder{
+.styled-placeholder::placeholder, .styled-placeholder2::placeholder,.complaint-textarea::placeholder{
   font-family: Almarai;
   font-weight: 300;
   font-size: 16px;
@@ -241,7 +241,7 @@ input:-internal-autofill-selected {
 }
 @media (max-width: 600px) {
   .styled-placeholder2 {
-    width: 98.6% !important; 
+    width:93.6% !important;
   }
 }
 .css-8zvnql .MuiSvgIcon-root{
@@ -283,7 +283,7 @@ input:-internal-autofill-selected {
   border-radius: 5px;
   font-family: Almarai;
   font-size: 16px;
-  color: #fff;
+  color: #fff !important;
   border: 1px solid #FFFFFF80;
 }
 
