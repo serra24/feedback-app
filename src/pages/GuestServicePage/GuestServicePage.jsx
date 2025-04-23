@@ -233,7 +233,7 @@ const GuestServicePage = () => {
             {t.Complaint.complaintTypesDescription}
           </Typography>
 
-          <FormGroup sx={{ display: "flex", flexDirection: "column" }}>
+          <FormGroup sx={{ display: "flex", flexDirection: "column" ,gap:{xs:1,md:0}}}>
             {complaintTypes
               .reduce((rows, type, index) => {
                 // Group two checkboxes per row
