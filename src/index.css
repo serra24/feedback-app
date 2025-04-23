@@ -315,3 +315,6 @@ textarea::placeholder{
   opacity: 1;
   -webkit-text-fill-color:  #565C63 !important;
 }
+.css-1p8sp1h.Mui-disabled * {
+  color: #565C63 !important;
+}
