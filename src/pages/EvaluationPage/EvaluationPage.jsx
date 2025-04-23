@@ -153,13 +153,14 @@ const EvaluationPage = () => {
               minRows={8.5}
               onChange={(e) => setComment(e.target.value)}
               placeholder={t.Evaluation.commentPlaceholder}
-              className="styled-placeholder"
+               className="styled-placeholder"
               style={{
                 border: "1px solid #FFFFFF80",
                 borderRadius: "4px",
+                padding: "12px",
                 backgroundColor: "transparent",
                 color: "#fff",
-                width: "98.6%",
+                width: "90.6%",
               }}
             />
           </Box>

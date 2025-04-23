@@ -27,9 +27,8 @@ const GuestServicePage = () => {
     phone: Yup.string()
       // .required("رقم التواصل مطلوب")
       .matches(/^[0-9]+$/, "يجب أن يحتوي على أرقام فقط"),
-    email: Yup.string()
-      .email("بريد إلكتروني غير صالح"),
-      // .required("البريد الإلكتروني مطلوب"),
+    email: Yup.string().email("بريد إلكتروني غير صالح"),
+    // .required("البريد الإلكتروني مطلوب"),
     complaintDetails: Yup.string().required("تفاصيل الشكوى مطلوبة"),
     expectedAction: Yup.string().required("الإجراء المتوقع مطلوب"),
   });
@@ -152,7 +151,7 @@ const GuestServicePage = () => {
           justifyContent: "space-between",
         }}
       >
-       <FormTitle title={t.Complaint.formInstructions} />
+        <FormTitle title={t.Complaint.formInstructions} />
 
         <Box
           sx={{
@@ -226,7 +225,13 @@ const GuestServicePage = () => {
             {t.Complaint.complaintTypesDescription}
           </Typography>
 
-          <FormGroup sx={{ display: "flex", flexDirection: "column" ,gap:{xs:1,md:0}}}>
+          <FormGroup
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              gap: { xs: 1, md: 0 },
+            }}
+          >
             {complaintTypes
               .reduce((rows, type, index) => {
                 // Group two checkboxes per row
@@ -239,7 +244,7 @@ const GuestServicePage = () => {
                   key={rowIndex}
                   sx={{
                     display: "flex",
-                    gap:1,
+                    gap: 1,
                     justifyContent: "flex-start",
                     flexDirection: "row", // Ensure checkboxes stay in rows
                     flexWrap: "wrap",
@@ -300,7 +305,7 @@ const GuestServicePage = () => {
           >
             {t.Complaint.complaintDetails.label}
           </Typography>
-          <Typography
+          {/* <Typography
             sx={{
               fontFamily: "Almarai",
               fontWeight: 300,
@@ -312,19 +317,20 @@ const GuestServicePage = () => {
             }}
           >
             {t.Complaint.complaintDetails.description}
-          </Typography>
-          
+          </Typography> */}
+
           <TextareaAutosize
             name="complaintDetails"
             value={formik.values.complaintDetails}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            placeholder={t.Complaint.complaintDetails.placeholder}
+            // placeholder={t.Complaint.complaintDetails.placeholder}
+            placeholder={t.Complaint.complaintDetails.description}
             minRows={5}
             className="styled-placeholder2"
             style={{
               width: "352px",
-
+              padding: "12px",
               backgroundColor: "transparent",
               border:
                 formik.touched.complaintDetails &&
@@ -332,7 +338,7 @@ const GuestServicePage = () => {
                   ? "1px solid #f44336"
                   : "1px solid #FFFFFF80",
               borderRadius: "5px",
-             
+
               fontFamily: "Almarai",
               fontSize: "16px",
               color: "#fff",
@@ -373,13 +379,14 @@ const GuestServicePage = () => {
             minRows={5}
             style={{
               width: "352px",
+              padding: "12px",
               backgroundColor: "transparent",
               border:
                 formik.touched.expectedAction && formik.errors.expectedAction
                   ? "1px solid #f44336"
                   : "1px solid #FFFFFF80",
               borderRadius: "5px",
-             
+
               fontFamily: "Almarai",
               fontSize: "16px",
               color: "#fff",
