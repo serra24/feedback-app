@@ -167,6 +167,7 @@ const MaintenanceServicePage = () => {
                 backgroundColor: "transparent",
                 color: "#fff",
                 width: "98.6%",
+                padding: "12px",
               }}
             />
           </Box>
