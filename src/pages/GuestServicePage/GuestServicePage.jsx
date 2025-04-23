@@ -15,6 +15,7 @@ import { MdCheckBox } from "react-icons/md";
 import InputField from "../../components/InputField/InputField";
 import CustomDatePicker from "../../components/InputField/CustomDatePicker";
 import { LanguageContext } from "../../context/LanguageContext";
+import FormTitle from "../../components/FormTitle/FormTitle";
 const GuestServicePage = () => {
   const { translations: t } = useContext(LanguageContext);
   // Form validation schema
@@ -151,17 +152,7 @@ const GuestServicePage = () => {
           justifyContent: "space-between",
         }}
       >
-        <Typography
-          sx={{
-            fontFamily: "Almarai, sans-serif",
-            fontWeight: 400,
-            fontSize: "20px",
-            color: "#fff",
-            mb: 3,
-          }}
-        >
-          {t.Complaint.formInstructions}
-        </Typography>
+       <FormTitle title={t.Complaint.formInstructions} />
 
         <Box
           sx={{

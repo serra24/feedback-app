@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import uploadicon from "../../assets/icons/upload-icon.svg";
 import { LanguageContext } from "../../context/LanguageContext";
+import FormTitle from "../../components/FormTitle/FormTitle";
 
 
 const MaintenanceServicePage = () => {
@@ -93,7 +94,7 @@ const MaintenanceServicePage = () => {
           justifyContent: "space-between",
         }}
       >
-        <Typography
+        {/* <Typography
           sx={{
             fontFamily: "Almarai",
             fontWeight: 400,
@@ -103,8 +104,9 @@ const MaintenanceServicePage = () => {
             color: "var(--white-color)",
           }}
         >
-          {t.Maintenance.form_title}
-        </Typography>
+          
+        </Typography> */}
+        <FormTitle title={t.Maintenance.form_title} />
         {/* Select Fields */}
         <Box
           sx={{
