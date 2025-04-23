@@ -165,7 +165,12 @@
     "trashEmptying": "تفريغ سلة المهملات",
     "allOfTheAbove": "جميع ما سبق",
     "descriptionLabel": "الوصف (اختياري)",
-    "descriptionPlaceholder": "اكتب وصفاً تفصيلياً..."
+    "descriptionPlaceholder": "اكتب وصفاً تفصيلياً...",
+    "numberOfBagsLabel": "عدد الحقائب",
+    "numberOfBagsPlaceholder": "أدخل عدد الحقائب",
+    "Receiveluggage":"إستلام الأمتعه من الغرفه",
+    "Deliveringluggage":"توصيل الأمتعه إلي الغرفه",
+    "Temporaryluggage":"تخزين الأمتعه مؤقتاً"
   },"sendRequest":"إرسال الطلب",
   "resourcesForm": {
     "title": "خدمة الموارد",
@@ -187,6 +192,14 @@
     "quantityNote": "حدد الكمية المطلوبة من كل صنف",
     "additionalNotesLabel": "ملاحظات إضافية (اختياري)",
     "additionalNotesPlaceholder": "أي ملاحظات إضافية"
+  },
+  "luggageForm": {
+    "title": "نقل الأمتعه ",
+    "description": "نقل أمتعتك بأمان وسهولة داخل الفندق.",
+    "formInstruction": "يرجى ملء النموذج التالي لتقديم الطلب.",
+    "luggageDetailsLabel": "تعليمات خاصه ( إختياري )",
+    "luggageDetailsPlaceholder": "أي تعليمات خاصه بخصوص نقل الأمتعه",
+    "typeofserviceLabel": "نوع الخدمة"
   }
     
     

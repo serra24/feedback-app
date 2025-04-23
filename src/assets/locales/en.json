@@ -21,8 +21,7 @@
         "description": "You can request any of our various services"
       }
     }
-  }
-  ,
+  },
   "rateServicePage": {
     "header": {
       "mainTitle": "Rate Hotel Services",
@@ -38,10 +37,11 @@
         "label": "Secret Number",
         "placeholder": "Enter your booking number here"
       },
-      "description":"Please enter your reservation number and PIN to submit a review.",
+      "description": "Please enter your reservation number and PIN to submit a review.",
       "submitButton": "Submit"
     }
-  },"Maintenance":{
+  },
+  "Maintenance": {
     "title": "Maintenance Service",
     "description": "We provide you with fast and secure maintenance service around the clock to meet any needs inside rooms or facilities.",
     "form_title": "Please fill out the following form to submit a maintenance request.",
@@ -51,10 +51,9 @@
     "drag_and_drop": "Drag & drop files or",
     "browse": "Browse",
     "submit": "Submit Request"
-   
   },
-   "cancel": "Cancel",
-   "Complaint": {
+  "cancel": "Cancel",
+  "Complaint": {
     "formTitle": "Complaint",
     "description": "We value your feedback... Submit your complaint, and we will address it carefully.",
     "formInstructions": "Please fill out the form below to submit your complaint.",
@@ -100,17 +99,15 @@
       "title": "Choose the service you need",
       "description": "At Nawazi, we provide you with a variety of services carefully designed to meet your needs during your religious journey. Choose the service that suits you, and let us take care of the rest."
     },
-        "Complaint": "Complaint",
-        "Complaintdescription": "Assistance with inquiries and complaints",
-        "Maintenance": "Maintenance Service",
-        "Maintenancedescription": "Instant solutions for room or device malfunctions.",
-        "Room": "Room Services",
-        "Roomdescription": "Complete comfort and exceptional service inside your room.",
-        "Luggage": "Luggage Transfer",
-        "Luggagedescription": "Transport your luggage safely and easily within the hotel."
-
-  }
-  ,
+    "Complaint": "Complaint",
+    "Complaintdescription": "Assistance with inquiries and complaints",
+    "Maintenance": "Maintenance Service",
+    "Maintenancedescription": "Instant solutions for room or device malfunctions.",
+    "Room": "Room Services",
+    "Roomdescription": "Complete comfort and exceptional service inside your room.",
+    "Luggage": "Luggage Transfer",
+    "Luggagedescription": "Transport your luggage safely and easily within the hotel."
+  },
   "mainMaintenanceRequest": "Main Maintenance Request",
   "subMaintenanceRequest": "Sub Maintenance Request",
   "jobTitle": "Job Title",
@@ -121,7 +118,7 @@
   "firstFloor": "First Floor",
   "secondFloor": "Second Floor",
   "thirdFloor": "Third Floor",
-  "Select":"Select",
+  "Select": "Select",
   "Evaluation": {
     "header": "Hotel Service Evaluation",
     "subheader": "We value your feedback and always strive to improve our services.",
@@ -141,8 +138,8 @@
     "title": "Room Services",
     "description": "Request cleaning services or additional resources for your room"
   },
-  "resources":"Resources",
-  "Cleaning":"Cleaning",
+  "resources": "Resources",
+  "Cleaning": "Cleaning",
   "cleaningForm": {
     "cleaningService": "Cleaning Service",
     "guarantee": "We guarantee you daily cleaning with high standards… for uninterrupted comfort.",
@@ -166,15 +163,21 @@
     "trashEmptying": "Empty the Trash Bin",
     "allOfTheAbove": "All of the above",
     "descriptionLabel": "Description (Optional)",
-    "descriptionPlaceholder": "Write a detailed description..."
-  },"sendRequest": "Send Request",
+    "descriptionPlaceholder": "Write a detailed description...",
+    "numberOfBagsLabel": "Number of Bags",
+    "numberOfBagsPlaceholder": "Enter number of bags",
+    "Receiveluggage": "Receive luggage from the room",
+    "Deliveringluggage": "Deliver luggage to the room",
+    "Temporaryluggage": "Temporary luggage storage"
+  },
+  "sendRequest": "Send Request",
   "resourcesForm": {
     "title": "Resource Service",
     "description": "Quick service to meet all your in-hotel needs.",
     "formInstruction": "Please fill out the form below to make a request.",
     "fullNameLabel": "Full Name",
     "fullNamePlaceholder": "Enter full name",
-  
+
     "selectItemsLabel": "Select required items",
     "items": {
       "bathSupplies": "Bath Supplies",
@@ -188,5 +191,13 @@
     "quantityNote": "Specify the required quantity for each item",
     "additionalNotesLabel": "Additional Notes (Optional)",
     "additionalNotesPlaceholder": "Any additional notes"
+  },
+  "luggageForm": {
+    "title": "Luggage Transfer",
+    "description": "Request luggage transfer service to or from your room.",
+    "formInstruction": "Please fill out the form below to submit your luggage transfer request.",
+    "luggageDetailsLabel": "Special Instructions (Optional)",
+    "luggageDetailsPlaceholder": "Any special instructions regarding the transportation of luggage?",
+    "typeofserviceLabel": "Type of Service"
   }
 }
