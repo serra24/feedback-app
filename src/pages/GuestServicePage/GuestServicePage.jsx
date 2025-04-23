@@ -282,7 +282,7 @@ const GuestServicePage = () => {
                       sx={{
                         "& .MuiFormControlLabel-label": {
                           color: "#fff", // Label text color
-                          width: "200px",
+                          width: "240px",
                           fontSize: "16px !important",
                         },
                       }}
