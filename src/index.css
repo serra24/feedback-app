@@ -297,3 +297,9 @@ input:-internal-autofill-selected {
     width: 92% !important;
   }
 }
+textarea::placeholder{
+  color: #ffffff80 !important;
+  font-family: Almarai; 
+  font-weight: 300;
+  font-size: 16px;
+}
