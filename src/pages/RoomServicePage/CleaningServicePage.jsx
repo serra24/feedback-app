@@ -45,13 +45,13 @@ const CleaningServicePage = () => {
       // Handle form submission here
     },
   });
-  
+
   // Complaint types options
   const complaintTypes = [
     { id: 1, label: t.cleaningForm.windowCleaning },
     { id: 2, label: t.cleaningForm.bedCleaning },
     { id: 3, label: t.cleaningForm.bathroomCleaning },
-    { id: 4, label:t.cleaningForm.floorCleaning },
+    { id: 4, label: t.cleaningForm.floorCleaning },
     { id: 5, label: t.cleaningForm.trashEmptying },
     { id: 6, label: t.cleaningForm.allOfTheAbove },
   ];
@@ -61,7 +61,7 @@ const CleaningServicePage = () => {
     {
       name: "fullName",
       label: t.cleaningForm.fullNameLabel,
-      placeholder:  t.cleaningForm.fullNamePlaceholder,
+      placeholder: t.cleaningForm.fullNamePlaceholder,
     },
     {
       name: "phone",
@@ -74,11 +74,11 @@ const CleaningServicePage = () => {
       placeholder: t.Complaint.roomNumber.placeholder,
     },
     {
-        name: "preferredTime",
-        label:  t.cleaningForm.preferredTimeLabel,
-        placeholder: "",
-        type: "time", 
-      },
+      name: "preferredTime",
+      label: t.cleaningForm.preferredTimeLabel,
+      placeholder: "",
+      type: "time",
+    },
   ];
 
   return (
@@ -103,7 +103,7 @@ const CleaningServicePage = () => {
           color: "var(--white-color)",
         }}
       >
-    {t.cleaningForm.cleaningService}
+        {t.cleaningForm.cleaningService}
       </Typography>
 
       <Typography
@@ -133,7 +133,7 @@ const CleaningServicePage = () => {
           justifyContent: "space-between",
         }}
       >
-        <FormTitle title={t.cleaningForm.formInstruction}/>
+        <FormTitle title={t.cleaningForm.formInstruction} />
 
         <Box
           sx={{
@@ -151,30 +151,32 @@ const CleaningServicePage = () => {
               }}
             >
               {field.name === "preferredTime" ? (
-               <CustomTimePicker
-               key={index}
-               label={field.label}
-               name={field.name}
-               value={formik.values[field.name]}
-               onChange={formik.handleChange}
-               onBlur={formik.handleBlur}
-               error={formik.errors[field.name]}
-               touched={formik.touched[field.name]}
-             />
+                <CustomTimePicker
+                  key={index}
+                  label={field.label}
+                  name={field.name}
+                  value={formik.values[field.name]}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  error={formik.errors[field.name]}
+                  touched={formik.touched[field.name]}
+                />
               ) : (
-              <InputField
+                <InputField
                   type={field.type || "text"}
-                label={field.label}
-                name={field.name}
-                value={formik.values[field.name]}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                error={formik.touched[field.name] && formik.errors[field.name]}
-                touched={formik.touched[field.name]}
-                placeholder={field.placeholder}
-                iconSrc={field.iconSrc}
-              />
-               )} 
+                  label={field.label}
+                  name={field.name}
+                  value={formik.values[field.name]}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  error={
+                    formik.touched[field.name] && formik.errors[field.name]
+                  }
+                  touched={formik.touched[field.name]}
+                  placeholder={field.placeholder}
+                  iconSrc={field.iconSrc}
+                />
+              )}
             </Box>
           ))}
         </Box>
@@ -190,7 +192,7 @@ const CleaningServicePage = () => {
               mb: "6px",
             }}
           >
-          {t.cleaningForm.cleaningOptionsLabel}
+            {t.cleaningForm.cleaningOptionsLabel}
           </Typography>
           <Typography
             sx={{
@@ -321,7 +323,6 @@ const CleaningServicePage = () => {
               fontFamily: "Almarai",
               fontSize: "16px",
               color: "#fff",
-             
             }}
           />
 
@@ -356,7 +357,7 @@ const CleaningServicePage = () => {
               fontSize: 18,
             }}
           >
-          {t.sendRequest}
+            {t.sendRequest}
           </Button>
           <Button
             variant="contained"

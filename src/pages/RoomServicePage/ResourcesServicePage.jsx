@@ -195,7 +195,7 @@ const ResourcesServicePage = () => {
                     display: "flex",
                     gap: 1,
                     justifyContent: "flex-start",
-                    flexDirection: "row",
+                    flexDirection: "row", // Ensure checkboxes stay in rows
                     flexWrap: "wrap",
                   }}
                 >
