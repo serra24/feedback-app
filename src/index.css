@@ -194,7 +194,7 @@ input:-internal-autofill-selected {
   text-transform: lowercase !important;
 }
 .css-1jlr7fa-MuiFormControlLabel-root,.css-vj2h72,
-.css-v3aylg-MuiFormControlLabel-root,.css-63b40r {
+.css-v3aylg-MuiFormControlLabel-root,.css-63b40r ,.css-1x884l8{
   margin-left: 0px !important;
   margin-right: 0px !important;
 }
@@ -317,4 +317,7 @@ textarea::placeholder{
 }
 .css-1p8sp1h.Mui-disabled * {
   color: #565C63 !important;
+}
+.css-8zvnql {
+  padding: 6px !important;
 }
