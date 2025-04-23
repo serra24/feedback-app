@@ -10,6 +10,8 @@ import {
   TextareaAutosize,
   Grid,
   Button,
+  RadioGroup,
+  Radio,
 } from "@mui/material";
 import { MdCheckBox } from "react-icons/md";
 import InputField from "../../components/InputField/InputField";
@@ -49,7 +51,6 @@ const LuggageServicePage = () => {
   // Complaint types options
   const complaintTypes = [
     { id: 1, label: t.cleaningForm.Receiveluggage },
-    { id: 2, label: t.cleaningForm.Deliveringluggage },
     { id: 3, label: t.cleaningForm.Temporaryluggage },
   ];
 
@@ -119,7 +120,8 @@ const LuggageServicePage = () => {
           color: "var(--white-color)",
         }}
       >
-        {'"'} {t.luggageForm.description}{'"'}
+        {'"'} {t.luggageForm.description}
+        {'"'}
       </Typography>
 
       <Box
@@ -205,63 +207,43 @@ const LuggageServicePage = () => {
               gap: { xs: 1, md: 0 },
             }}
           >
-            {complaintTypes
-              .reduce((rows, type, index) => {
-                // Group two checkboxes per row
-                if (index % 2 === 0) rows.push([]);
-                rows[rows.length - 1].push(type);
-                return rows;
-              }, [])
-              .map((row, rowIndex) => (
-                <Box
-                  key={rowIndex}
-                  sx={{
-                    display: "flex",
-                    // gap: 1,
-                    justifyContent: "flex-start",
-                    flexDirection: "column", // Ensure checkboxes stay in rows
-                    flexWrap: "wrap",
-                  }}
-                >
-                  {row.map((type) => (
-                    <FormControlLabel
-                      key={type.id}
-                      control={
-                        <Checkbox
-                          checked={formik.values.complaintTypes.includes(
-                            type.id
-                          )}
-                          onChange={() => {
-                            const newTypes =
-                              formik.values.complaintTypes.includes(type.id)
-                                ? formik.values.complaintTypes.filter(
-                                    (id) => id !== type.id
-                                  )
-                                : [...formik.values.complaintTypes, type.id];
-                            formik.setFieldValue("complaintTypes", newTypes);
-                          }}
-                          sx={{
-                            "& .MuiSvgIcon-root": {
-                              color: "#CFAE78", // Icon color for unchecked state
-                            },
-                            "&.Mui-checked .MuiSvgIcon-root": {
-                              color: "#CFAE78", // Icon color for checked state
-                            },
-                          }}
-                        />
-                      }
-                      label={type.label}
+            <RadioGroup
+              value={formik.values.complaintType}
+              onChange={(e) =>
+                formik.setFieldValue("complaintType", e.target.value)
+              }
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                gap: 1,
+              }}
+            >
+              {complaintTypes.map((type) => (
+                <FormControlLabel
+                  key={type.id}
+                  value={type.id}
+                  control={
+                    <Radio
                       sx={{
-                        "& .MuiFormControlLabel-label": {
-                          color: "#fff", // Label text color
-                          width: "auto",
-                          fontSize: "16px !important",
+                        "& .MuiSvgIcon-root": {
+                          color: "#CFAE78", // Icon color for unchecked state
+                        },
+                        "&.Mui-checked .MuiSvgIcon-root": {
+                          color: "#CFAE78", // Icon color for checked state
                         },
                       }}
                     />
-                  ))}
-                </Box>
+                  }
+                  label={type.label}
+                  sx={{
+                    "& .MuiFormControlLabel-label": {
+                      color: "#fff", // Label text color
+                      fontSize: "16px !important",
+                    },
+                  }}
+                />
               ))}
+            </RadioGroup>
           </FormGroup>
         </Box>
 
@@ -276,7 +258,7 @@ const LuggageServicePage = () => {
               mb: 1,
             }}
           >
-             {t.luggageForm.luggageDetailsLabel}
+            {t.luggageForm.luggageDetailsLabel}
           </Typography>
           {/* <Typography
             sx={{
@@ -298,7 +280,7 @@ const LuggageServicePage = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             // placeholder={t.Complaint.complaintDetails.placeholder}
-            placeholder= {t.luggageForm.luggageDetailsPlaceholder}
+            placeholder={t.luggageForm.luggageDetailsPlaceholder}
             minRows={5}
             className="complaint-textarea"
             style={{
