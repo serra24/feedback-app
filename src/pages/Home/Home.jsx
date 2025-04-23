@@ -71,7 +71,7 @@ const Home = () => {
               fontSize: { xs: "16px", sm: "20px", md: "24px" },
               lineHeight: "1.5",
               mb: { xs: 3, md: 4 },
-              //   maxWidth: "800px",
+              maxWidth: "1200px",
             }}
           >
             {'"'}
