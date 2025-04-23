@@ -10,6 +10,7 @@ const CustomDatePicker = ({
   error,
   touched,
   name,
+  disabled = false,
 }) => {
   const [open, setOpen] = useState(false); // State to handle opening and closing
   const handleOpen = () => setOpen(true);
@@ -38,6 +39,7 @@ const CustomDatePicker = ({
           value={value}
           onChange={(newValue) => onChange({ target: { name, value: newValue } })}
           onBlur={onBlur}
+          disabled={disabled}
           onClose={handleClose} // Close the date picker when it loses focus
           renderInput={(params) => (
             <TextField

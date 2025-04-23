@@ -20,16 +20,16 @@ const GuestServicePage = () => {
   const { translations: t } = useContext(LanguageContext);
   // Form validation schema
   const validationSchema = Yup.object().shape({
-    hotelName: Yup.string().required("اسم الفندق مطلوب"),
-    date: Yup.string().required("التاريخ مطلوب"),
-    roomNumber: Yup.string().required("رقم الغرفة مطلوب"),
+    // hotelName: Yup.string().required("اسم الفندق مطلوب"),
+    // date: Yup.string().required("التاريخ مطلوب"),
+    // roomNumber: Yup.string().required("رقم الغرفة مطلوب"),
     guestName: Yup.string().required("اسم الضيف مطلوب"),
     phone: Yup.string()
-      .required("رقم التواصل مطلوب")
+      // .required("رقم التواصل مطلوب")
       .matches(/^[0-9]+$/, "يجب أن يحتوي على أرقام فقط"),
     email: Yup.string()
-      .email("بريد إلكتروني غير صالح")
-      .required("البريد الإلكتروني مطلوب"),
+      .email("بريد إلكتروني غير صالح"),
+      // .required("البريد الإلكتروني مطلوب"),
     complaintDetails: Yup.string().required("تفاصيل الشكوى مطلوبة"),
     expectedAction: Yup.string().required("الإجراء المتوقع مطلوب"),
   });
@@ -178,6 +178,7 @@ const GuestServicePage = () => {
                   onBlur={formik.handleBlur}
                   error={formik.errors[field.name]}
                   touched={formik.touched[field.name]}
+                  disabled={index < 3}
                 />
               ) : (
                 <InputField
@@ -193,6 +194,7 @@ const GuestServicePage = () => {
                   touched={formik.touched[field.name]}
                   placeholder={field.placeholder}
                   iconSrc={field.iconSrc}
+                  disabled={index < 3}
                 />
               )}
             </Box>

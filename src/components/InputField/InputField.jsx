@@ -11,7 +11,8 @@ const InputField = ({
   iconSrc,
   placeholder,
   name,
-  type = "text", // Add type prop with default as "text"
+  type = "text", 
+  disabled = false,
 }) => {
   return (
     <Box>
@@ -54,6 +55,7 @@ const InputField = ({
         value={value}
         onChange={onChange}
         onBlur={onBlur}
+        disabled={disabled}
         placeholder={type !== "date" ? placeholder : undefined} // Don't show placeholder on date input
         InputProps={{
           startAdornment:
