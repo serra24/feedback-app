@@ -158,16 +158,21 @@ const MaintenanceServicePage = () => {
             </Typography>
             <TextareaAutosize
               name="Maintenancenotes"
-              minRows={9.3}
+              minRows={7}
               placeholder={t.Maintenance.notes_placeholder}
-              className="styled-placeholder"
+              // minRows={5}
+              className="complaint-textarea"
               style={{
-                border: "1px solid #FFFFFF80",
-                borderRadius: "4px",
-                backgroundColor: "transparent",
-                color: "#fff",
-                width: "98.6%",
+                width: "352px",
                 padding: "12px",
+                backgroundColor: "transparent",
+               
+                borderRadius: "5px",
+  
+                fontFamily: "Almarai",
+                fontSize: "16px",
+                color: "#fff",
+               
               }}
             />
           </Box>
