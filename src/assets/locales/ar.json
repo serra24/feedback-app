@@ -122,7 +122,22 @@
       "firstFloor": "الدور الأول",
       "secondFloor": "الدور الثاني",
       "thirdFloor": "الدور الثالث",
-      "Select":"اختر"
+      "Select":"اختر",
+      "Evaluation": {
+    "header": "تقييم الخدمات الفندقيه",
+    "subheader": "نقدر آرائكم ونسعي دائماً لتحسين خدماتنا بناءاً علي ملاحظاتكم.",
+    "rateYourStay": "قيم إقامتك",
+    "ratings": {
+      "cleanliness": "النظافه",
+      "service": "الخدمه",
+      "facilities": "المرافق",
+      "location": "الموقع",
+      "value": "القيمه مقابل السعر"
+    },
+    "commentLabel": "تعليقك (إختياري)",
+    "commentPlaceholder": "أخبرنا عن تجربتك في الفندق...",
+    "submit": "إرسال التقييم"
+  }
     
     
 }

@@ -121,5 +121,20 @@
   "firstFloor": "First Floor",
   "secondFloor": "Second Floor",
   "thirdFloor": "Third Floor",
-  "Select":"Select"
+  "Select":"Select",
+  "Evaluation": {
+    "header": "Hotel Service Evaluation",
+    "subheader": "We value your feedback and always strive to improve our services.",
+    "rateYourStay": "Rate your stay",
+    "ratings": {
+      "cleanliness": "Cleanliness",
+      "service": "Service",
+      "facilities": "Facilities",
+      "location": "Location",
+      "value": "Value for money"
+    },
+    "commentLabel": "Your comment (optional)",
+    "commentPlaceholder": "Tell us about your experience at the hotel...",
+    "submit": "Submit Evaluation"
+  }
 }

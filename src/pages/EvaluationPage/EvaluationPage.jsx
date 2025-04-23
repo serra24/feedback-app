@@ -1,20 +1,10 @@
-import React, { useState } from "react";
-import { Box, Typography, Button, TextField } from "@mui/material";
+import React, { useContext, useState } from "react";
+import { Box, Typography, Button, TextField, TextareaAutosize } from "@mui/material";
 import starFilled from "../../assets/icons/star-filled.svg";
 import starEmpty from "../../assets/icons/star-empty.svg";
 // import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-const ratingLabels = [
-  " النظافه",
-  " الخدمه",
-  " المرافق",
-  " الموقع",
-  <>
-    القيمه مقابل
-    <br />
-    السعر
-  </>,
-];
+import { LanguageContext } from "../../context/LanguageContext";
 
 const EvaluationPage = () => {
   const [ratings, setRatings] = useState(Array(5).fill(0));
@@ -22,7 +12,14 @@ const EvaluationPage = () => {
   const [comment, setComment] = useState("");
   // const location = useLocation();
   // const { bookingNumber, secretNumber } = location.state || {};
-
+  const { translations: t } = useContext(LanguageContext);
+  const ratingLabels = [
+    t.Evaluation.ratings.cleanliness,
+    t.Evaluation.ratings.service,
+    t.Evaluation.ratings.facilities,
+    t.Evaluation.ratings.location,
+    t.Evaluation.ratings.value,
+  ];
   const handleRating = (index, value) => {
     const newRatings = [...ratings];
     newRatings[index] = value;
@@ -58,7 +55,7 @@ const EvaluationPage = () => {
             color: "#ffffff",
           }}
         >
-          تقييم الخدمات الفندقيه
+          {t.Evaluation.header}
         </Typography>
       </motion.div>
 
@@ -72,7 +69,7 @@ const EvaluationPage = () => {
           color: "#ffffff",
         }}
       >
-        نقدر آرائكم ونسعي دائماً لتحسين خدماتنا بناءاً علي ملاحظاتكم.
+        {t.Evaluation.subheader}
       </Typography>
       {/* Animated Card Container */}
       <motion.div
@@ -98,11 +95,11 @@ const EvaluationPage = () => {
               fontFamily: "Almarai, sans-serif",
               fontWeight: 700,
               fontSize: "20px",
-              textAlign: "right",
+              // textAlign: "right",
               // mb: 3,
             }}
           >
-            قيم إقامتك
+            {t.Evaluation.rateYourStay}
           </Typography>
 
           {ratingLabels.map((label, index) => (
@@ -127,6 +124,9 @@ const EvaluationPage = () => {
                     fontFamily: "Almarai, sans-serif",
                     fontWeight: 400,
                     fontSize: "18px",
+                    whiteSpace: "normal", // allow line breaks
+                    // textAlign: { xs: "center", sm: "right" }, // center on small screens
+                    width: { xs: "95px", sm: "auto" },
                   }}
                 >
                   {label}
@@ -172,34 +172,20 @@ const EvaluationPage = () => {
                 mb: 2,
               }}
             >
-              تعليقك (إختياري)
+              {t.Evaluation.commentLabel}
             </Typography>
-            <TextField
-              fullWidth
-              multiline
-              rows={3}
-              variant="outlined"
-              value={comment}
+            <TextareaAutosize
+              name="comment"
+              minRows={8.5}
               onChange={(e) => setComment(e.target.value)}
-              placeholder="أخبرنا عن تجربتك في الفندق..."
-              sx={{
-                backgroundColor: "#084267",
-                border: "1px solid #E4E4E766",
-                borderRadius: "5px",
-                fontFamily: "Almarai, sans-serif",
-                "& .MuiOutlinedInput-root": {
-                  color: "#fff",
-                  fontFamily: "Almarai, sans-serif",
-                  "& textarea::placeholder": {
-                    fontFamily: "Almarai, sans-serif",
-                    fontWeight: 300,
-                    fontSize: "16px",
-                    lineHeight: "100%",
-                    letterSpacing: 0,
-                    verticalAlign: "middle",
-                    color: "#FFFFFF80",
-                  },
-                },
+              placeholder={t.Evaluation.commentPlaceholder}
+              className="styled-placeholder"
+              style={{
+                border: "1px solid #FFFFFF80",
+                borderRadius: "4px",
+                backgroundColor: "transparent",
+                color: "#fff",
+                width: "98.6%",
               }}
             />
           </Box>
@@ -227,7 +213,7 @@ const EvaluationPage = () => {
                 },
               }}
             >
-              إرسال التقييم
+              {t.Evaluation.submit}
             </Button>
           </motion.div>
         </Box>
