@@ -199,5 +199,16 @@
     "luggageDetailsLabel": "Special Instructions (Optional)",
     "luggageDetailsPlaceholder": "Any special instructions regarding the transportation of luggage?",
     "typeofserviceLabel": "Type of Service"
-  }
+  },
+  
+    "room_cleanliness": "Room Cleanliness",
+    "facilities": "Facilities (Elevator, Bus)",
+    "noise": "Noise and Disturbance",
+    "billing_issues": "Billing or Payment Issues",
+    "staff_behavior": "Staff Behavior",
+    "booking_issues": "Booking or Pre-booking Issues",
+    "food_and_drinks": "Food and Drinks"
+   
+  
+  
 }

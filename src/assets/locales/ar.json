@@ -200,7 +200,14 @@
     "luggageDetailsLabel": "تعليمات خاصه ( إختياري )",
     "luggageDetailsPlaceholder": "أي تعليمات خاصه بخصوص نقل الأمتعه",
     "typeofserviceLabel": "نوع الخدمة"
-  }
+  },
+  "room_cleanliness": "نظافة الغرفة",
+  "facilities": "المرافق (المصعد , الباص)",
+  "noise": "الإزعاج و الضوضاء",
+  "billing_issues": "مشاكل في الفاتورة أو الدفع",
+  "staff_behavior": "سلوك الموظفين",
+  "booking_issues": "مشاكل في الحجز أو الحجز المسبق",
+  "food_and_drinks": "الطعام و الشراب"
     
     
 }

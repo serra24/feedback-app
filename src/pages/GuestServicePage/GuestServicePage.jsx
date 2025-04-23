@@ -55,14 +55,14 @@ const GuestServicePage = () => {
 
   // Complaint types options
   const complaintTypes = [
-    { id: 1, label: "نظافة الغرفه" },
-    { id: 2, label: "المرافق (المصعد , الباص)" },
-    { id: 3, label: "الإزعاج و الضوضاء" },
-    { id: 4, label: "مشاكل في الفاتوره أو الدفع" },
-    { id: 5, label: "سلوك الموظفين" },
-    { id: 6, label: "مشاكل في الحجز أو الحجز المسبق" },
-    { id: 7, label: "الطعام و الشراب" },
-    { id: 8, label: "أخري " },
+    { id: 1, label: t.room_cleanliness},
+    { id: 2, label: t.facilities},
+    { id: 3, label: t.noise},
+    { id: 4, label: t.billing_issues },
+    { id: 5, label: t.staff_behavior },
+    { id: 6, label: t.booking_issues },
+    { id: 7, label:t.food_and_drinks },
+    { id: 8, label:t.other},
   ];
 
   // Input fields configuration
