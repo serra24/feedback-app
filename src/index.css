@@ -276,3 +276,23 @@ input:-internal-autofill-selected {
 .css-1y6l765-MuiPickersLayout-root .MuiPickersLayout-actionBar{
   /* display: none !important; */
 }
+.complaint-textarea {
+  width: 97%;
+  padding: 12px;
+  background-color: transparent;
+  border-radius: 5px;
+  font-family: Almarai;
+  font-size: 16px;
+  color: #fff;
+  border: 1px solid #FFFFFF80;
+}
+
+.complaint-textarea.error {
+  border: 1px solid #f44336;
+}
+
+@media (max-width: 600px) {
+  .complaint-textarea {
+    width: 92% !important;
+  }
+}

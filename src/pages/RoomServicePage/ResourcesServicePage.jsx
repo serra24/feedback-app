@@ -277,20 +277,8 @@ const ResourcesServicePage = () => {
             onBlur={formik.handleBlur}
             placeholder="أي ملاحظات إضافية"
             minRows={5}
-            style={{
-              width: "100%",
-              padding: "12px",
-              backgroundColor: "transparent",
-              border:
-                formik.touched.complaintDetails &&
-                formik.errors.complaintDetails
-                  ? "1px solid #f44336"
-                  : "1px solid #FFFFFF80",
-              borderRadius: "5px",
-              fontFamily: "Almarai",
-              fontSize: "16px",
-              color: "#fff",
-            }}
+            
+           className="complaint-textarea"
           />
 
           {formik.touched.complaintDetails &&
