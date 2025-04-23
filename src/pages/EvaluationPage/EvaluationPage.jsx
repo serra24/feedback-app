@@ -5,6 +5,7 @@ import starEmpty from "../../assets/icons/star-empty.svg";
 // import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { LanguageContext } from "../../context/LanguageContext";
+import AnimatedHeader from "../../components/AnimatedHeader/AnimatedHeader";
 
 const EvaluationPage = () => {
   const [ratings, setRatings] = useState(Array(5).fill(0));
@@ -39,38 +40,11 @@ const EvaluationPage = () => {
         flexDirection: "column",
       }}
     >
-      {/* Animated Header */}
-      <motion.div
-        initial={{ opacity: 0, y: -30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <Typography
-          sx={{
-            fontFamily: "Almarai, sans-serif",
-            fontWeight: 700,
-            fontSize: { xs: "22px", sm: "30px" },
-            textAlign: "center",
-            mb: 1.5,
-            color: "#ffffff",
-          }}
-        >
-          {t.Evaluation.header}
-        </Typography>
-      </motion.div>
+       <AnimatedHeader
+      title={t.Evaluation.header}
+      subtitle={t.Evaluation.subheader}
+    />
 
-      <Typography
-        sx={{
-          fontFamily: "Almarai, sans-serif",
-          fontWeight: 400,
-          fontSize: { xs: "14px", sm: "20px" },
-          textAlign: "center",
-          mb: 4,
-          color: "#ffffff",
-        }}
-      >
-        {t.Evaluation.subheader}
-      </Typography>
       {/* Animated Card Container */}
       <motion.div
         initial={{ opacity: 0, y: 50 }}

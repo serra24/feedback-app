@@ -12,7 +12,7 @@ import {
 import uploadicon from "../../assets/icons/upload-icon.svg";
 import { LanguageContext } from "../../context/LanguageContext";
 import FormTitle from "../../components/FormTitle/FormTitle";
-
+import AnimatedHeader from "../../components/AnimatedHeader/AnimatedHeader";
 
 const MaintenanceServicePage = () => {
   const { translations: t } = useContext(LanguageContext);
@@ -34,7 +34,7 @@ const MaintenanceServicePage = () => {
       options: ["الدور الأول", "الدور الثاني", "الدور الثالث"],
     },
   ];
-  
+
   const [selectedValues, setSelectedValues] = useState(
     Array(formFields.length).fill("")
   );
@@ -56,31 +56,11 @@ const MaintenanceServicePage = () => {
         minHeight: { md: "70vh", xs: "auto" },
       }}
     >
-      <Typography
-        sx={{
-          fontFamily: "Almarai, sans-serif",
-          fontWeight: 700,
-          fontSize: { xs: "24px", sm: "30px" },
-          textAlign: "right",
-          mb: 1.5,
-          color: "var(--white-color)",
-        }}
-      >
-        {t.Maintenance.title}
-      </Typography>
-
-      <Typography
-        sx={{
-          fontFamily: "Almarai, sans-serif",
-          fontWeight: 400,
-          fontSize: { xs: "16px", sm: "24px" },
-          textAlign: "center",
-          mb: 4,
-          color: "var(--white-color)",
-        }}
-      >
-        {t.Maintenance.description}
-      </Typography>
+      {/* Header Section */}
+      <AnimatedHeader
+        title={t.Maintenance.title}
+        subtitle={t.Maintenance.description}
+      />
 
       <Box
         sx={{
@@ -88,24 +68,12 @@ const MaintenanceServicePage = () => {
           height: "auto",
           background: "linear-gradient(180deg, #00395D 0%, #13537C 100%)",
           borderRadius: 3,
-          p: { xs: 2, sm: 3 }, 
+          p: { xs: 2, sm: 3 },
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
         }}
       >
-        {/* <Typography
-          sx={{
-            fontFamily: "Almarai",
-            fontWeight: 400,
-            fontSize: 20,
-            lineHeight: "100%",
-            mb: "27px",
-            color: "var(--white-color)",
-          }}
-        >
-          
-        </Typography> */}
         <FormTitle title={t.Maintenance.form_title} />
         {/* Select Fields */}
         <Box
@@ -186,19 +154,19 @@ const MaintenanceServicePage = () => {
                 fontWeight: 400,
               }}
             >
-             {t.Maintenance.notes}
+              {t.Maintenance.notes}
             </Typography>
             <TextareaAutosize
               name="Maintenancenotes"
               minRows={9.3}
               placeholder={t.Maintenance.notes_placeholder}
-                className="styled-placeholder"
+              className="styled-placeholder"
               style={{
-                  border: "1px solid #FFFFFF80",
-                  borderRadius: "4px",
-                  backgroundColor: "transparent",
-                  color: "#fff",
-                  width:"98.6%"
+                border: "1px solid #FFFFFF80",
+                borderRadius: "4px",
+                backgroundColor: "transparent",
+                color: "#fff",
+                width: "98.6%",
               }}
             />
           </Box>
@@ -243,7 +211,7 @@ const MaintenanceServicePage = () => {
                   color: "rgba(255, 255, 255, 0.8)",
                 }}
               >
-                 {t.Maintenance.drag_and_drop}{" "}
+                {t.Maintenance.drag_and_drop}{" "}
                 <span
                   style={{
                     textDecoration: "underline",
@@ -279,8 +247,7 @@ const MaintenanceServicePage = () => {
               fontSize: 18,
             }}
           >
-             {t.Maintenance.submit}
-           
+            {t.Maintenance.submit}
           </Button>
           <Button
             variant="contained"
@@ -295,7 +262,7 @@ const MaintenanceServicePage = () => {
               fontSize: 18,
             }}
           >
-          {t.cancel}
+            {t.cancel}
           </Button>
         </Box>
       </Box>

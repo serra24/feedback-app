@@ -7,6 +7,8 @@ import { LanguageContext } from "../../context/LanguageContext";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
+import FormTitle from "../../components/FormTitle/FormTitle";
+import AnimatedHeader from "../../components/AnimatedHeader/AnimatedHeader";
 const RateServicePage = () => {
   const navigate = useNavigate(); // Initialize navigate hook
   // Validation Schema using Yup
@@ -40,39 +42,17 @@ const RateServicePage = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        minHeight: {md:"70vh", xs:"auto"},
+        minHeight: { md: "70vh", xs: "auto" },
         p: 3,
         flexDirection: "column",
       }}
     >
       {/* Header Section */}
-      <Typography
-        sx={{
-          fontFamily: "Almarai, sans-serif",
-          fontWeight: 700,
-          fontSize: { xs: "24px", sm: "30px" }, // Smaller font size on small screens
-          // lineHeight: "100%",
-          textAlign: "right",
-          mb:1.5,
-          color: "var( --white-color)",
-        }}
-      >
-        {t.rateServicePage.header.mainTitle}
-      </Typography>
 
-      <Typography
-        sx={{
-          fontFamily: "Almarai, sans-serif",
-          fontWeight: 400,
-          fontSize: { xs: "16px", sm: "24px" }, // Smaller font size on small screens
-          // lineHeight: "100%",
-          textAlign: "center",
-          mb: 4,
-          color: "var( --white-color)",
-        }}
-      >
-        {t.rateServicePage.header.subTitle}
-      </Typography>
+      <AnimatedHeader
+        title={t.rateServicePage.header.mainTitle}
+        subtitle={t.rateServicePage.header.subTitle}
+      />
 
       {/* Form Section with Gradient Background */}
       <Box
@@ -89,18 +69,7 @@ const RateServicePage = () => {
           borderRadius: "10px",
         }}
       >
-        <Typography
-          sx={{
-            fontFamily: "Almarai, sans-serif",
-            fontWeight: 400,
-            fontSize: { xs: "18px", sm: "20px" }, // Smaller font size for small screens
-            lineHeight: "100%",
-            mb: 3,
-            color: "var( --white-color)",
-          }}
-        >
-          {t.rateServicePage.form.bookingDetailsTitle}
-        </Typography>
+        <FormTitle title={t.rateServicePage.form.bookingDetailsTitle} />
 
         <InputField
           label={t.rateServicePage.form.bookingNumber.label}
