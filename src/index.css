@@ -308,7 +308,7 @@ textarea::placeholder{
   padding-right: 0px !important;
   
 }
-.css-vycme6-MuiPickersInputBase-root-MuiPickersOutlinedInput-root.Mui-disabled * {
+.css-vycme6-MuiPickersInputBase-root-MuiPickersOutlinedInput-root.Mui-disabled *,.css-1p8sp1h  {
   color: #565C63 !important;
 }
 .css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input.Mui-disabled {
