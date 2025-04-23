@@ -193,7 +193,7 @@ input:-internal-autofill-selected {
   font-size: 18px !important;
   text-transform: lowercase !important;
 }
-.css-1jlr7fa-MuiFormControlLabel-root,
+.css-1jlr7fa-MuiFormControlLabel-root,.css-vj2h72,
 .css-v3aylg-MuiFormControlLabel-root,.css-63b40r {
   margin-left: 0px !important;
   margin-right: 0px !important;
@@ -201,8 +201,9 @@ input:-internal-autofill-selected {
 .css-imrjgg-MuiButtonBase-root-MuiCheckbox-root {
   padding: 0px !important;
 }
-.css-1jlr7fa-MuiFormControlLabel-root ,.css-63b40r   {
-  gap: 6px !important;
+.css-1jlr7fa-MuiFormControlLabel-root,.css-vj2h72 {
+  ,.css-63b40r   {
+  gap: 3px !important;
 }
 .css-1mcjc5q-MuiFormControlLabel-root .MuiFormControlLabel-label {
   font-size: 14px !important;
