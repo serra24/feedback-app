@@ -25,14 +25,14 @@ const MaintenanceServicePage = () => {
       label: t.subMaintenanceRequest,
       options: ["الدور الأول", "الدور الثاني", "الدور الثالث"],
     },
-    {
-      label: t.jobTitle,
-      options: ["كهرباء", "سباكة", "أخرى"],
-    },
-    {
-      label: t.assignTo,
-      options: ["الدور الأول", "الدور الثاني", "الدور الثالث"],
-    },
+    // {
+    //   label: t.jobTitle,
+    //   options: ["كهرباء", "سباكة", "أخرى"],
+    // },
+    // {
+    //   label: t.assignTo,
+    //   options: ["الدور الأول", "الدور الثاني", "الدور الثالث"],
+    // },
   ];
 
   const [selectedValues, setSelectedValues] = useState(

@@ -4,6 +4,7 @@ import { Box, Typography } from "@mui/material";
 // Sample images (you can replace these with actual image imports or URLs)
 import cleaning from "../../assets/icons/cleaning.svg";  // Example image
 import resources from "../../assets/icons/resources.svg"; // Example image
+import { Link } from "react-router-dom";
 
 const RoomServicePage = () => {
   return (
@@ -52,6 +53,7 @@ const RoomServicePage = () => {
           maxWidth: 500,
         }}
       >
+           <Link to="/cleaning-service" style={{ textDecoration: "none" }}>
         {/* First Card: شكوي */}
         <Box
           sx={{
@@ -103,7 +105,8 @@ const RoomServicePage = () => {
             نظافه
           </Typography>
         </Box>
-
+        </Link>
+        <Link to="/resources-service" style={{ textDecoration: "none" }}>
         {/* Second Card: أخري */}
         <Box
           sx={{
@@ -154,7 +157,7 @@ const RoomServicePage = () => {
           >
             موارد
           </Typography>
-        </Box>
+        </Box></Link>
       </Box>
     </Box>
   );

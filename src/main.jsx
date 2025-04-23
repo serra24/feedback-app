@@ -14,6 +14,8 @@ import LuggageServicePage from "./pages/LuggageServicePage/LuggageServicePage.js
 import GuestServicePage from "./pages/GuestServicePage/GuestServicePage.jsx";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import CleaningServicePage from "./pages/RoomServicePage/CleaningServicePage.jsx";
+import ResourcesServicePage from "./pages/RoomServicePage/ResourcesServicePage.jsx";
 // Directly add routing logic here
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -33,6 +35,8 @@ createRoot(document.getElementById("root")).render(
               element={<MaintenanceServicePage />}
             />
             <Route path="/room-service" element={<RoomServicePage />} />
+            <Route path="/cleaning-service" element={<CleaningServicePage />} /> 
+            <Route path="/resources-service" element={<ResourcesServicePage />}/>
             <Route path="/luggage-service" element={<LuggageServicePage />} />
           </Route>
         </Routes>

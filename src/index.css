@@ -266,3 +266,13 @@ input:-internal-autofill-selected {
 .css-w76bbz-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-w76bbz-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-w76bbz-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input{
   padding-right:14px !important;
 }
+.css-ux17pc-MuiButtonBase-root-MuiMenuItem-root-MuiMultiSectionDigitalClockSection-item.Mui-selected
+{
+  background-color: #084267 !important;
+}
+.css-1uent87-MuiButtonBase-root-MuiButton-root{
+  color: #02395c !important;
+}
+.css-1y6l765-MuiPickersLayout-root .MuiPickersLayout-actionBar{
+  /* display: none !important; */
+}

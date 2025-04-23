@@ -32,7 +32,7 @@ const InputField = ({
       <TextField
         variant="outlined"
         name={name}
-        type={type === "date" ? "date" : "text"} // Use native date input if type is date
+        type={type} // Use native date input if type is date
         fullWidth
         sx={{
           "& .MuiOutlinedInput-root": {
