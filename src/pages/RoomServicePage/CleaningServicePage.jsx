@@ -133,7 +133,7 @@ const CleaningServicePage = () => {
           justifyContent: "space-between",
         }}
       >
-        <FormTitle title="يرجي ملء النموذج التالي لتقديم طلب صيانه ." />
+        <FormTitle title="يرجي ملء النموذج التالي لتقديم طلب نظافه ." />
 
         <Box
           sx={{
@@ -358,7 +358,7 @@ const CleaningServicePage = () => {
               fontSize: 18,
             }}
           >
-            {t.Complaint.submitButton}
+            إرسال الطلب
           </Button>
           <Button
             variant="contained"
