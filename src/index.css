@@ -155,7 +155,7 @@ input:-internal-autofill-selected {
   ),
 .css-1fb7els-MuiPickersSectionList-root-MuiPickersInputBase-sectionsContainer-MuiPickersOutlinedInput-sectionsContainer:dir(
     rtl
-  ) {
+  ),.css-gpxgpk:dir(rtl),.css-oljenl:dir(rtl) {
   direction: rtl !important;
 }
 .css-1ysp02-MuiButtonBase-root-MuiIconButton-root:dir(rtl) {
