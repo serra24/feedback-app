@@ -230,7 +230,7 @@ const GuestServicePage = () => {
             sx={{
               display: "flex",
               flexDirection: "column",
-              gap: { xs: 1, md: 0 },
+              gap: { xs: 1, md: .5 },
             }}
           >
             {complaintTypes
