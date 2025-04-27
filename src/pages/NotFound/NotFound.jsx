@@ -1,10 +1,12 @@
 
-import React from 'react';
+import React, { useContext } from 'react';
 import { Box, Typography, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import notFoundImage from '../../assets/icons/404-image.svg'; // Your custom 404 image
+import { LanguageContext } from '../../context/LanguageContext';
 
 const NotFound = () => {
+    const { translations: t } = useContext(LanguageContext);
   const navigate = useNavigate();
   
   return (
@@ -38,7 +40,7 @@ const NotFound = () => {
           mb:3
         }}
       >
-        Error 404
+        {t.error404.title}
       </Typography>
       
       {/* Oops! Page not found */}
@@ -55,7 +57,7 @@ const NotFound = () => {
           mb:"40px"
         }}
       >
-        Oops! Page Not Found
+        {t.error404.message}
       </Typography>
       
       {/* Button to navigate back to the homepage */}
@@ -76,7 +78,7 @@ const NotFound = () => {
           textTransform: 'none',
         }}
       >
-        Back to Home
+         {t.error404.button}
       </Button>
     </Box>
   );

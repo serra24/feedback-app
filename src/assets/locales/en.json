@@ -239,7 +239,12 @@
         "Providing support and handling complaints throughout the stay."
       ]
     },
-    "whowe": "Who we are?"
+    "whowe": "Who we are?",
+    "error404": {
+    "title": "Error 404",
+    "message": "Oops! Page Not Found",
+    "button": "Back to Home"
+  }
    
   
   
