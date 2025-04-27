@@ -16,31 +16,39 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import CleaningServicePage from "./pages/RoomServicePage/CleaningServicePage.jsx";
 import ResourcesServicePage from "./pages/RoomServicePage/ResourcesServicePage.jsx";
+import AboutUs from "./pages/AboutUs/AboutUs.jsx";
 // Directly add routing logic here
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <LanguageProvider>
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <Router>
-        <Routes>
-          {/* This will render App, and then inside it, Home will be rendered at the index path */}
-          <Route path="/" element={<App />}>
-            <Route index element={<Home />} />
-            <Route path="/rate-service" element={<RateServicePage />} />
-            <Route path="/request-service" element={<RequestServicePage />} />
-            <Route path="/evaluation" element={<EvaluationPage />} />
-            <Route path="/guest-service" element={<GuestServicePage />} />
-            <Route
-              path="/maintenance-service"
-              element={<MaintenanceServicePage />}
-            />
-            <Route path="/room-service" element={<RoomServicePage />} />
-            <Route path="/cleaning-service" element={<CleaningServicePage />} /> 
-            <Route path="/resources-service" element={<ResourcesServicePage />}/>
-            <Route path="/luggage-service" element={<LuggageServicePage />} />
-          </Route>
-        </Routes>
-      </Router>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <Router>
+          <Routes>
+            {/* This will render App, and then inside it, Home will be rendered at the index path */}
+            <Route path="/" element={<App />}>
+              <Route index element={<Home />} />
+              <Route path="/about-us" element={<AboutUs/>} />
+              <Route path="/rate-service" element={<RateServicePage />} />
+              <Route path="/request-service" element={<RequestServicePage />} />
+              <Route path="/evaluation" element={<EvaluationPage />} />
+              <Route path="/guest-service" element={<GuestServicePage />} />
+              <Route
+                path="/maintenance-service"
+                element={<MaintenanceServicePage />}
+              />
+              <Route path="/room-service" element={<RoomServicePage />} />
+              <Route
+                path="/cleaning-service"
+                element={<CleaningServicePage />}
+              />
+              <Route
+                path="/resources-service"
+                element={<ResourcesServicePage />}
+              />
+              <Route path="/luggage-service" element={<LuggageServicePage />} />
+            </Route>
+          </Routes>
+        </Router>
       </LocalizationProvider>
     </LanguageProvider>
   </StrictMode>

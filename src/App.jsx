@@ -46,6 +46,7 @@ if (loading) {
              backgroundImage: `url(${backgroundImage})`,
              backgroundSize: "cover",
              backgroundPosition: "center",
+             
              "&::before": {
                content: '""',
                position: "absolute",

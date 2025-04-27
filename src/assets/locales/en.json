@@ -208,7 +208,38 @@
     "staff_behavior": "Staff Behavior",
     "booking_issues": "Booking or Pre-booking Issues",
     "food_and_drinks": "Food and Drinks",
-    "Now":"Now","Ok":"Ok"
+    "Now":"Now","Ok":"Ok",
+    "who_we_are": {
+      "title": "Who We Are – Nawazi :",
+      "content": "At Nawazi, we aim to make your spiritual journey easy, comfortable, and filled with serenity. We are a digital platform specializing in hospitality and religious tourism services, providing everything you need from the moment you arrive until the end of your journey, in an environment of respect, organization, and high-quality service."
+    },
+    "our_vision": {
+      "title": "Our Vision :",
+      "content": "To be the leading digital destination that accompanies the guests of the Most Merciful in their journey, with comprehensive services that care for both body and soul."
+    },
+    "our_mission": {
+      "title": "Our Mission :",
+      "content": "We offer a modern hospitality experience that elevates religious values by facilitating access to all hotel and religious services with comfort and peace of mind."
+    },
+    "our_values": {
+      "title": "Our Values :",
+      "content": [
+        "We serve our guests with everything we can offer.",
+        "Each visitor and each journey is unique.",
+        "Guest satisfaction is our goal.",
+        "We manage details carefully to give you peace of mind."
+      ]
+    },
+    "what_we_offer": {
+      "title":"What Do We Offer?",
+      "content": [
+        "Booking and managing accommodation.",
+        "Cleaning and maintenance services inside the room.",
+        "Food or resource requests.",
+        "Providing support and handling complaints throughout the stay."
+      ]
+    },
+    "whowe": "Who we are?"
    
   
   

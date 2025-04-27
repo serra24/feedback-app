@@ -115,7 +115,7 @@ const Header = ({
               }}
             >
               <Link
-                href="#"
+                href="about-us"
                 underline="none"
                 color="white"
                 sx={{
