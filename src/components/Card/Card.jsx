@@ -64,7 +64,7 @@ const Card = ({
           {/* Top Title */}
           <Typography
             sx={{
-              fontFamily: "Almarai, sans-serif",
+             
               fontWeight: 400,
               fontSize: { xs: "18px", sm: "20px", md: "24px" },
               color: "#fff",

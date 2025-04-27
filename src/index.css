@@ -12,7 +12,7 @@ body {
   padding: 0;
   font-size: 16px;
   line-height: 1.5;
-  font-family: "Almarai", sans-serif;
+  /* font-family: "Monstrate", sans-serif; */
 }
 /* Style the scrollbar itself */
 ::-webkit-scrollbar {
@@ -56,26 +56,88 @@ body {
   gap: 6px !important;
 }
 /* index.css */
+body[dir="ltr"] {
 
-.MuiTypography-root,
-.MuiButton-root,
-.MuiAppBar-root,
-.MuiPaper-root,
-.MuiDrawer-root,
-.MuiSelect-root,
-.MuiFormControl-root,
-.MuiTextField-root,
-.MuiListItem-root,
-.MuiTable-root,
-.MuiDialog-root,
-.MuiCard-root,
-.MuiCheckbox-root,
-.MuiRadio-root,
-.MuiSwitch-root,
-.MuiSlider-root,
-.css-1y4gq5a-MuiPickersSectionList-root-MuiPickersInputBase-sectionsContainer-MuiPickersOutlinedInput-sectionsContainer,
-.css-joz0rk-MuiPickersSectionList-section-MuiPickersInputBase-section {
+  font-family: "Monstrate", sans-serif !important;
+}
+/* RTL (Right to Left) styles */
+body[dir="rtl"] {
+  
+  font-family: "Almarai", sans-serif  !important;
+}
+body[dir="ltr"] .MuiTypography-root,
+body[dir="ltr"] .MuiButton-root,
+body[dir="ltr"] .MuiAppBar-root,
+body[dir="ltr"] .MuiPaper-root,
+body[dir="ltr"] .MuiDrawer-root,
+body[dir="ltr"] .MuiSelect-root,
+body[dir="ltr"] .MuiFormControl-root,
+body[dir="ltr"] .MuiTextField-root,
+body[dir="ltr"] .MuiListItem-root,
+body[dir="ltr"] .MuiTable-root,
+body[dir="ltr"] .MuiDialog-root,
+body[dir="ltr"] .MuiCard-root,
+body[dir="ltr"] .MuiCheckbox-root,
+body[dir="ltr"] .MuiRadio-root,
+body[dir="ltr"] .MuiSwitch-root,
+.css-guh1qo-MuiTypography-root:dir(ltr),
+.css-5lvf42-MuiSelect-select-MuiInputBase-input-MuiInput-input:dir(ltr),
+body[dir="ltr"] .MuiSlider-root,
+.css-1yzf4q2-MuiTypography-root:dir(ltr),
+.css-ylj3ft-MuiTypography-root:dir(ltr),
+.css-1xzerxu-MuiTypography-root:dir(ltr),
+.css-1t1db73-MuiTypography-root:dir(ltr),
+.css-1i7iul4-MuiTypography-root:dir(ltr),
+.css-12uri4d-MuiTypography-root:dir(ltr),
+.css-l7dvuu-MuiTypography-root:dir(ltr),
+.css-17if9io-MuiTypography-root:dir(ltr),
+.css-2u11ia-MuiInputBase-input-MuiOutlinedInput-input:dir(ltr),
+.css-h0wz5n-MuiTypography-root-MuiLink-root:dir(ltr),
+.css-19j0bbv-MuiTypography-root:dir(ltr),
+.css-er619e-MuiFormHelperText-root:dir(ltr),
+.css-1t29q21-MuiButtonBase-root-MuiButton-root:dir(ltr),
+body[dir="ltr"] .css-1y4gq5a-MuiPickersSectionList-root-MuiPickersInputBase-sectionsContainer-MuiPickersOutlinedInput-sectionsContainer,
+body[dir="ltr"] .css-joz0rk-MuiPickersSectionList-section-MuiPickersInputBase-section 
+body[dir="ltr"] .css-1yzf4q2-MuiTypography-root{
+  font-family: "Monstrate", sans-serif !important;
+}
+body[dir="rtl"] .MuiTypography-root,
+body[dir="rtl"] .MuiButton-root,
+body[dir="rtl"] .MuiAppBar-root,
+body[dir="rtl"] .MuiPaper-root,
+body[dir="rtl"] .MuiDrawer-root,
+body[dir="rtl"] .MuiSelect-root,
+body[dir="rtl"] .MuiFormControl-root,
+body[dir="rtl"] .MuiTextField-root,
+body[dir="rtl"] .MuiListItem-root,
+body[dir="rtl"] .MuiTable-root,
+body[dir="rtl"] .MuiDialog-root,
+body[dir="rtl"] .MuiCard-root,
+body[dir="rtl"] .MuiCheckbox-root,
+body[dir="rtl"] .MuiRadio-root,
+body[dir="rtl"] .MuiSwitch-root,
+.css-1t29q21-MuiButtonBase-root-MuiButton-root:dir(rtl),
+.css-17if9io-MuiTypography-root:dir(rtl),
+body[dir="rtl"] .MuiSlider-root,
+.css-2u11ia-MuiInputBase-input-MuiOutlinedInput-input:dir(rtl),
+.css-er619e-MuiFormHelperText-root:dir(rtl),
+.css-19j0bbv-MuiTypography-root:dir(rtl),
+.css-12uri4d-MuiTypography-root:dir(rtl),
+.css-l7dvuu-MuiTypography-root:dir(rtl),
+.css-1i7iul4-MuiTypography-root:dir(rtl),
+.css-5lvf42-MuiSelect-select-MuiInputBase-input-MuiInput-input:dir(rtl),
+.css-h0wz5n-MuiTypography-root-MuiLink-root:dir(rtl),
+.css-guh1qo-MuiTypography-root:dir(rtl),
+.css-1xzerxu-MuiTypography-root:dir(rtl),
+.css-ylj3ft-MuiTypography-root:dir(rtl),
+.css-1t1db73-MuiTypography-root:dir(rtl),
+body[dir="rtl"] .css-1yzf4q2-MuiTypography-root
+.css-1yzf4q2-MuiTypography-root:dir(rtl),
+.css-1yzf4q2-MuiTypography-root:dir(rtl),
+body[dir="rtl"] .css-1y4gq5a-MuiPickersSectionList-root-MuiPickersInputBase-sectionsContainer-MuiPickersOutlinedInput-sectionsContainer,
+body[dir="rtl"] .css-joz0rk-MuiPickersSectionList-section-MuiPickersInputBase-section {
   font-family: "Almarai", sans-serif !important;
+ 
 }
 .css-mb7bu8-MuiFormControl-root,
 .css-1wcjd45.css-1wcjd45.css-1wcjd45,

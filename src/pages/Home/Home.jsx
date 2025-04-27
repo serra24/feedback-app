@@ -66,7 +66,7 @@ const Home = () => {
           </motion.div>
           <Typography
             sx={{
-              fontFamily: "Almarai, sans-serif",
+          
               fontWeight: 400,
               fontSize: { xs: "16px", sm: "20px", md: "24px" },
               lineHeight: "1.5",
@@ -92,7 +92,7 @@ const Home = () => {
         >
           <Typography
             sx={{
-              fontFamily: "Almarai, sans-serif",
+            
               fontWeight: 700,
               fontSize: "20px",
             }}
