@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Box, Typography, Button, TextField, TextareaAutosize } from "@mui/material";
 import starFilled from "../../assets/icons/star-filled.svg";
 import starEmpty from "../../assets/icons/star-empty.svg";
@@ -6,6 +6,8 @@ import starEmpty from "../../assets/icons/star-empty.svg";
 import { motion } from "framer-motion";
 import { LanguageContext } from "../../context/LanguageContext";
 import AnimatedHeader from "../../components/AnimatedHeader/AnimatedHeader";
+import SuccessPopup from "../../components/SuccessPopup/SuccessPopup";
+import ErrorPopup from "../../components/ErrorPopup/ErrorPopup";
 
 const EvaluationPage = () => {
   const [ratings, setRatings] = useState(Array(5).fill(0));
@@ -13,6 +15,25 @@ const EvaluationPage = () => {
   const [comment, setComment] = useState("");
   // const location = useLocation();
   // const { bookingNumber, secretNumber } = location.state || {};
+  const [popupOpen, setPopupOpen] = useState(false);
+  const [popupType, setPopupType] = useState(""); // 'success' or 'error'
+  const [popupMessage, setPopupMessage] = useState("");
+   // Reference for main content area
+   const mainContentRef = useRef(null);
+
+   // Apply blur effect to the main content when popup is open
+   useEffect(() => {
+     if (popupOpen) {
+       // Apply the blur effect on the main content area
+       if (mainContentRef.current) {
+         mainContentRef.current.style.filter = "blur(5px)";
+       }
+     } else {
+       if (mainContentRef.current) {
+         mainContentRef.current.style.filter = "none";
+       }
+     }
+   }, [popupOpen]);
   const { translations: t } = useContext(LanguageContext);
   const ratingLabels = [
     t.Evaluation.ratings.cleanliness,
@@ -26,7 +47,22 @@ const EvaluationPage = () => {
     newRatings[index] = value;
     setRatings(newRatings);
   };
-
+  const handleSubmit = () => {
+    // Example validation: Check if all ratings are provided
+    const isValid = ratings.every(rating => rating !== 0);
+    
+    if (isValid) {
+      // Show success popup
+      setPopupMessage(t.Evaluation.successMessage);
+      setPopupType('success');
+    } else {
+      // Show error popup
+      setPopupMessage(t.Evaluation.errorMessage);
+      setPopupType('error');
+    }
+    
+    setPopupOpen(true);
+  };
   return (
     <Box
       sx={{
@@ -40,6 +76,7 @@ const EvaluationPage = () => {
         flexDirection: "column",
       }}
     >
+      <Box  ref={mainContentRef}>
        <AnimatedHeader
       title={t.Evaluation.header}
       subtitle={t.Evaluation.subheader}
@@ -56,7 +93,7 @@ const EvaluationPage = () => {
             width: { xs: "90%", sm: "440px" }, // Adjust width for small screens
             // height: { xs: "auto", sm: "400px" },
             borderRadius: "8px",
-            background: "linear-gradient(180deg, #02395C 0%, #13537C 100%)",
+            background: "linear-gradient(180deg, #00395D 0%, #13537C 100%)",
             p: { xs: 2, sm: 3 },
             color: "#fff",
             display: "flex",
@@ -187,12 +224,29 @@ const EvaluationPage = () => {
                   backgroundColor: "#002d4d",
                 },
               }}
+              onClick={handleSubmit}
             >
               {t.Evaluation.submit}
             </Button>
           </motion.div>
         </Box>
       </motion.div>
+      </Box>
+         {/* Success or Error Popups */}
+         {popupType === 'success' && (
+        <SuccessPopup
+          open={popupOpen}
+          message={popupMessage}
+          onClose={() => setPopupOpen(false)}
+        />
+      )}
+     {popupType === 'error' && (
+        <ErrorPopup
+          open={popupOpen}
+          message={popupMessage}
+          onClose={() => setPopupOpen(false)}
+        />
+      )}
     </Box>
   );
 };
