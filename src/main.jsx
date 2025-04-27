@@ -17,6 +17,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import CleaningServicePage from "./pages/RoomServicePage/CleaningServicePage.jsx";
 import ResourcesServicePage from "./pages/RoomServicePage/ResourcesServicePage.jsx";
 import AboutUs from "./pages/AboutUs/AboutUs.jsx";
+import NotFound from "./pages/NotFound/NotFound.jsx";
 // Directly add routing logic here
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -46,6 +47,7 @@ createRoot(document.getElementById("root")).render(
                 element={<ResourcesServicePage />}
               />
               <Route path="/luggage-service" element={<LuggageServicePage />} />
+              <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>
         </Router>
