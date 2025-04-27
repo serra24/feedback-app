@@ -80,10 +80,10 @@ const Header = ({
                 transition: { duration: 0.3 }, // Duration of the hover effect
               }}
             >
-              <Link
-                href="/"
+             <Link
+                component="button" // Using a button-style link
+                onClick={() => navigate("/")}
                 underline="none"
-                color="white"
                 sx={{
                   fontFamily: "Almarai, sans-serif",
                   fontWeight: 400,
@@ -115,9 +115,9 @@ const Header = ({
               }}
             >
               <Link
-                href="about-us"
+                component="button" // Using a button-style link
+                onClick={() => navigate("/about-us")}
                 underline="none"
-                color="white"
                 sx={{
                   fontFamily: "Almarai, sans-serif",
                   fontWeight: 400,

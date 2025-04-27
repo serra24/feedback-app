@@ -3,44 +3,45 @@ import { Box, Typography } from "@mui/material";
 import { LanguageContext } from "../../context/LanguageContext";
 
 const AboutUs = () => {
-      const { translations: t } = useContext(LanguageContext);
-    
+  const { translations: t } = useContext(LanguageContext);
+
   // Define the content for each section
-  
+
   const sections = [
     {
       title: t.who_we_are.title,
-      content: t.who_we_are.content
+      content: t.who_we_are.content,
     },
     {
       title: t.our_vision.title,
-      content: t.our_vision.content
+      content: t.our_vision.content,
     },
     {
       title: t.our_mission.title,
-      content: t.our_mission.content
+      content: t.our_mission.content,
     },
     {
       title: t.our_values.title,
-      content: t.our_values.content
+      content: t.our_values.content,
     },
     {
       title: t.what_we_offer.title,
-      content: t.what_we_offer.content
-    }
+      content: t.what_we_offer.content,
+    },
   ];
 
   return (
     <Box
-      sx={{
-        position: "relative",
-        zIndex: 2,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        minHeight: { md: "90vh", xs: "auto",lg: "140vh" },
-      }}
-    >
+         sx={{
+           position: "relative",
+           zIndex: 2,
+           display: "flex",
+           flexDirection: "column",
+           alignItems: "center",
+           p: 3,
+           minHeight: { md: "140vh", xs: "auto" },
+         }}
+       >
       <Box sx={{ mb: "32px" }}>
         {/* Header Section (من نحن ؟) */}
         <Typography
@@ -53,24 +54,25 @@ const AboutUs = () => {
             // textAlign: "right",
           }}
         >
-         {t.whowe}
+          {t.whowe}
         </Typography>
       </Box>
 
       {/* Gradient Box */}
       <Box
         sx={{
-          width: "635px",
-          mt: "80px",
+          width: { xs: "90%", sm: "440px", md: "635px" },
+          //   width: "635px",
+          mt: "60px",
           borderRadius: "8px",
           background: "linear-gradient(180deg, #00395D 0%, #13537C 100%)",
           position: "absolute",
-          padding: 3,
+          p: { xs: 2, sm: 3 },
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-        //   alignItems: "flex-end",
-        //   textAlign: "right",
+          //   alignItems: "flex-end",
+          //   textAlign: "right",
         }}
       >
         {/* Content Sections Inside the Gradient Box */}
