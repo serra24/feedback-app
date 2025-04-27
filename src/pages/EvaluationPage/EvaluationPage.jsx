@@ -10,6 +10,8 @@ import SuccessPopup from "../../components/SuccessPopup/SuccessPopup";
 import ErrorPopup from "../../components/ErrorPopup/ErrorPopup";
 
 const EvaluationPage = () => {
+  const { translations: t } = useContext(LanguageContext);
+
   const [ratings, setRatings] = useState(Array(5).fill(0));
   const [hovered, setHovered] = useState({ index: null, value: 0 });
   const [comment, setComment] = useState("");
@@ -34,7 +36,6 @@ const EvaluationPage = () => {
        }
      }
    }, [popupOpen]);
-  const { translations: t } = useContext(LanguageContext);
   const ratingLabels = [
     t.Evaluation.ratings.cleanliness,
     t.Evaluation.ratings.service,

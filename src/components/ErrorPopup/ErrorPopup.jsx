@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Box, Typography, Button } from '@mui/material';
 import { motion } from 'framer-motion';
 import error from '../../assets/icons/error-icon.svg'; // Your custom error icon
 import CloseIcon from '@mui/icons-material/Close'; // Material-UI Close Icon
+import { LanguageContext } from "../../context/LanguageContext";
 
 // Error Popup Component
 const ErrorPopup = ({ open, message, onClose }) => {
-  
-
+    const { translations: t } = useContext(LanguageContext);
   if (!open) return null;
 
   return (
@@ -57,7 +57,7 @@ const ErrorPopup = ({ open, message, onClose }) => {
         transition={{ duration: 0.4 }}
       >
         <Typography sx={{ fontWeight: 700, fontSize: '20px' }}>
-          حدث خطأ
+         {t.errorhappen}
         </Typography>
       </motion.div>
 
