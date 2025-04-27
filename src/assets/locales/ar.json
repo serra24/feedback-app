@@ -207,7 +207,9 @@
   "billing_issues": "مشاكل في الفاتورة أو الدفع",
   "staff_behavior": "سلوك الموظفين",
   "booking_issues": "مشاكل في الحجز أو الحجز المسبق",
-  "food_and_drinks": "الطعام و الشراب"
+  "food_and_drinks": "الطعام و الشراب",
+  "Now":"الآن",
+  "Ok":"حسناً"
     
     
 }
