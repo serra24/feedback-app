@@ -1,7 +1,16 @@
-import React from "react";
+import React, { use } from "react";
 import { Drawer, Box, Link } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
-const CustomDrawer = ({ drawerOpen, toggleDrawer, logo, homeIcon, aboutIcon, isRtl, t }) => {
+const CustomDrawer = ({
+  drawerOpen,
+  toggleDrawer,
+  logo,
+  homeIcon,
+  aboutIcon,
+  isRtl,
+  t,
+}) => {
   // Shared style for Link elements to avoid redundancy
   const linkStyles = {
     fontFamily: "Almarai, sans-serif",
@@ -18,7 +27,7 @@ const CustomDrawer = ({ drawerOpen, toggleDrawer, logo, homeIcon, aboutIcon, isR
       color: "#fff", // Hover effect to change color on hover
     },
   };
-
+const navigate = useNavigate(); // Assuming you're using react-router-dom for navigation
   return (
     <Drawer
       anchor={isRtl ? "right" : "left"}
@@ -29,36 +38,39 @@ const CustomDrawer = ({ drawerOpen, toggleDrawer, logo, homeIcon, aboutIcon, isR
           backgroundColor: "#02395C",
           color: "white",
           width: "250px",
-        //   padding: "20px",
+          //   padding: "20px",
           display: "flex",
           flexDirection: "column",
-        //   gap: 4,
-        
-        //   boxSizing: "border-box", // Ensure padding doesn't affect width
+          //   gap: 4,
+
+          //   boxSizing: "border-box", // Ensure padding doesn't affect width
         },
       }}
     >
-          {/* Logo Section with Border Bottom */}
-          <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            mb: 4,
-            borderBottom: "2px solid #CFAE78", // Add bottom border
-            paddingBottom: "16px", // Add padding to give space between logo and border
-          }}
-        >
-          <img src={logo} alt="Logo" style={{ maxWidth: "120px", height: "auto" }} />
-        </Box>
+      {/* Logo Section with Border Bottom */}
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          mb: 4,
+          borderBottom: "2px solid #CFAE78", // Add bottom border
+          paddingBottom: "16px", // Add padding to give space between logo and border
+        }}
+      >
+        <img
+          src={logo}
+          alt="Logo"
+          style={{ maxWidth: "120px", height: "auto" }}
+        />
+      </Box>
       {/* Drawer Content */}
-      <Box sx={{ display: "flex", flexDirection: "column",px:2, gap: 3 }}>
-      
-
+      <Box sx={{ display: "flex", flexDirection: "column", px: 2, gap: 3 }}>
         {/* Navigation Links */}
         <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
           {/* Home Link */}
           <Link
-            href="#"
+            component="button" // Using a button-style link
+            onClick={() => navigate("/")}
             underline="none"
             color="white"
             sx={linkStyles}
@@ -79,7 +91,8 @@ const CustomDrawer = ({ drawerOpen, toggleDrawer, logo, homeIcon, aboutIcon, isR
 
           {/* About Link */}
           <Link
-            href="#"
+            component="button" // Using a button-style link
+            onClick={() => navigate("/about-us")}
             underline="none"
             color="white"
             sx={linkStyles}
