@@ -84,9 +84,10 @@ const RequestServicePage = () => {
         sx={{
           display: "flex",
           flexWrap: "wrap",
-          justifyContent: {md:"space-between", xs:"center"},
-          gap: {md:"none", xs: 2}, // Adjust gap for smaller screens
-          maxWidth: 950, // عرض الصف الكامل (259 * 2 + المسافة بين الكروت)
+          justifyContent: {md:"center", xs:"center"},
+          gap: {md:4, xs: 2}, // Adjust gap for smaller screens
+          maxWidth: 650, // عرض الصف الكامل (259 * 2 + المسافة بين الكروت)
+          // maxWidth: 950, 
         }}
       >
         {services.map((service, index) => (
@@ -103,7 +104,7 @@ const RequestServicePage = () => {
               alignItems: "center",
               justifyContent: "center",
               p: 2,
-              mb: 4, // مسافة بين الصفوف
+              // mb: 4, // Add margin bottom for spacing between cards
               textAlign: "center",
               cursor: "pointer", // Make the card clickable
               transition: "transform 0.3s ease, box-shadow 0.3s ease", // Smooth hover transition
