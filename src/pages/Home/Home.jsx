@@ -149,7 +149,7 @@ const Home = () => {
         >
           <Card
             topTitle={t.RequestServicePage.Complaint}
-            title={t.RequestServicePage.Complaint}
+            title={t.Submitcomplaint}
             description={t.RequestServicePage.Complaintdescription}
             bgColor={["var(--primary-bg-color)", "var(--secondary-bg-color)"]}
             iconColor="var(--gold-color-2)"
