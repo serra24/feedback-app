@@ -135,7 +135,18 @@ const Home = () => {
             navigateTo="/request-service"
           />
         </Box>
-        <Box>
+        <Box
+          sx={{
+            width: "100%",
+            maxWidth: "1200px",
+            display: "flex",
+            gap: { xs: 2, md: 3 },
+            flexDirection: { xs: "column", sm: "column", md: "row" },
+            justifyContent: "center",
+            px: { xs: 1, sm: 2 },
+            mb: 2.5,
+          }}
+        >
           <Card
             topTitle={t.RequestServicePage.Complaint}
             title={t.RequestServicePage.Complaint}
