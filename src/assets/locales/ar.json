@@ -248,6 +248,7 @@
   }
     ,"errorhappen":" حدث خطأ",
     "thanks":"شكرًا لك",
-    "Submitcomplaint":"تقديم شكوى"
+    "Submitcomplaint":"تقديم شكوى",
+    "loading":"جاري التحميل..."
     
 }

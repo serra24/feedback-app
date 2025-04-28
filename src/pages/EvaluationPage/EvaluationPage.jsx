@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { use, useContext, useEffect, useRef, useState } from "react";
 import {
   Box,
   Typography,
@@ -9,71 +9,110 @@ import {
 import starFilled from "../../assets/icons/star-filled.svg";
 import starEmpty from "../../assets/icons/star-empty.svg";
 // import { useLocation } from "react-router-dom";
-import { m, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { LanguageContext } from "../../context/LanguageContext";
 import AnimatedHeader from "../../components/AnimatedHeader/AnimatedHeader";
 import SuccessPopup from "../../components/SuccessPopup/SuccessPopup";
 import ErrorPopup from "../../components/ErrorPopup/ErrorPopup";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchGuestEvaluation } from "../../redux/slices/guestEvaluationSlice";
+import Loading from "../../components/Loading/Loading";
+import { addEvaluation } from "../../redux/slices/evaluationSlice";
+import { useLocation } from "react-router-dom";
 
 const EvaluationPage = () => {
-  const { translations: t } = useContext(LanguageContext);
-
-  const [ratings, setRatings] = useState(Array(5).fill(0));
+  const { translations: t, language } = useContext(LanguageContext);
+  const roomNum2 = useSelector((state) => state.room.roomNum);
+  // console.log("Room Number from Redux:", roomNum2);
+   const location = useLocation();
+  const { phone, email,guestName } = location.state || {};
+  const [ratings, setRatings] = useState([]); // We will store individual ratings for each item here
   const [hovered, setHovered] = useState({ index: null, value: 0 });
   const [comment, setComment] = useState("");
-  // const location = useLocation();
-  // const { bookingNumber, secretNumber } = location.state || {};
   const [popupOpen, setPopupOpen] = useState(false);
   const [popupType, setPopupType] = useState(""); // 'success' or 'error'
   const [popupMessage, setPopupMessage] = useState("");
-  // Reference for main content area
   const mainContentRef = useRef(null);
-
-  // Apply blur effect to the main content when popup is open
+  const dispatch = useDispatch();
+  const { data, loading } = useSelector((state) => state.guestEvaluation);
+ 
   useEffect(() => {
-    if (popupOpen) {
-      // Apply blur effect and background overlay when popup is open
-      if (mainContentRef.current) {
-        mainContentRef.current.style.filter = "blur(5px)";
-        mainContentRef.current.style.transition = "filter 0.3s ease-in-out";
-        mainContentRef.current.style.pointerEvents = "none"; // Disable pointer events on main content
-      }
-    } else {
-      // Reset the main content filter and background when the popup is closed
-      if (mainContentRef.current) {
-        mainContentRef.current.style.filter = "none";
-        mainContentRef.current.style.pointerEvents = "auto"; // Enable pointer events on main content
-      }
-    }
-  }, [popupOpen]);
-  const ratingLabels = [
-    t.Evaluation.ratings.cleanliness,
-    t.Evaluation.ratings.service,
-    t.Evaluation.ratings.facilities,
-    t.Evaluation.ratings.location,
-    t.Evaluation.ratings.value,
-  ];
+    // Fetch guest evaluation data when the component mounts
+    dispatch(fetchGuestEvaluation(language))
+      .then(() => {
+        // console.log("Guest evaluation data fetched successfully.");
+      })
+      .catch((error) => {
+        console.error("Error fetching guest evaluation data:", error);
+      });
+  }, [dispatch, language]);
+  useEffect(() => {
+    // Initialize ratings for each item (if data is available)
+    const initialRatings = data.map(() => 0); // Initialize all ratings to 0
+    setRatings(initialRatings);
+  }, [data]);
+
   const handleRating = (index, value) => {
-    const newRatings = [...ratings];
-    newRatings[index] = value;
-    setRatings(newRatings);
+    const updatedRatings = [...ratings]; // Copy current ratings
+    updatedRatings[index] = value; // Update the rating for the specific item
+    setRatings(updatedRatings); // Update state
   };
+
   const handleSubmit = () => {
-    // Example validation: Check if all ratings are provided
-    const isValid = ratings.every((rating) => rating !== 0);
+    // const isValid = ratings.every((rating) => rating !== 0); // Check if all ratings are selected
 
-    if (isValid) {
-      // Show success popup
-      setPopupMessage(t.Evaluation.successMessage);
-      setPopupType("success");
-    } else {
-      // Show error popup
-      setPopupMessage(t.Evaluation.errorMessage);
-      setPopupType("error");
-    }
+    // if (isValid) {
+    // Create the evaluation payload
+    const evaluationData = {
+      name: guestName, // You can replace this with a dynamic name if needed
+      roomId: 660101,
+      // roomId: roomNum2, // Use the room number from session storage
+      // roomId: roomNum, // Use the room number from session storage
+      // roomId: sessionStorage.getItem("roomNum"), // Use the room number from session storage
+      items: data.map((item, index) => ({
+        itemId: item.id, // Use the actual itemId from the data
+        rate: ratings[index], // The corresponding rating for that item
+      })),
+      description: comment,
+      email: email || null,
+      phoneNumber: phone || null,
+      language: language === "ar" ? 1 : 2, 
+    };
 
-    setPopupOpen(true);
+    // Dispatch the evaluation action
+    dispatch(addEvaluation(evaluationData))
+      .then((response) => {
+        // console.log("Evaluation submitted successfully:", response);
+        if (response.payload.successtate === 200) {
+          setPopupMessage(t.Evaluation.successMessage);
+          setPopupType("success");
+          setPopupOpen(true);
+        } else {
+          setPopupMessage(response.payload?.errormessage);
+          // console.log("Error message:", response?.payload?.errormessage);
+
+          setPopupType("error");
+          setPopupOpen(true); // Show error popup
+        }
+      })
+      .catch((error) => {
+        // console.log("Error submitting evaluation:", error);
+
+        setPopupMessage(error?.errormessage);
+        setPopupType("error");
+        setPopupOpen(true); // Show error popup
+      });
+    // } else {
+    //   setPopupMessage(t.Evaluation.errorMessage);
+    //   setPopupType("error");
+    //   setPopupOpen(true); // Show error popup for incomplete ratings
+    // }
   };
+
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <Box
       sx={{
@@ -101,8 +140,7 @@ const EvaluationPage = () => {
         >
           <Box
             sx={{
-              width: { xs: "90%", sm: "440px" }, // Adjust width for small screens
-              // height: { xs: "auto", sm: "400px" },
+              width: { xs: "90%", sm: "440px" },
               borderRadius: "8px",
               background: "linear-gradient(180deg, #00395D 0%, #13537C 100%)",
               p: { xs: 2, sm: 3 },
@@ -117,22 +155,20 @@ const EvaluationPage = () => {
                 fontFamily: "Almarai, sans-serif",
                 fontWeight: 700,
                 fontSize: "20px",
-                // textAlign: "right",
-                // mb: 3,
               }}
             >
               {t.Evaluation.rateYourStay}
             </Typography>
 
-            {ratingLabels.map((label, index) => (
+            {/* Iterate through the evaluation items */}
+            {data.map((item, index) => (
               <motion.div
-                key={index}
+                key={item.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.15, duration: 0.4 }}
               >
                 <Box
-                  // key={index}
                   sx={{
                     display: "flex",
                     justifyContent: "space-between",
@@ -141,18 +177,20 @@ const EvaluationPage = () => {
                     gap: 2,
                   }}
                 >
+                  {/* Rating Label */}
                   <Typography
                     sx={{
                       fontFamily: "Almarai, sans-serif",
                       fontWeight: 400,
                       fontSize: "18px",
-                      whiteSpace: "normal", // allow line breaks
-                      // textAlign: { xs: "center", sm: "right" }, // center on small screens
+                      whiteSpace: "normal",
                       width: { xs: "95px", sm: "auto" },
                     }}
                   >
-                    {label}
+                    {item?.localizedName}
                   </Typography>
+
+                  {/* Rating Stars */}
                   <Box>
                     {[1, 2, 3, 4, 5].map((star) => (
                       <motion.img
@@ -174,7 +212,7 @@ const EvaluationPage = () => {
                         }}
                         whileHover={{ scale: 1.2 }}
                         transition={{ type: "spring", stiffness: 300 }}
-                        onClick={() => handleRating(index, star)}
+                        onClick={() => handleRating(index, star)} // Update the rating for the item
                         onMouseEnter={() => setHovered({ index, value: star })}
                         onMouseLeave={() =>
                           setHovered({ index: null, value: 0 })
@@ -245,6 +283,7 @@ const EvaluationPage = () => {
           </Box>
         </motion.div>
       </Box>
+
       {/* Success or Error Popups */}
       {popupType === "success" && (
         <SuccessPopup

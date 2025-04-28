@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Header from "../../components/Header/Header";
 import { Box, Typography } from "@mui/material";
 import { LanguageContext } from "../../context/LanguageContext";
@@ -8,9 +8,37 @@ import notification from "../../assets/icons/notification.svg";
 import arrowIcon from "../../assets/icons/arrowIcon.png";
 import { motion } from "framer-motion";
 import ComplaintIcon from "../../assets/icons/guest.svg";
+import { useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setRoomNumber } from "../../redux/slices/roomSlice";
 const Home = () => {
   const { translations: t } = useContext(LanguageContext);
+  const location = useLocation();
+  const dispatch = useDispatch();
 
+  // Extract room number from the query string
+  const queryParams = new URLSearchParams(location.search);
+  const roomNumber = queryParams.get("roomNumber");
+  console.log("Room Number:", roomNumber); // Log the room number to the console
+
+  useEffect(() => {
+    if (roomNumber) {
+      console.log("Room Number from QR Code:", roomNumber); // Log the room number to the console
+      sessionStorage.setItem("roomNum", roomNumber);
+      // Dispatch action to store room number in Redux
+      dispatch(setRoomNumber(roomNumber));
+    }
+  }, [dispatch, roomNumber]);
+
+  // Access room number from Redux state
+  const storedRoomNumber = useSelector((state) => state.room.roomNum);
+  console.log("Stored Room Number from Redux:", storedRoomNumber);
+  // Save room number after scanning the QR code
+ 
+  // Retrieve room number in another page/component
+  const roomNum = sessionStorage.getItem("roomNum");
+  console.log("Room Number from Session Storage:", roomNum); // Log the room number to the console
+  
   return (
     <Box
       sx={{
@@ -98,7 +126,7 @@ const Home = () => {
             {t.home.welcomeMessage}
           </Typography>
         </Box>
-       
+
         {/* Cards */}
         <Box
           sx={{
@@ -137,7 +165,8 @@ const Home = () => {
           />
         </Box>
         <Box
-          s sx={{
+          s
+          sx={{
             width: "100%",
             maxWidth: "1200px",
             display: "flex",

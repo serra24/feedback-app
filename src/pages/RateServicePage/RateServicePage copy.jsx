@@ -9,33 +9,23 @@ import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import FormTitle from "../../components/FormTitle/FormTitle";
 import AnimatedHeader from "../../components/AnimatedHeader/AnimatedHeader";
-import { MdFaceUnlock } from "react-icons/md";
-import { FaClipboardList } from "react-icons/fa";
-import { MdPhone } from "react-icons/md";
-import { MdEmail } from "react-icons/md";
-
 const RateServicePage = () => {
   const navigate = useNavigate(); // Initialize navigate hook
   // Validation Schema using Yup
   const validationSchema = Yup.object({
-    guestName: Yup.string()
-      .required("Guest name is required")
-      .min(2, "Guest name must be at least 2 characters"),
-      email: Yup.string()
-      .email("Invalid email format"),
-      // .required("Email is required"),
-    phone: Yup.string()
-      // .required("Phone number is required")
-      .matches(/^[0-9]+$/, "Phone number must be digits only")
-      .min(10, "Phone number must be at least 10 digits"),
+    bookingNumber: Yup.string()
+      .required("Booking number is required")
+      .min(6, "Booking number must be at least 6 characters"),
+    secretNumber: Yup.string()
+      .required("Secret number is required")
+      .min(4, "Secret number must be at least 4 characters"),
   });
   const { translations: t } = useContext(LanguageContext);
   // Formik hook
   const formik = useFormik({
     initialValues: {
-      guestName: "",
-      email: "",
-      phone: "",
+      bookingNumber: "",
+      secretNumber: "",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -82,40 +72,44 @@ const RateServicePage = () => {
         <FormTitle title={t.rateServicePage.form.bookingDetailsTitle} />
 
         <InputField
-          label={t.Complaint.guestName.label}
-          value={formik.values.guestName}
+          label={t.rateServicePage.form.bookingNumber.label}
+          value={formik.values.bookingNumber}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          name="guestName"
-          iconSrc={<MdFaceUnlock />}
-          placeholder={t.Complaint.guestName.placeholder}
-          error={formik.errors.guestName}
-          touched={formik.touched.guestName}
+          name="bookingNumber"
+          iconSrc={bookingNumberIcon}
+          placeholder={t.rateServicePage.form.bookingNumber.placeholder}
+          error={formik.errors.bookingNumber}
+          touched={formik.touched.bookingNumber}
         />
 
         <InputField
-          label={t.Complaint.phone.label}
-          value={formik.values.phone}
+          label={t.rateServicePage.form.secretNumber.label}
+          value={formik.values.secretNumber}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          name="phone"
-          iconSrc={<MdPhone />}
-          placeholder={t.Complaint.phone.placeholder}
-          error={formik.errors.phone}
-          touched={formik.touched.phone}
+          name="secretNumber"
+          iconSrc={secretNumberIcon}
+          placeholder={t.rateServicePage.form.secretNumber.placeholder}
+          error={formik.errors.secretNumber}
+          touched={formik.touched.secretNumber}
         />
 
-        <InputField
-          label={t.Complaint.email.label}
-          value={formik.values.email}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          name="email"
-          iconSrc={<MdEmail />}
-          placeholder={t.Complaint.email.placeholder}
-          error={formik.errors.email}
-          touched={formik.touched.email}
-        />
+        {!(formik.touched.secretNumber && formik.errors.secretNumber) && (
+          <Typography
+            sx={{
+              fontFamily: "Almarai, sans-serif",
+              fontWeight: 300,
+              fontSize: { xs: "12px", sm: "14px" },
+              lineHeight: "100%",
+              color: "var(--gold-color)",
+              mt: "-16px",
+              mb: { xs: 2, sm: 3.7 },
+            }}
+          >
+            {t.rateServicePage.form.description}
+          </Typography>
+        )}
 
         {/* Submit Button */}
         <Button

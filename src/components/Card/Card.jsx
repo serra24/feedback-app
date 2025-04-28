@@ -64,7 +64,6 @@ const Card = ({
           {/* Top Title */}
           <Typography
             sx={{
-             
               fontWeight: 400,
               fontSize: { xs: "18px", sm: "20px", md: "24px" },
               color: "#fff",
@@ -167,12 +166,17 @@ const Card = ({
             {title}
           </Typography>
 
-          <img
+          <Box
+            component="img"
             src={arrowIcon}
-            style={{
+            sx={{
               transform: isRtl ? "rotate(0deg)" : "rotate(180deg)",
               marginLeft: isRtl ? "0" : "12px",
               marginRight: isRtl ? "12px" : "0",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: "4px",
             }}
             alt="icon"
           />

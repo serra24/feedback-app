@@ -38,8 +38,8 @@ const InputField = ({
           "& .MuiOutlinedInput-root": {
             borderRadius: "5px",
             height: "48px",
-            // backgroundColor: "#084267",
-            backgroundColor: "transparent",
+            backgroundColor: "#084267",
+            // backgroundColor: "transparent",
             // border: "1px solid #FFFFFF80",
             "& input": {
               color: "#fff",
@@ -61,7 +61,8 @@ const InputField = ({
           startAdornment:
             iconSrc && type !== "date" ? (
               <InputAdornment position="start">
-                <img src={iconSrc} alt="input-icon" />
+                {/* <img src={iconSrc} alt="input-icon" /> */}
+                <Box sx={{ mr: 1 }}>{iconSrc}</Box>
               </InputAdornment>
             ) : undefined,
         }}
