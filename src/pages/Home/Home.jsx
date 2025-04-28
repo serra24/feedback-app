@@ -98,7 +98,16 @@ const Home = () => {
             {t.home.welcomeMessage}
           </Typography>
         </Box>
-        {/* Cards */}
+        <Box  sx={{
+            // width: "100%",
+            // maxWidth: "1200px",
+            // display: "flex",
+            // gap: { xs: 2, md: 3 },
+            flexDirection: { xs: "column", sm: "column", md: "row" },
+            justifyContent: "center",
+            // px: { xs: 1, sm: 2 },
+            // mb: 2.5,
+          }}>  {/* Cards */}
         <Box
           sx={{
             width: "100%",
@@ -106,7 +115,7 @@ const Home = () => {
             display: "flex",
             gap: { xs: 2, md: 3 },
             flexDirection: { xs: "column", sm: "column", md: "row" },
-            justifyContent: "center",
+            // justifyContent: "center",
             px: { xs: 1, sm: 2 },
             mb: 2.5,
           }}
@@ -136,13 +145,13 @@ const Home = () => {
           />
         </Box>
         <Box
-          sx={{
+          s sx={{
             width: "100%",
             maxWidth: "1200px",
             display: "flex",
             gap: { xs: 2, md: 3 },
             flexDirection: { xs: "column", sm: "column", md: "row" },
-            justifyContent: "center",
+            // justifyContent: "center",
             px: { xs: 1, sm: 2 },
             mb: 2.5,
           }}
@@ -158,7 +167,8 @@ const Home = () => {
             arrowIcon={arrowIcon}
             navigateTo="/guest-service"
           />
-        </Box>
+        </Box></Box>
+       
       </Box>
     </Box>
   );
