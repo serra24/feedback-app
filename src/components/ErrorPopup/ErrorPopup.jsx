@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { Box, Typography, Button } from '@mui/material';
+import { Box, Typography, Button, Backdrop } from '@mui/material';
 import { motion } from 'framer-motion';
 import error from '../../assets/icons/error-icon.svg'; // Your custom error icon
 import CloseIcon from '@mui/icons-material/Close'; // Material-UI Close Icon
@@ -11,6 +11,9 @@ const ErrorPopup = ({ open, message, onClose }) => {
   if (!open) return null;
 
   return (
+    <>
+    {/* Backdrop for modal effect */}
+      <Backdrop open={open} sx={{ zIndex: 1200 }} />
     <Box
       sx={{
         position: 'fixed',
@@ -105,6 +108,7 @@ const ErrorPopup = ({ open, message, onClose }) => {
         </Button>
       </motion.div> */}
     </Box>
+    </>
   );
 };
 

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Box, Typography, Button } from "@mui/material";
+import { Box, Typography, Button, Backdrop } from "@mui/material";
 import { motion } from "framer-motion";
 import sucess from "../../assets/icons/success-icon.svg";
 import CloseIcon from "@mui/icons-material/Close"; // Material-UI Close Icon
@@ -11,6 +11,8 @@ const SuccessPopup = ({ open, message, onClose }) => {
   if (!open) return null;
 
   return (
+    <>
+     <Backdrop open={open} sx={{ zIndex: 1200 }} />
     <Box
       sx={{
         position: "fixed",
@@ -110,6 +112,7 @@ const SuccessPopup = ({ open, message, onClose }) => {
         </Button>
       </motion.div> */}
     </Box>
+    </>
   );
 };
 
