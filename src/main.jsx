@@ -29,9 +29,10 @@ createRoot(document.getElementById("root")).render(
             <Route path="/" element={<App />}>
               <Route index element={<Home />} />
               <Route path="/about-us" element={<AboutUs/>} />
-              <Route path="/rate-service" element={<RateServicePage />} />
+              {/* <Route path="/rate-service" element={<RateServicePage />} /> */}
+              <Route path="/rate-service" element={<EvaluationPage />} />
               <Route path="/request-service" element={<RequestServicePage />} />
-              <Route path="/evaluation" element={<EvaluationPage />} />
+              {/* <Route path="/evaluation" element={<EvaluationPage />} /> */}
               <Route path="/guest-service" element={<GuestServicePage />} />
               <Route
                 path="/maintenance-service"
