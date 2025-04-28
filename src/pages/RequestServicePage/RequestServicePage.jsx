@@ -12,12 +12,12 @@ const RequestServicePage = () => {
   const navigate = useNavigate(); // Initialize useNavigate hook
   const { translations: t } = useContext(LanguageContext);
   const services = [
-    {
-      icon: guestIcon,
-      title: t.RequestServicePage.Complaint,
-      description: t.RequestServicePage.Complaintdescription,
-      link: "/guest-service", // Add a link for each service
-    },
+    // {
+    //   icon: guestIcon,
+    //   title: t.RequestServicePage.Complaint,
+    //   description: t.RequestServicePage.Complaintdescription,
+    //   link: "/guest-service", // Add a link for each service
+    // },
     {
       icon: maintenanceIcon,
       title: t.RequestServicePage.Maintenance,
@@ -86,7 +86,7 @@ const RequestServicePage = () => {
           flexWrap: "wrap",
           justifyContent: {md:"space-between", xs:"center"},
           gap: {md:"none", xs: 2}, // Adjust gap for smaller screens
-          maxWidth: 650, // عرض الصف الكامل (259 * 2 + المسافة بين الكروت)
+          maxWidth: 950, // عرض الصف الكامل (259 * 2 + المسافة بين الكروت)
         }}
       >
         {services.map((service, index) => (
