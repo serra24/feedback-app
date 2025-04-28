@@ -150,7 +150,7 @@ const Card = ({
             display: "flex",
             alignItems: "center",
             mt: 2,
-            p: 1,
+            // p: 1,
           }}
           onClick={handleClick}
         >
