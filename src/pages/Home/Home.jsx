@@ -7,7 +7,7 @@ import star from "../../assets/icons/star.svg";
 import notification from "../../assets/icons/notification.svg";
 import arrowIcon from "../../assets/icons/arrowIcon.png";
 import { motion } from "framer-motion";
-
+import ComplaintIcon from "../../assets/icons/guest.svg";
 const Home = () => {
   const { translations: t } = useContext(LanguageContext);
 
@@ -66,7 +66,6 @@ const Home = () => {
           </motion.div>
           <Typography
             sx={{
-          
               fontWeight: 400,
               fontSize: { xs: "16px", sm: "20px", md: "24px" },
               lineHeight: "1.5",
@@ -92,7 +91,6 @@ const Home = () => {
         >
           <Typography
             sx={{
-            
               fontWeight: 700,
               fontSize: "20px",
             }}
@@ -110,6 +108,7 @@ const Home = () => {
             flexDirection: { xs: "column", sm: "column", md: "row" },
             justifyContent: "center",
             px: { xs: 1, sm: 2 },
+            mb: 2.5,
           }}
         >
           <Card
@@ -134,6 +133,19 @@ const Home = () => {
             imageSrc={notification}
             arrowIcon={arrowIcon}
             navigateTo="/request-service"
+          />
+        </Box>
+        <Box>
+          <Card
+            topTitle={t.RequestServicePage.Complaint}
+            title={t.RequestServicePage.Complaint}
+            description={t.RequestServicePage.Complaintdescription}
+            bgColor={["var(--primary-bg-color)", "var(--secondary-bg-color)"]}
+            iconColor="var(--gold-color-2)"
+            iconSize="50px"
+            imageSrc={ComplaintIcon}
+            arrowIcon={arrowIcon}
+            navigateTo="/guest-service"
           />
         </Box>
       </Box>

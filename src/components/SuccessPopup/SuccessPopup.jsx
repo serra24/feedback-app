@@ -7,7 +7,7 @@ import { LanguageContext } from "../../context/LanguageContext";
 
 // Success Popup Component
 const SuccessPopup = ({ open, message, onClose }) => {
-    const { translations: t } = useContext(LanguageContext);
+  const { translations: t } = useContext(LanguageContext);
   if (!open) return null;
 
   return (
@@ -24,7 +24,7 @@ const SuccessPopup = ({ open, message, onClose }) => {
         flexDirection: "column",
         alignItems: "center",
         zIndex: 9999,
-        minWidth: "300px",
+        minWidth: { xs: "75%", md: "300px" },
         height: "auto",
         textAlign: "center",
         color: "#fff",
@@ -42,13 +42,19 @@ const SuccessPopup = ({ open, message, onClose }) => {
       >
         <CloseIcon sx={{ color: "#fff", fontSize: "24px" }} />
       </Box>
-
+      
       {/* Success Icon */}
-      <img
+      <Box
+        component="img"
+        src={sucess}
+        sx={{ width: {md:"50px",xs:"35px"}, height: {md:"50px",xs:"35px"}, marginBottom:{md:"20px",xs:"10px"} }}
+      />
+
+      {/* <img
         src={sucess}
         alt="Error Icon"
         style={{ width: "50px", height: "50px", marginBottom: "20px" }}
-      />
+      /> */}
 
       {/* Success Title */}
       <motion.div
@@ -56,7 +62,7 @@ const SuccessPopup = ({ open, message, onClose }) => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.4 }}
       >
-        <Typography sx={{ fontWeight: 700, fontSize: "20px" }}>
+        <Typography sx={{ fontWeight: 700, fontSize: {md:"20px",xs:"16px"} }}>
           {t.thanks}
         </Typography>
       </motion.div>
@@ -77,7 +83,6 @@ const SuccessPopup = ({ open, message, onClose }) => {
         </Typography>
       </motion.div>
 
-     
       {/* <motion.div
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}

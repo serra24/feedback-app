@@ -24,7 +24,7 @@ const ErrorPopup = ({ open, message, onClose }) => {
         flexDirection: 'column',
         alignItems: 'center',
         zIndex: 9999,
-        minWidth: '300px',
+        minWidth: { xs: "75%", md: "300px" },
         height: 'auto',
         textAlign: 'center',
         color: '#fff',
@@ -44,11 +44,16 @@ const ErrorPopup = ({ open, message, onClose }) => {
       </Box>
 
       {/* Error Icon */}
-      <img
+      <Box
+        component="img"
+        src={error}
+        sx={{ width: {md:"50px",xs:"35px"}, height: {md:"50px",xs:"35px"}, marginBottom:{md:"20px",xs:"10px"} }}
+      />
+      {/* <img
         src={error}
         alt="Error Icon"
         style={{ width: '50px', height: '50px', marginBottom: '20px' }}
-      />
+      /> */}
 
       {/* Error Title */}
       <motion.div
@@ -56,7 +61,7 @@ const ErrorPopup = ({ open, message, onClose }) => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.4 }}
       >
-        <Typography sx={{ fontWeight: 700, fontSize: '20px' }}>
+       <Typography sx={{ fontWeight: 700, fontSize: {md:"20px",xs:"16px"} }}>
          {t.errorhappen}
         </Typography>
       </motion.div>

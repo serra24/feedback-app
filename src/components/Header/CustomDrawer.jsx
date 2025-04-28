@@ -27,7 +27,7 @@ const CustomDrawer = ({
       color: "#fff", // Hover effect to change color on hover
     },
   };
-const navigate = useNavigate(); // Assuming you're using react-router-dom for navigation
+  const navigate = useNavigate(); // Assuming you're using react-router-dom for navigation
   return (
     <Drawer
       anchor={isRtl ? "right" : "left"}
