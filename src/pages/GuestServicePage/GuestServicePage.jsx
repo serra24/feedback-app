@@ -93,22 +93,24 @@ if (!hotelName) {
       dispatch(createComplaint(payload));
     },
   });
- // Assuming you're fetching data in useEffect
- useEffect(() => {
-  if (roomData?.data?.message?.floor?.building?.branch?.localizedName) {
-    setIsDataLoaded(true);
-
-    // Update hotelName field in Formik
-    const hotelName = roomData?.data?.message?.floor?.building?.branch?.localizedName;
-    formik.setFieldValue('hotelName', hotelName);
-
-    // Update number field in Formik
-    const number = roomData?.data?.message?.number;  // Assuming this is the number you want to update
-    if (number) {
-      formik.setFieldValue('roomNumber', number);  // Update Formik field for roomNumber
+  useEffect(() => {
+    if (roomData?.data?.message?.floor?.building?.branch?.localizedName) {
+      setIsDataLoaded(true);
+      
+      const hotelName = roomData?.data?.message?.floor?.building?.branch?.localizedName;
+      const number = roomData?.data?.message?.number;
+  
+      // Use a flag or only set if different
+      if (formik.values.hotelName !== hotelName) {
+        formik.setFieldValue('hotelName', hotelName);
+      }
+      if (number && formik.values.roomNumber !== number) {
+        formik.setFieldValue('roomNumber', number);
+      }
     }
-  }
-}, [roomData, formik]);
+    // ⚠️ Do not include `formik` here
+  }, [roomData, formik]);
+  
   useEffect(() => {
     // Fetch guest evaluation data when the component mounts
     dispatch(fetchComplaintItems(language))
