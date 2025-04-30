@@ -22,11 +22,13 @@ import ErrorPopup from "../../components/ErrorPopup/ErrorPopup";
 import SuccessPopup from "../../components/SuccessPopup/SuccessPopup";
 import { fetchRoomData } from "../../redux/slices/roomFeatures/roomDataSlice";
 import Loading from "../../components/Loading/Loading";
+import { fetchSuppliesItems } from '../../redux/slices/suppliesItemsSlice';
 
 const ResourcesServicePage = () => {
   const { translations: t, language } = useContext(LanguageContext);
   const dispatch = useDispatch();
   const [isDataLoaded, setIsDataLoaded] = useState(false);
+  const { items: supplyItems, status, error } = useSelector((state) => state.supplies);
 
   const [popupOpen, setPopupOpen] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
@@ -82,6 +84,7 @@ const ResourcesServicePage = () => {
         description: values.complaintDetails,
         email: null,
         phoneNumber: values.phone,
+        maintenanceData:null
       };
 
       dispatch(createRequest(requestData))
@@ -128,16 +131,18 @@ const ResourcesServicePage = () => {
     // Exclude formik from the dependency array to avoid infinite loop
   }, [roomData]); // Now it only depends on roomData
   const hasSelectedItems = formik.values.complaintItems?.length > 0;
-
+  useEffect(() => {
+    dispatch(fetchSuppliesItems(language)).then((action) => {
+      console.log("Supplies fetch action:", action);
+    });
+  }, [dispatch, language]);
+  
   // Complaint types options
-  const complaintTypes = [
-    { id: 1, label: t.resourcesForm.items.bathSupplies },
-    { id: 2, label: t.resourcesForm.items.towels },
-    { id: 3, label: t.resourcesForm.items.extraPillows },
-    { id: 4, label: t.resourcesForm.items.bedSheets },
-    { id: 5, label: t.resourcesForm.items.teaCoffee },
-    { id: 6, label: t.resourcesForm.items.mineralWater },
-  ];
+  const complaintTypes = supplyItems?.map((item) => ({
+    id: item.id,
+    label: item.localizedName,
+  })) || [];
+  
 
   // Input fields configuration
   const inputFields = [

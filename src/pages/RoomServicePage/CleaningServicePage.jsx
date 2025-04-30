@@ -79,6 +79,8 @@ if (!hotelName) {
         description: values.complaintDetails,
         email: null, 
         phoneNumber: values.phone,
+        preferredTime:values.preferredTime,
+        maintenanceData:null
       };
 
       dispatch(createRequest(requestData))

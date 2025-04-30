@@ -91,7 +91,7 @@ const GuestServicePage = () => {
         phoneNumber: values.phone,
         name: values.guestName,
         roomId: roomNum,
-        priorityId: 1,
+        priorityId:null,
         sourceId: 1,
         itemsIds: values.complaintTypes,
       };

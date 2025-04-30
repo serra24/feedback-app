@@ -50,7 +50,8 @@
     "attachments": "Attachments",
     "drag_and_drop": "Drag & drop files or",
     "browse": "Browse",
-    "submit": "Submit Request"
+    "submit": "Submit Request",
+    "priority": "Priority"
   },
   "cancel": "Cancel",
   "Complaint": {
@@ -265,6 +266,9 @@
     "phone": {
       "digitsOnly": "Phone number must be digits only",
       "min": "Phone number must be at least 10 digits"
-    }
+    },
+     "selectMainCategory": "Please select a main category",
+      "selectSubCategory": "Please select a subcategory"
   }
+
 }
