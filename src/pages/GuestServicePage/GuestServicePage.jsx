@@ -162,7 +162,7 @@ if (!hotelName) {
       placeholder: t.Complaint.email.placeholder,
     },
   ];
-  if ( !isDataLoaded) return <p>Loading...</p>;
+  if ( !isDataLoaded) return <p style={{minHeight:"100vh",display:"flex",justifyContent:"center"}}>Loading...</p>;
 
   return (
     <Box
