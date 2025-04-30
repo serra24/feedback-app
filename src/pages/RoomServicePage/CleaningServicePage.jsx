@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext ,useEffect,useState} from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import {
@@ -17,8 +17,31 @@ import CustomDatePicker from "../../components/InputField/CustomDatePicker";
 import { LanguageContext } from "../../context/LanguageContext";
 import FormTitle from "../../components/FormTitle/FormTitle";
 import CustomTimePicker from "../../components/CustomTimePicker/CustomTimePicker";
+import { useDispatch, useSelector } from "react-redux";
+import { createRequest } from "../../redux/slices/GeneralRequest/GeneralRequestSlice";
+import SuccessPopup from "../../components/SuccessPopup/SuccessPopup";
+import ErrorPopup from "../../components/ErrorPopup/ErrorPopup";
+import { fetchRoomData } from "../../redux/slices/roomFeatures/roomDataSlice";
+import Loading from "../../components/Loading/Loading";
 const CleaningServicePage = () => {
-  const { translations: t } = useContext(LanguageContext);
+  const { translations: t ,language} = useContext(LanguageContext);
+  const dispatch = useDispatch();
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
+  
+  const { loading, error } = useSelector((state) => state.generalRequest); 
+  const { roomNum, roomData } = useSelector((state) => ({  roomNum: state.room.roomNum,
+    roomData: state.roomData, }));
+      useEffect(() => {
+              // console.log("roomNum inside useEffect:", roomNum);  // Check if roomNum is defined
+              if (roomNum) {
+                dispatch(fetchRoomData({ roomId: roomNum, language }));
+              } else {
+                // console.error("roomNum is undefined or invalid");
+              }
+            }, [roomNum, dispatch, language]);
+  const [popupOpen, setPopupOpen] = useState(false);
+  const [popupMessage, setPopupMessage] = useState("");
+  const [popupType, setPopupType] = useState("");
   // Form validation schema
   const validationSchema = Yup.object().shape({
     fullName: Yup.string().required("الإسم بالكامل مطلوب"),
@@ -27,34 +50,87 @@ const CleaningServicePage = () => {
       .matches(/^\d+$/, "رقم الهاتف يجب أن يحتوي على أرقام فقط"),
     roomNumber: Yup.string().required("رقم الغرفة مطلوب"),
     preferredTime: Yup.string().required("الوقت المفضل مطلوب"),
-    complaintTypes: Yup.array().min(1, "يجب اختيار نوع واحد على الأقل"),
+    // complaintTypes: Yup.array().min(1, "يجب اختيار نوع واحد على الأقل"),
     complaintDetails: Yup.string(),
   });
-
+  const hotelName =
+  roomData?.data?.message?.floor?.building?.branch?.localizedName;
+const number = roomData?.data?.message?.number;
+if (!hotelName) {
+  // console.warn("Localized Name is missing. Defaulting to 'Unknown Hotel'");
+}
   const formik = useFormik({
     initialValues: {
       fullName: "",
       phone: "",
-      roomNumber: "",
+      roomNumber: number || "Unknown Room",
       preferredTime: "",
-      complaintTypes: [], // ✅ this is the missing initialization
+      // complaintTypes: [], // ✅ this is the missing initialization
       complaintDetails: "",
     },
     validationSchema,
     onSubmit: (values) => {
-      // Handle form submission here
+      // Trigger the createRequest thunk here
+      const requestData = {
+        name: values.fullName,
+        roomId: roomNum,
+        typeId: 2, 
+        items: null, 
+        description: values.complaintDetails,
+        email: null, 
+        phoneNumber: values.phone,
+      };
+
+      dispatch(createRequest(requestData))
+      .then((response) => {
+        console.log("Response", response); // Log the response for debugging
+        if (response?.payload?.successtate===200) { // Adjust according to your response structure
+          setPopupMessage('Request submitted successfully!');
+          setPopupType('success');
+          setPopupOpen(true);
+        } else {
+          console.log("Error", response); // Log the error for debugging
+          
+          setPopupMessage(response?.payload?.errormessage);
+          setPopupType('error');
+          setPopupOpen(true);
+        }
+      })
+      .catch((error) => {
+        console.error("Error", error); // Log any errors that occurred
+        setPopupMessage('An unexpected error occurred.');
+        setPopupType('error');
+        setPopupOpen(true);
+      });
     },
   });
-
+ useEffect(() => {
+    if (roomData?.data?.message?.floor?.building?.branch?.localizedName) {
+      setIsDataLoaded(true);
+      
+      const hotelName = roomData?.data?.message?.floor?.building?.branch?.localizedName;
+      const number = roomData?.data?.message?.number;
+  
+      // Only set values if they differ from the current formik values
+      if (formik.values.hotelName !== hotelName) {
+        formik.setFieldValue('hotelName', hotelName);
+      }
+      if (number && formik.values.roomNumber !== number) {
+        formik.setFieldValue('roomNumber', number);
+      }
+    }
+    // Exclude formik from the dependency array to avoid infinite loop
+  }, [roomData]); // Now it only depends on roomData
+  
   // Complaint types options
-  const complaintTypes = [
-    { id: 1, label: t.cleaningForm.windowCleaning },
-    { id: 2, label: t.cleaningForm.bedCleaning },
-    { id: 3, label: t.cleaningForm.bathroomCleaning },
-    { id: 4, label: t.cleaningForm.floorCleaning },
-    { id: 5, label: t.cleaningForm.trashEmptying },
-    { id: 6, label: t.cleaningForm.allOfTheAbove },
-  ];
+  // const complaintTypes = [
+  //   { id: 1, label: t.cleaningForm.windowCleaning },
+  //   { id: 2, label: t.cleaningForm.bedCleaning },
+  //   { id: 3, label: t.cleaningForm.bathroomCleaning },
+  //   { id: 4, label: t.cleaningForm.floorCleaning },
+  //   { id: 5, label: t.cleaningForm.trashEmptying },
+  //   { id: 6, label: t.cleaningForm.allOfTheAbove },
+  // ];
 
   // Input fields configuration
   const inputFields = [
@@ -80,6 +156,7 @@ const CleaningServicePage = () => {
       type: "time",
     },
   ];
+  if (!isDataLoaded) return <Loading />;
 
   return (
     <Box
@@ -120,8 +197,8 @@ const CleaningServicePage = () => {
       </Typography>
 
       <Box
-        component="form"
-        onSubmit={formik.handleSubmit}
+       component="form"
+       onSubmit={formik.handleSubmit}
         sx={{
           width: { xs: "90%", sm: "440px", md: "776px" },
           height: "auto",
@@ -175,6 +252,8 @@ const CleaningServicePage = () => {
                   touched={formik.touched[field.name]}
                   placeholder={field.placeholder}
                   iconSrc={field.iconSrc}
+                  disabled={index === 2}
+
                 />
               )}
             </Box>
@@ -182,7 +261,7 @@ const CleaningServicePage = () => {
         </Box>
 
         {/* Complaint Types */}
-        <Box sx={{ mt: "10px" }}>
+        {/* <Box sx={{ mt: "10px" }}>
           <Typography
             sx={{
               fontFamily: "Almarai",
@@ -271,10 +350,10 @@ const CleaningServicePage = () => {
                 </Box>
               ))}
           </FormGroup>
-        </Box>
+        </Box> */}
 
         {/* Complaint Details */}
-        <Box mt={4}>
+        <Box mt={2}>
           <Typography
             sx={{
               fontFamily: "Almarai",
@@ -346,6 +425,7 @@ const CleaningServicePage = () => {
         >
           <Button
             variant="contained"
+            type="submit"
             sx={{
               flex: 1,
               minWidth: 150,
@@ -356,6 +436,7 @@ const CleaningServicePage = () => {
               fontWeight: 400,
               fontSize: 18,
             }}
+            
           >
             {t.sendRequest}
           </Button>
@@ -371,11 +452,22 @@ const CleaningServicePage = () => {
               fontWeight: 400,
               fontSize: 18,
             }}
+            onClick={() => formik.resetForm()}
           >
             {t.cancel}
           </Button>
         </Box>
       </Box>
+      <SuccessPopup
+        open={popupOpen && popupType === "success"}
+        message={popupMessage}
+        onClose={() => setPopupOpen(false)}
+      />
+      <ErrorPopup
+        open={popupOpen && popupType === "error"}
+        message={popupMessage}
+        onClose={() => setPopupOpen(false)}
+      />
     </Box>
   );
 };

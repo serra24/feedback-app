@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import {
@@ -10,15 +10,40 @@ import {
   TextareaAutosize,
   Grid,
   Button,
+  TextField,
 } from "@mui/material";
 import { MdCheckBox } from "react-icons/md";
 import InputField from "../../components/InputField/InputField";
 import { LanguageContext } from "../../context/LanguageContext";
 import FormTitle from "../../components/FormTitle/FormTitle";
+import { createRequest } from "../../redux/slices/GeneralRequest/GeneralRequestSlice";
+import { useDispatch, useSelector } from "react-redux";
+import ErrorPopup from "../../components/ErrorPopup/ErrorPopup";
+import SuccessPopup from "../../components/SuccessPopup/SuccessPopup";
+import { fetchRoomData } from "../../redux/slices/roomFeatures/roomDataSlice";
+import Loading from "../../components/Loading/Loading";
 
 const ResourcesServicePage = () => {
-  const { translations: t } = useContext(LanguageContext);
+  const { translations: t, language } = useContext(LanguageContext);
+  const dispatch = useDispatch();
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
 
+  const [popupOpen, setPopupOpen] = useState(false);
+  const [popupMessage, setPopupMessage] = useState("");
+  const [popupType, setPopupType] = useState("");
+  const { roomNum, roomData } = useSelector((state) => ({
+    roomNum: state.room.roomNum,
+    roomData: state.roomData,
+  }));
+  // console.log("roomData", roomData); // Check if roomData is defined
+  useEffect(() => {
+    // console.log("roomNum inside useEffect:", roomNum);  // Check if roomNum is defined
+    if (roomNum) {
+      dispatch(fetchRoomData({ roomId: roomNum, language }));
+    } else {
+      // console.error("roomNum is undefined or invalid");
+    }
+  }, [roomNum, dispatch, language]);
   // Form validation schema
   const validationSchema = Yup.object().shape({
     fullName: Yup.string().required("الاسم الكامل مطلوب"),
@@ -26,35 +51,92 @@ const ResourcesServicePage = () => {
       .matches(/^(\+\d{1,2}\s?)?(\d{10})$/, "رقم الهاتف غير صالح")
       .required("رقم الهاتف مطلوب"),
     roomNumber: Yup.string().required("رقم الغرفة مطلوب"),
-    complaintTypes: Yup.array().min(1, "يرجى اختيار صنف واحد على الأقل"),
-    quantity: Yup.number().required("الكمية مطلوبة").positive("يجب أن تكون الكمية إيجابية"),
+    complaintItems: Yup.array().min(1, "يرجى اختيار صنف واحد على الأقل"),
     complaintDetails: Yup.string().optional(),
   });
-
+  const hotelName =
+    roomData?.data?.message?.floor?.building?.branch?.localizedName;
+  const number = roomData?.data?.message?.number;
+  if (!hotelName) {
+    // console.warn("Localized Name is missing. Defaulting to 'Unknown Hotel'");
+  }
   const formik = useFormik({
     initialValues: {
       fullName: "",
       phone: "",
-      roomNumber: "",
-      complaintTypes: [],
-      quantity: "",
+      roomNumber: number || "Unknown Room",
+      complaintItems: [],
       complaintDetails: "",
     },
     validationSchema,
     onSubmit: (values) => {
       console.log("Form submitted with values: ", values);
-      // Handle form submission here (e.g., API call)
+      const requestData = {
+        name: values.fullName,
+        roomId: roomNum,
+        typeId: 3, //Main : 1, HK :2, Supp : 3
+        items: values.complaintItems.map((item) => ({
+          supplyId: item.id,
+          quantity: item.quantity,
+        })),
+        description: values.complaintDetails,
+        email: null,
+        phoneNumber: values.phone,
+      };
+
+      dispatch(createRequest(requestData))
+        .then((response) => {
+          console.log("Response", response); // Log the response for debugging
+          if (response?.payload?.successtate === 200) {
+            // Adjust according to your response structure
+            setPopupMessage("Request submitted successfully!");
+            setPopupType("success");
+            setPopupOpen(true);
+          } else {
+            console.log("Error", response); // Log the error for debugging
+
+            setPopupMessage(response?.payload?.errormessage);
+            setPopupType("error");
+            setPopupOpen(true);
+          }
+        })
+        .catch((error) => {
+          console.error("Error", error); // Log any errors that occurred
+          setPopupMessage("An unexpected error occurred.");
+          setPopupType("error");
+          setPopupOpen(true);
+        });
     },
   });
+
+  useEffect(() => {
+    if (roomData?.data?.message?.floor?.building?.branch?.localizedName) {
+      setIsDataLoaded(true);
+
+      const hotelName =
+        roomData?.data?.message?.floor?.building?.branch?.localizedName;
+      const number = roomData?.data?.message?.number;
+
+      // Only set values if they differ from the current formik values
+      if (formik.values.hotelName !== hotelName) {
+        formik.setFieldValue("hotelName", hotelName);
+      }
+      if (number && formik.values.roomNumber !== number) {
+        formik.setFieldValue("roomNumber", number);
+      }
+    }
+    // Exclude formik from the dependency array to avoid infinite loop
+  }, [roomData]); // Now it only depends on roomData
+  const hasSelectedItems = formik.values.complaintItems?.length > 0;
 
   // Complaint types options
   const complaintTypes = [
     { id: 1, label: t.resourcesForm.items.bathSupplies },
-    { id: 2, label:  t.resourcesForm.items.towels },
-    { id: 3, label:  t.resourcesForm.items.extraPillows },
-    { id: 4, label:  t.resourcesForm.items.bedSheets },
-    { id: 5, label:  t.resourcesForm.items.teaCoffee },
-    { id: 6, label:  t.resourcesForm.items.mineralWater },
+    { id: 2, label: t.resourcesForm.items.towels },
+    { id: 3, label: t.resourcesForm.items.extraPillows },
+    { id: 4, label: t.resourcesForm.items.bedSheets },
+    { id: 5, label: t.resourcesForm.items.teaCoffee },
+    { id: 6, label: t.resourcesForm.items.mineralWater },
   ];
 
   // Input fields configuration
@@ -67,14 +149,15 @@ const ResourcesServicePage = () => {
     {
       name: "phone",
       label: t.cleaningForm.phoneLabel,
-      placeholder:  t.cleaningForm.phonePlaceholder,
+      placeholder: t.cleaningForm.phonePlaceholder,
     },
     {
       name: "roomNumber",
-      label:  t.Complaint.roomNumber.label,
-      placeholder:  t.Complaint.roomNumber.placeholder,
+      label: t.Complaint.roomNumber.label,
+      placeholder: t.Complaint.roomNumber.placeholder,
     },
   ];
+  if (!isDataLoaded) return <Loading />;
 
   return (
     <Box
@@ -98,7 +181,7 @@ const ResourcesServicePage = () => {
           color: "var(--white-color)",
         }}
       >
-       {t.resourcesForm.title}
+        {t.resourcesForm.title}
       </Typography>
 
       <Typography
@@ -111,7 +194,7 @@ const ResourcesServicePage = () => {
           color: "var(--white-color)",
         }}
       >
-        {'"' } {t.resourcesForm.description} {'"'}
+        {'"'} {t.resourcesForm.description} {'"'}
       </Typography>
 
       <Box
@@ -128,7 +211,7 @@ const ResourcesServicePage = () => {
           justifyContent: "space-between",
         }}
       >
-        <FormTitle title= {t.resourcesForm.formInstruction}/>
+        <FormTitle title={t.resourcesForm.formInstruction} />
 
         <Box
           sx={{
@@ -155,6 +238,7 @@ const ResourcesServicePage = () => {
                 error={formik.touched[field.name] && formik.errors[field.name]}
                 touched={formik.touched[field.name]}
                 placeholder={field.placeholder}
+                disabled={index === 2}
               />
             </Box>
           ))}
@@ -171,14 +255,14 @@ const ResourcesServicePage = () => {
               mb: "6px",
             }}
           >
-           {t.resourcesForm.selectItemsLabel}
+            {t.resourcesForm.selectItemsLabel}
           </Typography>
 
           <FormGroup
             sx={{
               display: "flex",
               flexDirection: "column",
-              gap: { xs: 1, md: 0 },
+              gap: { xs: 1, md: hasSelectedItems ? 1 : 0.5 },
             }}
           >
             {complaintTypes
@@ -199,61 +283,111 @@ const ResourcesServicePage = () => {
                     flexWrap: "wrap",
                   }}
                 >
-                  {row.map((type) => (
-                    <FormControlLabel
-                      key={type.id}
-                      control={
-                        <Checkbox
-                          checked={formik.values.complaintTypes.includes(
-                            type.id
-                          )}
-                          onChange={() => {
-                            const newTypes =
-                              formik.values.complaintTypes.includes(type.id)
-                                ? formik.values.complaintTypes.filter(
-                                    (id) => id !== type.id
-                                  )
-                                : [...formik.values.complaintTypes, type.id];
-                            formik.setFieldValue("complaintTypes", newTypes);
-                          }}
+                  {row.map((type) => {
+                    const selected = formik.values.complaintItems?.find(
+                      (item) => item.id === type.id
+                    );
+                    return (
+                      <Box
+                        key={type.id}
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 3,
+                          width: "240px",
+                        }}
+                      >
+                        <FormControlLabel
+                          key={type.id}
+                          control={
+                            <Checkbox
+                              checked={!!selected}
+                              onChange={() => {
+                                const currentItems =
+                                  formik.values.complaintItems || [];
+                                const exists = currentItems.find(
+                                  (item) => item.id === type.id
+                                );
+                                const updatedItems = exists
+                                  ? currentItems.filter(
+                                      (item) => item.id !== type.id
+                                    )
+                                  : [
+                                      ...currentItems,
+                                      { id: type.id, quantity: 1 },
+                                    ];
+                                formik.setFieldValue(
+                                  "complaintItems",
+                                  updatedItems
+                                );
+                              }}
+                              sx={{
+                                "& .MuiSvgIcon-root": {
+                                  color: "#CFAE78", // Icon color for unchecked state
+                                },
+                                "&.Mui-checked .MuiSvgIcon-root": {
+                                  color: "#CFAE78", // Icon color for checked state
+                                },
+                              }}
+                            />
+                          }
+                          label={type.label}
                           sx={{
-                            "& .MuiSvgIcon-root": {
-                              color: "#CFAE78", // Icon color for unchecked state
-                            },
-                            "&.Mui-checked .MuiSvgIcon-root": {
-                              color: "#CFAE78", // Icon color for checked state
+                            "& .MuiFormControlLabel-label": {
+                              color: "#fff", // Label text color
+                              // width: "200px",
+                              fontSize: "16px !important",
                             },
                           }}
                         />
-                      }
-                      label={type.label}
-                      sx={{
-                        "& .MuiFormControlLabel-label": {
-                          color: "#fff", // Label text color
-                          width: "200px",
-                          fontSize: "16px !important",
-                        },
-                      }}
-                    />
-                  ))}
+                        {selected && (
+                          <TextField
+                            type="number"
+                            name={`quantity_${type.id}`}
+                            value={selected.quantity}
+                            onChange={(e) => {
+                              const newVal = parseInt(e.target.value) || 1;
+                              const updatedItems =
+                                formik.values.complaintItems.map((item) =>
+                                  item.id === type.id
+                                    ? { ...item, quantity: newVal }
+                                    : item
+                                );
+                              formik.setFieldValue(
+                                "complaintItems",
+                                updatedItems
+                              );
+                            }}
+                            placeholder="الكمية"
+                            size="small"
+                            sx={{
+                              width: "50px",
+                              height: "35px",
+                              color: "var(--white-color)",
+                              "& input": {
+                                p: 0.5,
+                                textAlign: "center",
+                                color: "var(--white-color)",
+                              },
+                              "& .css-1ll44ll-MuiOutlinedInput-notchedOutline":
+                                {
+                                  height: "35px !important",
+                                },
+                            }}
+                            inputProps={{ min: 1 }}
+                          />
+                        )}
+                      </Box>
+                    );
+                  })}
                 </Box>
               ))}
           </FormGroup>
-        </Box>
-        <Box mt={4}>
-        {/* Quantity Field */}
-        <InputField
-          type={"number"}
-          
-          label={t.resourcesForm.quantityLabel}
-          name="quantity"
-          value={formik.values.quantity}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          error={formik.touched.quantity && formik.errors.quantity}
-          touched={formik.touched.quantity}
-          placeholder={t.resourcesForm.quantityNote}
-        />
+          {formik.touched.complaintItems && formik.errors.complaintItems && (
+            <Typography color="error" sx={{ mt: 1 }}>
+              {formik.errors.complaintItems}
+            </Typography>
+          )}
         </Box>
 
         {/* Complaint Details */}
@@ -267,7 +401,7 @@ const ResourcesServicePage = () => {
               mb: 1,
             }}
           >
-           {t.resourcesForm.additionalNotesLabel}
+            {t.resourcesForm.additionalNotesLabel}
           </Typography>
 
           <TextareaAutosize
@@ -277,8 +411,7 @@ const ResourcesServicePage = () => {
             onBlur={formik.handleBlur}
             placeholder={t.resourcesForm.additionalNotesPlaceholder}
             minRows={5}
-            
-           className="complaint-textarea"
+            className="complaint-textarea"
           />
 
           {formik.touched.complaintDetails &&
@@ -328,11 +461,22 @@ const ResourcesServicePage = () => {
               fontWeight: 400,
               fontSize: 18,
             }}
+            onClick={() => formik.resetForm()}
           >
             {t.cancel}
           </Button>
         </Box>
       </Box>
+      <SuccessPopup
+        open={popupOpen && popupType === "success"}
+        message={popupMessage}
+        onClose={() => setPopupOpen(false)}
+      />
+      <ErrorPopup
+        open={popupOpen && popupType === "error"}
+        message={popupMessage}
+        onClose={() => setPopupOpen(false)}
+      />
     </Box>
   );
 };

@@ -290,7 +290,7 @@ input:-internal-autofill-selected {
   text-transform: lowercase !important;
 }
 .css-1jlr7fa-MuiFormControlLabel-root,.css-vj2h72,
-.css-v3aylg-MuiFormControlLabel-root,.css-63b40r ,.css-1x884l8{
+.css-v3aylg-MuiFormControlLabel-root,.css-63b40r ,.css-1x884l8,.css-fl112z-MuiFormControlLabel-root,.css-1rqdxpq-MuiFormControlLabel-root{
   margin-left: 0px !important;
   margin-right: 0px !important;
 }
@@ -433,4 +433,7 @@ textarea::placeholder{
 
 .css-qwdxx6 {
   height: 16px !important;
+}
+.css-1m5w8ek-MuiFormControl-root-MuiTextField-root .MuiOutlinedInput-root input{
+  height: 13px !important;
 }

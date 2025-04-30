@@ -20,31 +20,35 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchComplaintItems } from "../../redux/slices/complaintItemsSlice";
 import { createComplaint } from "../../redux/slices/createComplaintSlice";
 import { fetchRoomData } from "../../redux/slices/roomFeatures/roomDataSlice";
+import Loading from "../../components/Loading/Loading";
+import ErrorPopup from "../../components/ErrorPopup/ErrorPopup";
+import SuccessPopup from "../../components/SuccessPopup/SuccessPopup";
 const GuestServicePage = () => {
   const { translations: t, language } = useContext(LanguageContext);
   const dispatch = useDispatch();
+  const [popupOpen, setPopupOpen] = useState(false);
+  const [popupMessage, setPopupMessage] = useState("");
+  const [popupType, setPopupType] = useState("");
   const { roomNum, roomData, complaintItems } = useSelector((state) => ({
-  roomNum: state.room.roomNum,
-  roomData: state.roomData,
-  complaintItems: state.complaintItems.items
-}));
-  console.log("roomData", roomData); // Check if roomData is defined
+    roomNum: state.room.roomNum,
+    roomData: state.roomData,
+    complaintItems: state.complaintItems.items,
+  }));
+  // console.log("roomData", roomData); // Check if roomData is defined
   useEffect(() => {
-    console.log("roomNum inside useEffect:", roomNum);  // Check if roomNum is defined
+    // console.log("roomNum inside useEffect:", roomNum);  // Check if roomNum is defined
     if (roomNum) {
       dispatch(fetchRoomData({ roomId: roomNum, language }));
     } else {
-      console.error("roomNum is undefined or invalid");
+      // console.error("roomNum is undefined or invalid");
     }
   }, [roomNum, dispatch, language]);
-  
 
   const [isDataLoaded, setIsDataLoaded] = useState(false);
 
- 
-  
   // Form validation schema
   const validationSchema = Yup.object().shape({
+    title: Yup.string().required("عنوان الشكوى مطلوب"),
     guestName: Yup.string().required("اسم الضيف مطلوب"),
     phone: Yup.string()
       // .required("رقم التواصل مطلوب")
@@ -54,19 +58,22 @@ const GuestServicePage = () => {
     complaintDetails: Yup.string().required("تفاصيل الشكوى مطلوبة"),
     expectedAction: Yup.string().required("الإجراء المتوقع مطلوب"),
   });
-console.log("roomData?.message?.floor?.building?.branch?.localizedName", roomData?.data?.message?.floor?.building?.branch?.localizedName);
-const hotelName = roomData?.data?.message?.floor?.building?.branch?.localizedName;
-const number = roomData?.data?.message?.number;
-if (!hotelName) {
-  console.warn("Localized Name is missing. Defaulting to 'Unknown Hotel'");
-}
+  // console.log("roomData?.message?.floor?.building?.branch?.localizedName", roomData?.data?.message?.floor?.building?.branch?.localizedName);
+  const hotelName =
+    roomData?.data?.message?.floor?.building?.branch?.localizedName;
+  const number = roomData?.data?.message?.number;
+  if (!hotelName) {
+    // console.warn("Localized Name is missing. Defaulting to 'Unknown Hotel'");
+  }
   // Formik initialization
+
   const formik = useFormik({
-      enableReinitialize: true,
+    enableReinitialize: true,
     initialValues: {
+      title: "",
       hotelName: hotelName || "Unknown Hotel",
-      date: new Date().toISOString().split('T')[0],  
-      roomNumber:number || "Unknown Room",
+      date: new Date().toISOString().split("T")[0],
+      roomNumber: number || "Unknown Room",
       guestName: "",
       phone: "",
       email: "",
@@ -77,22 +84,45 @@ if (!hotelName) {
     validationSchema,
     onSubmit: (values) => {
       const payload = {
-        title: "test",
+        title: values.title,
         description: values.complaintDetails,
+        expectedAction: values.expectedAction,
         email: values.email,
         phoneNumber: values.phone,
         name: values.guestName,
-        roomId: 660101,
-        // branchId: 1,
-        priorityId: null,
+        roomId: roomNum,
+        priorityId: 1,
         sourceId: 1,
         itemsIds: values.complaintTypes,
       };
       console.log("payload", payload);
 
-      dispatch(createComplaint(payload));
+      // Dispatch the action and handle success/error
+      dispatch(createComplaint(payload))
+        .then((response) => {
+          console.log("Response", response); // Log the response for debugging
+          if (response?.payload?.successtate === 200) {
+            // Adjust according to your response structure
+            setPopupMessage("Complaint submitted successfully!");
+            setPopupType("success");
+            setPopupOpen(true);
+          } else {
+            console.log("Error", response); // Log the error for debugging
+
+            setPopupMessage(response?.payload?.errormessage);
+            setPopupType("error");
+            setPopupOpen(true);
+          }
+        })
+        .catch((error) => {
+          console.error("Error", error); // Log any errors that occurred
+          setPopupMessage("An unexpected error occurred.");
+          setPopupType("error");
+          setPopupOpen(true);
+        });
     },
   });
+
   useEffect(() => {
     if (roomData?.data?.message?.floor?.building?.branch?.localizedName) {
       setIsDataLoaded(true);
@@ -100,7 +130,7 @@ if (!hotelName) {
       const hotelName = roomData?.data?.message?.floor?.building?.branch?.localizedName;
       const number = roomData?.data?.message?.number;
   
-      // Use a flag or only set if different
+      // Only set values if they differ from the current formik values
       if (formik.values.hotelName !== hotelName) {
         formik.setFieldValue('hotelName', hotelName);
       }
@@ -108,8 +138,8 @@ if (!hotelName) {
         formik.setFieldValue('roomNumber', number);
       }
     }
-    // ⚠️ Do not include `formik` here
-  }, [roomData, formik]);
+    // Exclude formik from the dependency array to avoid infinite loop
+  }, [roomData]); // Now it only depends on roomData
   
   useEffect(() => {
     // Fetch guest evaluation data when the component mounts
@@ -122,9 +152,8 @@ if (!hotelName) {
       });
   }, [dispatch, language]);
 
-
   // Transform API items to match the expected format
-  const complaintTypes =  (complaintItems || []).map((item) => ({
+  const complaintTypes = (complaintItems || []).map((item) => ({
     id: item.id,
     label: language === "ar" ? item.nameAr : item.nameEn,
   }));
@@ -161,8 +190,13 @@ if (!hotelName) {
       label: t.Complaint.email.label,
       placeholder: t.Complaint.email.placeholder,
     },
+    {
+      name: "title",
+      label: t.Complaint.title.label, // Make sure this translation exists
+      placeholder: t.Complaint.title.placeholder,
+    },
   ];
-  if ( !isDataLoaded) return <p style={{minHeight:"100vh",display:"flex",justifyContent:"center"}}>Loading...</p>;
+  if (!isDataLoaded) return <Loading />;
 
   return (
     <Box
@@ -510,6 +544,16 @@ if (!hotelName) {
           </Button>
         </Box>
       </Box>
+      <SuccessPopup
+        open={popupOpen && popupType === "success"}
+        message={popupMessage}
+        onClose={() => setPopupOpen(false)}
+      />
+      <ErrorPopup
+        open={popupOpen && popupType === "error"}
+        message={popupMessage}
+        onClose={() => setPopupOpen(false)}
+      />
     </Box>
   );
 };

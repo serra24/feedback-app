@@ -62,7 +62,7 @@ const InputField = ({
             iconSrc && type !== "date" ? (
               <InputAdornment position="start">
                 {/* <img src={iconSrc} alt="input-icon" /> */}
-                <Box sx={{ mr: 1 }}>{iconSrc}</Box>
+                <Box >{iconSrc}</Box>
               </InputAdornment>
             ) : undefined,
         }}

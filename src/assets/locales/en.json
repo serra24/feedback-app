@@ -61,6 +61,10 @@
       "label": "Hotel Name",
       "placeholder": "Enter hotel name"
     },
+    "title": {
+      "label": "Complaint Title",
+      "placeholder": "Enter the complaint title"
+    },
     "startDate": {
       "label": "Date",
       "placeholder": "Select date"
@@ -249,5 +253,18 @@
    "thanks":"Thank you for your feedback",
    "Submitcomplaint":"Submit complaint"
   ,"loading" :"Loading..."
-  
+  ,
+  "validation": {
+    "guestName": {
+      "required": "Guest name is required",
+      "min": "Guest name must be at least 2 characters"
+    },
+    "email": {
+      "invalid": "Invalid email format"
+    },
+    "phone": {
+      "digitsOnly": "Phone number must be digits only",
+      "min": "Phone number must be at least 10 digits"
+    }
+  }
 }

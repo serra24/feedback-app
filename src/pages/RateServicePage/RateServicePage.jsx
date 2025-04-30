@@ -15,21 +15,22 @@ import { MdPhone } from "react-icons/md";
 import { MdEmail } from "react-icons/md";
 
 const RateServicePage = () => {
-  const navigate = useNavigate(); // Initialize navigate hook
+  const navigate = useNavigate();
+  const { translations: t } = useContext(LanguageContext);
+
   // Validation Schema using Yup
   const validationSchema = Yup.object({
     guestName: Yup.string()
-      .required("Guest name is required")
-      .min(2, "Guest name must be at least 2 characters"),
+      .required(t.validation.guestName.required)
+      .min(2, t.validation.guestName.min),
       email: Yup.string()
-      .email("Invalid email format"),
+      .email(t.validation.email.invalid),
       // .required("Email is required"),
     phone: Yup.string()
-      // .required("Phone number is required")
-      .matches(/^[0-9]+$/, "Phone number must be digits only")
-      .min(10, "Phone number must be at least 10 digits"),
+      .required(t.validation.phone.required)
+      // .matches(/^[0-9]+$/, t.validation.phone.invalid)
+      .min(8, t.validation.phone.min),
   });
-  const { translations: t } = useContext(LanguageContext);
   // Formik hook
   const formik = useFormik({
     initialValues: {
@@ -87,7 +88,7 @@ const RateServicePage = () => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           name="guestName"
-          iconSrc={<MdFaceUnlock />}
+          iconSrc={<MdFaceUnlock  style={{ color: 'var(--gold-color)',fontSize:20 }} />}
           placeholder={t.Complaint.guestName.placeholder}
           error={formik.errors.guestName}
           touched={formik.touched.guestName}
@@ -99,7 +100,7 @@ const RateServicePage = () => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           name="phone"
-          iconSrc={<MdPhone />}
+          iconSrc={<MdPhone  style={{ color: 'var(--gold-color)',fontSize:20 }} />}
           placeholder={t.Complaint.phone.placeholder}
           error={formik.errors.phone}
           touched={formik.touched.phone}
@@ -111,7 +112,7 @@ const RateServicePage = () => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           name="email"
-          iconSrc={<MdEmail />}
+          iconSrc={<MdEmail  style={{ color: 'var(--gold-color)',fontSize:20 }} />}
           placeholder={t.Complaint.email.placeholder}
           error={formik.errors.email}
           touched={formik.touched.email}

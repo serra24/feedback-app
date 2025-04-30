@@ -18,6 +18,7 @@ import evaluationReducer from "./slices/evaluationSlice";
 import complaintItemsReducer from "./slices/complaintItemsSlice";
 import createComplaintReducer from "./slices/createComplaintSlice";
 import roomDataReducer from './slices/roomFeatures/roomDataSlice';
+import generalRequestReducer from './slices/GeneralRequest/GeneralRequestSlice';
 const persistConfig = {
   key: "root",
   // storage,
@@ -34,6 +35,7 @@ const store = configureStore({
     complaintItems: complaintItemsReducer,
     createComplaint: createComplaintReducer,
     roomData: roomDataReducer,
+    generalRequest: generalRequestReducer, 
 
   },
 });
