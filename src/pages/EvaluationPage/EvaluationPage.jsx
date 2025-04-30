@@ -126,7 +126,8 @@ const EvaluationPage = () => {
         flexDirection: "column",
       }}
     >
-      <Box ref={mainContentRef}>
+      <Box ref={mainContentRef} sx={{   
+            display:"contents"}}>
         <AnimatedHeader
           title={t.Evaluation.header}
           subtitle={t.Evaluation.subheader}

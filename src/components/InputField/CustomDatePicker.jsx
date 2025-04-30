@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Box, Typography, TextField } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
 
 const CustomDatePicker = ({
   label,
-  value,
+  // value,
   onChange,
   onBlur,
   error,
@@ -15,6 +16,7 @@ const CustomDatePicker = ({
   const [open, setOpen] = useState(false); // State to handle opening and closing
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [value, setValue] = useState(dayjs());
 
   return (
     <Box sx={{mb:{md:"0px",xs:"20px"}}}>

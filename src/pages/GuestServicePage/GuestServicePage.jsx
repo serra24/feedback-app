@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import {
@@ -16,13 +16,36 @@ import InputField from "../../components/InputField/InputField";
 import CustomDatePicker from "../../components/InputField/CustomDatePicker";
 import { LanguageContext } from "../../context/LanguageContext";
 import FormTitle from "../../components/FormTitle/FormTitle";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchComplaintItems } from "../../redux/slices/complaintItemsSlice";
+import { createComplaint } from "../../redux/slices/createComplaintSlice";
+import { fetchRoomData } from "../../redux/slices/roomFeatures/roomDataSlice";
 const GuestServicePage = () => {
-  const { translations: t } = useContext(LanguageContext);
+  const { translations: t, language } = useContext(LanguageContext);
+  const dispatch = useDispatch();
+  const { roomNum, roomData, complaintItems } = useSelector((state) => ({
+  roomNum: state.room.roomNum,
+  roomData: state.roomData,
+  complaintItems: state.complaintItems.items
+}));
+
+
+  useEffect(() => {
+    console.log("roomNum inside useEffect:", roomNum);  // Check if roomNum is defined
+    if (roomNum) {
+      dispatch(fetchRoomData({ roomId: roomNum, language }));
+    } else {
+      console.error("roomNum is undefined or invalid");
+    }
+  }, [roomNum, dispatch, language]);
+  
+
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
+
+ 
+  
   // Form validation schema
   const validationSchema = Yup.object().shape({
-    // hotelName: Yup.string().required("اسم الفندق مطلوب"),
-    // date: Yup.string().required("التاريخ مطلوب"),
-    // roomNumber: Yup.string().required("رقم الغرفة مطلوب"),
     guestName: Yup.string().required("اسم الضيف مطلوب"),
     phone: Yup.string()
       // .required("رقم التواصل مطلوب")
@@ -32,13 +55,19 @@ const GuestServicePage = () => {
     complaintDetails: Yup.string().required("تفاصيل الشكوى مطلوبة"),
     expectedAction: Yup.string().required("الإجراء المتوقع مطلوب"),
   });
-
+console.log("roomData?.message?.floor?.building?.branch?.localizedName", roomData?.message?.floor?.building?.branch?.localizedName);
+const hotelName = roomData?.message?.floor?.building?.branch?.localizedName;
+const number = roomData?.message?.number;
+if (!hotelName) {
+  console.warn("Localized Name is missing. Defaulting to 'Unknown Hotel'");
+}
   // Formik initialization
   const formik = useFormik({
+      enableReinitialize: true,
     initialValues: {
-      hotelName: "",
-      date: "",
-      roomNumber: "",
+      hotelName: hotelName || "Unknown Hotel",
+      date: new Date().toISOString().split('T')[0],  
+      roomNumber:number || "Unknown Room",
       guestName: "",
       phone: "",
       email: "",
@@ -48,26 +77,59 @@ const GuestServicePage = () => {
     },
     validationSchema,
     onSubmit: (values) => {
-      console.log("Form submitted:", values);
-      // Handle form submission here
+      const payload = {
+        title: "test",
+        description: values.complaintDetails,
+        email: values.email,
+        phoneNumber: values.phone,
+        name: values.guestName,
+        roomId: 660101,
+        // branchId: 1,
+        priorityId: null,
+        sourceId: 1,
+        itemsIds: values.complaintTypes,
+      };
+      console.log("payload", payload);
+
+      dispatch(createComplaint(payload));
     },
   });
+ // Assuming you're fetching data in useEffect
+ useEffect(() => {
+  if (roomData?.message?.floor?.building?.branch?.localizedName) {
+    setIsDataLoaded(true);
 
-  // Complaint types options
-  const complaintTypes = [
-    { id: 1, label: t.room_cleanliness},
-    { id: 2, label: t.facilities},
-    { id: 3, label: t.noise},
-    { id: 4, label: t.billing_issues },
-    { id: 5, label: t.staff_behavior },
-    { id: 6, label: t.booking_issues },
-    { id: 7, label:t.food_and_drinks },
-    { id: 8, label:t.other},
-  ];
+    // Update hotelName field in Formik
+    const hotelName = roomData?.message?.floor?.building?.branch?.localizedName;
+    formik.setFieldValue('hotelName', hotelName);
+
+    // Update number field in Formik
+    const number = roomData?.message?.number;  // Assuming this is the number you want to update
+    if (number) {
+      formik.setFieldValue('roomNumber', number);  // Update Formik field for roomNumber
+    }
+  }
+}, [roomData, formik]);
+  useEffect(() => {
+    // Fetch guest evaluation data when the component mounts
+    dispatch(fetchComplaintItems(language))
+      .then(() => {
+        // console.log("Guest evaluation data fetched successfully.");
+      })
+      .catch((error) => {
+        console.error("Error fetching guest evaluation data:", error);
+      });
+  }, [dispatch, language]);
+
+
+  // Transform API items to match the expected format
+  const complaintTypes =  (complaintItems || []).map((item) => ({
+    id: item.id,
+    label: language === "ar" ? item.nameAr : item.nameEn,
+  }));
 
   // Input fields configuration
   const inputFields = [
-    
     {
       name: "startDate",
       label: t.Complaint.startDate.label,
@@ -99,6 +161,7 @@ const GuestServicePage = () => {
       placeholder: t.Complaint.email.placeholder,
     },
   ];
+  if ( !isDataLoaded) return <p>Loading...</p>;
 
   return (
     <Box
@@ -230,7 +293,7 @@ const GuestServicePage = () => {
             sx={{
               display: "flex",
               flexDirection: "column",
-              gap: { xs: 1, md: .5 },
+              gap: { xs: 1, md: 0.5 },
             }}
           >
             {complaintTypes
@@ -343,7 +406,7 @@ const GuestServicePage = () => {
               fontFamily: "Almarai",
               fontSize: "16px",
               color: "#fff",
-              "@media (max-width: 600px)": {
+              "@media (maxWidth: 600px)": {
                 width: "90% !important", // Adjust the width for small screens
               },
             }}
@@ -415,6 +478,7 @@ const GuestServicePage = () => {
         >
           <Button
             variant="contained"
+            type="submit"
             sx={{
               flex: 1,
               minWidth: 150,
