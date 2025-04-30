@@ -27,7 +27,7 @@ const RateServicePage = () => {
       .email(t.validation.email.invalid),
       // .required("Email is required"),
     phone: Yup.string()
-      .required(t.validation.phone.required)
+      // .required(t.validation.phone.required)
       // .matches(/^[0-9]+$/, t.validation.phone.invalid)
       .min(8, t.validation.phone.min),
   });

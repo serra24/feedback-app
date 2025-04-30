@@ -84,7 +84,7 @@ const EvaluationPage = () => {
       .then((response) => {
         // console.log("Evaluation submitted successfully:", response);
         if (response.payload.successtate === 200) {
-          setPopupMessage(t.Evaluation.successMessage);
+          setPopupMessage(response.payload?.message);
           setPopupType("success");
           setPopupOpen(true);
         } else {

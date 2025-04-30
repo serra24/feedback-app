@@ -59,7 +59,7 @@ const SuccessPopup = ({ open, message, onClose }) => {
       /> */}
 
       {/* Success Title */}
-      <motion.div
+      {/* <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.4 }}
@@ -67,7 +67,7 @@ const SuccessPopup = ({ open, message, onClose }) => {
         <Typography sx={{ fontWeight: 700, fontSize: {md:"20px",xs:"16px"} }}>
           {t.thanks}
         </Typography>
-      </motion.div>
+      </motion.div> */}
       {/* Success Message */}
       <motion.div
         initial={{ opacity: 0 }}

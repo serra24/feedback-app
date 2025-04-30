@@ -11,7 +11,7 @@ const InputField = ({
   iconSrc,
   placeholder,
   name,
-  type = "text", 
+  type = "text",
   disabled = false,
 }) => {
   return (
@@ -44,6 +44,9 @@ const InputField = ({
             "& input": {
               color: "#fff",
             },
+            "& input::placeholder": {
+              fontSize: "15px",  
+            },
           },
           // Hide the label float for date inputs
           ...(type === "date" && {
@@ -62,7 +65,7 @@ const InputField = ({
             iconSrc && type !== "date" ? (
               <InputAdornment position="start">
                 {/* <img src={iconSrc} alt="input-icon" /> */}
-                <Box >{iconSrc}</Box>
+             {iconSrc}
               </InputAdornment>
             ) : undefined,
         }}
