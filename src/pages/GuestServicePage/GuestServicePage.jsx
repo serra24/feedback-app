@@ -28,8 +28,7 @@ const GuestServicePage = () => {
   roomData: state.roomData,
   complaintItems: state.complaintItems.items
 }));
-
-
+  console.log("roomData", roomData); // Check if roomData is defined
   useEffect(() => {
     console.log("roomNum inside useEffect:", roomNum);  // Check if roomNum is defined
     if (roomNum) {
@@ -55,9 +54,9 @@ const GuestServicePage = () => {
     complaintDetails: Yup.string().required("تفاصيل الشكوى مطلوبة"),
     expectedAction: Yup.string().required("الإجراء المتوقع مطلوب"),
   });
-console.log("roomData?.message?.floor?.building?.branch?.localizedName", roomData?.message?.floor?.building?.branch?.localizedName);
-const hotelName = roomData?.message?.floor?.building?.branch?.localizedName;
-const number = roomData?.message?.number;
+console.log("roomData?.message?.floor?.building?.branch?.localizedName", roomData?.data?.message?.floor?.building?.branch?.localizedName);
+const hotelName = roomData?.data?.message?.floor?.building?.branch?.localizedName;
+const number = roomData?.data?.message?.number;
 if (!hotelName) {
   console.warn("Localized Name is missing. Defaulting to 'Unknown Hotel'");
 }
@@ -96,15 +95,15 @@ if (!hotelName) {
   });
  // Assuming you're fetching data in useEffect
  useEffect(() => {
-  if (roomData?.message?.floor?.building?.branch?.localizedName) {
+  if (roomData?.data?.message?.floor?.building?.branch?.localizedName) {
     setIsDataLoaded(true);
 
     // Update hotelName field in Formik
-    const hotelName = roomData?.message?.floor?.building?.branch?.localizedName;
+    const hotelName = roomData?.data?.message?.floor?.building?.branch?.localizedName;
     formik.setFieldValue('hotelName', hotelName);
 
     // Update number field in Formik
-    const number = roomData?.message?.number;  // Assuming this is the number you want to update
+    const number = roomData?.data?.message?.number;  // Assuming this is the number you want to update
     if (number) {
       formik.setFieldValue('roomNumber', number);  // Update Formik field for roomNumber
     }
