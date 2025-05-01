@@ -60,7 +60,15 @@ const EvaluationPage = () => {
 
   const handleSubmit = () => {
     // const isValid = ratings.every((rating) => rating !== 0); // Check if all ratings are selected
-
+    const hasAtLeastOneRating = ratings.some((rating) => rating > 0);
+    const hasComment = comment.trim().length > 0;
+  
+    if (!hasAtLeastOneRating && !hasComment) {
+      setPopupMessage(t.Evaluation.errorMessage || "Please provide at least one rating or a comment.");
+      setPopupType("error");
+      setPopupOpen(true);
+      return; // Stop submission
+    }
     // if (isValid) {
     // Create the evaluation payload
     const evaluationData = {

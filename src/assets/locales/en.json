@@ -135,7 +135,8 @@
       "service": "Service",
       "facilities": "Facilities",
       "location": "Location",
-      "value": "Value for money"
+      "value": "Value for money",
+      "errorMessage":"Please provide at least one rating or a comment."
     },
     "commentLabel": "Your comment (optional)",
     "commentPlaceholder": "Tell us about your experience at the hotel...",
