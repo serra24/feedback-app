@@ -1,0 +1,439 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --gold-color: #cfae78;
+  --gold-color-2: #cfae7824;
+  --primary-bg-color: #00395D;
+  --secondary-bg-color: #13537c;
+  --white-color: #fff;
+  --light-grey-bg: #e4e4e7;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  line-height: 1.5;
+  /* font-family: "Monstrate", sans-serif; */
+}
+/* Style the scrollbar itself */
+::-webkit-scrollbar {
+  width: 11px; /* Width of the scrollbar */
+  height: 11px; /* Height of the scrollbar on horizontal scroll */
+}
+
+/* Style the scrollbar track (background) */
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* Light gray background for the track */
+  border-radius: 10px;
+}
+
+/* Style the scrollbar thumb (the draggable part) */
+::-webkit-scrollbar-thumb {
+  background-color: var(
+    --primary-bg-color
+  ); /* Set color to your desired thumb color */
+  border-radius: 10px;
+}
+
+/* Style the scrollbar thumb when it's hovered */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #2980b9; /* Darker color when hovered */
+}
+
+/* Style the scrollbar corner (where the horizontal and vertical scrollbars meet) */
+::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+.css-1bm5wxm-MuiInputBase-root-MuiInput-root-MuiSelect-root .MuiSvgIcon-root,
+.css-15jcktb-MuiInputBase-root-MuiInput-root-MuiSelect-root .MuiSvgIcon-root,
+.css-1r1c6tg .MuiSvgIcon-root {
+  display: none !important;
+}
+.css-5lvf42-MuiSelect-select-MuiInputBase-input-MuiInput-input.css-5lvf42-MuiSelect-select-MuiInputBase-input-MuiInput-input.css-5lvf42-MuiSelect-select-MuiInputBase-input-MuiInput-input,
+.css-1wcjd45.css-1wcjd45.css-1wcjd45 {
+  padding-right: 0px !important;
+}
+.css-axw7ok {
+  gap: 6px !important;
+}
+/* index.css */
+body[dir="ltr"] {
+
+  font-family: "Monstrate", sans-serif !important;
+}
+/* RTL (Right to Left) styles */
+body[dir="rtl"] {
+  
+  font-family: "Almarai", sans-serif  !important;
+}
+body[dir="ltr"] .MuiTypography-root,
+body[dir="ltr"] .MuiButton-root,
+body[dir="ltr"] .MuiAppBar-root,
+body[dir="ltr"] .MuiPaper-root,
+body[dir="ltr"] .MuiDrawer-root,
+body[dir="ltr"] .MuiSelect-root,
+body[dir="ltr"] .MuiFormControl-root,
+body[dir="ltr"] .MuiTextField-root,
+body[dir="ltr"] .MuiListItem-root,
+body[dir="ltr"] .MuiTable-root,
+body[dir="ltr"] .MuiDialog-root,
+body[dir="ltr"] .MuiCard-root,
+body[dir="ltr"] .MuiCheckbox-root,
+body[dir="ltr"] .MuiRadio-root,
+body[dir="ltr"] .MuiSwitch-root,
+.css-guh1qo-MuiTypography-root:dir(ltr),
+.css-5lvf42-MuiSelect-select-MuiInputBase-input-MuiInput-input:dir(ltr),
+body[dir="ltr"] .MuiSlider-root,
+.css-1yzf4q2-MuiTypography-root:dir(ltr),
+.css-ylj3ft-MuiTypography-root:dir(ltr),
+.css-1xzerxu-MuiTypography-root:dir(ltr),
+.css-1t1db73-MuiTypography-root:dir(ltr),
+.css-1i7iul4-MuiTypography-root:dir(ltr),
+.css-12uri4d-MuiTypography-root:dir(ltr),
+.css-l7dvuu-MuiTypography-root:dir(ltr),
+.css-17if9io-MuiTypography-root:dir(ltr),
+.css-1tmwjyi-MuiTypography-root:dir(ltr),
+.css-10n8mhe-MuiTypography-root:dir(ltr),
+.css-2u11ia-MuiInputBase-input-MuiOutlinedInput-input:dir(ltr),
+.css-h0wz5n-MuiTypography-root-MuiLink-root:dir(ltr),
+.css-19j0bbv-MuiTypography-root:dir(ltr),
+.css-er619e-MuiFormHelperText-root:dir(ltr),
+.css-1tei3bx-MuiTypography-root:dir(ltr),
+.css-11kw26-MuiTypography-root:dir(ltr),
+.css-1u5stxu-MuiTypography-root:dir(ltr),
+.css-3js40i-MuiTypography-root:dir(ltr),
+.complaint-textarea:dir(ltr),
+.css-1dmkl3o-MuiButtonBase-root-MuiButton-root:dir(ltr),
+.css-1t29q21-MuiButtonBase-root-MuiButton-root:dir(ltr),
+.css-1rju2q6-MuiButtonBase-root-MuiMenuItem-root:dir(ltr),
+body[dir="ltr"] .css-1y4gq5a-MuiPickersSectionList-root-MuiPickersInputBase-sectionsContainer-MuiPickersOutlinedInput-sectionsContainer,
+body[dir="ltr"] .css-joz0rk-MuiPickersSectionList-section-MuiPickersInputBase-section 
+body[dir="ltr"] .css-1yzf4q2-MuiTypography-root,
+.css-l432t2-MuiTypography-root:dir(ltr),
+.css-1eb9bf1-MuiTypography-root:dir(ltr),
+.css-93l18g-MuiTypography-root:dir(ltr),
+.css-fl112z-MuiFormControlLabel-root .MuiFormControlLabel-label:dir(ltr),
+.css-1yxzzmy-MuiTypography-root:dir(ltr),
+.css-v1qt37-MuiTypography-root:dir(ltr),
+.css-rizt0-MuiTypography-root:dir(ltr),
+.css-1he2cs0-MuiButtonBase-root-MuiButton-root:dir(ltr){
+  font-family: "Montserrat", sans-serif !important;
+}
+body[dir="rtl"] .MuiTypography-root,
+body[dir="rtl"] .MuiButton-root,
+body[dir="rtl"] .MuiAppBar-root,
+body[dir="rtl"] .MuiPaper-root,
+body[dir="rtl"] .MuiDrawer-root,
+body[dir="rtl"] .MuiSelect-root,
+body[dir="rtl"] .MuiFormControl-root,
+.css-l432t2-MuiTypography-root:dir(rtl),
+.css-rizt0-MuiTypography-root:dir(rtl),
+.css-v1qt37-MuiTypography-root:dir(rtl),
+.css-1yxzzmy-MuiTypography-root:dir(rtl),
+.css-fl112z-MuiFormControlLabel-root .MuiFormControlLabel-label:dir(rtl),
+.css-1eb9bf1-MuiTypography-root:dir(rtl),
+.css-93l18g-MuiTypography-root:dir(rtl),
+.css-1he2cs0-MuiButtonBase-root-MuiButton-root:dir(rtl),
+.css-1dmkl3o-MuiButtonBase-root-MuiButton-root:dir(rtl),
+body[dir="rtl"] .MuiTextField-root,
+.css-1u5stxu-MuiTypography-root:dir(rtl),
+.css-3js40i-MuiTypography-root:dir(rtl),
+.complaint-textarea:dir(rtl),
+body[dir="rtl"] .MuiListItem-root,
+.css-11kw26-MuiTypography-root:dir(rtl),
+body[dir="rtl"] .MuiTable-root,
+body[dir="rtl"] .MuiDialog-root,
+body[dir="rtl"] .MuiCard-root,
+body[dir="rtl"] .MuiCheckbox-root,
+body[dir="rtl"] .MuiRadio-root,
+body[dir="rtl"] .MuiSwitch-root,
+.css-10n8mhe-MuiTypography-root:dir(rtl),
+.css-1tei3bx-MuiTypography-root:dir(rtl),
+.css-1rju2q6-MuiButtonBase-root-MuiMenuItem-root:dir(rtl),
+.css-1tmwjyi-MuiTypography-root:dir(rtl),
+.css-1t29q21-MuiButtonBase-root-MuiButton-root:dir(rtl),
+.css-17if9io-MuiTypography-root:dir(rtl),
+body[dir="rtl"] .MuiSlider-root,
+.css-2u11ia-MuiInputBase-input-MuiOutlinedInput-input:dir(rtl),
+.css-er619e-MuiFormHelperText-root:dir(rtl),
+.css-19j0bbv-MuiTypography-root:dir(rtl),
+.css-12uri4d-MuiTypography-root:dir(rtl),
+.css-l7dvuu-MuiTypography-root:dir(rtl),
+.css-1i7iul4-MuiTypography-root:dir(rtl),
+.css-5lvf42-MuiSelect-select-MuiInputBase-input-MuiInput-input:dir(rtl),
+.css-h0wz5n-MuiTypography-root-MuiLink-root:dir(rtl),
+.css-guh1qo-MuiTypography-root:dir(rtl),
+.css-1xzerxu-MuiTypography-root:dir(rtl),
+.css-ylj3ft-MuiTypography-root:dir(rtl),
+.css-1t1db73-MuiTypography-root:dir(rtl),
+body[dir="rtl"] .css-1yzf4q2-MuiTypography-root
+.css-1yzf4q2-MuiTypography-root:dir(rtl),
+.css-1yzf4q2-MuiTypography-root:dir(rtl),
+body[dir="rtl"] .css-1y4gq5a-MuiPickersSectionList-root-MuiPickersInputBase-sectionsContainer-MuiPickersOutlinedInput-sectionsContainer,
+body[dir="rtl"] .css-joz0rk-MuiPickersSectionList-section-MuiPickersInputBase-section {
+  font-family: "Almarai", sans-serif !important;
+ 
+}
+.css-mb7bu8-MuiFormControl-root,
+.css-1wcjd45.css-1wcjd45.css-1wcjd45,
+.css-1dd2tu0 {
+  min-width: 10px !important;
+}
+.css-2u11ia-MuiInputBase-input-MuiOutlinedInput-input {
+  background-color: #084267 !important;
+  height: 13px !important;
+}
+/* Global Styles for Autofill */
+input:-webkit-autofill {
+  background-color: rgba(8, 66, 103, 0.3) !important;
+  color: #084267 !important;
+}
+
+input:-internal-autofill-selected {
+  background-color: rgba(8, 66, 103, 0.3) !important;
+  color: #084267 !important;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+/* Responsive logo styles */
+.responsive-logo {
+  /* height: 70px;  */
+}
+
+@media (max-width: 600px) {
+  .responsive-logo {
+    height: 80px;
+  }
+}
+.css-zsp0bh-MuiInputBase-root-MuiOutlinedInput-root {
+  padding: 12px !important;
+}
+.css-lohd6h-MuiSvgIcon-root-MuiSelect-icon,
+.css-d551zc-MuiSvgIcon-root-MuiSelect-icon {
+  color: #ffffff80 !important;
+}
+.css-lohd6h-MuiSvgIcon-root-MuiSelect-icon:dir(rtl),
+.css-d551zc-MuiSvgIcon-root-MuiSelect-icon:dir(rtl),
+.css-1l3b12y:dir(rtl),
+.css-1y30b8s:dir(rtl) {
+  left: 7px !important;
+  right: auto !important;
+}
+.css-w76bbz-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
+  border-radius: 5px !important;
+}
+.css-vycme6-MuiPickersInputBase-root-MuiPickersOutlinedInput-root {
+  color: #ffffff80 !important;
+  font-family: Almarai !important;
+  font-weight: 400 !important;
+  font-size: 18px !important;
+  line-height: 100% !important;
+  letter-spacing: 0% !important;
+  border-color: #ffffff80 !important;
+  border-radius: 5px !important;
+  height: 49px !important;
+}
+.css-1umw9bq-MuiSvgIcon-root,
+.css-q7mezt {
+  color: #ffffff80 !important;
+}
+.css-1wqp779-MuiFormControl-root-MuiPickersTextField-root,
+.css-1pv2xcc {
+  width: 100% !important;
+}
+.css-1y4gq5a-MuiPickersSectionList-root-MuiPickersInputBase-sectionsContainer-MuiPickersOutlinedInput-sectionsContainer:dir(
+    rtl
+  ),
+.css-1fb7els-MuiPickersSectionList-root-MuiPickersInputBase-sectionsContainer-MuiPickersOutlinedInput-sectionsContainer:dir(
+    rtl
+  ),.css-gpxgpk:dir(rtl),.css-oljenl:dir(rtl) {
+  direction: rtl !important;
+}
+.css-1ysp02-MuiButtonBase-root-MuiIconButton-root:dir(rtl) {
+  margin-left: -12px !important;
+  padding: 0px !important;
+}
+.css-1ll44ll-MuiOutlinedInput-notchedOutline,
+.css-lqwr9g-MuiPickersOutlinedInput-notchedOutline,
+.css-5v2ak0,
+.css-1l1mqzp{
+  border-color: #ffffff80 !important;
+  height: 49px !important;
+
+}
+.css-1blp12k-MuiInputBase-root-MuiOutlinedInput-root.Mui-error
+  .MuiOutlinedInput-notchedOutline,
+.css-ehlix4.Mui-error .MuiOutlinedInput-notchedOutline {
+  border-color: #d32f2f !important;
+}
+.css-1blp12k-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused
+  .MuiOutlinedInput-notchedOutline,
+.css-vycme6-MuiPickersInputBase-root-MuiPickersOutlinedInput-root.Mui-focused:not(
+    .Mui-error
+  )
+  .MuiPickersOutlinedInput-notchedOutline,
+.css-xhkvgb.Mui-focused .MuiOutlinedInput-notchedOutline,
+.css-1p8sp1h.Mui-focused:not(.Mui-error)
+  .MuiPickersOutlinedInput-notchedOutline,
+.css-ehlix4.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #1976d2 !important;
+}
+.css-joz0rk-MuiPickersSectionList-section-MuiPickersInputBase-section {
+  font-family: Almarai !important;
+  font-weight: 400 !important;
+  font-size: 18px !important;
+  text-transform: lowercase !important;
+}
+.css-1jlr7fa-MuiFormControlLabel-root,.css-vj2h72,
+.css-v3aylg-MuiFormControlLabel-root,.css-63b40r ,.css-1x884l8,.css-fl112z-MuiFormControlLabel-root,.css-1rqdxpq-MuiFormControlLabel-root{
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+}
+.css-imrjgg-MuiButtonBase-root-MuiCheckbox-root {
+  padding: 0px !important;
+}
+.css-1jlr7fa-MuiFormControlLabel-root,.css-vj2h72 
+  ,.css-63b40r   {
+  gap: 3px !important;
+}
+.css-1mcjc5q-MuiFormControlLabel-root .MuiFormControlLabel-label {
+  font-size: 14px !important;
+}
+.css-tocb7-MuiButtonBase-root-MuiCheckbox-root .MuiSvgIcon-root {
+  color: #cfae78 !important;
+  width: 16px !important;
+  height: 16px !important;
+}
+.styled-placeholder::placeholder, .styled-placeholder2::placeholder,.complaint-textarea::placeholder{
+  font-family: Almarai;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  vertical-align: middle;
+  color: #ffffff80;
+  /* padding: 12px !important; */
+}
+@media (max-width: 600px) {
+  .styled-placeholder {
+    width: 90% !important; 
+  }
+}
+.css-gpxgpk {
+  font-family: Almarai;
+  font-weight: 400 !important;
+  font-size: 18px !important;
+  color: #ffffff80 !important;
+  display: flex !important;
+  align-items: center !important;
+  text-align: center !important;
+}
+.css-oljenl{
+  color: #ffffff80 !important;
+}
+@media (max-width: 600px) {
+  .styled-placeholder2 {
+    width:93.6% !important;
+  }
+}
+.css-8zvnql .MuiSvgIcon-root{
+  color: var(--gold-color) !important;
+  width: 14px !important;
+  height: 14px !important;
+
+}
+.css-8zvnql{
+  padding: 0px !important;
+}
+.css-gpxgpk:dir(rtl),.css-oljenl:dir(rtl) {
+  direction: rtl !important;
+}
+.css-yxqbup{
+  margin-left: 0px !important;
+  margin-right: 8px !important;
+}
+.css-1p8sp1h {
+  height: 49px !important;
+}
+.css-w76bbz-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-w76bbz-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-w76bbz-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input{
+  padding-right:14px !important;
+}
+.css-ux17pc-MuiButtonBase-root-MuiMenuItem-root-MuiMultiSectionDigitalClockSection-item.Mui-selected
+{
+  background-color: #084267 !important;
+}
+.css-1uent87-MuiButtonBase-root-MuiButton-root{
+  color: #02395c !important;
+}
+.css-1y6l765-MuiPickersLayout-root .MuiPickersLayout-actionBar{
+  /* display: none !important; */
+}
+.complaint-textarea {
+  width: 97%;
+  padding: 12px;
+  background-color: transparent;
+  border-radius: 5px;
+  font-family: Almarai;
+  font-size: 16px;
+  color: #fff !important;
+  border: 1px solid #FFFFFF80;
+}
+
+.complaint-textarea.error {
+  border: 1px solid #f44336;
+}
+
+@media (max-width: 600px) {
+  .complaint-textarea {
+    width: 92% !important;
+  }
+}
+textarea::placeholder{
+  color: #ffffff80 !important;
+  font-family: Almarai; 
+  font-weight: 300;
+  font-size: 16px;
+}
+.css-mp9f0v.css-mp9f0v.css-mp9f0v:dir(rtl) {
+
+  padding-right: 12px !important;
+  
+}
+.css-1p8sp1h.Mui-disabled *,.css-vycme6-MuiPickersInputBase-root-MuiPickersOutlinedInput-root.Mui-disabled *,.css-1p8sp1h ,.css-1p8sp1h.Mui-disabled * {
+  color: #565C63 !important;
+}
+.css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input.Mui-disabled,.css-1pk1fka.Mui-disabled  {
+  opacity: 1;
+  -webkit-text-fill-color:  #565C63 !important;
+}
+.css-1p8sp1h.Mui-disabled * {
+  color: #565C63 !important;
+}
+.css-8zvnql {
+  padding: 6px !important;
+}
+.css-15ni0jc{
+  padding: 0px !important;
+}
+.css-1o6n1ip{
+ 
+  padding-right: 10px !important;
+
+}
+.css-1o6n1ip:dir(rtl) {
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+
+}
+
+.css-qwdxx6 {
+  height: 16px !important;
+}
+.css-1m5w8ek-MuiFormControl-root-MuiTextField-root .MuiOutlinedInput-root input,.css-1dune0f-MuiInputBase-input-MuiOutlinedInput-input{
+  height: 13px !important;
+}

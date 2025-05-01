@@ -1,0 +1,274 @@
+{
+  "navigation": {
+    "home": "الرئيسية",
+    "about": "من نحن"
+  },
+  "language": {
+    "english": "الإنجليزية",
+    "arabic": "العربية"
+  },
+  "home": {
+    "mainHeading": "تجربة سياحية دينية فريدة",
+    "welcomeMessage": "مرحبًا بك في فنادق نوازي، حيث نضع راحتك ورضاك في المقام الأول.",
+    "subHeading": "في نوازي، راحتك تهمّنا — قيّم تجربتك أو اطلب الخدمة اللي تحتاجها لنخدمك بأفضل ما لدينا في رحلتك الدينية.",
+    "cards": {
+      "rateService": {
+        "topTitle": "تقييم الخدمات",
+        "title": "تقييم الخدمات",
+        "description": "شاركنا رأيك حول تجربتك في الفندق"
+      },
+      "requestService": {
+        "topTitle": "طلب خدمة",
+        "title": "طلب خدمة",
+        "description": "يمكنك طلب أي من خدماتنا المتنوعة"
+      }
+    }
+  },
+  "rateServicePage": {
+    "header": {
+      "mainTitle": "تقييم الخدمات الفندقية",
+      "subTitle": "نقدر آرائكم ونسعي دائماً لتحسين خدماتنا بناءاً علي ملاحظاتكم"
+    },
+    "form": {
+      "bookingDetailsTitle": "ادخل تفاصيل الحجز الخاص بك",
+      "bookingNumber": {
+        "label": "رقم الحجز",
+        "placeholder": "أدخل رقم الحجز هنا"
+      },
+      "secretNumber": {
+        "label": "الرقم السري",
+        "placeholder": "أدخل الرقم السري هنا"
+      },
+      "description": "الرجاء إدخال رقم الحجز والرقم السري الخاص بك لتقديم مراجعة.",
+      "submitButton": "إرسال"
+    }
+  },
+  "Maintenance": {
+    "title": "خدمة الصيانه",
+    "description": "نقدّم لك خدمة صيانة سريعة وآمنة على مدار الساعة لتلبية أي احتياج داخل الغرف أو المرافق.",
+    "form_title": "يرجي ملء النموذج التالي لتقديم طلب صيانه .",
+    "notes": "ملاحظات",
+    "notes_placeholder": "اكتب وصفاً تفصيلياً للمشكله...",
+    "attachments": "المرفقات",
+    "drag_and_drop": "قم بسحب الملفات وإفلاتها أو",
+    "browse": "تصفح",
+    "submit": "إرسال طلب الصيانه",
+    "priority": "الأولوية",
+    "priorityHigh": "عالية",
+    "priorityLow": "منخفضة"
+  },
+  "cancel": "إلغاء",
+  "Complaint": {
+    "formTitle": "شكوي",
+    "description": "نوازي تهتم برأيك... أرسل شكواك وسنعمل على معالجتها بعناية.",
+    "formInstructions": "يرجي ملء النموذج التالي لتقديم الشكوي.",
+    "hotelName": {
+      "label": "اسم الفندق",
+      "placeholder": "أدخل اسم الفندق"
+    },
+    "title": {
+      "label": "عنوان الشكوى",
+      "placeholder": "أدخل عنوان الشكوى"
+    },
+    "startDate": {
+      "label": "التاريخ",
+      "placeholder": "اختر التاريخ"
+    },
+    "roomNumber": {
+      "label": "رقم الغرفة",
+      "placeholder": "أدخل رقم الغرفة"
+    },
+    "guestName": {
+      "label": "اسم الضيف",
+      "placeholder": "أدخل اسم الضيف"
+    },
+    "phone": {
+      "label": "رقم التواصل",
+      "placeholder": "أدخل رقم الهاتف"
+    },
+    "email": {
+      "label": "البريد الإلكتروني",
+      "placeholder": "أدخل البريد الإلكتروني"
+    },
+    "complaintTypesTitle": "طبيعة الشكوى (يرجى تحديد جميع ما ينطبق)",
+    "complaintTypesDescription": "يمكنك اختيار أكثر من خيار",
+    "complaintDetails": {
+      "label": "تفاصيل الشكوي",
+      "description": "يرجي وصف المشكله بالتفصيل بما في ذلك التاريخ و الوقت و أي موظفين مشاركين (إن وجد).",
+      "placeholder": "اكتب وصفاً تفصيلياً للمشكله..."
+    },
+    "expectedAction": {
+      "label": "الإجراء المتوقع أو المطلوب",
+      "placeholder": "اكتب وصفاً تفصيلياً للإجراء المطلوب..."
+    },
+    "submitButton": "إرسال الشكوي"
+  },
+  "RequestServicePage": {
+    "header": {
+      "title": "اختَر الخدمة التي تحتاجها",
+      "description": "في نوازي، نوفر لك مجموعة متنوعة من الخدمات المصممة بعناية لتلبية احتياجاتك أثناء رحلتك الدينية. اختر الخدمة المناسبة لك، ودعنا نهتم بالباقي."
+    },
+    "Complaint": "الشكوى",
+    "Complaintdescription": "المساعدة في الاستفسارات والشكاوى",
+    "Maintenance": "خدمة الصيانة",
+    "Maintenancedescription": "حلول فورية لأعطال الغرف أو الأجهزة.",
+    "Room": "خدمات الغرف",
+    "Roomdescription": "راحة تامة وخدمة مميزة داخل غرفتك.",
+    "Luggage": "نقل الأمتعة",
+    "Luggagedescription": "نقل أمتعتك بأمان وسهولة داخل الفندق."
+  },
+  "mainMaintenanceRequest": "طلب الصيانة الرئيسي",
+  "subMaintenanceRequest": "طلب الصيانة الفرعي",
+  "jobTitle": "الوظيفه",
+  "assignTo": "تعيين ل",
+  "electricity": "كهرباء",
+  "plumbing": "سباكة",
+  "other": "أخرى",
+  "firstFloor": "الدور الأول",
+  "secondFloor": "الدور الثاني",
+  "thirdFloor": "الدور الثالث",
+  "Select": "اختر",
+  "Evaluation": {
+    "header": "تقييم الخدمات الفندقيه",
+    "subheader": "نقدر آرائكم ونسعي دائماً لتحسين خدماتنا بناءاً علي ملاحظاتكم.",
+    "rateYourStay": "قيم إقامتك",
+    "ratings": {
+      "cleanliness": "النظافه",
+      "service": "الخدمه",
+      "facilities": "المرافق",
+      "location": "الموقع",
+      "value": "القيمه مقابل السعر"
+    },
+    "commentLabel": "تعليقك (إختياري)",
+    "commentPlaceholder": "أخبرنا عن تجربتك في الفندق...",
+    "submit": "إرسال التقييم"
+  },
+  "roomServices": {
+    "title": "خدمات الغرف",
+    "description": "اطلب خدمات النظافة أو الموارد الإضافية لغرفتك"
+  },
+  "resources": "موارد",
+  "Cleaning": "نظافة",
+  "cleaningForm": {
+    "cleaningService": "خدمة النظافة",
+    "guarantee": "نضمن لك نظافة يومية بمعايير عالية… لراحة لا تنقطع.",
+    "formInstruction": "يرجى ملء النموذج التالي لتقديم طلب نظافة.",
+    "fullNameLabel": "الاسم بالكامل",
+    "fullNamePlaceholder": "أدخل الاسم بالكامل",
+    "phoneLabel": "رقم التواصل",
+    "phonePlaceholder": "أدخل رقم التواصل",
+    "preferredTimeLabel": "الوقت المفضل",
+    "hourPlaceholder": "س",
+    "minutePlaceholder": "د",
+    "periodPlaceholder": "ص/م",
+    "cleaningOptionsLabel": "اختر ما تريد تنظيفه:",
+    "multiSelectNote": "يمكنك اختيار أكثر من خيار",
+    "windowCleaning": "نظافة الشبابيك",
+    "bedCleaning": "ترتيب وتنظيف السرير",
+    "bathroomCleaning": "تنظيف الحمام",
+    "floorCleaning": "تنظيف الأرضية",
+    "trashEmptying": "تفريغ سلة المهملات",
+    "allOfTheAbove": "جميع ما سبق",
+    "descriptionLabel": "الوصف (اختياري)",
+    "descriptionPlaceholder": "اكتب وصفاً تفصيلياً...",
+    "numberOfBagsLabel": "عدد الحقائب",
+    "numberOfBagsPlaceholder": "أدخل عدد الحقائب",
+    "Receiveluggage": "إستلام الأمتعه من الغرفه",
+    "Deliveringluggage": "توصيل الأمتعه إلي الغرفه",
+    "Temporaryluggage": "تخزين الأمتعه مؤقتاً"
+  },
+  "sendRequest": "إرسال الطلب",
+  "resourcesForm": {
+    "title": "خدمة الموارد",
+    "description": "خدمة سريعة لتلبية جميع احتياجاتك داخل الفندق.",
+    "formInstruction": "يرجى ملء النموذج التالي لتقديم الطلب.",
+    "fullNameLabel": "الاسم بالكامل",
+    "fullNamePlaceholder": "الاسم بالكامل",
+
+    "selectItemsLabel": "اختر الأصناف المطلوبة",
+    "items": {
+      "bathSupplies": "مستلزمات حمام",
+      "towels": "مناشف",
+      "extraPillows": "وسائد إضافية",
+      "bedSheets": "أغطية سرير",
+      "teaCoffee": "شاي وقهوة",
+      "mineralWater": "مياه معدنية"
+    },
+    "quantityLabel": "الكمية",
+    "quantityNote": "حدد الكمية المطلوبة من كل صنف",
+    "additionalNotesLabel": "ملاحظات إضافية (اختياري)",
+    "additionalNotesPlaceholder": "أي ملاحظات إضافية"
+  },
+  "luggageForm": {
+    "title": "نقل الأمتعه ",
+    "description": "لراحتك في رحلتك الإيمانية… نحرص على إيصال أمتعتك بأمان.",
+    "formInstruction": "يرجى ملء النموذج التالي لتقديم الطلب.",
+    "luggageDetailsLabel": "تعليمات خاصه ( إختياري )",
+    "luggageDetailsPlaceholder": "أي تعليمات خاصه بخصوص نقل الأمتعه",
+    "typeofserviceLabel": "نوع الخدمة"
+  },
+  "room_cleanliness": "نظافة الغرفة",
+  "facilities": "المرافق (المصعد , الباص)",
+  "noise": "الإزعاج و الضوضاء",
+  "billing_issues": "مشاكل في الفاتورة أو الدفع",
+  "staff_behavior": "سلوك الموظفين",
+  "booking_issues": "مشاكل في الحجز أو الحجز المسبق",
+  "food_and_drinks": "الطعام و الشراب",
+  "Now": "الآن",
+  "Ok": "حسناً",
+  "who_we_are": {
+    "title": "من نحن – نوازي : ",
+    "content": "في نوازي، نسعى لأن تكون رحلتك الإيمانية سهلة، مريحة، ومليئة بالسكينة. نحن منصة رقمية متخصصة في خدمات الضيافة والسياحة الدينية، نوفّر لك كل ما تحتاجه من لحظة وصولك وحتى انتهاء رحلتك، في بيئة يسودها الاحترام، التنظيم، والخدمة الراقية."
+  },
+  "our_vision": {
+    "title": "رؤيتنا : ",
+    "content": "أن نكون الوجهة الرقمية الأولى التي ترافق ضيوف الرحمن في رحلتهم، بخدمات متكاملة تُعنى بالجسد والروح معًا."
+  },
+  "our_mission": {
+    "title": "رسالتنا : ",
+    "content": "نُقدّم تجربة ضيافة عصرية ترتقي بالقيم الدينية، من خلال تسهيل الوصول إلى كافة الخدمات الفندقية والدينية بكل راحة وطمأنينة."
+  },
+  "our_values": {
+    "title": "قيمنا : ",
+    "content": [
+      "نوازي ضيوفنا بكل ما نستطيع من عطاء",
+      "لكل زائر, ولكل رحلة خصوصيتها",
+      "رضا الزائر غايتنا",
+      "ندير التفاصيل بدقة لنمنحك راحة البال"
+    ]
+  },
+  "what_we_offer": {
+    "title": "ماذا نقدم ؟",
+    "content": [
+      "حجز و إدارة الإقامه ",
+      "خدمات نظافة و صيانة داخل الغرفه",
+      "طلب الأطعمه أو الموارد ",
+      "تقديم الدعم و الشكاوي طوال فترة الإقامه "
+    ]
+  },
+  "whowe": "من نحن؟",
+  "error404": {
+    "title": "خطأ 404",
+    "message": " عذرًا! الصفحة غير موجودة",
+    "button": "العودة إلى الرئيسية"
+  },
+  "errorhappen": " حدث خطأ",
+  "thanks": "شكرًا لك",
+  "Submitcomplaint": "تقديم شكوى",
+  "loading": "جاري التحميل...",
+  "validation": {
+    "guestName": {
+      "required": "اسم الضيف مطلوب",
+      "min": "يجب أن يحتوي اسم الضيف على حرفين على الأقل"
+    },
+    "email": {
+      "invalid": "تنسيق البريد الإلكتروني غير صالح"
+    },
+    "phone": {
+      "digitsOnly": "يجب أن يحتوي رقم الهاتف على أرقام فقط",
+      "min": "يجب أن يحتوي رقم الهاتف على 10 أرقام على الأقل"
+    },
+    "selectMainCategory": "يرجى اختيار القسم الرئيسي",
+    "selectSubCategory": "يرجى اختيار القسم الفرعي"
+  }
+}

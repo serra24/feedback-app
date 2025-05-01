@@ -1,0 +1,275 @@
+{
+  "navigation": {
+    "home": "Home",
+    "about": "About"
+  },
+  "language": {
+    "english": "English",
+    "arabic": "Arabic"
+  },
+  "home": {
+    "mainHeading": "A Unique Religious Tourism Experience",
+    "welcomeMessage": "Welcome to Nawazi Hotels, where we prioritize your comfort and satisfaction.",
+    "subHeading": "At Nawazi, your comfort matters — rate your experience or request the service you need so we can serve you at our best during your religious journey.",
+    "cards": {
+      "rateService": {
+        "topTitle": "Rate Services",
+        "description": "Share opinion about your hotel experience"
+      },
+      "requestService": {
+        "topTitle": "Request Service",
+        "description": "You can request any of our various services"
+      }
+    }
+  },
+  "rateServicePage": {
+    "header": {
+      "mainTitle": "Rate Hotel Services",
+      "subTitle": "We value your feedback and always strive to improve our services based on your comments"
+    },
+    "form": {
+      "bookingDetailsTitle": "Enter Your Booking Details",
+      "bookingNumber": {
+        "label": "Booking Number",
+        "placeholder": "Enter your booking number here"
+      },
+      "secretNumber": {
+        "label": "Secret Number",
+        "placeholder": "Enter your booking number here"
+      },
+      "description": "Please enter your reservation number and PIN to submit a review.",
+      "submitButton": "Submit"
+    }
+  },
+  "Maintenance": {
+    "title": "Maintenance Service",
+    "description": "We provide you with fast and secure maintenance service around the clock to meet any needs inside rooms or facilities.",
+    "form_title": "Please fill out the following form to submit a maintenance request.",
+    "notes": "Notes",
+    "notes_placeholder": "Write a detailed description of the issue...",
+    "attachments": "Attachments",
+    "drag_and_drop": "Drag & drop files or",
+    "browse": "Browse",
+    "submit": "Submit Request",
+    "priority": "Priority",
+    "priorityHigh": "High",
+    "priorityLow": "Low"
+  },
+  "cancel": "Cancel",
+  "Complaint": {
+    "formTitle": "Complaint",
+    "description": "We value your feedback... Submit your complaint, and we will address it carefully.",
+    "formInstructions": "Please fill out the form below to submit your complaint.",
+    "hotelName": {
+      "label": "Hotel Name",
+      "placeholder": "Enter hotel name"
+    },
+    "title": {
+      "label": "Complaint Title",
+      "placeholder": "Enter the complaint title"
+    },
+    "startDate": {
+      "label": "Date",
+      "placeholder": "Select date"
+    },
+    "roomNumber": {
+      "label": "Room Number",
+      "placeholder": "Enter room number"
+    },
+    "guestName": {
+      "label": "Guest Name",
+      "placeholder": "Enter guest name"
+    },
+    "phone": {
+      "label": "Phone Number",
+      "placeholder": "Enter phone number"
+    },
+    "email": {
+      "label": "Email",
+      "placeholder": "Enter email"
+    },
+    "complaintTypesTitle": "Nature of the Complaint (Please select all that apply)",
+    "complaintTypesDescription": "You can select more than one option",
+    "complaintDetails": {
+      "label": "Complaint Details",
+      "description": "Please describe the issue in detail, including date and time, and any involved staff (if applicable).",
+      "placeholder": "Write a detailed description of the issue..."
+    },
+    "expectedAction": {
+      "label": "Expected Action or Request",
+      "placeholder": "Write a detailed description of the expected action..."
+    },
+    "submitButton": "Submit Complaint"
+  },
+  "RequestServicePage": {
+    "header": {
+      "title": "Choose the service you need",
+      "description": "At Nawazi, we provide you with a variety of services carefully designed to meet your needs during your religious journey. Choose the service that suits you, and let us take care of the rest."
+    },
+    "Complaint": "Complaint",
+    "Complaintdescription": "Assistance with inquiries and complaints",
+    "Maintenance": "Maintenance Service",
+    "Maintenancedescription": "Instant solutions for room or device malfunctions.",
+    "Room": "Room Services",
+    "Roomdescription": "Complete comfort and exceptional service inside your room.",
+    "Luggage": "Luggage Transfer",
+    "Luggagedescription": "Transport your luggage safely and easily within the hotel."
+  },
+  "mainMaintenanceRequest": "Main Maintenance Request",
+  "subMaintenanceRequest": "Sub Maintenance Request",
+  "jobTitle": "Job Title",
+  "assignTo": "Assign To",
+  "electricity": "Electricity",
+  "plumbing": "Plumbing",
+  "other": "Other",
+  "firstFloor": "First Floor",
+  "secondFloor": "Second Floor",
+  "thirdFloor": "Third Floor",
+  "Select": "Select",
+  "Evaluation": {
+    "header": "Hotel Service Evaluation",
+    "subheader": "We value your feedback and always strive to improve our services.",
+    "rateYourStay": "Rate your stay",
+    "ratings": {
+      "cleanliness": "Cleanliness",
+      "service": "Service",
+      "facilities": "Facilities",
+      "location": "Location",
+      "value": "Value for money"
+    },
+    "commentLabel": "Your comment (optional)",
+    "commentPlaceholder": "Tell us about your experience at the hotel...",
+    "submit": "Submit Evaluation"
+  },
+  "roomServices": {
+    "title": "Room Services",
+    "description": "Request cleaning services or additional resources for your room"
+  },
+  "resources": "Resources",
+  "Cleaning": "Cleaning",
+  "cleaningForm": {
+    "cleaningService": "Cleaning Service",
+    "guarantee": "We guarantee you daily cleaning with high standards… for uninterrupted comfort.",
+    "formInstruction": "Please fill out the following form to request cleaning.",
+    "fullNameLabel": "Full Name",
+    "fullNamePlaceholder": "Enter full name",
+    "phoneLabel": "Phone Number",
+    "phonePlaceholder": "Enter phone number",
+    "roomNumberLabel": "Room Number",
+    "roomNumberPlaceholder": "Enter room number",
+    "preferredTimeLabel": "Preferred Time",
+    "hourPlaceholder": "hh",
+    "minutePlaceholder": "mm",
+    "periodPlaceholder": "aa",
+    "cleaningOptionsLabel": "Choose what you want cleaned:",
+    "multiSelectNote": "You can select more than one option",
+    "windowCleaning": "Window Cleaning",
+    "bedCleaning": "Make and Clean the Bed",
+    "bathroomCleaning": "Bathroom Cleaning",
+    "floorCleaning": "Floor Cleaning",
+    "trashEmptying": "Empty the Trash Bin",
+    "allOfTheAbove": "All of the above",
+    "descriptionLabel": "Description (Optional)",
+    "descriptionPlaceholder": "Write a detailed description...",
+    "numberOfBagsLabel": "Number of Bags",
+    "numberOfBagsPlaceholder": "Enter number of bags",
+    "Receiveluggage": "Receive luggage from the room",
+    "Deliveringluggage": "Deliver luggage to the room",
+    "Temporaryluggage": "Temporary luggage storage"
+  },
+  "sendRequest": "Send Request",
+  "resourcesForm": {
+    "title": "Resource Service",
+    "description": "Quick service to meet all your in-hotel needs.",
+    "formInstruction": "Please fill out the form below to make a request.",
+    "fullNameLabel": "Full Name",
+    "fullNamePlaceholder": "Enter full name",
+
+    "selectItemsLabel": "Select required items",
+    "items": {
+      "bathSupplies": "Bath Supplies",
+      "towels": "Towels",
+      "extraPillows": "Extra Pillows",
+      "bedSheets": "Bed Sheets",
+      "teaCoffee": "Tea & Coffee",
+      "mineralWater": "Mineral Water"
+    },
+    "quantityLabel": "Quantity",
+    "quantityNote": "Specify the required quantity for each item",
+    "additionalNotesLabel": "Additional Notes (Optional)",
+    "additionalNotesPlaceholder": "Any additional notes"
+  },
+  "luggageForm": {
+    "title": "Luggage Transfer",
+    "description": "For your comfort on your faith journey... we make sure to deliver your luggage safely.",
+    "formInstruction": "Please fill out the form below to submit your luggage transfer request.",
+    "luggageDetailsLabel": "Special Instructions (Optional)",
+    "luggageDetailsPlaceholder": "Any special instructions regarding the transportation of luggage?",
+    "typeofserviceLabel": "Type of Service"
+  },
+
+  "room_cleanliness": "Room Cleanliness",
+  "facilities": "Facilities (Elevator, Bus)",
+  "noise": "Noise and Disturbance",
+  "billing_issues": "Billing or Payment Issues",
+  "staff_behavior": "Staff Behavior",
+  "booking_issues": "Booking or Pre-booking Issues",
+  "food_and_drinks": "Food and Drinks",
+  "Now": "Now",
+  "Ok": "Ok",
+  "who_we_are": {
+    "title": "Who We Are – Nawazi :",
+    "content": "At Nawazi, we aim to make your spiritual journey easy, comfortable, and filled with serenity. We are a digital platform specializing in hospitality and religious tourism services, providing everything you need from the moment you arrive until the end of your journey, in an environment of respect, organization, and high-quality service."
+  },
+  "our_vision": {
+    "title": "Our Vision :",
+    "content": "To be the leading digital destination that accompanies the guests of the Most Merciful in their journey, with comprehensive services that care for both body and soul."
+  },
+  "our_mission": {
+    "title": "Our Mission :",
+    "content": "We offer a modern hospitality experience that elevates religious values by facilitating access to all hotel and religious services with comfort and peace of mind."
+  },
+  "our_values": {
+    "title": "Our Values :",
+    "content": [
+      "We serve our guests with everything we can offer.",
+      "Each visitor and each journey is unique.",
+      "Guest satisfaction is our goal.",
+      "We manage details carefully to give you peace of mind."
+    ]
+  },
+  "what_we_offer": {
+    "title": "What Do We Offer?",
+    "content": [
+      "Booking and managing accommodation.",
+      "Cleaning and maintenance services inside the room.",
+      "Food or resource requests.",
+      "Providing support and handling complaints throughout the stay."
+    ]
+  },
+  "whowe": "Who we are?",
+  "error404": {
+    "title": "Error 404",
+    "message": "Oops! Page Not Found",
+    "button": "Back to Home"
+  },
+  "errorhappen": " An error occurred",
+  "thanks": "Thank you for your feedback",
+  "Submitcomplaint": "Submit complaint",
+  "loading": "Loading...",
+  "validation": {
+    "guestName": {
+      "required": "Guest name is required",
+      "min": "Guest name must be at least 2 characters"
+    },
+    "email": {
+      "invalid": "Invalid email format"
+    },
+    "phone": {
+      "digitsOnly": "Phone number must be digits only",
+      "min": "Phone number must be at least 10 digits"
+    },
+    "selectMainCategory": "Please select a main category",
+    "selectSubCategory": "Please select a subcategory"
+  }
+}
