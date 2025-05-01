@@ -431,9 +431,12 @@ textarea::placeholder{
 
 }
 
-.css-qwdxx6 {
+.css-qwdxx6,.css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input {
   height: 16px !important;
 }
 .css-1m5w8ek-MuiFormControl-root-MuiTextField-root .MuiOutlinedInput-root input,.css-1dune0f-MuiInputBase-input-MuiOutlinedInput-input{
   height: 13px !important;
+}
+.css-1ooubvk{
+  height: 1px !important;
 }
