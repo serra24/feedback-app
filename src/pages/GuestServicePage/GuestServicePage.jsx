@@ -106,6 +106,7 @@ const GuestServicePage = () => {
             setPopupMessage("Complaint submitted successfully!");
             setPopupType("success");
             setPopupOpen(true);
+            formik.resetForm();
           } else {
             console.log("Error", response); // Log the error for debugging
 

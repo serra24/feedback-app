@@ -24,8 +24,8 @@ const EvaluationPage = () => {
   const { translations: t, language } = useContext(LanguageContext);
   const roomNum2 = useSelector((state) => state.room.roomNum);
   // console.log("Room Number from Redux:", roomNum2);
-   const location = useLocation();
-  const { phone, email,guestName } = location.state || {};
+  const location = useLocation();
+  const { phone, email, guestName } = location.state || {};
   const [ratings, setRatings] = useState([]); // We will store individual ratings for each item here
   const [hovered, setHovered] = useState({ index: null, value: 0 });
   const [comment, setComment] = useState("");
@@ -35,7 +35,7 @@ const EvaluationPage = () => {
   const mainContentRef = useRef(null);
   const dispatch = useDispatch();
   const { data, loading } = useSelector((state) => state.guestEvaluation);
- 
+
   useEffect(() => {
     // Fetch guest evaluation data when the component mounts
     dispatch(fetchGuestEvaluation(language))
@@ -76,7 +76,7 @@ const EvaluationPage = () => {
       description: comment,
       email: email || null,
       phoneNumber: phone || null,
-      language: language === "ar" ? 1 : 2, 
+      language: language === "ar" ? 1 : 2,
     };
 
     // Dispatch the evaluation action
@@ -87,6 +87,10 @@ const EvaluationPage = () => {
           setPopupMessage(response.payload?.message);
           setPopupType("success");
           setPopupOpen(true);
+          setComment("");
+          setRatings(data.map(() => 0));
+          setHovered({ index: null, value: 0 });
+          
         } else {
           setPopupMessage(response.payload?.errormessage);
           // console.log("Error message:", response?.payload?.errormessage);
@@ -126,8 +130,12 @@ const EvaluationPage = () => {
         flexDirection: "column",
       }}
     >
-      <Box ref={mainContentRef} sx={{   
-            display:"contents"}}>
+      <Box
+        ref={mainContentRef}
+        sx={{
+          display: "contents",
+        }}
+      >
         <AnimatedHeader
           title={t.Evaluation.header}
           subtitle={t.Evaluation.subheader}
@@ -240,6 +248,7 @@ const EvaluationPage = () => {
               <TextareaAutosize
                 name="comment"
                 minRows={8.5}
+                value={comment} 
                 onChange={(e) => setComment(e.target.value)}
                 placeholder={t.Evaluation.commentPlaceholder}
                 className="styled-placeholder"

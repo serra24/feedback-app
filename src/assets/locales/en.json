@@ -14,7 +14,7 @@
     "cards": {
       "rateService": {
         "topTitle": "Rate Services",
-        "description": "Share your opinion about your hotel experience"
+        "description": "Share opinion about your hotel experience"
       },
       "requestService": {
         "topTitle": "Request Service",
@@ -51,7 +51,9 @@
     "drag_and_drop": "Drag & drop files or",
     "browse": "Browse",
     "submit": "Submit Request",
-    "priority": "Priority"
+    "priority": "Priority",
+    "priorityHigh": "High",
+    "priorityLow": "Low"
   },
   "cancel": "Cancel",
   "Complaint": {
@@ -205,56 +207,56 @@
     "luggageDetailsPlaceholder": "Any special instructions regarding the transportation of luggage?",
     "typeofserviceLabel": "Type of Service"
   },
-  
-    "room_cleanliness": "Room Cleanliness",
-    "facilities": "Facilities (Elevator, Bus)",
-    "noise": "Noise and Disturbance",
-    "billing_issues": "Billing or Payment Issues",
-    "staff_behavior": "Staff Behavior",
-    "booking_issues": "Booking or Pre-booking Issues",
-    "food_and_drinks": "Food and Drinks",
-    "Now":"Now","Ok":"Ok",
-    "who_we_are": {
-      "title": "Who We Are – Nawazi :",
-      "content": "At Nawazi, we aim to make your spiritual journey easy, comfortable, and filled with serenity. We are a digital platform specializing in hospitality and religious tourism services, providing everything you need from the moment you arrive until the end of your journey, in an environment of respect, organization, and high-quality service."
-    },
-    "our_vision": {
-      "title": "Our Vision :",
-      "content": "To be the leading digital destination that accompanies the guests of the Most Merciful in their journey, with comprehensive services that care for both body and soul."
-    },
-    "our_mission": {
-      "title": "Our Mission :",
-      "content": "We offer a modern hospitality experience that elevates religious values by facilitating access to all hotel and religious services with comfort and peace of mind."
-    },
-    "our_values": {
-      "title": "Our Values :",
-      "content": [
-        "We serve our guests with everything we can offer.",
-        "Each visitor and each journey is unique.",
-        "Guest satisfaction is our goal.",
-        "We manage details carefully to give you peace of mind."
-      ]
-    },
-    "what_we_offer": {
-      "title":"What Do We Offer?",
-      "content": [
-        "Booking and managing accommodation.",
-        "Cleaning and maintenance services inside the room.",
-        "Food or resource requests.",
-        "Providing support and handling complaints throughout the stay."
-      ]
-    },
-    "whowe": "Who we are?",
-    "error404": {
+
+  "room_cleanliness": "Room Cleanliness",
+  "facilities": "Facilities (Elevator, Bus)",
+  "noise": "Noise and Disturbance",
+  "billing_issues": "Billing or Payment Issues",
+  "staff_behavior": "Staff Behavior",
+  "booking_issues": "Booking or Pre-booking Issues",
+  "food_and_drinks": "Food and Drinks",
+  "Now": "Now",
+  "Ok": "Ok",
+  "who_we_are": {
+    "title": "Who We Are – Nawazi :",
+    "content": "At Nawazi, we aim to make your spiritual journey easy, comfortable, and filled with serenity. We are a digital platform specializing in hospitality and religious tourism services, providing everything you need from the moment you arrive until the end of your journey, in an environment of respect, organization, and high-quality service."
+  },
+  "our_vision": {
+    "title": "Our Vision :",
+    "content": "To be the leading digital destination that accompanies the guests of the Most Merciful in their journey, with comprehensive services that care for both body and soul."
+  },
+  "our_mission": {
+    "title": "Our Mission :",
+    "content": "We offer a modern hospitality experience that elevates religious values by facilitating access to all hotel and religious services with comfort and peace of mind."
+  },
+  "our_values": {
+    "title": "Our Values :",
+    "content": [
+      "We serve our guests with everything we can offer.",
+      "Each visitor and each journey is unique.",
+      "Guest satisfaction is our goal.",
+      "We manage details carefully to give you peace of mind."
+    ]
+  },
+  "what_we_offer": {
+    "title": "What Do We Offer?",
+    "content": [
+      "Booking and managing accommodation.",
+      "Cleaning and maintenance services inside the room.",
+      "Food or resource requests.",
+      "Providing support and handling complaints throughout the stay."
+    ]
+  },
+  "whowe": "Who we are?",
+  "error404": {
     "title": "Error 404",
     "message": "Oops! Page Not Found",
     "button": "Back to Home"
-  }
-   ,"errorhappen":" An error occurred",
-   "thanks":"Thank you for your feedback",
-   "Submitcomplaint":"Submit complaint"
-  ,"loading" :"Loading..."
-  ,
+  },
+  "errorhappen": " An error occurred",
+  "thanks": "Thank you for your feedback",
+  "Submitcomplaint": "Submit complaint",
+  "loading": "Loading...",
   "validation": {
     "guestName": {
       "required": "Guest name is required",
@@ -267,8 +269,7 @@
       "digitsOnly": "Phone number must be digits only",
       "min": "Phone number must be at least 10 digits"
     },
-     "selectMainCategory": "Please select a main category",
-      "selectSubCategory": "Please select a subcategory"
+    "selectMainCategory": "Please select a main category",
+    "selectSubCategory": "Please select a subcategory"
   }
-
 }

@@ -138,8 +138,8 @@ const MaintenanceServicePage = () => {
         if (uploadedFile) {
           formData.append("file", uploadedFile);
         }
-console.log("uploadedFile",uploadedFile);
-console.log("formData",formData);
+        console.log("uploadedFile", uploadedFile);
+        console.log("formData", formData);
 
         const response = await dispatch(createRequest(formData));
         formData.forEach((value, key) => {
@@ -183,8 +183,7 @@ console.log("formData",formData);
   ];
   const priorityOptions = [
     { id: 1, name: t.Maintenance.priorityHigh },
-    { id: 2, name: t.Maintenance.priorityMedium },
-    { id: 3, name: t.Maintenance.priorityLow },
+    { id: 2, name: t.Maintenance.priorityLow },
   ];
 
   const handleChange = (index, value) => {
@@ -288,10 +287,11 @@ console.log("formData",formData);
               )}
             >
               <Select
+              displayEmpty
                 value={formik.values.priorityId}
                 onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
                 name="priorityId"
+                onBlur={formik.handleBlur}
                 sx={{
                   borderRadius: "4px",
                   height: "48px",
@@ -307,9 +307,14 @@ console.log("formData",formData);
                   },
                 }}
               >
-                <MenuItem value="" disabled>
+                <MenuItem
+                  value=""
+                  disabled
+                  sx={{ fontStyle: "italic", color: "#ccc" }}
+                >
                   {t.Select} {t.Maintenance.priority}
                 </MenuItem>
+
                 {priorityOptions.map((option) => (
                   <MenuItem key={option.id} value={option.id}>
                     {option.name}

@@ -90,12 +90,14 @@ if (!hotelName) {
           setPopupMessage('Request submitted successfully!');
           setPopupType('success');
           setPopupOpen(true);
+          formik.resetForm()
         } else {
           console.log("Error", response); // Log the error for debugging
           
           setPopupMessage(response?.payload?.errormessage);
           setPopupType('error');
           setPopupOpen(true);
+          
         }
       })
       .catch((error) => {
