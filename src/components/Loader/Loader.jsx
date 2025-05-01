@@ -1,6 +1,6 @@
 import React from "react";
 import { Box } from "@mui/material";
-import logo from "./../../assets/logos/logo.png";
+import logo from "./../../assets/logos/logo.svg";
 
 const Loader = () => {
   return (

@@ -76,7 +76,7 @@ const ResourcesServicePage = () => {
       const requestData = {
         name: values.fullName,
         roomId: roomNum,
-        typeId: 3, //Main : 1, HK :2, Supp : 3
+        typeId: 3, // Main : 2, HK :1, Supp : 3
         items: values.complaintItems.map((item) => ({
           supplyId: item.id,
           quantity: item.quantity,
