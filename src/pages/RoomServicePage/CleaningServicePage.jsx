@@ -1,4 +1,4 @@
-import React, { useContext ,useEffect,useState} from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import {
@@ -24,21 +24,23 @@ import ErrorPopup from "../../components/ErrorPopup/ErrorPopup";
 import { fetchRoomData } from "../../redux/slices/roomFeatures/roomDataSlice";
 import Loading from "../../components/Loading/Loading";
 const CleaningServicePage = () => {
-  const { translations: t ,language} = useContext(LanguageContext);
+  const { translations: t, language } = useContext(LanguageContext);
   const dispatch = useDispatch();
   const [isDataLoaded, setIsDataLoaded] = useState(false);
-  
-  const { loading, error } = useSelector((state) => state.generalRequest); 
-  const { roomNum, roomData } = useSelector((state) => ({  roomNum: state.room.roomNum,
-    roomData: state.roomData, }));
-      useEffect(() => {
-              // console.log("roomNum inside useEffect:", roomNum);  // Check if roomNum is defined
-              if (roomNum) {
-                dispatch(fetchRoomData({ roomId: roomNum, language }));
-              } else {
-                // console.error("roomNum is undefined or invalid");
-              }
-            }, [roomNum, dispatch, language]);
+
+  const { loading, error } = useSelector((state) => state.generalRequest);
+  const { roomNum, roomData } = useSelector((state) => ({
+    roomNum: state.room.roomNum,
+    roomData: state.roomData,
+  }));
+  useEffect(() => {
+    // console.log("roomNum inside useEffect:", roomNum);  // Check if roomNum is defined
+    if (roomNum) {
+      dispatch(fetchRoomData({ roomId: roomNum, language }));
+    } else {
+      // console.error("roomNum is undefined or invalid");
+    }
+  }, [roomNum, dispatch, language]);
   const [popupOpen, setPopupOpen] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
   const [popupType, setPopupType] = useState("");
@@ -54,11 +56,11 @@ const CleaningServicePage = () => {
     complaintDetails: Yup.string(),
   });
   const hotelName =
-  roomData?.data?.message?.floor?.building?.branch?.localizedName;
-const number = roomData?.data?.message?.number;
-if (!hotelName) {
-  // console.warn("Localized Name is missing. Defaulting to 'Unknown Hotel'");
-}
+    roomData?.data?.message?.floor?.building?.branch?.localizedName;
+  const number = roomData?.data?.message?.number;
+  if (!hotelName) {
+    // console.warn("Localized Name is missing. Defaulting to 'Unknown Hotel'");
+  }
   const formik = useFormik({
     initialValues: {
       fullName: "",
@@ -74,58 +76,59 @@ if (!hotelName) {
       const requestData = {
         name: values.fullName,
         roomId: roomNum,
-        typeId: 2, 
-        items: null, 
+        typeId: 1,// Main : 2, HK :1, Supp : 3
+        items: null,
         description: values.complaintDetails,
-        email: null, 
+        email: null,
         phoneNumber: values.phone,
-        preferredTime:values.preferredTime,
-        maintenanceData:null
+        preferredTime: values.preferredTime,
+        maintenanceData: null,
       };
 
       dispatch(createRequest(requestData))
-      .then((response) => {
-        console.log("Response", response); // Log the response for debugging
-        if (response?.payload?.successtate===200) { // Adjust according to your response structure
-          setPopupMessage('Request submitted successfully!');
-          setPopupType('success');
+        .then((response) => {
+          console.log("Response", response); // Log the response for debugging
+          if (response?.payload?.successtate === 200) {
+            // Adjust according to your response structure
+            setPopupMessage("Request submitted successfully!");
+            setPopupType("success");
+            setPopupOpen(true);
+            formik.resetForm();
+          } else {
+            console.log("Error", response); // Log the error for debugging
+
+            setPopupMessage(response?.payload?.errormessage);
+            setPopupType("error");
+            setPopupOpen(true);
+          }
+        })
+        .catch((error) => {
+          console.error("Error", error); // Log any errors that occurred
+          setPopupMessage("An unexpected error occurred.");
+          setPopupType("error");
           setPopupOpen(true);
-          formik.resetForm()
-        } else {
-          console.log("Error", response); // Log the error for debugging
-          
-          setPopupMessage(response?.payload?.errormessage);
-          setPopupType('error');
-          setPopupOpen(true);
-          
-        }
-      })
-      .catch((error) => {
-        console.error("Error", error); // Log any errors that occurred
-        setPopupMessage('An unexpected error occurred.');
-        setPopupType('error');
-        setPopupOpen(true);
-      });
+        });
     },
   });
- useEffect(() => {
+  useEffect(() => {
     if (roomData?.data?.message?.floor?.building?.branch?.localizedName) {
       setIsDataLoaded(true);
-      
-      const hotelName = roomData?.data?.message?.floor?.building?.branch?.localizedName;
+
+      const hotelName =
+        roomData?.data?.message?.floor?.building?.branch?.localizedName;
       const number = roomData?.data?.message?.number;
-  
+
       // Only set values if they differ from the current formik values
       if (formik.values.hotelName !== hotelName) {
-        formik.setFieldValue('hotelName', hotelName);
+        formik.setFieldValue("hotelName", hotelName);
       }
       if (number && formik.values.roomNumber !== number) {
-        formik.setFieldValue('roomNumber', number);
+        formik.setFieldValue("roomNumber", number);
       }
     }
     // Exclude formik from the dependency array to avoid infinite loop
   }, [roomData]); // Now it only depends on roomData
-  
+
   // Complaint types options
   // const complaintTypes = [
   //   { id: 1, label: t.cleaningForm.windowCleaning },
@@ -201,8 +204,8 @@ if (!hotelName) {
       </Typography>
 
       <Box
-       component="form"
-       onSubmit={formik.handleSubmit}
+        component="form"
+        onSubmit={formik.handleSubmit}
         sx={{
           width: { xs: "90%", sm: "440px", md: "776px" },
           height: "auto",
@@ -257,7 +260,6 @@ if (!hotelName) {
                   placeholder={field.placeholder}
                   iconSrc={field.iconSrc}
                   disabled={index === 2}
-
                 />
               )}
             </Box>
@@ -440,7 +442,6 @@ if (!hotelName) {
               fontWeight: 400,
               fontSize: 18,
             }}
-            
           >
             {t.sendRequest}
           </Button>
