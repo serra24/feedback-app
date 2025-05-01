@@ -278,5 +278,6 @@
  "fullNameRequired": "Full name is required",
 "roomNumberRequired": "Room number is required",
 "preferredTimeRequired": "Preferred time is required",
-"complaintDetailsString": "Complaint details must be a valid string"
+"complaintDetailsString": "You must choose at least one.",
+"priorityRequired": "Priority is required"
 }

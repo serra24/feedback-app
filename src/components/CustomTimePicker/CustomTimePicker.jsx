@@ -14,8 +14,8 @@ import dayjs from "dayjs";
 // import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import clockicon from "../../assets/icons/clock-icon.svg";
 import { LanguageContext } from "../../context/LanguageContext";
-const CustomTimePicker = ({ label, name, value, onChange }) => {
-    const { translations: t } = useContext(LanguageContext);
+const CustomTimePicker = ({ label, name, value, onChange, onBlur, error, touched }) => {
+  const { translations: t } = useContext(LanguageContext);
   
   const [anchorEl, setAnchorEl] = useState(null);
   const [hour, setHour] = useState("01");
@@ -131,6 +131,11 @@ const CustomTimePicker = ({ label, name, value, onChange }) => {
           onClick={handleOpen}
           placeholder="hh:mm aa"
           inputRef={inputRef}
+          onBlur={() => {
+            if (onBlur) onBlur({ target: { name } }); // Call Formik's blur handler
+          }}
+          error={touched && Boolean(error)}
+          helperText={touched && error ? error : ""}
           readOnly
           InputProps={{
             sx: {

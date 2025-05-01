@@ -52,7 +52,8 @@ const GuestServicePage = () => {
     guestName: Yup.string().required("اسم الضيف مطلوب"),
     phone: Yup.string()
       // .required("رقم التواصل مطلوب")
-      .matches(/^[0-9]+$/, "يجب أن يحتوي على أرقام فقط"),
+      // .matches(/^[0-9]+$/, "يجب أن يحتوي على أرقام فقط"),
+      .min(8, t.validation.phone.min),
     email: Yup.string().email("بريد إلكتروني غير صالح"),
     // .required("البريد الإلكتروني مطلوب"),
     complaintDetails: Yup.string().required("تفاصيل الشكوى مطلوبة"),

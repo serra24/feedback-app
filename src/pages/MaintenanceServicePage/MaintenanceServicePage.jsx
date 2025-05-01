@@ -9,6 +9,7 @@ import {
   Select,
   TextareaAutosize,
   IconButton,
+  FormHelperText,
 } from "@mui/material";
 import uploadicon from "../../assets/icons/upload-icon.svg";
 import { LanguageContext } from "../../context/LanguageContext";
@@ -86,7 +87,7 @@ const MaintenanceServicePage = () => {
   };
 
   const handleRemoveFile = () => {
-    setUploadedFile(null);  // Clear the uploaded file when the user clicks the close icon
+    setUploadedFile(null); // Clear the uploaded file when the user clicks the close icon
   };
   const hotelName =
     roomData?.data?.message?.floor?.building?.branch?.localizedName;
@@ -103,6 +104,8 @@ const MaintenanceServicePage = () => {
       priorityId: "",
     },
     validationSchema: Yup.object({
+      fullName: Yup.string().required(t.fullNameRequired),
+      priorityId: Yup.string().required(t.priorityRequired),
       mainCategoryId: Yup.string().required(t.validation.selectMainCategory),
       subCategoryId: Yup.string().required(t.validation.selectSubCategory),
       notes: Yup.string().optional(),
@@ -110,9 +113,10 @@ const MaintenanceServicePage = () => {
     onSubmit: async (values) => {
       try {
         const formData = new FormData();
-    
-        const normalize = (val) => (val !== undefined && val !== "" ? val : null);
-    
+
+        const normalize = (val) =>
+          val !== undefined && val !== "" ? val : null;
+
         // 🧩 MaintenanceData fields
         const maintenanceData = {
           Description: normalize(values.notes),
@@ -129,7 +133,7 @@ const MaintenanceServicePage = () => {
           // JobId: normalize(0),
           // Profitionaltype: normalize(0),
         };
-    
+
         // 📎 Main request fields
         formData.append("Name", normalize(values.fullName));
         formData.append("RoomId", normalize(parseInt(roomNum)));
@@ -139,27 +143,27 @@ const MaintenanceServicePage = () => {
         formData.append("PreferredTime", normalize(new Date().toISOString()));
         formData.append("Email", normalize(values.email));
         formData.append("PhoneNumber", normalize(values.phoneNumber));
-    
+
         // 📎 MaintenanceData fields
         Object.entries(maintenanceData).forEach(([key, val]) => {
           formData.append(`MaintenanceData.${key}`, normalize(val));
         });
-    
+
         // 📎 File
         if (uploadedFile) {
           formData.append("MaintenanceData.Attachment", uploadedFile);
         } else {
           formData.append("MaintenanceData.Attachment", null); // Explicitly null if no file
         }
-    
+
         // 📨 Send
         const response = await dispatch(createRequest(formData));
-    
+
         // ✅ Debug
         for (let [key, val] of formData.entries()) {
           console.log(`${key}:`, val);
         }
-    
+
         // 🎯 Response handling
         if (response?.payload?.successtate === 200) {
           setPopupMessage(t.sucessRequest);
@@ -167,10 +171,12 @@ const MaintenanceServicePage = () => {
           formik.resetForm();
           setUploadedFile(null);
         } else {
-          setPopupMessage(response?.payload?.errormessage || "Submission failed.");
+          setPopupMessage(
+            response?.payload?.errormessage || "Submission failed."
+          );
           setPopupType("error");
         }
-    
+
         setPopupOpen(true);
       } catch (error) {
         console.error("Error", error);
@@ -178,9 +184,7 @@ const MaintenanceServicePage = () => {
         setPopupType("error");
         setPopupOpen(true);
       }
-    }
-    
-    
+    },
   });
 
   const formFields = [
@@ -204,7 +208,6 @@ const MaintenanceServicePage = () => {
     { id: 2, name: t.Maintenance.priorityLow },
   ];
 
- 
   useEffect(() => {
     if (roomData?.data?.message?.floor?.building?.branch?.localizedName) {
       setIsDataLoaded(true);
@@ -264,8 +267,8 @@ const MaintenanceServicePage = () => {
         <Box
           sx={{
             display: "flex",
-            gap:{md: 2,xs:0},
-            mb:{xs:2,md:0},
+            gap: { md: 2, xs: 0 },
+            mb: { xs: 2, md: 0 },
             flexDirection: { xs: "column", md: "row" },
           }}
         >
@@ -282,7 +285,7 @@ const MaintenanceServicePage = () => {
             />
           </Box>
 
-          <Box sx={{ flex: 1 ,mt:{xs:-1,md:0}}}>
+          <Box sx={{ flex: 1, mt: { xs: 0, md: 0 } }}>
             <Typography
               sx={{
                 marginBottom: "3px",
@@ -301,11 +304,11 @@ const MaintenanceServicePage = () => {
               )}
             >
               <Select
-              displayEmpty
+                displayEmpty
                 value={formik.values.priorityId}
                 onChange={formik.handleChange}
                 name="priorityId"
-                onBlur={formik.handleBlur}
+                onBlur={() => formik.setFieldTouched("priorityId", true)}
                 sx={{
                   borderRadius: "4px",
                   height: "48px",
@@ -317,14 +320,11 @@ const MaintenanceServicePage = () => {
                     color: formik.values.priorityId
                       ? "#fff"
                       : "rgba(255, 255, 255, 0.5)",
-                    fontSize: formik.values.priorityId ? "16px" : "15px",
+                    fontSize: formik.values.priorityId ? "16px" : "14px",
                   },
                 }}
               >
-                <MenuItem
-                  value=""
-                  disabled
-                >
+                <MenuItem value="" disabled>
                   {t.Select} {t.Maintenance.priority}
                 </MenuItem>
 
@@ -334,6 +334,9 @@ const MaintenanceServicePage = () => {
                   </MenuItem>
                 ))}
               </Select>
+              {formik.touched.priorityId && formik.errors.priorityId && (
+                <FormHelperText>{formik.errors.priorityId}</FormHelperText>
+              )}
             </FormControl>
           </Box>
         </Box>
@@ -410,7 +413,7 @@ const MaintenanceServicePage = () => {
                         index === 0 ? selectedMainCategory : selectedSubCategory
                       )
                         ? "16px"
-                        : "15px",
+                        : "14px",
                     },
                   }}
                 >
@@ -423,7 +426,19 @@ const MaintenanceServicePage = () => {
                     </MenuItem>
                   ))}
                 </Select>
+                 {/* Error Text */}
+  {index === 0 &&
+    formik.touched.mainCategoryId &&
+    formik.errors.mainCategoryId && (
+      <FormHelperText>{formik.errors.mainCategoryId}</FormHelperText>
+  )}
+  {index === 1 &&
+    formik.touched.subCategoryId &&
+    formik.errors.subCategoryId && (
+      <FormHelperText>{formik.errors.subCategoryId}</FormHelperText>
+  )}
               </FormControl>
+              
             </Box>
           ))}
         </Box>
@@ -528,15 +543,28 @@ const MaintenanceServicePage = () => {
               />
             </Box>
             {uploadedFile && (
-            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mt: 2 }}>
-              <Typography sx={{ color: "white", fontFamily: "Almarai", wordBreak: "break-word" }}>
-                {uploadedFile.name}
-              </Typography>
-              <IconButton onClick={handleRemoveFile} sx={{ color: "white" }}>
-                <IoIosClose />
-              </IconButton>
-            </Box>
-          )}
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  mt: 2,
+                }}
+              >
+                <Typography
+                  sx={{
+                    color: "white",
+                    fontFamily: "Almarai",
+                    wordBreak: "break-word",
+                  }}
+                >
+                  {uploadedFile.name}
+                </Typography>
+                <IconButton onClick={handleRemoveFile} sx={{ color: "white" }}>
+                  <IoIosClose />
+                </IconButton>
+              </Box>
+            )}
           </Box>
         </Box>
         {/* Buttons */}
@@ -577,9 +605,10 @@ const MaintenanceServicePage = () => {
               fontWeight: 400,
               fontSize: 18,
             }}
-            onClick={() => {formik.resetForm();
-              setUploadedFile(null);}
-            }
+            onClick={() => {
+              formik.resetForm();
+              setUploadedFile(null);
+            }}
           >
             {t.cancel}
           </Button>

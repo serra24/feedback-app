@@ -276,5 +276,6 @@
   "fullNameRequired": "الإسم بالكامل مطلوب",
   "roomNumberRequired": "رقم الغرفة مطلوب",
   "preferredTimeRequired": "الوقت المفضل مطلوب",
-  "complaintDetailsString": "يجب أن يكون الوصف نصًا صالحًا"
+  "complaintDetailsString": "يجب أن تختار واحدًا على الأقل",
+  "priorityRequired": "الأولوية مطلوبة"
 }
