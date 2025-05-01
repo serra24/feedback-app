@@ -8,7 +8,7 @@ export const createRequest = createAsyncThunk(
     try {
       const response = await axiosInstance.post('/api/CRM/GeneralRequest/CreateRequest', requestData, {
         headers: {
-          'Content-Type': 'application/json-patch+json',
+          // 'Content-Type': 'application/json-patch+json',
         },
       });
 

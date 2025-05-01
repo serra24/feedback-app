@@ -46,12 +46,12 @@ const CleaningServicePage = () => {
   const [popupType, setPopupType] = useState("");
   // Form validation schema
   const validationSchema = Yup.object().shape({
-    fullName: Yup.string().required("الإسم بالكامل مطلوب"),
+    fullName: Yup.string().required(t.fullNameRequired),
     phone: Yup.string()
-      .required("رقم الهاتف مطلوب")
-      .matches(/^\d+$/, "رقم الهاتف يجب أن يحتوي على أرقام فقط"),
-    roomNumber: Yup.string().required("رقم الغرفة مطلوب"),
-    preferredTime: Yup.string().required("الوقت المفضل مطلوب"),
+      // .required("رقم الهاتف مطلوب")
+      .min(8, t.validation.phone.min),
+    roomNumber: Yup.string().required(t.roomNumberRequired),
+    preferredTime: Yup.string().required(t.preferredTimeRequired),
     // complaintTypes: Yup.array().min(1, "يجب اختيار نوع واحد على الأقل"),
     complaintDetails: Yup.string(),
   });
@@ -76,7 +76,7 @@ const CleaningServicePage = () => {
       const requestData = {
         name: values.fullName,
         roomId: roomNum,
-        typeId: 1,// Main : 2, HK :1, Supp : 3
+        typeId: 1, // Main : 2, HK :1, Supp : 3
         items: null,
         description: values.complaintDetails,
         email: null,
@@ -84,13 +84,25 @@ const CleaningServicePage = () => {
         preferredTime: values.preferredTime,
         maintenanceData: null,
       };
+      const formData = new FormData();
 
-      dispatch(createRequest(requestData))
+      // Append fields to FormData
+      formData.append("name", values.fullName || null);
+      formData.append("roomId", roomNum || null);
+      formData.append("typeId", 1); // Main : 2, HK : 1, Supp : 3
+      formData.append("items", null);
+      formData.append("description", values.complaintDetails || null);
+      formData.append("email", null);
+      formData.append("phoneNumber", values.phone || null);
+      formData.append("preferredTime", values.preferredTime || null);
+      formData.append("maintenanceData", null); // Can be null or adjusted
+
+      dispatch(createRequest(formData))
         .then((response) => {
           console.log("Response", response); // Log the response for debugging
           if (response?.payload?.successtate === 200) {
             // Adjust according to your response structure
-            setPopupMessage("Request submitted successfully!");
+            setPopupMessage(t.sucessRequest);
             setPopupType("success");
             setPopupOpen(true);
             formik.resetForm();

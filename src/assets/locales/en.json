@@ -272,5 +272,11 @@
     },
     "selectMainCategory": "Please select a main category",
     "selectSubCategory": "Please select a subcategory"
-  }
+  },
+  "sucessRequest":"Request submitted successfully!"
+,
+ "fullNameRequired": "Full name is required",
+"roomNumberRequired": "Room number is required",
+"preferredTimeRequired": "Preferred time is required",
+"complaintDetailsString": "Complaint details must be a valid string"
 }

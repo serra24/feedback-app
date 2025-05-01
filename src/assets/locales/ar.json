@@ -271,5 +271,10 @@
     },
     "selectMainCategory": "يرجى اختيار القسم الرئيسي",
     "selectSubCategory": "يرجى اختيار القسم الفرعي"
-  }
+  },
+  "sucessRequest":"تم تقديم الطلب بنجاح!",
+  "fullNameRequired": "الإسم بالكامل مطلوب",
+  "roomNumberRequired": "رقم الغرفة مطلوب",
+  "preferredTimeRequired": "الوقت المفضل مطلوب",
+  "complaintDetailsString": "يجب أن يكون الوصف نصًا صالحًا"
 }

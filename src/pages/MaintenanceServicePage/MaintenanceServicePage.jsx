@@ -111,74 +111,63 @@ const MaintenanceServicePage = () => {
       try {
         const formData = new FormData();
     
-        // Flatten maintenance data
+        const normalize = (val) => (val !== undefined && val !== "" ? val : null);
+    
+        // 🧩 MaintenanceData fields
         const maintenanceData = {
-          description: values.notes || "",
-          title: "title",
-          loggedInUserId: "", // Set if available
-          from: new Date().toISOString(),
-          to: new Date().toISOString(),
-          mainMentananceCategoryId: parseInt(values.mainCategoryId),
-          subMentananceCategoryId: parseInt(values.subCategoryId),
-          assignToId: 0,
-          roomId: roomNum || 0,
-          publicAreaId: 0,
-          priorityId: parseInt(values.priorityId || 0),
-          jobId: 0,
-          profitionaltype: 0,
+          Description: normalize(values.notes),
+          Title: "title",
+          // LoggedInUserId: normalize(""), // Replace with actual user ID if available
+          From: new Date().toISOString(),
+          To: new Date().toISOString(),
+          MainMentananceCategoryId: normalize(parseInt(values.mainCategoryId)),
+          SubMentananceCategoryId: normalize(parseInt(values.subCategoryId)),
+          // AssignToId: normalize(0),
+          RoomId: normalize(parseInt(roomNum)),
+          // PublicAreaId: normalize(0),
+          PriorityId: normalize(parseInt(values.priorityId)),
+          // JobId: normalize(0),
+          // Profitionaltype: normalize(0),
         };
     
-        // Append the flat fields to formData
-        formData.append("name", values.fullName);
-        formData.append("roomId", roomNum);
-        formData.append("typeId", 2); // Main: 2, HK: 1, Supp: 3
-        formData.append("items", null); // Can remove or adjust
-        formData.append("description", null); // Same as above
-        formData.append("email", null); // Adjust as needed
-        formData.append("phoneNumber", null); // Adjust as needed
+        // 📎 Main request fields
+        formData.append("Name", normalize(values.fullName));
+        formData.append("RoomId", normalize(parseInt(roomNum)));
+        formData.append("TypeId", normalize(2)); // Set type accordingly
+        // formData.append("Items", null);
+        formData.append("Description", normalize(values.notes));
+        formData.append("PreferredTime", normalize(new Date().toISOString()));
+        formData.append("Email", normalize(values.email));
+        formData.append("PhoneNumber", normalize(values.phoneNumber));
     
-        // Append maintenance data fields individually (flatten it)
-        formData.append("maintenanceData.description", maintenanceData.description);
-        formData.append("maintenanceData.title", maintenanceData.title);
-        formData.append("maintenanceData.loggedInUserId", maintenanceData.loggedInUserId);
-        formData.append("maintenanceData.from", maintenanceData.from);
-        formData.append("maintenanceData.to", maintenanceData.to);
-        formData.append("maintenanceData.mainMentananceCategoryId", maintenanceData.mainMentananceCategoryId);
-        formData.append("maintenanceData.subMentananceCategoryId", maintenanceData.subMentananceCategoryId);
-        formData.append("maintenanceData.assignToId", maintenanceData.assignToId);
-        formData.append("maintenanceData.roomId", maintenanceData.roomId);
-        formData.append("maintenanceData.publicAreaId", maintenanceData.publicAreaId);
-        formData.append("maintenanceData.priorityId", maintenanceData.priorityId);
-        formData.append("maintenanceData.jobId", maintenanceData.jobId);
-        formData.append("maintenanceData.profitionaltype", maintenanceData.profitionaltype);
-    
-        // Attach file if available
-        if (uploadedFile) {
-          formData.append("maintenanceData.attachment", uploadedFile);
-        }
-    
-        // Log the form data for debugging
-        console.log("uploadedFile", uploadedFile);
-        console.log("formData", formData);
-    
-        // Send the request
-        const response = await dispatch(createRequest(formData));
-    
-        // Log formData entries for debugging
-        formData.forEach((value, key) => {
-          console.log(`${key}:`, value);
+        // 📎 MaintenanceData fields
+        Object.entries(maintenanceData).forEach(([key, val]) => {
+          formData.append(`MaintenanceData.${key}`, normalize(val));
         });
     
-        // Handle success or failure
+        // 📎 File
+        if (uploadedFile) {
+          formData.append("MaintenanceData.Attachment", uploadedFile);
+        } else {
+          formData.append("MaintenanceData.Attachment", null); // Explicitly null if no file
+        }
+    
+        // 📨 Send
+        const response = await dispatch(createRequest(formData));
+    
+        // ✅ Debug
+        for (let [key, val] of formData.entries()) {
+          console.log(`${key}:`, val);
+        }
+    
+        // 🎯 Response handling
         if (response?.payload?.successtate === 200) {
-          setPopupMessage("Request submitted successfully!");
+          setPopupMessage(t.sucessRequest);
           setPopupType("success");
           formik.resetForm();
           setUploadedFile(null);
         } else {
-          setPopupMessage(
-            response?.payload?.errormessage || "Submission failed."
-          );
+          setPopupMessage(response?.payload?.errormessage || "Submission failed.");
           setPopupType("error");
         }
     
@@ -190,6 +179,7 @@ const MaintenanceServicePage = () => {
         setPopupOpen(true);
       }
     }
+    
     
   });
 

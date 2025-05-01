@@ -22,13 +22,17 @@ import ErrorPopup from "../../components/ErrorPopup/ErrorPopup";
 import SuccessPopup from "../../components/SuccessPopup/SuccessPopup";
 import { fetchRoomData } from "../../redux/slices/roomFeatures/roomDataSlice";
 import Loading from "../../components/Loading/Loading";
-import { fetchSuppliesItems } from '../../redux/slices/suppliesItemsSlice';
+import { fetchSuppliesItems } from "../../redux/slices/suppliesItemsSlice";
 
 const ResourcesServicePage = () => {
   const { translations: t, language } = useContext(LanguageContext);
   const dispatch = useDispatch();
   const [isDataLoaded, setIsDataLoaded] = useState(false);
-  const { items: supplyItems, status, error } = useSelector((state) => state.supplies);
+  const {
+    items: supplyItems,
+    status,
+    error,
+  } = useSelector((state) => state.supplies);
 
   const [popupOpen, setPopupOpen] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
@@ -48,12 +52,13 @@ const ResourcesServicePage = () => {
   }, [roomNum, dispatch, language]);
   // Form validation schema
   const validationSchema = Yup.object().shape({
-    fullName: Yup.string().required("الاسم الكامل مطلوب"),
+    fullName: Yup.string().required(t.fullNameRequired),
     phone: Yup.string()
-      .matches(/^(\+\d{1,2}\s?)?(\d{10})$/, "رقم الهاتف غير صالح")
-      .required("رقم الهاتف مطلوب"),
-    roomNumber: Yup.string().required("رقم الغرفة مطلوب"),
-    complaintItems: Yup.array().min(1, "يرجى اختيار صنف واحد على الأقل"),
+      // .matches(/^(\+\d{1,2}\s?)?(\d{10})$/, "رقم الهاتف غير صالح")
+      // .required("رقم الهاتف مطلوب"),
+      .min(8, t.validation.phone.min),
+    roomNumber: Yup.string().required(t.roomNumberRequired),
+    complaintItems: Yup.array().min(1, t.complaintDetailsString),
     complaintDetails: Yup.string().optional(),
   });
   const hotelName =
@@ -84,15 +89,34 @@ const ResourcesServicePage = () => {
         description: values.complaintDetails,
         email: null,
         phoneNumber: values.phone,
-        maintenanceData:null
+        maintenanceData: null,
       };
+      // Create a new FormData instance
+      const formData = new FormData();
 
-      dispatch(createRequest(requestData))
+      // Append text fields to FormData
+      formData.append("name", values.fullName || null);
+      formData.append("roomId", roomNum || null);
+      formData.append("typeId", 3); // Main : 2, HK : 1, Supp : 3
+      formData.append("description", values.complaintDetails || null);
+      formData.append("email", null); // Adjust as needed
+      formData.append("phoneNumber", values.phone || null);
+
+      // Handling items: map each item and append it to FormData
+      if (values.complaintItems && values.complaintItems.length > 0) {
+        values.complaintItems.forEach((item, index) => {
+          formData.append(`items[${index}].supplyId`, item.id || null);
+          formData.append(`items[${index}].quantity`, item.quantity || null);
+        });
+      }
+
+      // Append maintenanceData as null (or adjust as needed)
+      formData.append("maintenanceData", null);
+      dispatch(createRequest(formData))
         .then((response) => {
-          console.log("Response", response); // Log the response for debugging
           if (response?.payload?.successtate === 200) {
             // Adjust according to your response structure
-            setPopupMessage("Request submitted successfully!");
+            setPopupMessage(t.sucessRequest);
             setPopupType("success");
             setPopupOpen(true);
             formik.resetForm();
@@ -137,13 +161,13 @@ const ResourcesServicePage = () => {
       console.log("Supplies fetch action:", action);
     });
   }, [dispatch, language]);
-  
+
   // Complaint types options
-  const complaintTypes = supplyItems?.map((item) => ({
-    id: item.id,
-    label: item.localizedName,
-  })) || [];
-  
+  const complaintTypes =
+    supplyItems?.map((item) => ({
+      id: item.id,
+      label: item.localizedName,
+    })) || [];
 
   // Input fields configuration
   const inputFields = [
