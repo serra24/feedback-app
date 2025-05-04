@@ -1,11 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "../../api/axiosInstance";
 
-// ✅ Async thunk to fetch complaint items
+// Async thunk to fetch complaint items
 export const fetchComplaintItems = createAsyncThunk(
   "complaintItems/fetchComplaintItems",
   async (language, { rejectWithValue }) => {
-    console.log("language", language);
     try {
       const response = await axiosInstance.get(
         "/api/CRM/LockUp/GetComplaintItems",
@@ -16,8 +15,6 @@ export const fetchComplaintItems = createAsyncThunk(
           },
         }
       );
-    console.log(response, "response");
-      
       return response.data.message;
     } catch (error) {
       return rejectWithValue(error.response?.data || error.message);

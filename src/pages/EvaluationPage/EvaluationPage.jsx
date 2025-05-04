@@ -18,7 +18,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchGuestEvaluation } from "../../redux/slices/guestEvaluationSlice";
 import Loading from "../../components/Loading/Loading";
 import { addEvaluation } from "../../redux/slices/evaluationSlice";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const EvaluationPage = () => {
   const { translations: t, language } = useContext(LanguageContext);
@@ -34,6 +34,8 @@ const EvaluationPage = () => {
   const [popupMessage, setPopupMessage] = useState("");
   const mainContentRef = useRef(null);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const { data, loading } = useSelector((state) => state.guestEvaluation);
 
   useEffect(() => {
@@ -53,11 +55,18 @@ const EvaluationPage = () => {
   }, [data]);
 
   const handleRating = (index, value) => {
-    const updatedRatings = [...ratings]; // Copy current ratings
-    updatedRatings[index] = value; // Update the rating for the specific item
-    setRatings(updatedRatings); // Update state
+    const updatedRatings = [...ratings];
+  
+    // If user clicks the same rating again, toggle it to 0
+    if (updatedRatings[index] === value) {
+      updatedRatings[index] = 0;
+    } else {
+      updatedRatings[index] = value;
+    }
+  
+    setRatings(updatedRatings);
   };
-
+  
   const handleSubmit = () => {
     // const isValid = ratings.every((rating) => rating !== 0); // Check if all ratings are selected
     const hasAtLeastOneRating = ratings.some((rating) => rating > 0);
@@ -307,7 +316,10 @@ const EvaluationPage = () => {
         <SuccessPopup
           open={popupOpen}
           message={popupMessage}
-          onClose={() => setPopupOpen(false)}
+          onClose={() => {
+            setPopupOpen(false);
+            navigate("/"); // Redirect to home
+          }}
         />
       )}
       {popupType === "error" && (

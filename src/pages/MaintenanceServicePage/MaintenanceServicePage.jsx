@@ -15,7 +15,7 @@ import uploadicon from "../../assets/icons/upload-icon.svg";
 import { LanguageContext } from "../../context/LanguageContext";
 import FormTitle from "../../components/FormTitle/FormTitle";
 import AnimatedHeader from "../../components/AnimatedHeader/AnimatedHeader";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { fetchSubCategories } from "../../redux/slices/subCategoriesSlice";
 import { fetchMainCategories } from "../../redux/slices/mainCategoriesSlice";
 import { useFormik } from "formik";
@@ -27,6 +27,7 @@ import SuccessPopup from "../../components/SuccessPopup/SuccessPopup";
 import Loading from "../../components/Loading/Loading";
 import InputField from "../../components/InputField/InputField";
 import { IoIosClose } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 
 const MaintenanceServicePage = () => {
   const { translations: t, language } = useContext(LanguageContext);
@@ -36,11 +37,14 @@ const MaintenanceServicePage = () => {
   const [popupType, setPopupType] = useState("");
   // Redux state
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [isDataLoaded, setIsDataLoaded] = useState(false);
   const { roomNum, roomData } = useSelector((state) => ({
     roomNum: state.room.roomNum,
     roomData: state.roomData,
-  }));
+  }), shallowEqual);
+  
   useEffect(() => {
     // console.log("roomNum inside useEffect:", roomNum);  // Check if roomNum is defined
     if (roomNum) {
@@ -161,7 +165,7 @@ const MaintenanceServicePage = () => {
 
         // ✅ Debug
         for (let [key, val] of formData.entries()) {
-          console.log(`${key}:`, val);
+          // console.log(`${key}:`, val);
         }
 
         // 🎯 Response handling
@@ -617,7 +621,10 @@ const MaintenanceServicePage = () => {
       <SuccessPopup
         open={popupOpen && popupType === "success"}
         message={popupMessage}
-        onClose={() => setPopupOpen(false)}
+        onClose={() => {
+          setPopupOpen(false);
+          navigate("/"); // Redirect to home
+        }}
       />
       <ErrorPopup
         open={popupOpen && popupType === "error"}

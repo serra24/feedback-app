@@ -96,12 +96,12 @@ const GuestServicePage = () => {
         sourceId: 1,
         itemsIds: values.complaintTypes,
       };
-      console.log("payload", payload);
+      // console.log("payload", payload);
 
       // Dispatch the action and handle success/error
       dispatch(createComplaint(payload))
         .then((response) => {
-          console.log("Response", response); // Log the response for debugging
+          // console.log("Response", response);
           if (response?.payload?.successtate === 200) {
             // Adjust according to your response structure
             setPopupMessage("Complaint submitted successfully!");
@@ -109,7 +109,7 @@ const GuestServicePage = () => {
             setPopupOpen(true);
             formik.resetForm();
           } else {
-            console.log("Error", response); // Log the error for debugging
+            // console.log("Error", response); 
 
             setPopupMessage(response?.payload?.errormessage);
             setPopupType("error");
@@ -117,7 +117,7 @@ const GuestServicePage = () => {
           }
         })
         .catch((error) => {
-          console.error("Error", error); // Log any errors that occurred
+          console.error("Error", error); 
           setPopupMessage("An unexpected error occurred.");
           setPopupType("error");
           setPopupOpen(true);
@@ -218,7 +218,7 @@ const GuestServicePage = () => {
           fontWeight: 700,
           fontSize: { xs: "24px", sm: "30px" },
           textAlign: "right",
-          mb: 1.5,
+          mb: {md:1.5,xs:2},
           color: "var(--white-color)",
         }}
       >
@@ -233,6 +233,10 @@ const GuestServicePage = () => {
           textAlign: "center",
           mb: 4,
           color: "var(--white-color)",
+          display: {
+            xs: "none",
+            md: "block",
+          },
         }}
       >
         {'"'} {t.Complaint.description} {'"'}
@@ -382,7 +386,7 @@ const GuestServicePage = () => {
                       sx={{
                         "& .MuiFormControlLabel-label": {
                           color: "#fff", // Label text color
-                          width: "240px",
+                          width: {md:"240px",xs:"auto"},
                           fontSize: "16px !important",
                         },
                       }}

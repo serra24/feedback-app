@@ -23,10 +23,13 @@ import SuccessPopup from "../../components/SuccessPopup/SuccessPopup";
 import { fetchRoomData } from "../../redux/slices/roomFeatures/roomDataSlice";
 import Loading from "../../components/Loading/Loading";
 import { fetchSuppliesItems } from "../../redux/slices/suppliesItemsSlice";
+import { useNavigate } from "react-router-dom";
 
 const ResourcesServicePage = () => {
   const { translations: t, language } = useContext(LanguageContext);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [isDataLoaded, setIsDataLoaded] = useState(false);
   const {
     items: supplyItems,
@@ -77,7 +80,7 @@ const ResourcesServicePage = () => {
     },
     validationSchema,
     onSubmit: (values) => {
-      console.log("Form submitted with values: ", values);
+      // console.log("Form submitted with values: ", values);
       const requestData = {
         name: values.fullName,
         roomId: roomNum,
@@ -121,7 +124,7 @@ const ResourcesServicePage = () => {
             setPopupOpen(true);
             formik.resetForm();
           } else {
-            console.log("Error", response); // Log the error for debugging
+            // console.log("Error", response); 
 
             setPopupMessage(response?.payload?.errormessage);
             setPopupType("error");
@@ -158,7 +161,7 @@ const ResourcesServicePage = () => {
   const hasSelectedItems = formik.values.complaintItems?.length > 0;
   useEffect(() => {
     dispatch(fetchSuppliesItems(language)).then((action) => {
-      console.log("Supplies fetch action:", action);
+      // console.log("Supplies fetch action:", action);
     });
   }, [dispatch, language]);
 
@@ -504,7 +507,10 @@ const ResourcesServicePage = () => {
       <SuccessPopup
         open={popupOpen && popupType === "success"}
         message={popupMessage}
-        onClose={() => setPopupOpen(false)}
+        onClose={() => {
+          setPopupOpen(false);
+          navigate("/"); // Redirect to home
+        }}
       />
       <ErrorPopup
         open={popupOpen && popupType === "error"}

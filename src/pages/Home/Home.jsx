@@ -22,7 +22,7 @@ const Home = () => {
 
   useEffect(() => {
     if (roomNumber) {
-      console.log("Room Number from QR Code:", roomNumber); // Log the room number to the console
+      // console.log("Room Number from QR Code:", roomNumber); 
       sessionStorage.setItem("roomNum", roomNumber);
       // Dispatch action to store room number in Redux
       dispatch(setRoomNumber(roomNumber));
@@ -31,7 +31,7 @@ const Home = () => {
 
   // Access room number from Redux state
   const storedRoomNumber = useSelector((state) => state.room.roomNum);
-  console.log("Stored Room Number from Redux:", storedRoomNumber);
+  // console.log("Stored Room Number from Redux:", storedRoomNumber);
   // Save room number after scanning the QR code
 
   // Retrieve room number in another page/component

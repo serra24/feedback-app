@@ -23,9 +23,12 @@ import SuccessPopup from "../../components/SuccessPopup/SuccessPopup";
 import ErrorPopup from "../../components/ErrorPopup/ErrorPopup";
 import { fetchRoomData } from "../../redux/slices/roomFeatures/roomDataSlice";
 import Loading from "../../components/Loading/Loading";
+import { useNavigate } from "react-router-dom";
 const CleaningServicePage = () => {
   const { translations: t, language } = useContext(LanguageContext);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [isDataLoaded, setIsDataLoaded] = useState(false);
 
   const { loading, error } = useSelector((state) => state.generalRequest);
@@ -99,7 +102,7 @@ const CleaningServicePage = () => {
 
       dispatch(createRequest(formData))
         .then((response) => {
-          console.log("Response", response); // Log the response for debugging
+          // console.log("Response", response); 
           if (response?.payload?.successtate === 200) {
             // Adjust according to your response structure
             setPopupMessage(t.sucessRequest);
@@ -107,7 +110,7 @@ const CleaningServicePage = () => {
             setPopupOpen(true);
             formik.resetForm();
           } else {
-            console.log("Error", response); // Log the error for debugging
+            // console.log("Error", response); 
 
             setPopupMessage(response?.payload?.errormessage);
             setPopupType("error");
@@ -475,7 +478,10 @@ const CleaningServicePage = () => {
       <SuccessPopup
         open={popupOpen && popupType === "success"}
         message={popupMessage}
-        onClose={() => setPopupOpen(false)}
+        onClose={() => {
+          setPopupOpen(false);
+          navigate("/"); // Redirect to home
+        }}
       />
       <ErrorPopup
         open={popupOpen && popupType === "error"}
