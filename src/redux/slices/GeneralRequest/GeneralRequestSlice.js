@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axiosInstancePromise from '../../api/axiosInstance'; // ✅ Import the promise
+import axiosInstancePromise from '../../../api/axiosInstance'; // ✅ Import the promise
 //type id 
 // Define an async thunk to handle the POST request
 export const createRequest = createAsyncThunk(

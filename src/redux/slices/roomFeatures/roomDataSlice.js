@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-import axiosInstancePromise from '../../api/axiosInstance'; // ✅ Import the promise
+import axiosInstancePromise from '../../../api/axiosInstance'; // ✅ Import the promise
 
 export const fetchRoomData = createAsyncThunk(
   'roomData/fetchRoomData',
