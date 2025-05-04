@@ -1,11 +1,9 @@
-if there is many requests 
-many comp
-go to sign in or write your secret num and pin 
+if there is many requests go to sign in or write your secret num and pin 
 in eval page 
 if there is no gest name show not found component and go to rate from page 
-if no items or no comment show error should be at least comment or one item 
+if no items or no comment show error should be at least comment or one item (done)
 after any submit  go to /  (done)
 eval for room pervisit 
-guest width label 
+guest width label (done)
 reduce th word in small screen (done)
 when remove eval  (done)

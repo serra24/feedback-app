@@ -1,12 +1,14 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axiosInstance from '../../api/axiosInstance';
+import axiosInstancePromise from '../../api/axiosInstance'; // ✅ Import the promise
 
 // Create an async thunk to fetch data
 export const fetchGuestEvaluation = createAsyncThunk(
   'guestEvaluation/fetchGuestEvaluation',
   async (language) => {
     // console.log("language",language);
-    const response = await axiosInstance.get('/api/CRM/LockUp/GetGuestEvaluationItem', {
+    const axios = await axiosInstancePromise; // ✅ Wait for Axios config to load
+
+    const response = await axios.get('/api/CRM/LockUp/GetGuestEvaluationItem', {
       headers: {
         'Accept': '*/*',
         lang:language=== 'ar' ? 1: 2,

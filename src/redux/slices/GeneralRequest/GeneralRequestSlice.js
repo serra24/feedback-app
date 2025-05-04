@@ -1,12 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axiosInstance from '../../../api/axiosInstance';
+import axiosInstancePromise from '../../api/axiosInstance'; // ✅ Import the promise
 //type id 
 // Define an async thunk to handle the POST request
 export const createRequest = createAsyncThunk(
   'generalRequest/createRequest',
   async (requestData, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.post('/api/CRM/GeneralRequest/CreateRequest', requestData, {
+      const axios = await axiosInstancePromise;
+      const response = await axios.post('/api/CRM/GeneralRequest/CreateRequest', requestData, {
         headers: {
           // 'Content-Type': 'application/json-patch+json',
         },

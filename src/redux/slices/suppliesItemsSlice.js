@@ -1,14 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axiosInstance from '../../api/axiosInstance';
+import axiosInstancePromise from '../../api/axiosInstance'; // ✅ Import the promise
 // Async thunk with language header
 export const fetchSuppliesItems = createAsyncThunk(
   'supplies/fetchSuppliesItems',
   async (language, { getState }) => {
     // const state = getState();
     // const language = state.language.selectedLanguage || 'ar'; // assumes you store language in Redux
-console.log("lang",language);
-
-    const response = await axiosInstance.get('/api/CRM/LockUp/GetSuppliesItems', {
+    const axios = await axiosInstancePromise;
+    const response = await axios.get('/api/CRM/LockUp/GetSuppliesItems', {
       headers: {
         'accept': '*/*',
         lang:language=== 'ar' ? 1: 2,

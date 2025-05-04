@@ -194,14 +194,14 @@ const MaintenanceServicePage = () => {
   const formFields = [
     {
       label: t.mainMaintenanceRequest,
-      options: mainCategories.map((category) => ({
+      options: mainCategories?.map((category) => ({
         name: category.nameEn,
         id: category.id,
       })),
     },
     {
       label: t.subMaintenanceRequest,
-      options: subCategories.map((category) => ({
+      options: subCategories?.map((category) => ({
         name: category.nameEn,
         id: category.id,
       })),
@@ -332,7 +332,7 @@ const MaintenanceServicePage = () => {
                   {t.Select} {t.Maintenance.priority}
                 </MenuItem>
 
-                {priorityOptions.map((option) => (
+                {priorityOptions?.map((option) => (
                   <MenuItem key={option.id} value={option.id}>
                     {option.name}
                   </MenuItem>
@@ -355,7 +355,7 @@ const MaintenanceServicePage = () => {
             flexDirection: { xs: "column", md: "row" },
           }}
         >
-          {formFields.map((field, index) => (
+          {formFields?.map((field, index) => (
             <Box key={index} sx={{ flex: 1, minWidth: "calc(50% - 8px)" }}>
               <Typography
                 sx={{
@@ -424,7 +424,7 @@ const MaintenanceServicePage = () => {
                   <MenuItem value="" disabled>
                     {t.Select} {field.label}
                   </MenuItem>
-                  {field.options.map((option, idx) => (
+                  {field?.options?.map((option, idx) => (
                     <MenuItem key={idx} value={option.id}>
                       {option.name}
                     </MenuItem>

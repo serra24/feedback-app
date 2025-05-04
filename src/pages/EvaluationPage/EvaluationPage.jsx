@@ -50,7 +50,7 @@ const EvaluationPage = () => {
   }, [dispatch, language]);
   useEffect(() => {
     // Initialize ratings for each item (if data is available)
-    const initialRatings = data.map(() => 0); // Initialize all ratings to 0
+    const initialRatings = data?.map(() => 0); // Initialize all ratings to 0
     setRatings(initialRatings);
   }, [data]);
 
@@ -86,7 +86,7 @@ const EvaluationPage = () => {
       // roomId: roomNum2, // Use the room number from session storage
       // roomId: roomNum, // Use the room number from session storage
       // roomId: sessionStorage.getItem("roomNum"), // Use the room number from session storage
-      items: data.map((item, index) => ({
+      items: data?.map((item, index) => ({
         itemId: item.id, // Use the actual itemId from the data
         rate: ratings[index], // The corresponding rating for that item
       })),
@@ -105,7 +105,7 @@ const EvaluationPage = () => {
           setPopupType("success");
           setPopupOpen(true);
           setComment("");
-          setRatings(data.map(() => 0));
+          setRatings(data?.map(() => 0));
           setHovered({ index: null, value: 0 });
           
         } else {
@@ -187,7 +187,7 @@ const EvaluationPage = () => {
             </Typography>
 
             {/* Iterate through the evaluation items */}
-            {data.map((item, index) => (
+            {data?.map((item, index) => (
               <motion.div
                 key={item.id}
                 initial={{ opacity: 0, y: 20 }}

@@ -1,13 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-import axiosInstance from '../../../api/axiosInstance';
+import axiosInstancePromise from '../../api/axiosInstance'; // ✅ Import the promise
 
 export const fetchRoomData = createAsyncThunk(
   'roomData/fetchRoomData',
   async ({roomId,language}) => {
-    console.log("Fetching room data for ID:", roomId); // Log the room ID to the console
-    
-    const response = await axiosInstance.get('/api/CRM/LockUp/GetRoomData', {
+    const axios = await axiosInstancePromise;    
+    const response = await axios.get('/api/CRM/LockUp/GetRoomData', {
         params: { id: roomId },
         headers: {
             lang:language=== 'ar' ? 1: 2,

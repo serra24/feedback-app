@@ -1,12 +1,13 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axiosInstance from '../../api/axiosInstance';
+import axiosInstancePromise from '../../api/axiosInstance'; // ✅ Import the promise
 
 //  Thunk for creating a complaint
 export const createComplaint = createAsyncThunk(
   'complaints/createComplaint',
   async (complaintData, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.post(
+      const axios = await axiosInstancePromise;
+      const response = await axios.post(
         '/api/CRM/Complaint/CreateComplaint',
         complaintData,
         {

@@ -1,13 +1,14 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axiosInstance from '../../api/axiosInstance';
+import axiosInstancePromise from '../../api/axiosInstance'; // ✅ Import the promise
 
 // Define the async thunk to fetch subcategories based on mainCategoryId
 export const fetchSubCategories = createAsyncThunk(
   'subCategories/fetchSubCategories',
   async ({selectedMainCategory,language}) => {
     try {
+      const axios = await axiosInstancePromise;
       // Use axios to fetch subcategories
-      const response = await axiosInstance.get(
+      const response = await axios.get(
         `/api/Maintenance/GetAllSubCategories?MainMentananceId=${selectedMainCategory}`,
         {
           headers: {

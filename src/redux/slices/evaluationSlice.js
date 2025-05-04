@@ -1,12 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axiosInstance from '../../api/axiosInstance';
+import axiosInstancePromise from '../../api/axiosInstance'; // ✅ Import the promise
 
 // Async thunk to post evaluation
 export const addEvaluation = createAsyncThunk(
   'evaluation/addEvaluation',
   async (evaluationData, { rejectWithValue }) => { 
     try {
-      const response = await axiosInstance.post(
+      const axios = await axiosInstancePromise;
+      const response = await axios.post(
         '/api/CRM/Evaluation/AddEvaluation',
         evaluationData,
         {
