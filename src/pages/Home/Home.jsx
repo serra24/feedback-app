@@ -19,7 +19,6 @@ const Home = () => {
   // Extract room number from the query string
   const queryParams = new URLSearchParams(location.search);
   const roomNumber = queryParams.get("roomNumber");
-  console.log("Room Number:", roomNumber); // Log the room number to the console
 
   useEffect(() => {
     if (roomNumber) {
@@ -34,11 +33,10 @@ const Home = () => {
   const storedRoomNumber = useSelector((state) => state.room.roomNum);
   console.log("Stored Room Number from Redux:", storedRoomNumber);
   // Save room number after scanning the QR code
- 
+
   // Retrieve room number in another page/component
   const roomNum = sessionStorage.getItem("roomNum");
-  console.log("Room Number from Session Storage:", roomNum); // Log the room number to the console
-  
+
   return (
     <Box
       sx={{
@@ -107,12 +105,32 @@ const Home = () => {
           </Typography>
         </Box>
 
+        {/* For xs screens (mobile) - show welcomeMessage2 */}
         <Box
           sx={{
             display: {
               xs: "block",
-              sm: "block",
               md: "none",
+            },
+            mb: 2,
+          }}
+        >
+          <Typography
+            sx={{
+              fontWeight: 700,
+              fontSize: "20px",
+            }}
+          >
+            {t.home.welcomeMessage2}
+          </Typography>
+        </Box>
+
+        {/* For md and up - show welcomeMessage */}
+        <Box
+          sx={{
+            display: {
+              xs: "none",
+              md: "block",
             },
             mb: 5,
           }}

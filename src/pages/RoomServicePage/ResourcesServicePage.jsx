@@ -207,7 +207,7 @@ const ResourcesServicePage = () => {
           fontWeight: 700,
           fontSize: { xs: "24px", sm: "30px" },
           textAlign: "right",
-          mb: 1.5,
+          mb: { md: 1.5, xs: 2 },
           color: "var(--white-color)",
         }}
       >
@@ -222,6 +222,10 @@ const ResourcesServicePage = () => {
           textAlign: "center",
           mb: 4,
           color: "var(--white-color)",
+          display: {
+            xs: "none",
+            md: "block",
+          },
         }}
       >
         {'"'} {t.resourcesForm.description} {'"'}

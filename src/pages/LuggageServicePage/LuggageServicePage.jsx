@@ -103,7 +103,7 @@ const LuggageServicePage = () => {
           fontWeight: 700,
           fontSize: { xs: "24px", sm: "30px" },
           textAlign: "right",
-          mb: 1.5,
+          mb: {md:1.5,xs:2},
           color: "var(--white-color)",
         }}
       >
@@ -118,6 +118,10 @@ const LuggageServicePage = () => {
           textAlign: "center",
           mb: 4,
           color: "var(--white-color)",
+          display: {
+            xs: "none",
+            md: "block",
+          },
         }}
       >
         {'"'} {t.luggageForm.description}
@@ -156,7 +160,8 @@ const LuggageServicePage = () => {
               }}
             >
               {field.name === "preferredTime" ? (
-                <CustomTimePicker
+                <Box sx={{mb:{md:"none", xs:3}}}>
+                   <CustomTimePicker
                   key={index}
                   label={field.label}
                   name={field.name}
@@ -166,6 +171,8 @@ const LuggageServicePage = () => {
                   error={formik.errors[field.name]}
                   touched={formik.touched[field.name]}
                 />
+                </Box>
+               
               ) : (
                 <InputField
                   type={field.type || "text"}

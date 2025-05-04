@@ -141,15 +141,7 @@ const CleaningServicePage = () => {
     // Exclude formik from the dependency array to avoid infinite loop
   }, [roomData]); // Now it only depends on roomData
 
-  // Complaint types options
-  // const complaintTypes = [
-  //   { id: 1, label: t.cleaningForm.windowCleaning },
-  //   { id: 2, label: t.cleaningForm.bedCleaning },
-  //   { id: 3, label: t.cleaningForm.bathroomCleaning },
-  //   { id: 4, label: t.cleaningForm.floorCleaning },
-  //   { id: 5, label: t.cleaningForm.trashEmptying },
-  //   { id: 6, label: t.cleaningForm.allOfTheAbove },
-  // ];
+
 
   // Input fields configuration
   const inputFields = [
@@ -195,7 +187,7 @@ const CleaningServicePage = () => {
           fontWeight: 700,
           fontSize: { xs: "24px", sm: "30px" },
           textAlign: "right",
-          mb: 1.5,
+          mb: {md:1.5,xs:2},
           color: "var(--white-color)",
         }}
       >
@@ -210,6 +202,10 @@ const CleaningServicePage = () => {
           textAlign: "center",
           mb: 4,
           color: "var(--white-color)",
+          display: {
+            xs: "none",
+            md: "block",
+          },
         }}
       >
         {'"'} {t.cleaningForm.guarantee} {'"'}

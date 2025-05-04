@@ -16,7 +16,7 @@ const AnimatedHeader = ({ title, subtitle }) => {
             fontWeight: 700,
             fontSize: { xs: "22px", sm: "30px" },
             textAlign: "center",
-            mb: 1.5,
+            mb: {md:1.5,xs:2},
             color: "#ffffff",
           }}
         >
@@ -32,6 +32,10 @@ const AnimatedHeader = ({ title, subtitle }) => {
           textAlign: "center",
           mb: 4,
           color: "#ffffff",
+          display: {
+            xs: "none",
+            md: "block",
+          },
         }}
       >
         {subtitle}

@@ -103,7 +103,7 @@ const CustomTimePicker = ({ label, name, value, onChange, onBlur, error, touched
 
   return (
     <ClickAwayListener onClickAway={handleClose}>
-      <Box>
+      <Box >
         <Typography
           sx={{
             fontFamily: "Almarai, sans-serif",
