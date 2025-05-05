@@ -13,7 +13,7 @@ export const fetchRoomData = createAsyncThunk(
         }
       });
       
-    console.log("response", response); // Log the response to the console
+    // console.log("response", response); 
     return response.data;
   }
 );

@@ -40,10 +40,13 @@ const ResourcesServicePage = () => {
   const [popupOpen, setPopupOpen] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
   const [popupType, setPopupType] = useState("");
-  const { roomNum, roomData } = useSelector((state) => ({
-    roomNum: state.room.roomNum,
-    roomData: state.roomData,
-  }));
+  // const { roomNum, roomData } = useSelector((state) => ({
+  //   roomNum: state.room.roomNum,
+  //   roomData: state.roomData,
+  // }));
+  const roomNum = useSelector((state) => state.room.roomNum);
+  const roomData = useSelector((state) => state.roomData);
+
   // console.log("roomData", roomData); // Check if roomData is defined
   useEffect(() => {
     // console.log("roomNum inside useEffect:", roomNum);  // Check if roomNum is defined
@@ -124,7 +127,7 @@ const ResourcesServicePage = () => {
             setPopupOpen(true);
             formik.resetForm();
           } else {
-            // console.log("Error", response); 
+            // console.log("Error", response);
 
             setPopupMessage(response?.payload?.errormessage);
             setPopupType("error");
@@ -351,7 +354,8 @@ const ResourcesServicePage = () => {
                                     )
                                   : [
                                       ...currentItems,
-                                      { id: type.id, quantity: 1 },
+                                      { id: type.id,  quantity:
+                                        supplyItems.find((s) => s.id === type.id)?.defaultQuantity ?? 1, },
                                     ];
                                 formik.setFieldValue(
                                   "complaintItems",

@@ -241,7 +241,7 @@ const MaintenanceServicePage = () => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        p: 3,
+        p: 2,
         minHeight: { md: "70vh", xs: "auto" },
       }}
     >

@@ -52,9 +52,9 @@ const Loader = () => {
             position: "absolute",
             top: "50%",
             left: "50%",
-            transform: "translate(-50%, -50%) rotate(0deg)", // Default rotation
-            width: 80,
-            height: "auto",
+            transform: "translate(-50%, -50%) rotate(0deg)",
+            width: 120,
+            height: 100,
           }}
         />
       </Box>

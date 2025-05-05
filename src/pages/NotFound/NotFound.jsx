@@ -95,7 +95,7 @@ const NotFound = () => {
             background: 'linear-gradient(90deg, #00395D 0%, #00395D 100%)',
             fontFamily: 'Almarai, sans-serif',
             fontWeight: 400,
-            fontSize: '18px',
+            fontSize:  { xs: '14px', sm: '16px', md: '18px' },
             color: '#FFFFFF',
             textTransform: 'none',
           }}

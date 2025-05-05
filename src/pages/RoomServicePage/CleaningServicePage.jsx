@@ -32,10 +32,13 @@ const CleaningServicePage = () => {
   const [isDataLoaded, setIsDataLoaded] = useState(false);
 
   const { loading, error } = useSelector((state) => state.generalRequest);
-  const { roomNum, roomData } = useSelector((state) => ({
-    roomNum: state.room.roomNum,
-    roomData: state.roomData,
-  }));
+  // const { roomNum, roomData } = useSelector((state) => ({
+  //   roomNum: state.room.roomNum,
+  //   roomData: state.roomData,
+  // }));
+  const roomNum = useSelector((state) => state.room.roomNum);
+  const roomData = useSelector((state) => state.roomData);
+
   useEffect(() => {
     // console.log("roomNum inside useEffect:", roomNum);  // Check if roomNum is defined
     if (roomNum) {
@@ -102,7 +105,7 @@ const CleaningServicePage = () => {
 
       dispatch(createRequest(formData))
         .then((response) => {
-          // console.log("Response", response); 
+          // console.log("Response", response);
           if (response?.payload?.successtate === 200) {
             // Adjust according to your response structure
             setPopupMessage(t.sucessRequest);
@@ -110,7 +113,7 @@ const CleaningServicePage = () => {
             setPopupOpen(true);
             formik.resetForm();
           } else {
-            // console.log("Error", response); 
+            // console.log("Error", response);
 
             setPopupMessage(response?.payload?.errormessage);
             setPopupType("error");
@@ -143,8 +146,6 @@ const CleaningServicePage = () => {
     }
     // Exclude formik from the dependency array to avoid infinite loop
   }, [roomData]); // Now it only depends on roomData
-
-
 
   // Input fields configuration
   const inputFields = [
@@ -190,7 +191,7 @@ const CleaningServicePage = () => {
           fontWeight: 700,
           fontSize: { xs: "24px", sm: "30px" },
           textAlign: "right",
-          mb: {md:1.5,xs:2},
+          mb: { md: 1.5, xs: 2 },
           color: "var(--white-color)",
         }}
       >
@@ -256,7 +257,6 @@ const CleaningServicePage = () => {
                   error={formik.errors[field.name]}
                   touched={formik.touched[field.name]}
                 />
-                
               ) : (
                 <InputField
                   type={field.type || "text"}

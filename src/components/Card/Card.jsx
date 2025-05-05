@@ -177,6 +177,7 @@ const Card = ({
               justifyContent: "center",
               alignItems: "center",
               marginTop: "4px",
+              width:"7px" ,height:"12px"
             }}
             alt="icon"
           />

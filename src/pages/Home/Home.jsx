@@ -111,6 +111,7 @@ const Home = () => {
             display: {
               xs: "block",
               md: "none",
+              lg: "none",
             },
             mb: 2,
           }}
@@ -126,7 +127,7 @@ const Home = () => {
         </Box>
 
         {/* For md and up - show welcomeMessage */}
-        <Box
+        {/* <Box
           sx={{
             display: {
               xs: "none",
@@ -143,7 +144,7 @@ const Home = () => {
           >
             {t.home.welcomeMessage}
           </Typography>
-        </Box>
+        </Box> */}
 
         {/* Cards */}
         <Box

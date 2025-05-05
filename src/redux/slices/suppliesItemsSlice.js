@@ -13,7 +13,7 @@ export const fetchSuppliesItems = createAsyncThunk(
         lang:language=== 'ar' ? 1: 2,
       },
     });
-console.log("response",response);
+// console.log("response",response);
 
     return response.data.message;
   }
