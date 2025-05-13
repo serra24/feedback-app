@@ -34,7 +34,9 @@ const CustomDatePicker = ({
       </Typography>
 
       {/* Make the entire Box clickable */}
-      <Box onClick={handleOpen}>
+      <Box 
+      // onClick={handleOpen}
+      >
         <DatePicker
         
           open={open} // Bind the DatePicker open state

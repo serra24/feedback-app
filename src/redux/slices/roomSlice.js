@@ -22,24 +22,24 @@ import { createSlice } from '@reduxjs/toolkit';
 
 // Define the initial state
 const initialState = {
-  roomNum: null,  // Room number starts as null
+  roomNum: null,
+  bookingNumber: null,
 };
 
-// Create a slice
 const roomSlice = createSlice({
-  name: 'room',  // Name of the slice
+  name: 'room',
   initialState,
   reducers: {
-    // Define the action to set the room number
     setRoomNumber: (state, action) => {
-      state.roomNum = action.payload;  // Update the state with the room number
+      state.roomNum = action.payload;
+    },
+    setBookingNumber: (state, action) => {
+      state.bookingNumber = action.payload;
     },
   },
 });
 
-// Export the action created by createSlice
-export const { setRoomNumber } = roomSlice.actions;
-
-// Export the reducer to be added to the store
+export const { setRoomNumber, setBookingNumber } = roomSlice.actions;
 export default roomSlice.reducer;
+
 

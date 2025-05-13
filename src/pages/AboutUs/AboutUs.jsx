@@ -39,7 +39,7 @@ const AboutUs = () => {
            flexDirection: "column",
            alignItems: "center",
            p: 3,
-           minHeight: { md: "140vh", xs: "auto" },
+           minHeight: { md: "140vh", xs: "230vh" },
          }}
        >
       <Box sx={{ mb: "32px" }}>

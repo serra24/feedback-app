@@ -64,7 +64,22 @@ const ResourcesServicePage = () => {
       // .required("رقم الهاتف مطلوب"),
       .min(8, t.validation.phone.min),
     roomNumber: Yup.string().required(t.roomNumberRequired),
-    complaintItems: Yup.array().min(1, t.complaintDetailsString),
+    complaintItems: Yup.array()
+      .of(
+        Yup.object().shape({
+          id: Yup.number().required(),
+          quantity: Yup.number()
+            .typeError(
+              t.validation.quantity.mustBeNumber || "يجب أن تكون الكمية رقمًا"
+            )
+            .required(t.validation.quantity.required || "الكمية مطلوبة"),
+          // .min(
+          //   1,
+          //   t.validation.quantity.positive || "الحد الأدنى للكمية هو 1"
+          // ),
+        })
+      )
+      .min(1, t.complaintDetailsString),
     complaintDetails: Yup.string().optional(),
   });
   const hotelName =
@@ -109,10 +124,20 @@ const ResourcesServicePage = () => {
       formData.append("phoneNumber", values.phone || null);
 
       // Handling items: map each item and append it to FormData
+      // if (values.complaintItems && values.complaintItems.length > 0) {
+      //   values.complaintItems.forEach((item, index) => {
+      //     formData.append(`items[${index}].supplyId`, item.id || null);
+      //     formData.append(`items[${index}].quantity`, item.quantity || null);
+      //   });
+      // }
       if (values.complaintItems && values.complaintItems.length > 0) {
-        values.complaintItems.forEach((item, index) => {
-          formData.append(`items[${index}].supplyId`, item.id || null);
-          formData.append(`items[${index}].quantity`, item.quantity || null);
+        let index = 0;
+        values.complaintItems.forEach((item) => {
+          if (item.quantity != null && item.quantity !== "") {
+            formData.append(`items[${index}].supplyId`, item.id);
+            formData.append(`items[${index}].quantity`, item.quantity);
+            index++;
+          }
         });
       }
 
@@ -354,8 +379,13 @@ const ResourcesServicePage = () => {
                                     )
                                   : [
                                       ...currentItems,
-                                      { id: type.id,  quantity:
-                                        supplyItems.find((s) => s.id === type.id)?.defaultQuantity ?? 1, },
+                                      {
+                                        id: type.id,
+                                        quantity:
+                                          supplyItems.find(
+                                            (s) => s.id === type.id
+                                          )?.defaultQuantity ?? 1,
+                                      },
                                     ];
                                 formik.setFieldValue(
                                   "complaintItems",
@@ -383,11 +413,12 @@ const ResourcesServicePage = () => {
                         />
                         {selected && (
                           <TextField
-                            type="number"
+                            type="text"
                             name={`quantity_${type.id}`}
                             value={selected.quantity}
+                            disabled
                             onChange={(e) => {
-                              const newVal = parseInt(e.target.value) || 1;
+                              const newVal = e.target.value; // No parseInt here
                               const updatedItems =
                                 formik.values.complaintItems.map((item) =>
                                   item.id === type.id
@@ -410,12 +441,14 @@ const ResourcesServicePage = () => {
                                 textAlign: "center",
                                 color: "var(--white-color)",
                               },
+                              "& .css-5v2ak0": {
+                                height: "35px !important",
+                              },
                               "& .css-1ll44ll-MuiOutlinedInput-notchedOutline":
                                 {
                                   height: "35px !important",
                                 },
                             }}
-                            inputProps={{ min: 1 }}
                           />
                         )}
                       </Box>
@@ -425,10 +458,12 @@ const ResourcesServicePage = () => {
               ))}
           </FormGroup>
           {formik.touched.complaintItems && formik.errors.complaintItems && (
-            <Typography color="error" sx={{ mt: 1 }}>
-              {formik.errors.complaintItems}
-            </Typography>
-          )}
+  <Typography color="error" sx={{ mt: 1 }}>
+    {formik.errors.complaintItems}
+  </Typography>
+)}
+
+
         </Box>
 
         {/* Complaint Details */}

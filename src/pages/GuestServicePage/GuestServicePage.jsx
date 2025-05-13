@@ -10,22 +10,28 @@ import {
   TextareaAutosize,
   Grid,
   Button,
+  FormControl,
+  Select,
+  MenuItem,
+  FormHelperText,
 } from "@mui/material";
 import { MdCheckBox } from "react-icons/md";
 import InputField from "../../components/InputField/InputField";
 import CustomDatePicker from "../../components/InputField/CustomDatePicker";
 import { LanguageContext } from "../../context/LanguageContext";
 import FormTitle from "../../components/FormTitle/FormTitle";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { fetchComplaintItems } from "../../redux/slices/complaintItemsSlice";
 import { createComplaint } from "../../redux/slices/createComplaintSlice";
 import { fetchRoomData } from "../../redux/slices/roomFeatures/roomDataSlice";
 import Loading from "../../components/Loading/Loading";
 import ErrorPopup from "../../components/ErrorPopup/ErrorPopup";
 import SuccessPopup from "../../components/SuccessPopup/SuccessPopup";
+import { useNavigate } from "react-router-dom";
 const GuestServicePage = () => {
   const { translations: t, language } = useContext(LanguageContext);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [popupOpen, setPopupOpen] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
   const [popupType, setPopupType] = useState("");
@@ -33,7 +39,8 @@ const GuestServicePage = () => {
     roomNum: state.room.roomNum,
     roomData: state.roomData,
     complaintItems: state.complaintItems.items,
-  }));
+  }), shallowEqual);
+   
   // console.log("roomData", roomData); // Check if roomData is defined
   useEffect(() => {
     // console.log("roomNum inside useEffect:", roomNum);  // Check if roomNum is defined
@@ -48,16 +55,17 @@ const GuestServicePage = () => {
 
   // Form validation schema
   const validationSchema = Yup.object().shape({
-    title: Yup.string().required("عنوان الشكوى مطلوب"),
-    guestName: Yup.string().required("اسم الضيف مطلوب"),
+    title: Yup.string().required(t.titleRequired),
+    priorityId: Yup.string().required(t.priorityRequired),
+    guestName: Yup.string().required(t.guestNameRequired),
     phone: Yup.string()
       // .required("رقم التواصل مطلوب")
       // .matches(/^[0-9]+$/, "يجب أن يحتوي على أرقام فقط"),
       .min(8, t.validation.phone.min),
-    email: Yup.string().email("بريد إلكتروني غير صالح"),
+    email: Yup.string().email(t.emailInvalid),
     // .required("البريد الإلكتروني مطلوب"),
-    complaintDetails: Yup.string().required("تفاصيل الشكوى مطلوبة"),
-    expectedAction: Yup.string().required("الإجراء المتوقع مطلوب"),
+    complaintDetails: Yup.string().required(t.complaintDetailsRequired),
+    expectedAction: Yup.string().required(t.expectedActionRequired),
   });
   // console.log("roomData?.message?.floor?.building?.branch?.localizedName", roomData?.data?.message?.floor?.building?.branch?.localizedName);
   const hotelName =
@@ -81,6 +89,7 @@ const GuestServicePage = () => {
       complaintTypes: [],
       complaintDetails: "",
       expectedAction: "",
+      priorityId: "",
     },
     validationSchema,
     onSubmit: (values) => {
@@ -92,7 +101,7 @@ const GuestServicePage = () => {
         phoneNumber: values.phone,
         name: values.guestName,
         roomId: roomNum,
-        priorityId:null,
+        priorityId: values.priorityId,
         sourceId: 1,
         itemsIds: values.complaintTypes,
       };
@@ -109,7 +118,7 @@ const GuestServicePage = () => {
             setPopupOpen(true);
             formik.resetForm();
           } else {
-            // console.log("Error", response); 
+            // console.log("Error", response);
 
             setPopupMessage(response?.payload?.errormessage);
             setPopupType("error");
@@ -117,7 +126,7 @@ const GuestServicePage = () => {
           }
         })
         .catch((error) => {
-          console.error("Error", error); 
+          console.error("Error", error);
           setPopupMessage("An unexpected error occurred.");
           setPopupType("error");
           setPopupOpen(true);
@@ -128,21 +137,22 @@ const GuestServicePage = () => {
   useEffect(() => {
     if (roomData?.data?.message?.floor?.building?.branch?.localizedName) {
       setIsDataLoaded(true);
-      
-      const hotelName = roomData?.data?.message?.floor?.building?.branch?.localizedName;
+
+      const hotelName =
+        roomData?.data?.message?.floor?.building?.branch?.localizedName;
       const number = roomData?.data?.message?.number;
-  
+
       // Only set values if they differ from the current formik values
       if (formik.values.hotelName !== hotelName) {
-        formik.setFieldValue('hotelName', hotelName);
+        formik.setFieldValue("hotelName", hotelName);
       }
       if (number && formik.values.roomNumber !== number) {
-        formik.setFieldValue('roomNumber', number);
+        formik.setFieldValue("roomNumber", number);
       }
     }
     // Exclude formik from the dependency array to avoid infinite loop
   }, [roomData]); // Now it only depends on roomData
-  
+
   useEffect(() => {
     // Fetch guest evaluation data when the component mounts
     dispatch(fetchComplaintItems(language))
@@ -159,7 +169,10 @@ const GuestServicePage = () => {
     id: item.id,
     label: language === "ar" ? item.nameAr : item.nameEn,
   }));
-
+  const priorityOptions = [
+    { id: 1, name: t.Maintenance.priorityHigh },
+    { id: 2, name: t.Maintenance.priorityLow },
+  ];
   // Input fields configuration
   const inputFields = [
     {
@@ -192,11 +205,11 @@ const GuestServicePage = () => {
       label: t.Complaint.email.label,
       placeholder: t.Complaint.email.placeholder,
     },
-    {
-      name: "title",
-      label: t.Complaint.title.label, // Make sure this translation exists
-      placeholder: t.Complaint.title.placeholder,
-    },
+    // {
+    //   name: "title",
+    //   label: t.Complaint.title.label, // Make sure this translation exists
+    //   placeholder: t.Complaint.title.placeholder,
+    // },
   ];
   if (!isDataLoaded) return <Loading />;
 
@@ -218,7 +231,7 @@ const GuestServicePage = () => {
           fontWeight: 700,
           fontSize: { xs: "24px", sm: "30px" },
           textAlign: "right",
-          mb: {md:1.5,xs:2},
+          mb: { md: 1.5, xs: 2 },
           color: "var(--white-color)",
         }}
       >
@@ -305,8 +318,94 @@ const GuestServicePage = () => {
           ))}
         </Box>
 
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            columnGap: "24px",
+            justifyContent: "space-between", // Ensure fields are side by side
+          }}
+        >
+          {/* Complaint Title */}
+          <Box sx={{ flex: "1 1 calc(50% - 12px)", minWidth: "230px" }}>
+            <InputField
+              label={t.Complaint.title.label}
+              name="title"
+              value={formik.values.title}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.title && formik.errors.title}
+              touched={formik.touched.title}
+              placeholder={t.Complaint.title.placeholder}
+            />
+          </Box>
+
+          {/* Priority */}
+          <Box sx={{ flex: "1 1 calc(50% - 12px)", minWidth: "230px" }}>
+            <Typography
+              sx={{
+                marginBottom: "3px",
+                fontFamily: "Almarai",
+                color: "var(--white-color)",
+                fontSize: 18,
+                fontWeight: 400,
+              }}
+            >
+              {t.Maintenance.priority}
+            </Typography>
+            <FormControl
+              fullWidth
+              error={Boolean(
+                formik.errors.priorityId && formik.touched.priorityId
+              )}
+            >
+              <Select
+                displayEmpty
+                value={formik.values.priorityId}
+                onChange={formik.handleChange}
+                name="priorityId"
+                onBlur={() => formik.setFieldTouched("priorityId", true)}
+                sx={{
+                  borderRadius: "4px",
+                  height: "48px",
+
+                  color: "#fff",
+                  "& .MuiSelect-icon": {
+                    color: "#fff",
+                  },
+                  "& .css-1ll44ll-MuiOutlinedInput-notchedOutline, .css-lqwr9g-MuiPickersOutlinedInput-notchedOutline, .css-5v2ak0, .css-1l1mqzp": {
+                    border:
+                      formik.touched.priorityId && formik.errors.priorityId
+                        ? "1px solid #f44336 !important" // Error border color (red)
+                        : "1px solid #FFFFFF80 !important",
+                  },
+                  "& .MuiSelect-select": {
+                    color: formik.values.priorityId
+                      ? "#fff"
+                      : "rgba(255, 255, 255, 0.5)",
+                    fontSize: formik.values.priorityId ? "16px" : "14px",
+                  },
+                }}
+              >
+                <MenuItem value="" disabled>
+                  {t.Select} {t.Maintenance.priority}
+                </MenuItem>
+
+                {priorityOptions?.map((option) => (
+                  <MenuItem key={option.id} value={option.id}>
+                    {option.name}
+                  </MenuItem>
+                ))}
+              </Select>
+              {formik.touched.priorityId && formik.errors.priorityId && (
+                <FormHelperText>{formik.errors.priorityId}</FormHelperText>
+              )}
+            </FormControl>
+          </Box>
+        </Box>
+
         {/* Complaint Types */}
-        <Box sx={{ mt: "10px" }}>
+        <Box sx={{ mt: "14px" }}>
           <Typography
             sx={{
               fontFamily: "Almarai",
@@ -386,7 +485,7 @@ const GuestServicePage = () => {
                       sx={{
                         "& .MuiFormControlLabel-label": {
                           color: "#fff", // Label text color
-                          width: {md:"240px",xs:"auto"},
+                          width: { md: "240px", xs: "auto" },
                           fontSize: "16px !important",
                         },
                       }}
@@ -553,7 +652,10 @@ const GuestServicePage = () => {
       <SuccessPopup
         open={popupOpen && popupType === "success"}
         message={popupMessage}
-        onClose={() => setPopupOpen(false)}
+        onClose={() => {
+          setPopupOpen(false);
+          navigate("/"); // Redirect to home
+        }}
       />
       <ErrorPopup
         open={popupOpen && popupType === "error"}

@@ -263,7 +263,7 @@ input:-internal-autofill-selected {
 .css-5v2ak0,
 .css-1l1mqzp{
   border-color: #ffffff80 !important;
-  height: 49px !important;
+  /* height: 49px !important; */
 
 }
 .css-1blp12k-MuiInputBase-root-MuiOutlinedInput-root.Mui-error
@@ -431,7 +431,9 @@ textarea::placeholder{
 
 }
 
-.css-qwdxx6,.css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input {
+.css-qwdxx6,.css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input 
+/* ,.css-1w5sfxb .MuiOutlinedInput-root input */
+{
   height: 16px !important;
 }
 .css-1m5w8ek-MuiFormControl-root-MuiTextField-root .MuiOutlinedInput-root input,.css-1dune0f-MuiInputBase-input-MuiOutlinedInput-input{
@@ -440,6 +442,10 @@ textarea::placeholder{
 .css-1ooubvk{
   height: 1px !important;
 }
-.css-5v2ak0{
+/* .css-5v2ak0{
   height: 31px !important;
+} */
+
+input[type=number]::-webkit-inner-spin-button {
+  opacity: 1 !important;
 }

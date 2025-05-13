@@ -44,6 +44,9 @@
   },
   "Maintenance": {
     "title": "Maintenance Service",
+     "titlefeild": "Request Title",
+  "titlePlaceholder": "Enter a brief title for your request",
+  "titleRequired": "Title is required",
     "description": "We provide you with fast and secure maintenance service around the clock to meet any needs inside rooms or facilities.",
     "form_title": "Please fill out the following form to submit a maintenance request.",
     "notes": "Notes",
@@ -51,7 +54,7 @@
     "attachments": "Attachments",
     "drag_and_drop": "Drag & drop files or",
     "browse": "Browse",
-    "submit": "Submit Request",
+    "submit": "Submit",
     "priority": "Priority",
     "priorityHigh": "High",
     "priorityLow": "Low"
@@ -100,7 +103,7 @@
       "label": "Expected Action or Request",
       "placeholder": "Write a detailed description of the expected action..."
     },
-    "submitButton": "Submit Complaint"
+    "submitButton": "Submit "
   },
   "RequestServicePage": {
     "header": {
@@ -141,7 +144,7 @@
     },
     "commentLabel": "Your comment (optional)",
     "commentPlaceholder": "Tell us about your experience at the hotel...",
-    "submit": "Submit Evaluation"
+    "submit": "Submit "
   },
   "roomServices": {
     "title": "Room Services",
@@ -257,7 +260,7 @@
   },
   "errorhappen": " An error occurred",
   "thanks": "Thank you for your feedback",
-  "Submitcomplaint": "Submit complaint",
+  "Submitcomplaint": "Submit ",
   "loading": "Loading...",
   "validation": {
     "guestName": {
@@ -272,7 +275,18 @@
       "min": "Phone number must be at least 10 digits"
     },
     "selectMainCategory": "Please select a main category",
-    "selectSubCategory": "Please select a subcategory"
+    "selectSubCategory": "Please select a subcategory",
+    "quantity": {
+      "mustBeNumber": "Quantity must be a number",
+      "required": "Quantity is required",
+      "positive": "Quantity must be greater than 0"
+    },
+    "titleRequired": "Complaint title is required",
+    "guestNameRequired": "Guest name is required",
+    "phoneMinLength": "Phone number must be at least 8 digits",
+    "emailInvalid": "Invalid email address",
+    "complaintDetailsRequired": "Complaint details are required",
+    "expectedActionRequired": "Expected action is required"
   },
   "sucessRequest":"Request submitted successfully!"
 ,

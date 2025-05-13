@@ -40,14 +40,11 @@ const MaintenanceServicePage = () => {
   const navigate = useNavigate();
 
   const [isDataLoaded, setIsDataLoaded] = useState(false);
-  const { roomNum, roomData } = useSelector(
-    (state) => ({
-      roomNum: state.room.roomNum,
-      roomData: state.roomData,
-    }),
-    shallowEqual
-  );
-
+  const { roomNum, roomData } = useSelector((state) => ({
+    roomNum: state.room.roomNum,
+    roomData: state.roomData,
+  }), shallowEqual);
+  
   useEffect(() => {
     // console.log("roomNum inside useEffect:", roomNum);  // Check if roomNum is defined
     if (roomNum) {
@@ -109,10 +106,8 @@ const MaintenanceServicePage = () => {
       notes: "",
       fullName: "",
       priorityId: "",
-      title: "",
     },
     validationSchema: Yup.object({
-      title: Yup.string().required(t.Maintenance.titleRequired),
       fullName: Yup.string().required(t.fullNameRequired),
       priorityId: Yup.string().required(t.priorityRequired),
       mainCategoryId: Yup.string().required(t.validation.selectMainCategory),
@@ -129,7 +124,7 @@ const MaintenanceServicePage = () => {
         // 🧩 MaintenanceData fields
         const maintenanceData = {
           Description: normalize(values.notes),
-          Title: normalize(values.title),
+          Title: "title",
           // LoggedInUserId: normalize(""), // Replace with actual user ID if available
           From: new Date().toISOString(),
           To: new Date().toISOString(),
@@ -293,18 +288,6 @@ const MaintenanceServicePage = () => {
               placeholder={t.cleaningForm.fullNamePlaceholder}
             />
           </Box>
-          <Box sx={{  }}>
-            <InputField
-              label={t.Maintenance.titlefeild}
-              name="title"
-              value={formik.values.title}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={formik.errors.title}
-              touched={formik.touched.title}
-              placeholder={t.Maintenance.titlePlaceholder}
-            />
-          </Box>
 
           <Box sx={{ flex: 1, mt: { xs: 0, md: 0 } }}>
             <Typography
@@ -337,13 +320,6 @@ const MaintenanceServicePage = () => {
                   "& .MuiSelect-icon": {
                     color: "#fff",
                   },
-                  "& .css-1ll44ll-MuiOutlinedInput-notchedOutline, .css-lqwr9g-MuiPickersOutlinedInput-notchedOutline, .css-5v2ak0, .css-1l1mqzp":
-                    {
-                      border:
-                        formik.touched.priorityId && formik.errors.priorityId
-                          ? "1px solid #f44336 !important" // Error border color (red)
-                          : "1px solid #FFFFFF80 !important",
-                    },
                   "& .MuiSelect-select": {
                     color: formik.values.priorityId
                       ? "#fff"
@@ -428,19 +404,6 @@ const MaintenanceServicePage = () => {
                     borderRadius: "4px",
                     height: "48px",
                     color: "#fff",
-                    "& .css-1ll44ll-MuiOutlinedInput-notchedOutline, .css-lqwr9g-MuiPickersOutlinedInput-notchedOutline, .css-5v2ak0, .css-1l1mqzp":
-                      {
-                        border:
-                          index === 0
-                            ? formik.touched.mainCategoryId &&
-                              formik.errors.mainCategoryId
-                              ? "1px solid #f44336 !important" // Error border for mainCategoryId
-                              : "1px solid #FFFFFF80 !important" // Default border for mainCategoryId
-                            : formik.touched.subCategoryId &&
-                              formik.errors.subCategoryId
-                            ? "1px solid #f44336 !important" // Error border for subCategoryId
-                            : "1px solid #FFFFFF80 !important",
-                      },
                     "& .MuiSelect-icon": {
                       color: "#fff",
                     },
@@ -467,22 +430,19 @@ const MaintenanceServicePage = () => {
                     </MenuItem>
                   ))}
                 </Select>
-                {/* Error Text */}
-                {index === 0 &&
-                  formik.touched.mainCategoryId &&
-                  formik.errors.mainCategoryId && (
-                    <FormHelperText>
-                      {formik.errors.mainCategoryId}
-                    </FormHelperText>
-                  )}
-                {index === 1 &&
-                  formik.touched.subCategoryId &&
-                  formik.errors.subCategoryId && (
-                    <FormHelperText>
-                      {formik.errors.subCategoryId}
-                    </FormHelperText>
-                  )}
+                 {/* Error Text */}
+  {index === 0 &&
+    formik.touched.mainCategoryId &&
+    formik.errors.mainCategoryId && (
+      <FormHelperText>{formik.errors.mainCategoryId}</FormHelperText>
+  )}
+  {index === 1 &&
+    formik.touched.subCategoryId &&
+    formik.errors.subCategoryId && (
+      <FormHelperText>{formik.errors.subCategoryId}</FormHelperText>
+  )}
               </FormControl>
+              
             </Box>
           ))}
         </Box>
@@ -548,7 +508,7 @@ const MaintenanceServicePage = () => {
                 flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
-                height: 122,
+                height: 96,
                 p: 3,
                 textAlign: "center",
                 cursor: "pointer",

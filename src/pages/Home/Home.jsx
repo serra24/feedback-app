@@ -10,7 +10,7 @@ import { motion } from "framer-motion";
 import ComplaintIcon from "../../assets/icons/guest.svg";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setRoomNumber } from "../../redux/slices/roomSlice";
+import { setBookingNumber, setRoomNumber } from "../../redux/slices/roomSlice";
 const Home = () => {
   const { translations: t } = useContext(LanguageContext);
   const location = useLocation();
@@ -19,23 +19,23 @@ const Home = () => {
   // Extract room number from the query string
   const queryParams = new URLSearchParams(location.search);
   const roomNumber = queryParams.get("roomNumber");
-
+  const bookingNumber = queryParams.get("bookingNumber");
+  
   useEffect(() => {
     if (roomNumber) {
-      // console.log("Room Number from QR Code:", roomNumber); 
-      sessionStorage.setItem("roomNum", roomNumber);
-      // Dispatch action to store room number in Redux
+      // sessionStorage.setItem("roomNum", roomNumber);
       dispatch(setRoomNumber(roomNumber));
     }
-  }, [dispatch, roomNumber]);
-
-  // Access room number from Redux state
-  const storedRoomNumber = useSelector((state) => state.room.roomNum);
+  
+    if (bookingNumber) {
+      // sessionStorage.setItem("bookingNumber", bookingNumber);
+      dispatch(setBookingNumber(bookingNumber));
+    }
+  }, [dispatch, roomNumber, bookingNumber]);
+  
   // console.log("Stored Room Number from Redux:", storedRoomNumber);
-  // Save room number after scanning the QR code
 
-  // Retrieve room number in another page/component
-  const roomNum = sessionStorage.getItem("roomNum");
+
 
   return (
     <Box

@@ -35,6 +35,8 @@ const EvaluationPage = () => {
   const mainContentRef = useRef(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const bookingNumber = useSelector((state) => state.room.bookingNumber);
+  const roomNum = useSelector((state) => state.room.roomNum);
 
   const { data, loading } = useSelector((state) => state.guestEvaluation);
 
@@ -56,24 +58,27 @@ const EvaluationPage = () => {
 
   const handleRating = (index, value) => {
     const updatedRatings = [...ratings];
-  
+
     // If user clicks the same rating again, toggle it to 0
     if (updatedRatings[index] === value) {
       updatedRatings[index] = 0;
     } else {
       updatedRatings[index] = value;
     }
-  
+
     setRatings(updatedRatings);
   };
-  
+
   const handleSubmit = () => {
     // const isValid = ratings.every((rating) => rating !== 0); // Check if all ratings are selected
     const hasAtLeastOneRating = ratings.some((rating) => rating > 0);
     const hasComment = comment.trim().length > 0;
-  
+
     if (!hasAtLeastOneRating && !hasComment) {
-      setPopupMessage(t.Evaluation.errorMessage || "Please provide at least one rating or a comment.");
+      setPopupMessage(
+        t.Evaluation.errorMessage ||
+          "Please provide at least one rating or a comment."
+      );
       setPopupType("error");
       setPopupOpen(true);
       return; // Stop submission
@@ -82,7 +87,7 @@ const EvaluationPage = () => {
     // Create the evaluation payload
     const evaluationData = {
       name: guestName, // You can replace this with a dynamic name if needed
-      roomId: 660101,
+      roomId: roomNum,
       // roomId: roomNum2, // Use the room number from session storage
       // roomId: roomNum, // Use the room number from session storage
       // roomId: sessionStorage.getItem("roomNum"), // Use the room number from session storage
@@ -94,6 +99,7 @@ const EvaluationPage = () => {
       email: email || null,
       phoneNumber: phone || null,
       language: language === "ar" ? 1 : 2,
+      bookingNumber: bookingNumber,
     };
 
     // Dispatch the evaluation action
@@ -107,7 +113,6 @@ const EvaluationPage = () => {
           setComment("");
           setRatings(data?.map(() => 0));
           setHovered({ index: null, value: 0 });
-          
         } else {
           setPopupMessage(response.payload?.errormessage);
           // console.log("Error message:", response?.payload?.errormessage);
@@ -265,7 +270,7 @@ const EvaluationPage = () => {
               <TextareaAutosize
                 name="comment"
                 minRows={8.5}
-                value={comment} 
+                value={comment}
                 onChange={(e) => setComment(e.target.value)}
                 placeholder={t.Evaluation.commentPlaceholder}
                 className="styled-placeholder"
