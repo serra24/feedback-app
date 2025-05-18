@@ -17,11 +17,12 @@ import guestEvaluationReducer from "./slices/guestEvaluationSlice";
 import evaluationReducer from "./slices/evaluationSlice";
 import complaintItemsReducer from "./slices/complaintItemsSlice";
 import createComplaintReducer from "./slices/createComplaintSlice";
-import roomDataReducer from './slices/roomFeatures/roomDataSlice';
-import generalRequestReducer from './slices/GeneralRequest/GeneralRequestSlice';
-import mainCategoriesReducer from './slices/mainCategoriesSlice';
-import subCategoriesReducer from './slices/subCategoriesSlice';
-import supplyItemsReducer  from './slices/suppliesItemsSlice';
+import roomDataReducer from "./slices/roomFeatures/roomDataSlice";
+import generalRequestReducer from "./slices/GeneralRequest/GeneralRequestSlice";
+import mainCategoriesReducer from "./slices/mainCategoriesSlice";
+import subCategoriesReducer from "./slices/subCategoriesSlice";
+import supplyItemsReducer from "./slices/suppliesItemsSlice";
+import bellBoyReducer from './slices/bellBoySlice';
 const persistConfig = {
   key: "root",
   // storage,
@@ -38,11 +39,11 @@ const store = configureStore({
     complaintItems: complaintItemsReducer,
     createComplaint: createComplaintReducer,
     roomData: roomDataReducer,
-    generalRequest: generalRequestReducer, 
+    generalRequest: generalRequestReducer,
     mainCategories: mainCategoriesReducer,
     subCategories: subCategoriesReducer,
     supplies: supplyItemsReducer,
-
+    bellBoy: bellBoyReducer,
   },
 });
 

@@ -266,9 +266,10 @@ input:-internal-autofill-selected {
   /* height: 49px !important; */
 
 }
+
 .css-1blp12k-MuiInputBase-root-MuiOutlinedInput-root.Mui-error
   .MuiOutlinedInput-notchedOutline,
-.css-ehlix4.Mui-error .MuiOutlinedInput-notchedOutline {
+.css-ehlix4.Mui-error .MuiOutlinedInput-notchedOutline,.css-xhkvgb.Mui-error .MuiOutlinedInput-notchedOutline ,.css-1o6n1ip.Mui-error .MuiOutlinedInput-notchedOutline{
   border-color: #d32f2f !important;
 }
 .css-1blp12k-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused
@@ -407,7 +408,7 @@ textarea::placeholder{
 .css-1p8sp1h.Mui-disabled *,.css-vycme6-MuiPickersInputBase-root-MuiPickersOutlinedInput-root.Mui-disabled *,.css-1p8sp1h ,.css-1p8sp1h.Mui-disabled * {
   color: #565C63 !important;
 }
-.css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input.Mui-disabled,.css-1pk1fka.Mui-disabled  {
+.css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input.Mui-disabled,.css-1pk1fka.Mui-disabled ,.css-15v65ck.Mui-disabled {
   opacity: 1;
   -webkit-text-fill-color:  #565C63 !important;
 }
@@ -432,7 +433,7 @@ textarea::placeholder{
 }
 
 .css-qwdxx6,.css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input 
-/* ,.css-1w5sfxb .MuiOutlinedInput-root input */
+,.css-1w5sfxb .MuiOutlinedInput-root input
 {
   height: 16px !important;
 }

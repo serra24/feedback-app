@@ -103,11 +103,11 @@ const ResourcesServicePage = () => {
         name: values.fullName,
         roomId: roomNum,
         typeId: 3, // Main : 2, HK :1, Supp : 3
-        items: values.complaintItems.map((item) => ({
+        Items: values.complaintItems.map((item) => ({
           supplyId: item.id,
           quantity: item.quantity,
         })),
-        description: values.complaintDetails,
+        Description: values.complaintDetails,
         email: null,
         phoneNumber: values.phone,
         maintenanceData: null,
@@ -116,12 +116,12 @@ const ResourcesServicePage = () => {
       const formData = new FormData();
 
       // Append text fields to FormData
-      formData.append("name", values.fullName || null);
-      formData.append("roomId", roomNum || null);
-      formData.append("typeId", 3); // Main : 2, HK : 1, Supp : 3
-      formData.append("description", values.complaintDetails || null);
-      formData.append("email", null); // Adjust as needed
-      formData.append("phoneNumber", values.phone || null);
+      formData.append("Name", values.fullName || null);
+      formData.append("RoomId", roomNum || null);
+      formData.append("TypeId", 3); // Main : 2, HK : 1, Supp : 3
+      formData.append("Description", values.complaintDetails || null);
+      formData.append("Email", null); // Adjust as needed
+      formData.append("PhoneNumber", values.phone || null);
 
       // Handling items: map each item and append it to FormData
       // if (values.complaintItems && values.complaintItems.length > 0) {
@@ -134,15 +134,15 @@ const ResourcesServicePage = () => {
         let index = 0;
         values.complaintItems.forEach((item) => {
           if (item.quantity != null && item.quantity !== "") {
-            formData.append(`items[${index}].supplyId`, item.id);
-            formData.append(`items[${index}].quantity`, item.quantity);
+            formData.append(`Items[${index}].supplyId`, item.id);
+            formData.append(`Items[${index}].quantity`, item.quantity);
             index++;
           }
         });
       }
 
       // Append maintenanceData as null (or adjust as needed)
-      formData.append("maintenanceData", null);
+      formData.append("MaintenanceData", null);
       dispatch(createRequest(formData))
         .then((response) => {
           if (response?.payload?.successtate === 200) {

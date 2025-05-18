@@ -93,15 +93,15 @@ const CleaningServicePage = () => {
       const formData = new FormData();
 
       // Append fields to FormData
-      formData.append("name", values.fullName || null);
-      formData.append("roomId", roomNum || null);
-      formData.append("typeId", 1); // Main : 2, HK : 1, Supp : 3
-      formData.append("items", null);
-      formData.append("description", values.complaintDetails || null);
-      formData.append("email", null);
-      formData.append("phoneNumber", values.phone || null);
-      formData.append("preferredTime", values.preferredTime || null);
-      formData.append("maintenanceData", null); // Can be null or adjusted
+      formData.append("Name", values.fullName );
+      formData.append("RoomId", roomNum );
+      formData.append("TypeId", 1); // Main : 2, HK : 1, Supp : 3
+      // formData.append("Items", null);
+      formData.append("Description", values.complaintDetails || null);
+      formData.append("Email", null);
+      formData.append("PhoneNumber", values.phone || null);
+      formData.append("PreferredTime", values.preferredTime || null);
+      formData.append("MaintenanceData", null); 
 
       dispatch(createRequest(formData))
         .then((response) => {

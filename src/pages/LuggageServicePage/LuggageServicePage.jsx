@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import {
@@ -19,34 +19,128 @@ import CustomDatePicker from "../../components/InputField/CustomDatePicker";
 import { LanguageContext } from "../../context/LanguageContext";
 import FormTitle from "../../components/FormTitle/FormTitle";
 import CustomTimePicker from "../../components/CustomTimePicker/CustomTimePicker";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { addBellBoyRequest } from "../../redux/slices/bellBoySlice";
+import Loading from "../../components/Loading/Loading";
+import { useNavigate } from "react-router-dom";
+import { fetchRoomData } from "../../redux/slices/roomFeatures/roomDataSlice";
+import ErrorPopup from "../../components/ErrorPopup/ErrorPopup";
+import SuccessPopup from "../../components/SuccessPopup/SuccessPopup";
+
 const LuggageServicePage = () => {
-  const { translations: t } = useContext(LanguageContext);
+  const { translations: t, language } = useContext(LanguageContext);
+  const [popupOpen, setPopupOpen] = useState(false);
+  const [popupMessage, setPopupMessage] = useState("");
+  const [popupType, setPopupType] = useState("");
+  // Redux state
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
+  const { roomNum, roomData } = useSelector(
+    (state) => ({
+      roomNum: state.room.roomNum,
+      roomData: state.roomData,
+    }),
+    shallowEqual
+  );
+
+  useEffect(() => {
+    // console.log("roomNum inside useEffect:", roomNum);  // Check if roomNum is defined
+    if (roomNum) {
+      dispatch(fetchRoomData({ roomId: roomNum, language }));
+      setIsDataLoaded(true);
+    } else {
+      // console.error("roomNum is undefined or invalid");
+    }
+  }, [roomNum, dispatch, language]);
   // Form validation schema
   const validationSchema = Yup.object().shape({
-    fullName: Yup.string().required("الإسم بالكامل مطلوب"),
-    phone: Yup.string()
-      .required("رقم الهاتف مطلوب")
-      .matches(/^\d+$/, "رقم الهاتف يجب أن يحتوي على أرقام فقط"),
-    roomNumber: Yup.string().required("رقم الغرفة مطلوب"),
-    preferredTime: Yup.string().required("الوقت المفضل مطلوب"),
-    complaintTypes: Yup.array().min(1, "يجب اختيار نوع واحد على الأقل"),
+    fullName: Yup.string().required(t.fullNameRequired),
+    phone: Yup.string().min(8, t.validation.phone.min),
+    preferredTime: Yup.string().required(t.preferredTimeRequired),
+    complaintType: Yup.mixed().required(t.complaintDetailsString),
+
     complaintDetails: Yup.string(),
+    numberOfBags: Yup.number().required(t.numberOfBagsRequired),
   });
+  const number = roomData?.data?.message?.number;
 
   const formik = useFormik({
     initialValues: {
       fullName: "",
       phone: "",
-      roomNumber: "",
+      roomNumber: number || "Unknown Room",
       preferredTime: "",
-      complaintTypes: [], // ✅ this is the missing initialization
+      complaintType: "", // changed from complaintTypes[]
       complaintDetails: "",
+      numberOfBags: "", // add this if it’s used
     },
     validationSchema,
     onSubmit: (values) => {
-      // Handle form submission here
+      // Map luggage service type
+      let mappedItems = null;
+      const complaintType = parseInt(values.complaintType);
+
+      if (complaintType === 1) {
+        mappedItems = 1; // إستلام الأمتعه من الغرفه
+      } else if (complaintType === 3) {
+        mappedItems = 2; // تخزين الأمتعه مؤقتاً
+      }
+
+      const requestData = {
+        name: values.fullName,
+        roomId: roomNum,
+        serviceType: mappedItems,
+        description: values.complaintDetails,
+        email: null,
+        phoneNumber: values.phone,
+        perfectDate: values.preferredTime,
+        bagNumber: values.numberOfBags,
+      };
+
+      dispatch(addBellBoyRequest({ requestData, language }))
+        .then((response) => {
+          if (response?.payload?.successtate === 200) {
+            setPopupMessage(t.sucessRequest);
+            setPopupType("success");
+            setPopupOpen(true);
+            formik.resetForm();
+          } else {
+            setPopupMessage(
+              response?.payload?.errormessage || t.defaultErrorMessage
+            );
+            setPopupType("error");
+            setPopupOpen(true);
+          }
+        })
+        .catch((error) => {
+          console.error("Request error:", error);
+          setPopupMessage(t.unexpectedError || "حدث خطأ غير متوقع");
+          setPopupType("error");
+          setPopupOpen(true);
+        });
     },
   });
+
+  useEffect(() => {
+    if (roomData?.data?.message?.floor?.building?.branch?.localizedName) {
+      setIsDataLoaded(true);
+
+      const hotelName =
+        roomData?.data?.message?.floor?.building?.branch?.localizedName;
+      const number = roomData?.data?.message?.number;
+
+      // Only set values if they differ from the current formik values
+      if (formik.values.hotelName !== hotelName) {
+        formik.setFieldValue("hotelName", hotelName);
+      }
+      if (number && formik.values.roomNumber !== number) {
+        formik.setFieldValue("roomNumber", number);
+      }
+    }
+    // Exclude formik from the dependency array to avoid infinite loop
+  }, [roomData]); // Now it only depends on roomData
 
   // Complaint types options
   const complaintTypes = [
@@ -84,6 +178,7 @@ const LuggageServicePage = () => {
       type: "number",
     },
   ];
+  if (!isDataLoaded) return <Loading />;
 
   return (
     <Box
@@ -103,7 +198,7 @@ const LuggageServicePage = () => {
           fontWeight: 700,
           fontSize: { xs: "24px", sm: "30px" },
           textAlign: "right",
-          mb: {md:1.5,xs:2},
+          mb: { md: 1.5, xs: 2 },
           color: "var(--white-color)",
         }}
       >
@@ -160,19 +255,18 @@ const LuggageServicePage = () => {
               }}
             >
               {field.name === "preferredTime" ? (
-                <Box sx={{mb:{md:"none", xs:3}}}>
-                   <CustomTimePicker
-                  key={index}
-                  label={field.label}
-                  name={field.name}
-                  value={formik.values[field.name]}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  error={formik.errors[field.name]}
-                  touched={formik.touched[field.name]}
-                />
+                <Box sx={{ mb: { md: "none", xs: 3 } }}>
+                  <CustomTimePicker
+                    key={index}
+                    label={field.label}
+                    name={field.name}
+                    value={formik.values[field.name]}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.errors[field.name]}
+                    touched={formik.touched[field.name]}
+                  />
                 </Box>
-               
               ) : (
                 <InputField
                   type={field.type || "text"}
@@ -187,6 +281,7 @@ const LuggageServicePage = () => {
                   touched={formik.touched[field.name]}
                   placeholder={field.placeholder}
                   iconSrc={field.iconSrc}
+                  disabled={index === 2}
                 />
               )}
             </Box>
@@ -252,6 +347,11 @@ const LuggageServicePage = () => {
               ))}
             </RadioGroup>
           </FormGroup>
+          {formik.touched.complaintType && formik.errors.complaintType && (
+            <Typography color="error" sx={{ mt: 1 }}>
+              {formik.errors.complaintType}
+            </Typography>
+          )}
         </Box>
 
         {/* Complaint Details */}
@@ -327,6 +427,7 @@ const LuggageServicePage = () => {
         >
           <Button
             variant="contained"
+            type="submit"
             sx={{
               flex: 1,
               minWidth: 150,
@@ -352,11 +453,25 @@ const LuggageServicePage = () => {
               fontWeight: 400,
               fontSize: 18,
             }}
+            onClick={() => formik.resetForm()}
           >
             {t.cancel}
           </Button>
         </Box>
       </Box>
+      <SuccessPopup
+        open={popupOpen && popupType === "success"}
+        message={popupMessage}
+        onClose={() => {
+          setPopupOpen(false);
+          navigate("/"); // Redirect to home
+        }}
+      />
+      <ErrorPopup
+        open={popupOpen && popupType === "error"}
+        message={popupMessage}
+        onClose={() => setPopupOpen(false)}
+      />
     </Box>
   );
 };

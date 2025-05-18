@@ -292,5 +292,6 @@
   "roomNumberRequired": "رقم الغرفة مطلوب",
   "preferredTimeRequired": "الوقت المفضل مطلوب",
   "complaintDetailsString": "يجب أن تختار واحدًا على الأقل",
-  "priorityRequired": "الأولوية مطلوبة"
+  "priorityRequired": "الأولوية مطلوبة",
+  "numberOfBagsRequired":"عدد الحقائب مطلوب"
 }

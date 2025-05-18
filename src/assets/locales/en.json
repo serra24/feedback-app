@@ -294,5 +294,6 @@
 "roomNumberRequired": "Room number is required",
 "preferredTimeRequired": "Preferred time is required",
 "complaintDetailsString": "You must choose at least one.",
-"priorityRequired": "Priority is required"
+"priorityRequired": "Priority is required",
+"numberOfBagsRequired":"Number of Bags is Required"
 }
