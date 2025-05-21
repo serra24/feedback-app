@@ -10,6 +10,7 @@ import {
   TextareaAutosize,
   Grid,
   Button,
+  CircularProgress,
 } from "@mui/material";
 import { MdCheckBox } from "react-icons/md";
 import InputField from "../../components/InputField/InputField";
@@ -30,6 +31,7 @@ const CleaningServicePage = () => {
   const navigate = useNavigate();
 
   const [isDataLoaded, setIsDataLoaded] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { loading, error } = useSelector((state) => state.generalRequest);
   // const { roomNum, roomData } = useSelector((state) => ({
@@ -56,6 +58,7 @@ const CleaningServicePage = () => {
     phone: Yup.string()
       // .required("رقم الهاتف مطلوب")
       .min(8, t.validation.phone.min),
+      email: Yup.string().email(t.emailInvalid),
     roomNumber: Yup.string().required(t.roomNumberRequired),
     preferredTime: Yup.string().required(t.preferredTimeRequired),
     // complaintTypes: Yup.array().min(1, "يجب اختيار نوع واحد على الأقل"),
@@ -71,6 +74,7 @@ const CleaningServicePage = () => {
     initialValues: {
       fullName: "",
       phone: "",
+        email: "",
       roomNumber: number || "Unknown Room",
       preferredTime: "",
       // complaintTypes: [], // ✅ this is the missing initialization
@@ -78,6 +82,8 @@ const CleaningServicePage = () => {
     },
     validationSchema,
     onSubmit: (values) => {
+      setIsSubmitting(true);
+
       // Trigger the createRequest thunk here
       const requestData = {
         name: values.fullName,
@@ -93,15 +99,14 @@ const CleaningServicePage = () => {
       const formData = new FormData();
 
       // Append fields to FormData
-      formData.append("Name", values.fullName );
-      formData.append("RoomId", roomNum );
+      formData.append("Name", values.fullName); 
+      formData.append("RoomId", roomNum);
       formData.append("TypeId", 1); // Main : 2, HK : 1, Supp : 3
-      // formData.append("Items", null);
+      formData.append("Email", values.email || null);
       formData.append("Description", values.complaintDetails || null);
-      formData.append("Email", null);
       formData.append("PhoneNumber", values.phone || null);
       formData.append("PreferredTime", values.preferredTime || null);
-      formData.append("MaintenanceData", null); 
+      formData.append("MaintenanceData", null);
 
       dispatch(createRequest(formData))
         .then((response) => {
@@ -121,10 +126,14 @@ const CleaningServicePage = () => {
           }
         })
         .catch((error) => {
-          console.error("Error", error); // Log any errors that occurred
+          // console.error("Error", error); 
+           setIsSubmitting(false); 
           setPopupMessage("An unexpected error occurred.");
           setPopupType("error");
           setPopupOpen(true);
+        })
+        .finally(() => {
+          setIsSubmitting(false);
         });
     },
   });
@@ -158,6 +167,11 @@ const CleaningServicePage = () => {
       name: "phone",
       label: t.cleaningForm.phoneLabel,
       placeholder: t.cleaningForm.phonePlaceholder,
+    },
+     {
+      name: "email",
+      label: t.Complaint.email.label,
+      placeholder: t.Complaint.email.placeholder,
     },
     {
       name: "roomNumber",
@@ -271,7 +285,7 @@ const CleaningServicePage = () => {
                   touched={formik.touched[field.name]}
                   placeholder={field.placeholder}
                   iconSrc={field.iconSrc}
-                  disabled={index === 2}
+                  disabled={index === 3}
                 />
               )}
             </Box>
@@ -444,6 +458,7 @@ const CleaningServicePage = () => {
           <Button
             variant="contained"
             type="submit"
+            disabled={isSubmitting}
             sx={{
               flex: 1,
               minWidth: 150,
@@ -455,7 +470,11 @@ const CleaningServicePage = () => {
               fontSize: 18,
             }}
           >
-            {t.sendRequest}
+            {isSubmitting ? (
+              <CircularProgress size={24} sx={{ color: "white" }} />
+            ) : (
+              t.sendRequest
+            )}
           </Button>
           <Button
             variant="contained"
@@ -486,7 +505,9 @@ const CleaningServicePage = () => {
       <ErrorPopup
         open={popupOpen && popupType === "error"}
         message={popupMessage}
-        onClose={() => setPopupOpen(false)}
+        onClose={() => {setPopupOpen(false);
+            setIsSubmitting(false); 
+        }}
       />
     </Box>
   );

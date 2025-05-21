@@ -12,6 +12,7 @@ import {
   Button,
   RadioGroup,
   Radio,
+  CircularProgress,
 } from "@mui/material";
 import { MdCheckBox } from "react-icons/md";
 import InputField from "../../components/InputField/InputField";
@@ -32,6 +33,8 @@ const LuggageServicePage = () => {
   const [popupOpen, setPopupOpen] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
   const [popupType, setPopupType] = useState("");
+    const [isSubmitting, setIsSubmitting] = useState(false);
+  
   // Redux state
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -60,7 +63,7 @@ const LuggageServicePage = () => {
     phone: Yup.string().min(8, t.validation.phone.min),
     preferredTime: Yup.string().required(t.preferredTimeRequired),
     complaintType: Yup.mixed().required(t.complaintDetailsString),
-
+    email: Yup.string().email(t.emailInvalid),
     complaintDetails: Yup.string(),
     numberOfBags: Yup.number().required(t.numberOfBagsRequired),
   });
@@ -70,6 +73,7 @@ const LuggageServicePage = () => {
     initialValues: {
       fullName: "",
       phone: "",
+       email: "",
       roomNumber: number || "Unknown Room",
       preferredTime: "",
       complaintType: "", // changed from complaintTypes[]
@@ -78,6 +82,7 @@ const LuggageServicePage = () => {
     },
     validationSchema,
     onSubmit: (values) => {
+        setIsSubmitting(true);
       // Map luggage service type
       let mappedItems = null;
       const complaintType = parseInt(values.complaintType);
@@ -93,8 +98,8 @@ const LuggageServicePage = () => {
         roomId: roomNum,
         serviceType: mappedItems,
         description: values.complaintDetails,
-        email: null,
-        phoneNumber: values.phone,
+       email: values.email || null,
+        phoneNumber: values.phone || null,
         perfectDate: values.preferredTime,
         bagNumber: values.numberOfBags,
       };
@@ -115,11 +120,16 @@ const LuggageServicePage = () => {
           }
         })
         .catch((error) => {
-          console.error("Request error:", error);
+          // console.error("Request error:", error);
+           setIsSubmitting(false); 
           setPopupMessage(t.unexpectedError || "حدث خطأ غير متوقع");
           setPopupType("error");
           setPopupOpen(true);
-        });
+        }) 
+         .finally(() => {
+    // Add any logic you want to always run here, e.g.:
+    setIsSubmitting(false); // Example: turn off a loading spinner
+  });
     },
   });
 
@@ -159,6 +169,12 @@ const LuggageServicePage = () => {
       name: "phone",
       label: t.cleaningForm.phoneLabel,
       placeholder: t.cleaningForm.phonePlaceholder,
+    },
+    
+    {
+      name: "email",
+      label: t.Complaint.email.label,
+      placeholder: t.Complaint.email.placeholder,
     },
     {
       name: "roomNumber",
@@ -281,7 +297,7 @@ const LuggageServicePage = () => {
                   touched={formik.touched[field.name]}
                   placeholder={field.placeholder}
                   iconSrc={field.iconSrc}
-                  disabled={index === 2}
+                  disabled={index === 3}
                 />
               )}
             </Box>
@@ -428,6 +444,7 @@ const LuggageServicePage = () => {
           <Button
             variant="contained"
             type="submit"
+             disabled={isSubmitting}
             sx={{
               flex: 1,
               minWidth: 150,
@@ -439,7 +456,12 @@ const LuggageServicePage = () => {
               fontSize: 18,
             }}
           >
-            {t.sendRequest}
+             {isSubmitting ? (
+              <CircularProgress size={24} sx={{ color: "white" }} />
+            ) : (
+              t.sendRequest
+            )}
+         
           </Button>
           <Button
             variant="contained"
@@ -470,7 +492,9 @@ const LuggageServicePage = () => {
       <ErrorPopup
         open={popupOpen && popupType === "error"}
         message={popupMessage}
-        onClose={() => setPopupOpen(false)}
+        onClose={() => {setPopupOpen(false);
+            setIsSubmitting(false); 
+        }}
       />
     </Box>
   );

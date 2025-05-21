@@ -1,0 +1,18 @@
+curl -X POST "http://38.170.230.82:3040/api/DisbursementRequest/save" \
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoic2FtYWFiYXMzNzNAZ21haWwuY29tIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOlsiZjk4OTY2MGYtYzk1NC00ZDQ4LWE4ZDMtMjJmNGZjZDRkZjE1IiwiZjk4OTY2MGYtYzk1NC00ZDQ4LWE4ZDMtMjJmNGZjZDRkZjE1Il0sImp0aSI6ImFiNTg4YzE5LWUxZjYtNDU4YS1hYTdhLTM4MzExNzc1NmIzYiIsImF1dGhfdGltZSI6IjAiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJNYWludGVuYW5jZVN1cGVydmlzb3IiLCJleHAiOjE3NDc1NzQ5ODgsImlzcyI6Imh0dHBzOi8vRWthZEhSVGFzay5jb20vIiwiYXVkIjoiaHR0cHM6Ly9Fa2FkSFJUYXNrL0FjY291bnQvTG9naW4uY29tLyJ9.xHzKWEh4dLLrsro7QnM_lU6pwRrPq4wj_Dtl_8gPqLM" \
+-H "Content-Type: application/json" \
+-d '{
+    "date": "2025-05-18 15:58:20.188798",
+    "notes": "done",
+    "branchId": 1,
+    "storeId": 2,
+    "maintenanceRequestId": "707def3c-1244-4245-0be6-08dd9600f4cb",
+    "items": [
+        {
+            "itemId": 1,
+            "itemUnitId": 1,
+            "quantity": 2,
+            "unitPrice": 0.0
+        }
+    ]
+}'

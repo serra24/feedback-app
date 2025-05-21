@@ -14,6 +14,7 @@ import {
   Select,
   MenuItem,
   FormHelperText,
+  CircularProgress,
 } from "@mui/material";
 import { MdCheckBox } from "react-icons/md";
 import InputField from "../../components/InputField/InputField";
@@ -35,12 +36,17 @@ const GuestServicePage = () => {
   const [popupOpen, setPopupOpen] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
   const [popupType, setPopupType] = useState("");
-  const { roomNum, roomData, complaintItems } = useSelector((state) => ({
-    roomNum: state.room.roomNum,
-    roomData: state.roomData,
-    complaintItems: state.complaintItems.items,
-  }), shallowEqual);
-   
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const { roomNum, roomData, complaintItems } = useSelector(
+    (state) => ({
+      roomNum: state.room.roomNum,
+      roomData: state.roomData,
+      complaintItems: state.complaintItems.items,
+    }),
+    shallowEqual
+  );
+
   // console.log("roomData", roomData); // Check if roomData is defined
   useEffect(() => {
     // console.log("roomNum inside useEffect:", roomNum);  // Check if roomNum is defined
@@ -93,6 +99,8 @@ const GuestServicePage = () => {
     },
     validationSchema,
     onSubmit: (values) => {
+      setIsSubmitting(true);
+
       const payload = {
         title: values.title,
         description: values.complaintDetails,
@@ -113,7 +121,7 @@ const GuestServicePage = () => {
           // console.log("Response", response);
           if (response?.payload?.successtate === 200) {
             // Adjust according to your response structure
-            setPopupMessage("Complaint submitted successfully!");
+            setPopupMessage(t.sucessRequest);
             setPopupType("success");
             setPopupOpen(true);
             formik.resetForm();
@@ -126,10 +134,14 @@ const GuestServicePage = () => {
           }
         })
         .catch((error) => {
-          console.error("Error", error);
+          // console.error("Error", error);
+          setIsSubmitting(false); 
           setPopupMessage("An unexpected error occurred.");
           setPopupType("error");
           setPopupOpen(true);
+        })
+        .finally(() => {
+          setIsSubmitting(false); 
         });
     },
   });
@@ -373,12 +385,13 @@ const GuestServicePage = () => {
                   "& .MuiSelect-icon": {
                     color: "#fff",
                   },
-                  "& .css-1ll44ll-MuiOutlinedInput-notchedOutline, .css-lqwr9g-MuiPickersOutlinedInput-notchedOutline, .css-5v2ak0, .css-1l1mqzp": {
-                    border:
-                      formik.touched.priorityId && formik.errors.priorityId
-                        ? "1px solid #f44336 !important" // Error border color (red)
-                        : "1px solid #FFFFFF80 !important",
-                  },
+                  "& .css-1ll44ll-MuiOutlinedInput-notchedOutline, .css-lqwr9g-MuiPickersOutlinedInput-notchedOutline, .css-5v2ak0, .css-1l1mqzp":
+                    {
+                      border:
+                        formik.touched.priorityId && formik.errors.priorityId
+                          ? "1px solid #f44336 !important" // Error border color (red)
+                          : "1px solid #FFFFFF80 !important",
+                    },
                   "& .MuiSelect-select": {
                     color: formik.values.priorityId
                       ? "#fff"
@@ -619,6 +632,7 @@ const GuestServicePage = () => {
           <Button
             variant="contained"
             type="submit"
+            disabled={isSubmitting}
             sx={{
               flex: 1,
               minWidth: 150,
@@ -630,7 +644,11 @@ const GuestServicePage = () => {
               fontSize: 18,
             }}
           >
-            {t.Complaint.submitButton}
+            {isSubmitting ? (
+              <CircularProgress size={24} sx={{ color: "white" }} />
+            ) : (
+              t.Complaint.submitButton
+            )}
           </Button>
           <Button
             variant="contained"
@@ -660,7 +678,9 @@ const GuestServicePage = () => {
       <ErrorPopup
         open={popupOpen && popupType === "error"}
         message={popupMessage}
-        onClose={() => setPopupOpen(false)}
+        onClose={() => {setPopupOpen(false);
+            setIsSubmitting(false); 
+        }}
       />
     </Box>
   );

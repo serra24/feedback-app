@@ -23,6 +23,7 @@ import { Provider } from 'react-redux';
 import {store,persistor } from './redux/store';
 import { PersistGate } from "redux-persist/integration/react"; // PersistGate for delay loading
 
+
 // Directly add routing logic here
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -58,6 +59,7 @@ createRoot(document.getElementById("root")).render(
               />
               <Route path="/luggage-service" element={<LuggageServicePage />} />
               <Route path="*" element={<NotFound />} />
+          
             </Route>
           </Routes>
         </Router>

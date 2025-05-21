@@ -10,6 +10,8 @@ import {
   TextareaAutosize,
   IconButton,
   FormHelperText,
+  Tooltip,
+  CircularProgress,
 } from "@mui/material";
 import uploadicon from "../../assets/icons/upload-icon.svg";
 import { LanguageContext } from "../../context/LanguageContext";
@@ -35,6 +37,14 @@ const MaintenanceServicePage = () => {
   const [popupOpen, setPopupOpen] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
   const [popupType, setPopupType] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const truncateFileName = (name, maxLength = 30) => {
+    if (name.length <= maxLength) return name;
+    const ext = name.slice(name.lastIndexOf("."));
+    return name.slice(0, maxLength - ext.length - 3) + "..." + ext;
+  };
+
   // Redux state
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -107,6 +117,8 @@ const MaintenanceServicePage = () => {
       mainCategoryId: "",
       subCategoryId: "",
       notes: "",
+       phone: "",
+       email: "",
       fullName: "",
       priorityId: "",
       title: "",
@@ -118,8 +130,13 @@ const MaintenanceServicePage = () => {
       mainCategoryId: Yup.string().required(t.validation.selectMainCategory),
       subCategoryId: Yup.string().required(t.validation.selectSubCategory),
       notes: Yup.string().optional(),
+        phone: Yup.string()
+      // .required("رقم الهاتف مطلوب")
+      .min(8, t.validation.phone.min),
+      email: Yup.string().email(t.emailInvalid),
     }),
     onSubmit: async (values) => {
+      setIsSubmitting(true);
       try {
         const formData = new FormData();
 
@@ -147,11 +164,10 @@ const MaintenanceServicePage = () => {
         formData.append("Name", normalize(values.fullName));
         formData.append("RoomId", normalize(parseInt(roomNum)));
         formData.append("TypeId", normalize(2)); // Set type accordingly
-        // formData.append("Items", null);
         formData.append("Description", normalize(values.notes));
         formData.append("PreferredTime", normalize(new Date().toISOString()));
         formData.append("Email", normalize(values.email));
-        formData.append("PhoneNumber", normalize(values.phoneNumber));
+        formData.append("PhoneNumber", normalize(values.phone));
 
         // 📎 MaintenanceData fields
         Object.entries(maintenanceData).forEach(([key, val]) => {
@@ -188,10 +204,13 @@ const MaintenanceServicePage = () => {
 
         setPopupOpen(true);
       } catch (error) {
-        console.error("Error", error);
+        // console.error("Error", error);
+        setIsSubmitting(false);
         setPopupMessage("An unexpected error occurred.");
         setPopupType("error");
         setPopupOpen(true);
+      } finally {
+        setIsSubmitting(false);
       }
     },
   });
@@ -272,13 +291,14 @@ const MaintenanceServicePage = () => {
       >
         <FormTitle title={t.Maintenance.form_title} />
         {/* Select Fields */}
-        {/* Full Name and Priority - Side by Side */}
+
+        {/* Row 1: Full Name, Title, Phone */}
         <Box
           sx={{
             display: "flex",
-            gap: { md: 2, xs: 0 },
-            mb: { xs: 2, md: 0 },
             flexDirection: { xs: "column", md: "row" },
+          gap:  { xs: 0, md:2 },
+            // mb: 2,
           }}
         >
           <Box sx={{ flex: 1 }}>
@@ -293,7 +313,46 @@ const MaintenanceServicePage = () => {
               placeholder={t.cleaningForm.fullNamePlaceholder}
             />
           </Box>
-          <Box sx={{  }}>
+
+        
+
+          <Box sx={{ flex: 1 }}>
+            <InputField
+              label={t.cleaningForm.phoneLabel}
+              name="phone"
+              value={formik.values.phone}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.errors.phone}
+              touched={formik.touched.phone}
+              placeholder={t.cleaningForm.phonePlaceholder}
+            />
+          </Box>
+           <Box sx={{ flex: 1 }}>
+            <InputField
+              label={t.Complaint.email.label}
+              name="email"
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.errors.email}
+              touched={formik.touched.email}
+              placeholder={t.Complaint.email.placeholder}
+            />
+          </Box>
+        </Box>
+
+        {/* Row 2: Email, Priority */}
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" },
+            gap:  { xs: 0, md:2 },
+            // mb: 2,
+          }}
+        >
+         
+  <Box sx={{ flex: 1 }}>
             <InputField
               label={t.Maintenance.titlefeild}
               name="title"
@@ -305,8 +364,7 @@ const MaintenanceServicePage = () => {
               placeholder={t.Maintenance.titlePlaceholder}
             />
           </Box>
-
-          <Box sx={{ flex: 1, mt: { xs: 0, md: 0 } }}>
+          <Box sx={{ flex: 1,mt: { xs: 0, md: 0 },mb: { xs: "14px", md: 0 }  }}>
             <Typography
               sx={{
                 marginBottom: "3px",
@@ -595,15 +653,21 @@ const MaintenanceServicePage = () => {
                   mt: 2,
                 }}
               >
-                <Typography
-                  sx={{
-                    color: "white",
-                    fontFamily: "Almarai",
-                    wordBreak: "break-word",
-                  }}
-                >
-                  {uploadedFile.name}
-                </Typography>
+                <Tooltip title={uploadedFile.name}>
+                  <Typography
+                    sx={{
+                      color: "white",
+                      fontFamily: "Almarai",
+                      wordBreak: "break-word",
+                      maxWidth: "200px", // Adjust as needed
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                  >
+                    {truncateFileName(uploadedFile.name)}
+                  </Typography>
+                </Tooltip>
                 <IconButton onClick={handleRemoveFile} sx={{ color: "white" }}>
                   <IoIosClose />
                 </IconButton>
@@ -624,6 +688,7 @@ const MaintenanceServicePage = () => {
           <Button
             variant="contained"
             type="submit"
+            disabled={isSubmitting}
             sx={{
               flex: 1,
               minWidth: 150,
@@ -635,7 +700,11 @@ const MaintenanceServicePage = () => {
               fontSize: 18,
             }}
           >
-            {t.Maintenance.submit}
+            {isSubmitting ? (
+              <CircularProgress size={24} sx={{ color: "white" }} />
+            ) : (
+              t.Maintenance.submit
+            )}
           </Button>
           <Button
             variant="contained"
@@ -669,7 +738,10 @@ const MaintenanceServicePage = () => {
       <ErrorPopup
         open={popupOpen && popupType === "error"}
         message={popupMessage}
-        onClose={() => setPopupOpen(false)}
+        onClose={() => {
+          setPopupOpen(false);
+          setIsSubmitting(false);
+        }}
       />
     </Box>
   );

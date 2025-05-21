@@ -11,6 +11,7 @@ import {
   Grid,
   Button,
   TextField,
+  CircularProgress,
 } from "@mui/material";
 import { MdCheckBox } from "react-icons/md";
 import InputField from "../../components/InputField/InputField";
@@ -29,6 +30,7 @@ const ResourcesServicePage = () => {
   const { translations: t, language } = useContext(LanguageContext);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [isDataLoaded, setIsDataLoaded] = useState(false);
   const {
@@ -63,6 +65,7 @@ const ResourcesServicePage = () => {
       // .matches(/^(\+\d{1,2}\s?)?(\d{10})$/, "رقم الهاتف غير صالح")
       // .required("رقم الهاتف مطلوب"),
       .min(8, t.validation.phone.min),
+      email: Yup.string().email(t.emailInvalid),
     roomNumber: Yup.string().required(t.roomNumberRequired),
     complaintItems: Yup.array()
       .of(
@@ -92,12 +95,15 @@ const ResourcesServicePage = () => {
     initialValues: {
       fullName: "",
       phone: "",
+        email: "",
       roomNumber: number || "Unknown Room",
       complaintItems: [],
       complaintDetails: "",
     },
     validationSchema,
     onSubmit: (values) => {
+              setIsSubmitting(true);
+
       // console.log("Form submitted with values: ", values);
       const requestData = {
         name: values.fullName,
@@ -108,7 +114,7 @@ const ResourcesServicePage = () => {
           quantity: item.quantity,
         })),
         Description: values.complaintDetails,
-        email: null,
+         email: "",
         phoneNumber: values.phone,
         maintenanceData: null,
       };
@@ -120,7 +126,7 @@ const ResourcesServicePage = () => {
       formData.append("RoomId", roomNum || null);
       formData.append("TypeId", 3); // Main : 2, HK : 1, Supp : 3
       formData.append("Description", values.complaintDetails || null);
-      formData.append("Email", null); // Adjust as needed
+      formData.append("Email",  values.email || null); // Adjust as needed
       formData.append("PhoneNumber", values.phone || null);
 
       // Handling items: map each item and append it to FormData
@@ -160,11 +166,14 @@ const ResourcesServicePage = () => {
           }
         })
         .catch((error) => {
-          console.error("Error", error); // Log any errors that occurred
+          // console.error("Error", error); 
+           setIsSubmitting(false); 
           setPopupMessage("An unexpected error occurred.");
           setPopupType("error");
           setPopupOpen(true);
-        });
+        })  .finally(() => {
+        setIsSubmitting(false); 
+      });
     },
   });
 
@@ -211,6 +220,11 @@ const ResourcesServicePage = () => {
       name: "phone",
       label: t.cleaningForm.phoneLabel,
       placeholder: t.cleaningForm.phonePlaceholder,
+    },
+     {
+      name: "email",
+      label: t.Complaint.email.label,
+      placeholder: t.Complaint.email.placeholder,
     },
     {
       name: "roomNumber",
@@ -303,7 +317,7 @@ const ResourcesServicePage = () => {
                 error={formik.touched[field.name] && formik.errors[field.name]}
                 touched={formik.touched[field.name]}
                 placeholder={field.placeholder}
-                disabled={index === 2}
+                disabled={index === 3}
               />
             </Box>
           ))}
@@ -511,6 +525,7 @@ const ResourcesServicePage = () => {
           <Button
             type="submit"
             variant="contained"
+              disabled={isSubmitting}
             sx={{
               flex: 1,
               minWidth: 150,
@@ -522,7 +537,12 @@ const ResourcesServicePage = () => {
               fontSize: 18,
             }}
           >
-            {t.rateServicePage.form.submitButton}
+          
+             {isSubmitting ? (
+              <CircularProgress size={24} sx={{ color: "white" }} />
+            ) : (
+              t.rateServicePage.form.submitButton
+            )}
           </Button>
           <Button
             type="button"
@@ -554,7 +574,9 @@ const ResourcesServicePage = () => {
       <ErrorPopup
         open={popupOpen && popupType === "error"}
         message={popupMessage}
-        onClose={() => setPopupOpen(false)}
+        onClose={() => {setPopupOpen(false);
+          setIsSubmitting(false);
+        }}
       />
     </Box>
   );

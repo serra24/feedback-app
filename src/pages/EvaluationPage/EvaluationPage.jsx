@@ -5,6 +5,7 @@ import {
   Button,
   TextField,
   TextareaAutosize,
+  CircularProgress,
 } from "@mui/material";
 import starFilled from "../../assets/icons/star-filled.svg";
 import starEmpty from "../../assets/icons/star-empty.svg";
@@ -23,6 +24,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 const EvaluationPage = () => {
   const { translations: t, language } = useContext(LanguageContext);
   const roomNum2 = useSelector((state) => state.room.roomNum);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   // console.log("Room Number from Redux:", roomNum2);
   const location = useLocation();
   const { phone, email, guestName } = location.state || {};
@@ -70,6 +73,8 @@ const EvaluationPage = () => {
   };
 
   const handleSubmit = () => {
+    setIsSubmitting(true);
+
     // const isValid = ratings.every((rating) => rating !== 0); // Check if all ratings are selected
     const hasAtLeastOneRating = ratings.some((rating) => rating > 0);
     const hasComment = comment.trim().length > 0;
@@ -123,10 +128,13 @@ const EvaluationPage = () => {
       })
       .catch((error) => {
         // console.log("Error submitting evaluation:", error);
-
+        setIsSubmitting(false); 
         setPopupMessage(error?.errormessage);
         setPopupType("error");
         setPopupOpen(true); // Show error popup
+      })
+      .finally(() => {
+        setIsSubmitting(false); 
       });
     // } else {
     //   setPopupMessage(t.Evaluation.errorMessage);
@@ -293,6 +301,7 @@ const EvaluationPage = () => {
             >
               <Button
                 variant="contained"
+                disabled={isSubmitting}
                 sx={{
                   mt: "6px",
                   width: "100%",
@@ -309,7 +318,11 @@ const EvaluationPage = () => {
                 }}
                 onClick={handleSubmit}
               >
-                {t.Evaluation.submit}
+                {isSubmitting ? (
+                  <CircularProgress size={24} sx={{ color: "white" }} />
+                ) : (
+                  t.Evaluation.submit
+                )}
               </Button>
             </motion.div>
           </Box>
@@ -331,7 +344,9 @@ const EvaluationPage = () => {
         <ErrorPopup
           open={popupOpen}
           message={popupMessage}
-          onClose={() => setPopupOpen(false)}
+          onClose={() => {setPopupOpen(false);
+              setIsSubmitting(false); 
+          }}
         />
       )}
     </Box>
