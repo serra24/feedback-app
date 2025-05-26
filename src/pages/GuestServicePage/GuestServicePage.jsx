@@ -71,7 +71,7 @@ const GuestServicePage = () => {
     email: Yup.string().email(t.emailInvalid),
     // .required("البريد الإلكتروني مطلوب"),
     complaintDetails: Yup.string().required(t.complaintDetailsRequired),
-    expectedAction: Yup.string().required(t.expectedActionRequired),
+    // expectedAction: Yup.string().required(t.expectedActionRequired),
   });
   // console.log("roomData?.message?.floor?.building?.branch?.localizedName", roomData?.data?.message?.floor?.building?.branch?.localizedName);
   const hotelName =
@@ -182,8 +182,8 @@ const GuestServicePage = () => {
     label: language === "ar" ? item.nameAr : item.nameEn,
   }));
   const priorityOptions = [
-    { id: 1, name: t.Maintenance.priorityHigh },
-    { id: 2, name: t.Maintenance.priorityLow },
+    { id: 1, name: t.emergency },
+    { id: 2, name: t.Nonemergency },
   ];
   // Input fields configuration
   const inputFields = [

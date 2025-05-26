@@ -112,13 +112,14 @@ const MaintenanceServicePage = () => {
   if (!hotelName) {
     // console.warn("Localized Name is missing. Defaulting to 'Unknown Hotel'");
   }
+
   const formik = useFormik({
     initialValues: {
       mainCategoryId: "",
       subCategoryId: "",
       notes: "",
-       phone: "",
-       email: "",
+      phone: "",
+      email: "",
       fullName: "",
       priorityId: "",
       title: "",
@@ -130,9 +131,9 @@ const MaintenanceServicePage = () => {
       mainCategoryId: Yup.string().required(t.validation.selectMainCategory),
       subCategoryId: Yup.string().required(t.validation.selectSubCategory),
       notes: Yup.string().optional(),
-        phone: Yup.string()
-      // .required("رقم الهاتف مطلوب")
-      .min(8, t.validation.phone.min),
+      phone: Yup.string()
+        // .required("رقم الهاتف مطلوب")
+        .min(8, t.validation.phone.min),
       email: Yup.string().email(t.emailInvalid),
     }),
     onSubmit: async (values) => {
@@ -142,22 +143,16 @@ const MaintenanceServicePage = () => {
 
         const normalize = (val) =>
           val !== undefined && val !== "" ? val : null;
-
         // 🧩 MaintenanceData fields
         const maintenanceData = {
           Description: normalize(values.notes),
           Title: normalize(values.title),
-          // LoggedInUserId: normalize(""), // Replace with actual user ID if available
           From: new Date().toISOString(),
           To: new Date().toISOString(),
           MainMentananceCategoryId: normalize(parseInt(values.mainCategoryId)),
           SubMentananceCategoryId: normalize(parseInt(values.subCategoryId)),
-          // AssignToId: normalize(0),
           RoomId: normalize(parseInt(roomNum)),
-          // PublicAreaId: normalize(0),
           PriorityId: normalize(parseInt(values.priorityId)),
-          // JobId: normalize(0),
-          // Profitionaltype: normalize(0),
         };
 
         // 📎 Main request fields
@@ -165,7 +160,7 @@ const MaintenanceServicePage = () => {
         formData.append("RoomId", normalize(parseInt(roomNum)));
         formData.append("TypeId", normalize(2)); // Set type accordingly
         formData.append("Description", normalize(values.notes));
-        formData.append("PreferredTime", normalize(new Date().toISOString()));
+        // formData.append("PreferredTime", normalize(new Date().toISOString()));
         formData.append("Email", normalize(values.email));
         formData.append("PhoneNumber", normalize(values.phone));
 
@@ -219,14 +214,14 @@ const MaintenanceServicePage = () => {
     {
       label: t.mainMaintenanceRequest,
       options: mainCategories?.map((category) => ({
-        name: category.nameEn,
+        name: category.localizedName,
         id: category.id,
       })),
     },
     {
       label: t.subMaintenanceRequest,
       options: subCategories?.map((category) => ({
-        name: category.nameEn,
+        name: category.localizedName,
         id: category.id,
       })),
     },
@@ -297,7 +292,7 @@ const MaintenanceServicePage = () => {
           sx={{
             display: "flex",
             flexDirection: { xs: "column", md: "row" },
-          gap:  { xs: 0, md:2 },
+            gap: { xs: 0, md: 2 },
             // mb: 2,
           }}
         >
@@ -314,8 +309,6 @@ const MaintenanceServicePage = () => {
             />
           </Box>
 
-        
-
           <Box sx={{ flex: 1 }}>
             <InputField
               label={t.cleaningForm.phoneLabel}
@@ -328,7 +321,7 @@ const MaintenanceServicePage = () => {
               placeholder={t.cleaningForm.phonePlaceholder}
             />
           </Box>
-           <Box sx={{ flex: 1 }}>
+          <Box sx={{ flex: 1 }}>
             <InputField
               label={t.Complaint.email.label}
               name="email"
@@ -347,12 +340,25 @@ const MaintenanceServicePage = () => {
           sx={{
             display: "flex",
             flexDirection: { xs: "column", md: "row" },
-            gap:  { xs: 0, md:2 },
+            gap: { xs: 0, md: 2 },
             // mb: 2,
           }}
         >
-         
-  <Box sx={{ flex: 1 }}>
+          <Box sx={{ flex: 1 }}>
+            <InputField
+              label={t.Complaint.roomNumber.label}
+              name="roomNumber"
+            value={formik.values.roomNumber}
+              // onChange={formik.handleChange}
+              // onBlur={formik.handleBlur}
+              // error={formik.errors.title}
+              // touched={formik.touched.title}
+              // placeholder={t.Complaint.roomNumber.placeholder}
+              disabled
+            />
+          </Box>
+
+          <Box sx={{ flex: 1 }}>
             <InputField
               label={t.Maintenance.titlefeild}
               name="title"
@@ -364,7 +370,9 @@ const MaintenanceServicePage = () => {
               placeholder={t.Maintenance.titlePlaceholder}
             />
           </Box>
-          <Box sx={{ flex: 1,mt: { xs: 0, md: 0 },mb: { xs: "14px", md: 0 }  }}>
+          <Box
+            sx={{ flex: 1, mt: { xs: 0, md: 0 }, mb: { xs: "14px", md: 0 } }}
+          >
             <Typography
               sx={{
                 marginBottom: "3px",

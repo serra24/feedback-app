@@ -98,7 +98,7 @@
     "complaintTypesDescription": "يمكنك اختيار أكثر من خيار",
     "complaintDetails": {
       "label": "تفاصيل الشكوي",
-      "description": "يرجي وصف المشكله بالتفصيل بما في ذلك التاريخ و الوقت و أي موظفين مشاركين (إن وجد).",
+      "description": "يرجي وصف المشكله بالتفصيل بما في ذلك التاريخ و الوقت و أي موظفين مشاركين .",
       "placeholder": "اكتب وصفاً تفصيلياً للمشكله..."
     },
     "expectedAction": {
@@ -293,5 +293,7 @@
   "preferredTimeRequired": "الوقت المفضل مطلوب",
   "complaintDetailsString": "يجب أن تختار واحدًا على الأقل",
   "priorityRequired": "الأولوية مطلوبة",
-  "numberOfBagsRequired":"عدد الحقائب مطلوب"
+  "numberOfBagsRequired":"عدد الحقائب مطلوب",
+  "Nonemergency":"غير طارئ",
+  "emergency":"طارئ"
 }

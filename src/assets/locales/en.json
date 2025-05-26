@@ -96,7 +96,7 @@
     "complaintTypesDescription": "You can select more than one option",
     "complaintDetails": {
       "label": "Complaint Details",
-      "description": "Please describe the issue in detail, including date and time, and any involved staff (if applicable).",
+      "description": "Please describe the issue in detail, including date and time, and any involved staff .",
       "placeholder": "Write a detailed description of the issue..."
     },
     "expectedAction": {
@@ -295,5 +295,7 @@
 "preferredTimeRequired": "Preferred time is required",
 "complaintDetailsString": "You must choose at least one.",
 "priorityRequired": "Priority is required",
-"numberOfBagsRequired":"Number of Bags is Required"
+"numberOfBagsRequired":"Number of Bags is Required",
+"Nonemergency":"Non-emergency",
+"emergency":"Emergency"
 }

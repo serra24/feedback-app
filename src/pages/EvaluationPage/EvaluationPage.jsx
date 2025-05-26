@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import starFilled from "../../assets/icons/star-filled.svg";
 import starEmpty from "../../assets/icons/star-empty.svg";
+import starHalf from "../../assets/icons/half-star.svg";
 // import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { LanguageContext } from "../../context/LanguageContext";
@@ -31,6 +32,7 @@ const EvaluationPage = () => {
   const { phone, email, guestName } = location.state || {};
   const [ratings, setRatings] = useState([]); // We will store individual ratings for each item here
   const [hovered, setHovered] = useState({ index: null, value: 0 });
+
   const [comment, setComment] = useState("");
   const [popupOpen, setPopupOpen] = useState(false);
   const [popupType, setPopupType] = useState(""); // 'success' or 'error'
@@ -59,19 +61,30 @@ const EvaluationPage = () => {
     setRatings(initialRatings);
   }, [data]);
 
-  const handleRating = (index, value) => {
-    const updatedRatings = [...ratings];
+  const handleRating = (index, value, e) => {
+  const { left, width } = e.target.getBoundingClientRect();
+  const clickX = e.clientX - left;
 
-    // If user clicks the same rating again, toggle it to 0
-    if (updatedRatings[index] === value) {
-      updatedRatings[index] = 0;
-    } else {
-      updatedRatings[index] = value;
-    }
+  let isHalf;
 
-    setRatings(updatedRatings);
-  };
+  if (language === "ar") {
+    // Reverse the check for Arabic (RTL), since scaleX(-1) is applied
+    isHalf = clickX > width / 2;
+  } else {
+    // Default LTR behavior
+    isHalf = clickX < width / 2;
+  }
 
+  const newValue = isHalf ? value - 0.5 : value;
+
+  const updatedRatings = [...ratings];
+  if (updatedRatings[index] === newValue) {
+    updatedRatings[index] = 0; // toggle off
+  } else {
+    updatedRatings[index] = newValue;
+  }
+  setRatings(updatedRatings);
+};
   const handleSubmit = () => {
     setIsSubmitting(true);
 
@@ -128,13 +141,13 @@ const EvaluationPage = () => {
       })
       .catch((error) => {
         // console.log("Error submitting evaluation:", error);
-        setIsSubmitting(false); 
+        setIsSubmitting(false);
         setPopupMessage(error?.errormessage);
         setPopupType("error");
         setPopupOpen(true); // Show error popup
       })
       .finally(() => {
-        setIsSubmitting(false); 
+        setIsSubmitting(false);
       });
     // } else {
     //   setPopupMessage(t.Evaluation.errorMessage);
@@ -231,33 +244,64 @@ const EvaluationPage = () => {
 
                   {/* Rating Stars */}
                   <Box>
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <motion.img
-                        key={star}
-                        src={
-                          star <=
-                          (hovered.index === index
-                            ? hovered.value
-                            : ratings[index])
-                            ? starFilled
-                            : starEmpty
-                        }
-                        alt="star"
-                        style={{
-                          width: 22,
-                          height: 22,
-                          cursor: "pointer",
-                          marginLeft: 4,
-                        }}
-                        whileHover={{ scale: 1.2 }}
-                        transition={{ type: "spring", stiffness: 300 }}
-                        onClick={() => handleRating(index, star)} // Update the rating for the item
-                        onMouseEnter={() => setHovered({ index, value: star })}
-                        onMouseLeave={() =>
-                          setHovered({ index: null, value: 0 })
-                        }
-                      />
-                    ))}
+                    {[1, 2, 3, 4, 5].map((star) => {
+                      const currentRating =
+                        hovered.index === index
+                          ? hovered.value
+                          : ratings[index];
+                      let starIcon;
+
+                      if (currentRating >= star) {
+                        starIcon = starFilled;
+                      } else if (currentRating >= star - 0.5) {
+                        starIcon = starHalf;
+                      } else {
+                        starIcon = starEmpty;
+                      }
+
+                      return (
+<Box
+  sx={{
+    display: "inline-block",
+    transform: language === "en" ? "scaleX(-1)" : "none", // Flip visually for LTR
+  }}
+>
+  <motion.img
+    key={star}
+    src={starIcon}
+    alt="star"
+    style={{
+      width: 22,
+      height: 22,
+      cursor: "pointer",
+      marginLeft: 4,
+    }}
+    whileHover={{ scale: 1.2 }}
+    transition={{ type: "spring", stiffness: 300 }}
+    onClick={(e) => handleRating(index, star, e)}
+    onMouseMove={(e) => {
+      const { left, width } = e.target.getBoundingClientRect();
+      const x = e.clientX - left;
+
+      let hoverValue;
+
+      if (language === "ar") {
+        // For RTL, swap the x calculation
+        hoverValue = x > width / 2 ? star - 0.5 : star;
+      } else {
+        hoverValue = x < width / 2 ? star - 0.5 : star;
+      }
+
+      setHovered({ index, value: hoverValue });
+    }}
+    onMouseLeave={() => setHovered({ index: null, value: 0 })}
+  />
+</Box>
+
+
+
+                      );
+                    })}
                   </Box>
                 </Box>
               </motion.div>
@@ -344,8 +388,9 @@ const EvaluationPage = () => {
         <ErrorPopup
           open={popupOpen}
           message={popupMessage}
-          onClose={() => {setPopupOpen(false);
-              setIsSubmitting(false); 
+          onClose={() => {
+            setPopupOpen(false);
+            setIsSubmitting(false);
           }}
         />
       )}

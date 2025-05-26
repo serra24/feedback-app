@@ -4,7 +4,7 @@ import axiosInstancePromise from '../../api/axiosInstance'; // ✅ Import the pr
 // Define the async thunk to fetch main categories
 export const fetchMainCategories = createAsyncThunk(
   'mainCategories/fetchMainCategories',
-  async ({language}) => {
+  async (language) => {
     try {
       const axios = await axiosInstancePromise;
       // Use axios to fetch data
