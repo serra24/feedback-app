@@ -27,17 +27,44 @@ import { useNavigate } from "react-router-dom";
 import { fetchRoomData } from "../../redux/slices/roomFeatures/roomDataSlice";
 import ErrorPopup from "../../components/ErrorPopup/ErrorPopup";
 import SuccessPopup from "../../components/SuccessPopup/SuccessPopup";
-
+import LocationPopup from "../../components/LocationPopup/LocationPopup";
+import {
+  setLocationAsked,
+  setLocationStatus,
+} from "../../redux/slices/locationSlice";
 const LuggageServicePage = () => {
   const { translations: t, language } = useContext(LanguageContext);
   const [popupOpen, setPopupOpen] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
   const [popupType, setPopupType] = useState("");
-    const [isSubmitting, setIsSubmitting] = useState(false);
-  
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [locationPopupOpen, setLocationPopupOpen] = useState(false);
+  const locationAsked = useSelector((state) => state.location.locationAsked);
+  const [coordinates, setCoordinates] = useState({ lat: null, lng: null });
+  const locationStatus = useSelector((state) => state.location.locationStatus);
+
   // Redux state
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const getLocation = () => {
+    return new Promise((resolve, reject) => {
+      if (!navigator.geolocation) {
+        reject(new Error("Geolocation is not supported"));
+      }
+
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          resolve({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          });
+        },
+        (error) => {
+          reject(error);
+        }
+      );
+    });
+  };
 
   const [isDataLoaded, setIsDataLoaded] = useState(false);
   const { roomNum, roomData } = useSelector(
@@ -73,7 +100,7 @@ const LuggageServicePage = () => {
     initialValues: {
       fullName: "",
       phone: "",
-       email: "",
+      email: "",
       roomNumber: number || "Unknown Room",
       preferredTime: "",
       complaintType: "", // changed from complaintTypes[]
@@ -81,30 +108,47 @@ const LuggageServicePage = () => {
       numberOfBags: "", // add this if it’s used
     },
     validationSchema,
-    onSubmit: (values) => {
-        setIsSubmitting(true);
+   onSubmit: async (values) => {
+  if (
+    locationAsked &&
+    locationStatus === "allowed" &&
+    "geolocation" in navigator
+  ) {
+    try {
+      const position = await getLocation();
+      console.log("User location:", position);
+
+      const freshCoordinates = {
+        lat: position?.latitude,
+        lng: position?.longitude,
+      };
+
+      setCoordinates(freshCoordinates); // optional, if you want to show it in UI
+
       // Map luggage service type
       let mappedItems = null;
       const complaintType = parseInt(values.complaintType);
 
       if (complaintType === 1) {
-        mappedItems = 1; // إستلام الأمتعه من الغرفه
+        mappedItems = 1;
       } else if (complaintType === 3) {
-        mappedItems = 2; // تخزين الأمتعه مؤقتاً
+        mappedItems = 2;
       }
 
-      const requestData = {
+        const requestData = {
         name: values.fullName,
         roomId: roomNum,
         serviceType: mappedItems,
         description: values.complaintDetails,
-       email: values.email || null,
+        email: values.email || null,
         phoneNumber: values.phone || null,
         perfectDate: values.preferredTime,
         bagNumber: values.numberOfBags,
       };
 
-      dispatch(addBellBoyRequest({ requestData, language }))
+      setIsSubmitting(true);
+
+      dispatch(addBellBoyRequest({ requestData, language, coordinates: freshCoordinates }))
         .then((response) => {
           if (response?.payload?.successtate === 200) {
             setPopupMessage(t.sucessRequest);
@@ -112,26 +156,63 @@ const LuggageServicePage = () => {
             setPopupOpen(true);
             formik.resetForm();
           } else {
+            console.log("Response error:", response);
             setPopupMessage(
-              response?.payload?.errormessage || t.defaultErrorMessage
+              response?.payload?.errormessage || response?.payload
             );
             setPopupType("error");
             setPopupOpen(true);
           }
         })
         .catch((error) => {
-          // console.error("Request error:", error);
-           setIsSubmitting(false); 
+          console.error("Request error:", error);
           setPopupMessage(t.unexpectedError || "حدث خطأ غير متوقع");
           setPopupType("error");
           setPopupOpen(true);
-        }) 
-         .finally(() => {
-    // Add any logic you want to always run here, e.g.:
-    setIsSubmitting(false); // Example: turn off a loading spinner
+        })
+        .finally(() => {
+          setIsSubmitting(false);
+        });
+
+      return; // ✅ prevent further execution
+    } catch (error) {
+      console.error("Location access failed:", error.message);
+      setLocationPopupOpen(true);
+      return;
+    }
+  } else {
+    setLocationPopupOpen(true);
+    return;
+  }
+},
+
   });
-    },
-  });
+
+  const handleAllowLocation = () => {
+    dispatch(setLocationAsked(true));
+    dispatch(setLocationStatus("allowed"));
+    setLocationPopupOpen(false);
+
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setCoordinates({ lat: latitude, lng: longitude });
+          // console.log("Latitude:", latitude, "Longitude:", longitude);
+          formik.submitForm();
+          setIsSubmitting(true);
+        },
+        (error) => {
+          console.error("Location access denied:", error.message);
+        }
+      );
+    }
+  };
+  const handleDeny = () => {
+    dispatch(setLocationAsked(true));
+    setLocationPopupOpen(false);
+    // console.log("Location access denied by user.");
+  };
 
   useEffect(() => {
     if (roomData?.data?.message?.floor?.building?.branch?.localizedName) {
@@ -170,7 +251,7 @@ const LuggageServicePage = () => {
       label: t.cleaningForm.phoneLabel,
       placeholder: t.cleaningForm.phonePlaceholder,
     },
-    
+
     {
       name: "email",
       label: t.Complaint.email.label,
@@ -444,7 +525,7 @@ const LuggageServicePage = () => {
           <Button
             variant="contained"
             type="submit"
-             disabled={isSubmitting}
+            disabled={isSubmitting}
             sx={{
               flex: 1,
               minWidth: 150,
@@ -456,12 +537,11 @@ const LuggageServicePage = () => {
               fontSize: 18,
             }}
           >
-             {isSubmitting ? (
+            {isSubmitting ? (
               <CircularProgress size={24} sx={{ color: "white" }} />
             ) : (
               t.sendRequest
             )}
-         
           </Button>
           <Button
             variant="contained"
@@ -492,10 +572,23 @@ const LuggageServicePage = () => {
       <ErrorPopup
         open={popupOpen && popupType === "error"}
         message={popupMessage}
-        onClose={() => {setPopupOpen(false);
-            setIsSubmitting(false); 
+        onClose={() => {
+          setPopupOpen(false);
+          setIsSubmitting(false);
         }}
       />
+      {locationPopupOpen && (
+        <LocationPopup
+          title={t.locationPopup.requireAccess}
+          onAllow={handleAllowLocation}
+          onDeny={handleDeny}
+        />
+        //         <LocationPopup
+        //   title="Would you like to enable location services?"
+        //   onAllow={handleAllow}
+        //   onDeny={handleDeny}
+        // />
+      )}
     </Box>
   );
 };

@@ -297,5 +297,13 @@
 "priorityRequired": "Priority is required",
 "numberOfBagsRequired":"Number of Bags is Required",
 "Nonemergency":"Non-emergency",
-"emergency":"Emergency"
+"emergency":"Emergency",
+  "locationPopup": {
+    "requireAccess": "You must allow location access before submitting your request.",
+      "allow": "Allow",
+       "allowLocationAccess": "Help us enhance your experience - allow location access",
+    "deny": "Deny"
+  },
+  "roomNotOccupiedTitle": "Room Not Occupied",
+  "roomNotOccupiedMessage":"It looks like this room is currently not occupied. Please double-check the QR code on the door or contact the front desk for assistance."
 }

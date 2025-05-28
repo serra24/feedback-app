@@ -4,9 +4,16 @@ import axiosInstancePromise from '../../api/axiosInstance'; // ✅ Import the pr
 // Async thunk to post evaluation
 export const addEvaluation = createAsyncThunk(
   'evaluation/addEvaluation',
-  async (evaluationData, { rejectWithValue }) => { 
+  async ({evaluationData, coordinates}, { rejectWithValue, getState }) => {
     try {
       const axios = await axiosInstancePromise;
+         // Access state from the thunkAPI
+      const state = getState();
+
+      const roomNum = state.room.roomNum;
+      // const bookingNumber = state.room.bookingNumber;
+      // const locationStatus = state.location.locationStatus;
+      console.log("coordinates", coordinates, roomNum);
       const response = await axios.post(
         '/api/CRM/Evaluation/AddEvaluation',
         evaluationData,
@@ -15,6 +22,10 @@ export const addEvaluation = createAsyncThunk(
             'Content-Type': 'application/json-patch+json',
             lang: evaluationData.language,
             'Accept': '*/*',
+
+            RoomId: roomNum ?? "",
+            Latitude: coordinates?.lat ?? "",
+            Longitude: coordinates?.lng ?? "",
           },
         }
       );

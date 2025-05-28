@@ -1,34 +1,49 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axiosInstancePromise from '../../api/axiosInstance'; 
-
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axiosInstancePromise from "../../api/axiosInstance";
 
 // Async thunk to handle the POST request
 export const addBellBoyRequest = createAsyncThunk(
-  'bellBoy/addRequest',
-  async ({requestData,language}, { rejectWithValue }) => {
+  "bellBoy/addRequest",
+  async ( { requestData, language, coordinates }, { getState, rejectWithValue }) => {
     try {
-          const axios = await axiosInstancePromise; // ✅ Wait for Axios config to load
+      const axios = await axiosInstancePromise; // ✅ Wait for Axios config to load
+
+      // Access state from the thunkAPI
+      const state = getState();
+
+      const roomNum = state.room.roomNum;
+      // const bookingNumber = state.room.bookingNumber;
+      // const locationStatus = state.location.locationStatus;
+      console.log("coordinates", coordinates, roomNum);
+
       const response = await axios.post(
-        '/api/CRM/BellBoy/AddRequest',
+        "/api/CRM/BellBoy/AddRequest",
         requestData,
         {
           headers: {
-            'Content-Type': 'application/json-patch+json',
-            Accept: '*/*',
-             lang:language=== 'ar' ? 1: 2,
+            "Content-Type": "application/json-patch+json",
+            Accept: "*/*",
+            lang: language === "ar" ? 1 : 2,
 
+            RoomId: roomNum ?? "",
+            Latitude: coordinates?.lat ?? "",
+            Longitude: coordinates?.lng ?? "",
           },
         }
       );
+      // console.log("response",response);
+
       return response.data;
     } catch (err) {
+      console.log("Error in addBellBoyRequest:", err);
+
       return rejectWithValue(err.response?.data || err.message);
     }
   }
 );
 
 const bellBoySlice = createSlice({
-  name: 'bellBoy',
+  name: "bellBoy",
   initialState: {
     loading: false,
     error: null,
@@ -54,7 +69,7 @@ const bellBoySlice = createSlice({
       })
       .addCase(addBellBoyRequest.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || 'Request failed';
+        state.error = action.payload || "Request failed";
       });
   },
 });

@@ -32,6 +32,10 @@ const EvaluationPage = () => {
   const { phone, email, guestName } = location.state || {};
   const [ratings, setRatings] = useState([]); // We will store individual ratings for each item here
   const [hovered, setHovered] = useState({ index: null, value: 0 });
+  const locationAsked = useSelector((state) => state.location.locationAsked);
+  const locationStatus = useSelector((state) => state.location.locationStatus);
+  const [coordinates, setCoordinates] = useState({ lat: null, lng: null });
+  const [locationPopupOpen, setLocationPopupOpen] = useState(false);
 
   const [comment, setComment] = useState("");
   const [popupOpen, setPopupOpen] = useState(false);
@@ -44,6 +48,25 @@ const EvaluationPage = () => {
   const roomNum = useSelector((state) => state.room.roomNum);
 
   const { data, loading } = useSelector((state) => state.guestEvaluation);
+  const getLocation = () => {
+    return new Promise((resolve, reject) => {
+      if (!navigator.geolocation) {
+        reject(new Error("Geolocation is not supported"));
+      }
+
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          resolve({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          });
+        },
+        (error) => {
+          reject(error);
+        }
+      );
+    });
+  };
 
   useEffect(() => {
     // Fetch guest evaluation data when the component mounts
@@ -62,98 +85,121 @@ const EvaluationPage = () => {
   }, [data]);
 
   const handleRating = (index, value, e) => {
-  const { left, width } = e.target.getBoundingClientRect();
-  const clickX = e.clientX - left;
+    const { left, width } = e.target.getBoundingClientRect();
+    const clickX = e.clientX - left;
 
-  let isHalf;
+    let isHalf;
 
-  if (language === "ar") {
-    // Reverse the check for Arabic (RTL), since scaleX(-1) is applied
-    isHalf = clickX > width / 2;
-  } else {
-    // Default LTR behavior
-    isHalf = clickX < width / 2;
-  }
-
-  const newValue = isHalf ? value - 0.5 : value;
-
-  const updatedRatings = [...ratings];
-  if (updatedRatings[index] === newValue) {
-    updatedRatings[index] = 0; // toggle off
-  } else {
-    updatedRatings[index] = newValue;
-  }
-  setRatings(updatedRatings);
-};
-  const handleSubmit = () => {
-    setIsSubmitting(true);
-
-    // const isValid = ratings.every((rating) => rating !== 0); // Check if all ratings are selected
-    const hasAtLeastOneRating = ratings.some((rating) => rating > 0);
-    const hasComment = comment.trim().length > 0;
-
-    if (!hasAtLeastOneRating && !hasComment) {
-      setPopupMessage(
-        t.Evaluation.errorMessage ||
-          "Please provide at least one rating or a comment."
-      );
-      setPopupType("error");
-      setPopupOpen(true);
-      return; // Stop submission
+    if (language === "ar") {
+      // Reverse the check for Arabic (RTL), since scaleX(-1) is applied
+      isHalf = clickX > width / 2;
+    } else {
+      // Default LTR behavior
+      isHalf = clickX < width / 2;
     }
-    // if (isValid) {
-    // Create the evaluation payload
-    const evaluationData = {
-      name: guestName, // You can replace this with a dynamic name if needed
-      roomId: roomNum,
-      // roomId: roomNum2, // Use the room number from session storage
-      // roomId: roomNum, // Use the room number from session storage
-      // roomId: sessionStorage.getItem("roomNum"), // Use the room number from session storage
-      items: data?.map((item, index) => ({
-        itemId: item.id, // Use the actual itemId from the data
-        rate: ratings[index], // The corresponding rating for that item
-      })),
-      description: comment,
-      email: email || null,
-      phoneNumber: phone || null,
-      language: language === "ar" ? 1 : 2,
-      bookingNumber: bookingNumber,
-    };
 
-    // Dispatch the evaluation action
-    dispatch(addEvaluation(evaluationData))
-      .then((response) => {
-        // console.log("Evaluation submitted successfully:", response);
-        if (response.payload.successtate === 200) {
-          setPopupMessage(response.payload?.message);
-          setPopupType("success");
-          setPopupOpen(true);
-          setComment("");
-          setRatings(data?.map(() => 0));
-          setHovered({ index: null, value: 0 });
-        } else {
-          setPopupMessage(response.payload?.errormessage);
-          // console.log("Error message:", response?.payload?.errormessage);
+    const newValue = isHalf ? value - 0.5 : value;
 
+    const updatedRatings = [...ratings];
+    if (updatedRatings[index] === newValue) {
+      updatedRatings[index] = 0; // toggle off
+    } else {
+      updatedRatings[index] = newValue;
+    }
+    setRatings(updatedRatings);
+  };
+  const handleSubmit = async () => {
+    if (
+      locationAsked &&
+      locationStatus === "allowed" &&
+      "geolocation" in navigator
+    ) {
+      try {
+        const position = await getLocation();
+        console.log("User location:", position);
+
+        const freshCoordinates = {
+          lat: position?.latitude,
+          lng: position?.longitude,
+        };
+
+        setCoordinates(freshCoordinates);
+        setIsSubmitting(true);
+
+        // const isValid = ratings.every((rating) => rating !== 0); // Check if all ratings are selected
+        const hasAtLeastOneRating = ratings.some((rating) => rating > 0);
+        const hasComment = comment.trim().length > 0;
+
+        if (!hasAtLeastOneRating && !hasComment) {
+          setPopupMessage(
+            t.Evaluation.errorMessage ||
+              "Please provide at least one rating or a comment."
+          );
           setPopupType("error");
-          setPopupOpen(true); // Show error popup
+          setPopupOpen(true);
+          return; // Stop submission
         }
-      })
-      .catch((error) => {
-        // console.log("Error submitting evaluation:", error);
-        setIsSubmitting(false);
-        setPopupMessage(error?.errormessage);
-        setPopupType("error");
-        setPopupOpen(true); // Show error popup
-      })
-      .finally(() => {
-        setIsSubmitting(false);
-      });
-    // } else {
-    //   setPopupMessage(t.Evaluation.errorMessage);
-    //   setPopupType("error");
-    //   setPopupOpen(true); // Show error popup for incomplete ratings
-    // }
+        // if (isValid) {
+        // Create the evaluation payload
+        const evaluationData = {
+          name: guestName, // You can replace this with a dynamic name if needed
+          roomId: roomNum,
+          // roomId: roomNum2, // Use the room number from session storage
+          // roomId: roomNum, // Use the room number from session storage
+          // roomId: sessionStorage.getItem("roomNum"), // Use the room number from session storage
+          items: data?.map((item, index) => ({
+            itemId: item.id, // Use the actual itemId from the data
+            rate: ratings[index], // The corresponding rating for that item
+          })),
+          description: comment,
+          email: email || null,
+          phoneNumber: phone || null,
+          language: language === "ar" ? 1 : 2,
+          bookingNumber: bookingNumber,
+        };
+
+        // Dispatch the evaluation action
+        dispatch(
+          addEvaluation({ evaluationData, coordinates: freshCoordinates })
+        )
+          .then((response) => {
+            // console.log("Evaluation submitted successfully:", response);
+            if (response.payload.successtate === 200) {
+              setPopupMessage(response.payload?.message);
+              setPopupType("success");
+              setPopupOpen(true);
+              setComment("");
+              setRatings(data?.map(() => 0));
+              setHovered({ index: null, value: 0 });
+            } else {
+              setPopupMessage(response.payload?.errormessage|| response.payload);
+              // console.log("Error message:", response?.payload?.errormessage);
+
+              setPopupType("error");
+              setPopupOpen(true); // Show error popup
+            }
+          })
+          .catch((error) => {
+            
+            // console.log("Error submitting evaluation:", error);
+            setIsSubmitting(false);
+            setPopupMessage(error?.errormessage);
+            setPopupType("error");
+            setPopupOpen(true); // Show error popup
+          })
+          .finally(() => {
+            setIsSubmitting(false);
+          });
+        return; // ✅ prevent further execution
+      } catch (error) {
+        console.error("Location access failed:", error.message);
+        setLocationPopupOpen(true);
+        return;
+      }
+    } else {
+      setLocationPopupOpen(true);
+      return;
+    }
   };
 
   if (loading) {
@@ -260,46 +306,47 @@ const EvaluationPage = () => {
                       }
 
                       return (
-<Box
-  sx={{
-    display: "inline-block",
-    transform: language === "en" ? "scaleX(-1)" : "none", // Flip visually for LTR
-  }}
->
-  <motion.img
-    key={star}
-    src={starIcon}
-    alt="star"
-    style={{
-      width: 22,
-      height: 22,
-      cursor: "pointer",
-      marginLeft: 4,
-    }}
-    whileHover={{ scale: 1.2 }}
-    transition={{ type: "spring", stiffness: 300 }}
-    onClick={(e) => handleRating(index, star, e)}
-    onMouseMove={(e) => {
-      const { left, width } = e.target.getBoundingClientRect();
-      const x = e.clientX - left;
+                        <Box
+                          sx={{
+                            display: "inline-block",
+                            transform:
+                              language === "en" ? "scaleX(-1)" : "none", // Flip visually for LTR
+                          }}
+                        >
+                          <motion.img
+                            key={star}
+                            src={starIcon}
+                            alt="star"
+                            style={{
+                              width: 22,
+                              height: 22,
+                              cursor: "pointer",
+                              marginLeft: 4,
+                            }}
+                            whileHover={{ scale: 1.2 }}
+                            transition={{ type: "spring", stiffness: 300 }}
+                            onClick={(e) => handleRating(index, star, e)}
+                            onMouseMove={(e) => {
+                              const { left, width } =
+                                e.target.getBoundingClientRect();
+                              const x = e.clientX - left;
 
-      let hoverValue;
+                              let hoverValue;
 
-      if (language === "ar") {
-        // For RTL, swap the x calculation
-        hoverValue = x > width / 2 ? star - 0.5 : star;
-      } else {
-        hoverValue = x < width / 2 ? star - 0.5 : star;
-      }
+                              if (language === "ar") {
+                                // For RTL, swap the x calculation
+                                hoverValue = x > width / 2 ? star - 0.5 : star;
+                              } else {
+                                hoverValue = x < width / 2 ? star - 0.5 : star;
+                              }
 
-      setHovered({ index, value: hoverValue });
-    }}
-    onMouseLeave={() => setHovered({ index: null, value: 0 })}
-  />
-</Box>
-
-
-
+                              setHovered({ index, value: hoverValue });
+                            }}
+                            onMouseLeave={() =>
+                              setHovered({ index: null, value: 0 })
+                            }
+                          />
+                        </Box>
                       );
                     })}
                   </Box>

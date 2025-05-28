@@ -4,15 +4,24 @@ import axiosInstancePromise from '../../api/axiosInstance'; // ✅ Import the pr
 //  Thunk for creating a complaint
 export const createComplaint = createAsyncThunk(
   'complaints/createComplaint',
-  async (complaintData, { rejectWithValue }) => {
+  async ({payload, language, coordinates}, { rejectWithValue, getState }) => {
     try {
       const axios = await axiosInstancePromise;
+
+      const state = getState();
+      const roomNum = state.room.roomNum;
+
       const response = await axios.post(
         '/api/CRM/Complaint/CreateComplaint',
-        complaintData,
+        payload,
         {
           headers: {
             'Content-Type': 'application/json-patch+json',
+              lang: language === "ar" ? 1 : 2,
+
+            RoomId: roomNum ?? "",
+            Latitude: coordinates?.lat ?? "",
+            Longitude: coordinates?.lng ?? "",
           },
         }
       );

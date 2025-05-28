@@ -25,13 +25,39 @@ import { fetchRoomData } from "../../redux/slices/roomFeatures/roomDataSlice";
 import Loading from "../../components/Loading/Loading";
 import { fetchSuppliesItems } from "../../redux/slices/suppliesItemsSlice";
 import { useNavigate } from "react-router-dom";
-
+import LocationPopup from "../../components/LocationPopup/LocationPopup";
+import {
+  setLocationAsked,
+  setLocationStatus,
+} from "../../redux/slices/locationSlice";
 const ResourcesServicePage = () => {
   const { translations: t, language } = useContext(LanguageContext);
   const dispatch = useDispatch();
   const navigate = useNavigate();
     const [isSubmitting, setIsSubmitting] = useState(false);
+ const [locationPopupOpen, setLocationPopupOpen] = useState(false);
+  const locationAsked = useSelector((state) => state.location.locationAsked);
+  const [coordinates, setCoordinates] = useState({ lat: null, lng: null });
+  const locationStatus = useSelector((state) => state.location.locationStatus);
+ const getLocation = () => {
+    return new Promise((resolve, reject) => {
+      if (!navigator.geolocation) {
+        reject(new Error("Geolocation is not supported"));
+      }
 
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          resolve({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          });
+        },
+        (error) => {
+          reject(error);
+        }
+      );
+    });
+  };
   const [isDataLoaded, setIsDataLoaded] = useState(false);
   const {
     items: supplyItems,
@@ -101,7 +127,22 @@ const ResourcesServicePage = () => {
       complaintDetails: "",
     },
     validationSchema,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
+     if (
+    locationAsked &&
+    locationStatus === "allowed" &&
+    "geolocation" in navigator
+  ) {
+    try {
+      const position = await getLocation();
+      console.log("User location:", position);
+
+      const freshCoordinates = {
+        lat: position?.latitude,
+        lng: position?.longitude,
+      };
+
+      setCoordinates(freshCoordinates);
               setIsSubmitting(true);
 
       // console.log("Form submitted with values: ", values);
@@ -149,7 +190,7 @@ const ResourcesServicePage = () => {
 
       // Append maintenanceData as null (or adjust as needed)
       formData.append("MaintenanceData", null);
-      dispatch(createRequest(formData))
+      dispatch(createRequest({formData, language, coordinates: freshCoordinates}))
         .then((response) => {
           if (response?.payload?.successtate === 200) {
             // Adjust according to your response structure
@@ -160,7 +201,7 @@ const ResourcesServicePage = () => {
           } else {
             // console.log("Error", response);
 
-            setPopupMessage(response?.payload?.errormessage);
+            setPopupMessage(response?.payload?.errormessage || response?.payload);
             setPopupType("error");
             setPopupOpen(true);
           }
@@ -174,9 +215,43 @@ const ResourcesServicePage = () => {
         })  .finally(() => {
         setIsSubmitting(false); 
       });
-    },
+     return; // ✅ prevent further execution
+    } catch (error) {
+      console.error("Location access failed:", error.message);
+      setLocationPopupOpen(true);
+      return;
+    }
+  } else {
+    setLocationPopupOpen(true);
+    return;
+  }
+},
   });
+const handleAllowLocation = () => {
+    dispatch(setLocationAsked(true));
+    dispatch(setLocationStatus("allowed"));
+    setLocationPopupOpen(false);
 
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setCoordinates({ lat: latitude, lng: longitude });
+          // console.log("Latitude:", latitude, "Longitude:", longitude);
+          formik.submitForm();
+          setIsSubmitting(true);
+        },
+        (error) => {
+          console.error("Location access denied:", error.message);
+        }
+      );
+    }
+  };
+  const handleDeny = () => {
+    dispatch(setLocationAsked(true));
+    setLocationPopupOpen(false);
+    // console.log("Location access denied by user.");
+  };
   useEffect(() => {
     if (roomData?.data?.message?.floor?.building?.branch?.localizedName) {
       setIsDataLoaded(true);
@@ -578,6 +653,18 @@ const ResourcesServicePage = () => {
           setIsSubmitting(false);
         }}
       />
+       {locationPopupOpen && (
+              <LocationPopup
+                title={t.locationPopup.requireAccess}
+                onAllow={handleAllowLocation}
+                onDeny={handleDeny}
+              />
+              //         <LocationPopup
+              //   title="Would you like to enable location services?"
+              //   onAllow={handleAllow}
+              //   onDeny={handleDeny}
+              // />
+            )}
     </Box>
   );
 };

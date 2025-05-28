@@ -293,7 +293,17 @@
   "preferredTimeRequired": "الوقت المفضل مطلوب",
   "complaintDetailsString": "يجب أن تختار واحدًا على الأقل",
   "priorityRequired": "الأولوية مطلوبة",
-  "numberOfBagsRequired":"عدد الحقائب مطلوب",
-  "Nonemergency":"غير طارئ",
-  "emergency":"طارئ"
+  "numberOfBagsRequired": "عدد الحقائب مطلوب",
+  "Nonemergency": "غير طارئ",
+  "emergency": "طارئ",
+  "locationPopup": {
+    "requireAccess": "يجب السماح بالوصول إلى الموقع قبل إرسال الطلب.",
+    "allow": "سماح",
+    "allowLocationAccess":"لنساعدك بشكل أفضل، نرجو تفعيل خدمة الموقع",
+    "deny": "عدم السماح"
+  },
+  "roomNotOccupiedTitle": "الغرفة غير ساكنة",
+    "roomNotOccupiedMessage":"يبدو أن هذه الغرفة غير ساكنة حاليًا. يُرجى التحقق من رمز الاستجابة السريعة الموجود على الباب أو التواصل مع مكتب الاستقبال للمساعدة."
+
+
 }

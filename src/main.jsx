@@ -22,6 +22,7 @@ import QRCodeGenerator from "./components/QRCodeGenerator/QRCodeGenerator.jsx";
 import { Provider } from 'react-redux';
 import {store,persistor } from './redux/store';
 import { PersistGate } from "redux-persist/integration/react"; // PersistGate for delay loading
+import RoomNotOccupiedPage from "./pages/RoomNotOccupiedPage/RoomNotOccupiedPage.jsx";
 
 
 // Directly add routing logic here
@@ -58,6 +59,8 @@ createRoot(document.getElementById("root")).render(
                 element={<ResourcesServicePage />}
               />
               <Route path="/luggage-service" element={<LuggageServicePage />} />
+              <Route path="/room-not-occupied" element={<RoomNotOccupiedPage />} />
+
               <Route path="*" element={<NotFound />} />
           
             </Route>

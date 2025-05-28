@@ -35,3 +35,29 @@ curl -X POST "http://38.170.230.82:3040/api/DisbursementRequest/save" \
         }
     ]
 }'
+
+
+
+### Add Evaluation Request
+POST http://38.170.230.82:3040/api/CRM/Evaluation/AddEvaluation
+Content-Type: application/json
+X-RoomId: 660106
+X-Latitude: 40.690323
+X-Longitude: -74.183552
+
+{
+  "name": "israa",
+  "roomId": "660106",
+  "items": [
+    { "itemId": 6, "rate": 1 },
+    { "itemId": 7, "rate": 3 },
+    { "itemId": 8, "rate": 1 },
+    { "itemId": 9, "rate": 0 },
+    { "itemId": 10, "rate": 0 }
+  ],
+  "description": "",
+  "email": null,
+  "phoneNumber": null,
+  "language": 1,
+  "bookingNumber": "685"
+}

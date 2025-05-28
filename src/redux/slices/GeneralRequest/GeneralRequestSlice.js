@@ -4,12 +4,24 @@ import axiosInstancePromise from '../../../api/axiosInstance'; // ✅ Import the
 // Define an async thunk to handle the POST request
 export const createRequest = createAsyncThunk(
   'generalRequest/createRequest',
-  async (requestData, { rejectWithValue }) => {
+  async ({formData , language, coordinates }, { getState, rejectWithValue }) => {
     try {
       const axios = await axiosInstancePromise;
-      const response = await axios.post('/api/CRM/GeneralRequest/CreateRequest', requestData, {
+         // Access state from the thunkAPI
+      const state = getState();
+
+      const roomNum = state.room.roomNum;
+      // const bookingNumber = state.room.bookingNumber;
+      // const locationStatus = state.location.locationStatus;
+      console.log("coordinates", coordinates, roomNum);
+      const response = await axios.post('/api/CRM/GeneralRequest/CreateRequest', formData, {
         headers: {
           // 'Content-Type': 'application/json-patch+json',
+            lang: language === "ar" ? 1 : 2,
+
+            RoomId: roomNum ?? "",
+            Latitude: coordinates?.lat ?? "",
+            Longitude: coordinates?.lng ?? "",
         },
       });
 

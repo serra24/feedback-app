@@ -22,7 +22,10 @@ import generalRequestReducer from "./slices/GeneralRequest/GeneralRequestSlice";
 import mainCategoriesReducer from "./slices/mainCategoriesSlice";
 import subCategoriesReducer from "./slices/subCategoriesSlice";
 import supplyItemsReducer from "./slices/suppliesItemsSlice";
-import bellBoyReducer from './slices/bellBoySlice';
+import bellBoyReducer from "./slices/bellBoySlice";
+import locationReducer from "./slices/locationSlice";
+import { locationPersistenceMiddleware } from "./middleware/locationPersistenceMiddleware";
+import roomOccupancyReducer from "./slices/roomFeatures/roomOccupancySlice";
 const persistConfig = {
   key: "root",
   // storage,
@@ -44,9 +47,18 @@ const store = configureStore({
     subCategories: subCategoriesReducer,
     supplies: supplyItemsReducer,
     bellBoy: bellBoyReducer,
-  },
-});
+    roomOccupancy: roomOccupancyReducer,
 
+    location: locationReducer,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        // Ignore these action types for serializable check (redux-persist actions)
+        ignoredActions: ["persist/PERSIST", "persist/REHYDRATE"],
+      },
+    }).concat(locationPersistenceMiddleware), // Add your custom middleware
+});
 const persistor = persistStore(store);
 
 export { store, persistor };

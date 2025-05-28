@@ -30,7 +30,11 @@ import Loading from "../../components/Loading/Loading";
 import InputField from "../../components/InputField/InputField";
 import { IoIosClose } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
-
+import LocationPopup from "../../components/LocationPopup/LocationPopup";
+import {
+  setLocationAsked,
+  setLocationStatus,
+} from "../../redux/slices/locationSlice";
 const MaintenanceServicePage = () => {
   const { translations: t, language } = useContext(LanguageContext);
   const [uploadedFile, setUploadedFile] = useState(null);
@@ -38,7 +42,29 @@ const MaintenanceServicePage = () => {
   const [popupMessage, setPopupMessage] = useState("");
   const [popupType, setPopupType] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [locationPopupOpen, setLocationPopupOpen] = useState(false);
+  const locationAsked = useSelector((state) => state.location.locationAsked);
+  const [coordinates, setCoordinates] = useState({ lat: null, lng: null });
+  const locationStatus = useSelector((state) => state.location.locationStatus);
+ const getLocation = () => {
+    return new Promise((resolve, reject) => {
+      if (!navigator.geolocation) {
+        reject(new Error("Geolocation is not supported"));
+      }
 
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          resolve({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          });
+        },
+        (error) => {
+          reject(error);
+        }
+      );
+    });
+  };
   const truncateFileName = (name, maxLength = 30) => {
     if (name.length <= maxLength) return name;
     const ext = name.slice(name.lastIndexOf("."));
@@ -137,6 +163,21 @@ const MaintenanceServicePage = () => {
       email: Yup.string().email(t.emailInvalid),
     }),
     onSubmit: async (values) => {
+     if (
+    locationAsked &&
+    locationStatus === "allowed" &&
+    "geolocation" in navigator
+  ) {
+    try {
+      const position = await getLocation();
+      console.log("User location:", position);
+
+      const freshCoordinates = {
+        lat: position?.latitude,
+        lng: position?.longitude,
+      };
+
+      setCoordinates(freshCoordinates);
       setIsSubmitting(true);
       try {
         const formData = new FormData();
@@ -177,7 +218,7 @@ const MaintenanceServicePage = () => {
         }
 
         // 📨 Send
-        const response = await dispatch(createRequest(formData));
+        const response = await dispatch(createRequest({formData, language, coordinates: freshCoordinates}));
 
         // ✅ Debug
         for (let [key, val] of formData.entries()) {
@@ -192,7 +233,7 @@ const MaintenanceServicePage = () => {
           setUploadedFile(null);
         } else {
           setPopupMessage(
-            response?.payload?.errormessage || "Submission failed."
+            response?.payload?.errormessage || response?.payload
           );
           setPopupType("error");
         }
@@ -207,9 +248,43 @@ const MaintenanceServicePage = () => {
       } finally {
         setIsSubmitting(false);
       }
-    },
+     return; // ✅ prevent further execution
+    } catch (error) {
+      console.error("Location access failed:", error.message);
+      setLocationPopupOpen(true);
+      return;
+    }
+  } else {
+    setLocationPopupOpen(true);
+    return;
+  }
+},
   });
+ const handleAllowLocation = () => {
+    dispatch(setLocationAsked(true));
+    dispatch(setLocationStatus("allowed"));
+    setLocationPopupOpen(false);
 
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setCoordinates({ lat: latitude, lng: longitude });
+          // console.log("Latitude:", latitude, "Longitude:", longitude);
+          formik.submitForm();
+          setIsSubmitting(true);
+        },
+        (error) => {
+          console.error("Location access denied:", error.message);
+        }
+      );
+    }
+  };
+  const handleDeny = () => {
+    dispatch(setLocationAsked(true));
+    setLocationPopupOpen(false);
+    // console.log("Location access denied by user.");
+  };
   const formFields = [
     {
       label: t.mainMaintenanceRequest,
@@ -751,6 +826,18 @@ const MaintenanceServicePage = () => {
           setIsSubmitting(false);
         }}
       />
+        {locationPopupOpen && (
+        <LocationPopup
+          title={t.locationPopup.requireAccess}
+          onAllow={handleAllowLocation}
+          onDeny={handleDeny}
+        />
+        //         <LocationPopup
+        //   title="Would you like to enable location services?"
+        //   onAllow={handleAllow}
+        //   onDeny={handleDeny}
+        // />
+      )}
     </Box>
   );
 };
