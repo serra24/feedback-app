@@ -432,6 +432,7 @@ const GuestServicePage = () => {
               error={formik.touched.title && formik.errors.title}
               touched={formik.touched.title}
               placeholder={t.Complaint.title.placeholder}
+              required
             />
           </Box>
 
@@ -447,6 +448,16 @@ const GuestServicePage = () => {
               }}
             >
               {t.Maintenance.priority}
+                <Typography
+                              component="span"
+                              sx={{
+                                color: "red",
+                                marginRight: language === "ar" ? "4px" : 0,
+                                marginLeft: language === "en" ? "4px" : 0,
+                              }}
+                            >
+                              *
+                            </Typography>
             </Typography>
             <FormControl
               fullWidth
