@@ -1,27 +1,27 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axiosInstancePromise from '../../api/axiosInstance'; // ✅ Import the promise
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axiosInstancePromise from "../../api/axiosInstance"; // ✅ Import the promise
 
 // Async thunk to post evaluation
 export const addEvaluation = createAsyncThunk(
-  'evaluation/addEvaluation',
-  async ({evaluationData, coordinates}, { rejectWithValue, getState }) => {
+  "evaluation/addEvaluation",
+  async ({ evaluationData, coordinates }, { rejectWithValue, getState }) => {
     try {
       const axios = await axiosInstancePromise;
-         // Access state from the thunkAPI
+      // Access state from the thunkAPI
       const state = getState();
 
       const roomNum = state.room.roomNum;
       // const bookingNumber = state.room.bookingNumber;
       // const locationStatus = state.location.locationStatus;
-      console.log("coordinates", coordinates, roomNum);
+      // console.log("coordinates", coordinates, roomNum);
       const response = await axios.post(
-        '/api/CRM/Evaluation/AddEvaluation',
+        "/api/CRM/Evaluation/AddEvaluation",
         evaluationData,
         {
           headers: {
-            'Content-Type': 'application/json-patch+json',
+            "Content-Type": "application/json-patch+json",
             lang: evaluationData.language,
-            'Accept': '*/*',
+            Accept: "*/*",
 
             RoomId: roomNum ?? "",
             Latitude: coordinates?.lat ?? "",
@@ -31,13 +31,18 @@ export const addEvaluation = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response?.data || error.message);
+      // console.log("err", error);
+
+      return rejectWithValue({
+        status: error?.status,
+        payload: error.response?.data || error.message,
+      });
     }
   }
 );
 
 const evaluationSlice = createSlice({
-  name: 'evaluation',
+  name: "evaluation",
   initialState: {
     loading: false,
     successState: null,
@@ -66,7 +71,7 @@ const evaluationSlice = createSlice({
       })
       .addCase(addEvaluation.rejected, (state, action) => {
         state.loading = false;
-        state.errorMessage = action.payload || 'Something went wrong';
+        state.errorMessage = action.payload || "Something went wrong";
       });
   },
 });

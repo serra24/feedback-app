@@ -15,7 +15,7 @@ import dayjs from "dayjs";
 import clockicon from "../../assets/icons/clock-icon.svg";
 import { LanguageContext } from "../../context/LanguageContext";
 const CustomTimePicker = ({ label, name, value, onChange, onBlur, error, touched }) => {
-  const { translations: t } = useContext(LanguageContext);
+  const { translations: t,language } = useContext(LanguageContext);
   
   const [anchorEl, setAnchorEl] = useState(null);
   const [hour, setHour] = useState("01");
@@ -115,6 +115,9 @@ const CustomTimePicker = ({ label, name, value, onChange, onBlur, error, touched
           }}
         >
           {label}
+             <Typography component="span" sx={{ color: "red", marginRight:language==="ar"? "4px" :0,marginLeft:language==="en"?"4px":0}}>
+            *
+          </Typography>
         </Typography>
         {/* 
         <TextField

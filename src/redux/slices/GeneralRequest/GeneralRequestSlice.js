@@ -13,7 +13,7 @@ export const createRequest = createAsyncThunk(
       const roomNum = state.room.roomNum;
       // const bookingNumber = state.room.bookingNumber;
       // const locationStatus = state.location.locationStatus;
-      console.log("coordinates", coordinates, roomNum);
+      // console.log("coordinates", coordinates, roomNum);
       const response = await axios.post('/api/CRM/GeneralRequest/CreateRequest', formData, {
         headers: {
           // 'Content-Type': 'application/json-patch+json',

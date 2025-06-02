@@ -92,6 +92,7 @@ const RateServicePage = () => {
           placeholder={t.Complaint.guestName.placeholder}
           error={formik.errors.guestName}
           touched={formik.touched.guestName}
+          required
         />
 
         <InputField

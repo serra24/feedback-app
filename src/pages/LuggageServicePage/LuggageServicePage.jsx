@@ -108,84 +108,89 @@ const LuggageServicePage = () => {
       numberOfBags: "", // add this if it’s used
     },
     validationSchema,
-   onSubmit: async (values) => {
-  if (
-    locationAsked &&
-    locationStatus === "allowed" &&
-    "geolocation" in navigator
-  ) {
-    try {
-      const position = await getLocation();
-      console.log("User location:", position);
+    onSubmit: async (values) => {
+      if (
+        locationAsked &&
+        locationStatus === "allowed" &&
+        "geolocation" in navigator
+      ) {
+        try {
+          const position = await getLocation();
+          // console.log("User location:", position);
 
-      const freshCoordinates = {
-        lat: position?.latitude,
-        lng: position?.longitude,
-      };
+          const freshCoordinates = {
+            lat: position?.latitude,
+            lng: position?.longitude,
+          };
 
-      setCoordinates(freshCoordinates); // optional, if you want to show it in UI
+          setCoordinates(freshCoordinates); // optional, if you want to show it in UI
 
-      // Map luggage service type
-      let mappedItems = null;
-      const complaintType = parseInt(values.complaintType);
+          // Map luggage service type
+          let mappedItems = null;
+          const complaintType = parseInt(values.complaintType);
 
-      if (complaintType === 1) {
-        mappedItems = 1;
-      } else if (complaintType === 3) {
-        mappedItems = 2;
-      }
-
-        const requestData = {
-        name: values.fullName,
-        roomId: roomNum,
-        serviceType: mappedItems,
-        description: values.complaintDetails,
-        email: values.email || null,
-        phoneNumber: values.phone || null,
-        perfectDate: values.preferredTime,
-        bagNumber: values.numberOfBags,
-      };
-
-      setIsSubmitting(true);
-
-      dispatch(addBellBoyRequest({ requestData, language, coordinates: freshCoordinates }))
-        .then((response) => {
-          if (response?.payload?.successtate === 200) {
-            setPopupMessage(t.sucessRequest);
-            setPopupType("success");
-            setPopupOpen(true);
-            formik.resetForm();
-          } else {
-            console.log("Response error:", response);
-            setPopupMessage(
-              response?.payload?.errormessage || response?.payload
-            );
-            setPopupType("error");
-            setPopupOpen(true);
+          if (complaintType === 1) {
+            mappedItems = 1;
+          } else if (complaintType === 3) {
+            mappedItems = 2;
           }
-        })
-        .catch((error) => {
-          console.error("Request error:", error);
-          setPopupMessage(t.unexpectedError || "حدث خطأ غير متوقع");
-          setPopupType("error");
-          setPopupOpen(true);
-        })
-        .finally(() => {
-          setIsSubmitting(false);
-        });
 
-      return; // ✅ prevent further execution
-    } catch (error) {
-      console.error("Location access failed:", error.message);
-      setLocationPopupOpen(true);
-      return;
-    }
-  } else {
-    setLocationPopupOpen(true);
-    return;
-  }
-},
+          const requestData = {
+            name: values.fullName,
+            roomId: roomNum,
+            serviceType: mappedItems,
+            description: values.complaintDetails,
+            email: values.email || null,
+            phoneNumber: values.phone || null,
+            perfectDate: values.preferredTime,
+            bagNumber: values.numberOfBags,
+          };
 
+          setIsSubmitting(true);
+
+          dispatch(
+            addBellBoyRequest({
+              requestData,
+              language,
+              coordinates: freshCoordinates,
+            })
+          )
+            .then((response) => {
+              if (response?.payload?.successtate === 200) {
+                setPopupMessage(t.sucessRequest);
+                setPopupType("success");
+                setPopupOpen(true);
+                formik.resetForm();
+              } else {
+                // console.log("Response error:", response);
+                setPopupMessage(
+                  response?.payload?.errormessage || response?.payload
+                );
+                setPopupType("error");
+                setPopupOpen(true);
+              }
+            })
+            .catch((error) => {
+              console.error("Request error:", error);
+              setPopupMessage(t.unexpectedError || "حدث خطأ غير متوقع");
+              setPopupType("error");
+              setPopupOpen(true);
+            })
+            .finally(() => {
+              setIsSubmitting(false);
+            });
+
+          return; // ✅ prevent further execution
+        } catch (error) {
+          console.error("Location access failed:", error.message);
+          setLocationPopupOpen(true);
+          return;
+        }
+      } else {
+        setLocationPopupOpen(true);
+        return;
+      }
+    },
   });
 
   const handleAllowLocation = () => {
@@ -245,17 +250,20 @@ const LuggageServicePage = () => {
       name: "fullName",
       label: t.cleaningForm.fullNameLabel,
       placeholder: t.cleaningForm.fullNamePlaceholder,
+      required: true,
     },
     {
       name: "phone",
       label: t.cleaningForm.phoneLabel,
       placeholder: t.cleaningForm.phonePlaceholder,
+      required: false,
     },
 
     {
       name: "email",
       label: t.Complaint.email.label,
       placeholder: t.Complaint.email.placeholder,
+      required: false,
     },
     {
       name: "roomNumber",
@@ -267,12 +275,14 @@ const LuggageServicePage = () => {
       label: t.cleaningForm.preferredTimeLabel,
       placeholder: "",
       type: "time",
+      required: true,
     },
     {
       name: "numberOfBags",
       label: t.cleaningForm.numberOfBagsLabel,
       placeholder: t.cleaningForm.numberOfBagsPlaceholder,
       type: "number",
+      required: true,
     },
   ];
   if (!isDataLoaded) return <Loading />;
@@ -379,6 +389,7 @@ const LuggageServicePage = () => {
                   placeholder={field.placeholder}
                   iconSrc={field.iconSrc}
                   disabled={index === 3}
+                  required={field.required}
                 />
               )}
             </Box>
@@ -397,6 +408,16 @@ const LuggageServicePage = () => {
             }}
           >
             {t.luggageForm.typeofserviceLabel}
+            <Typography
+              component="span"
+              sx={{
+                color: "red",
+                marginRight: language === "ar" ? "4px" : 0,
+                marginLeft: language === "en" ? "4px" : 0,
+              }}
+            >
+              *
+            </Typography>
           </Typography>
 
           <FormGroup

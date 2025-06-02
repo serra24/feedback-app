@@ -88,9 +88,9 @@ const Home = () => {
 
           if (isOccupied) {
             dispatch(setRoomNumber(roomNumber));
-            console.log("✅ Room is occupied. Saved:", roomNumber);
+            // console.log("✅ Room is occupied. Saved:", roomNumber);
           } else {
-            console.warn("⚠️ Room is NOT occupied. Redirecting.");
+            // console.warn("⚠️ Room is NOT occupied. Redirecting.");
             navigate("/room-not-occupied"); // or trigger a modal
           }
         } else {

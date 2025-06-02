@@ -14,7 +14,7 @@ export const addBellBoyRequest = createAsyncThunk(
       const roomNum = state.room.roomNum;
       // const bookingNumber = state.room.bookingNumber;
       // const locationStatus = state.location.locationStatus;
-      console.log("coordinates", coordinates, roomNum);
+      // console.log("coordinates", coordinates, roomNum);
 
       const response = await axios.post(
         "/api/CRM/BellBoy/AddRequest",
@@ -25,9 +25,9 @@ export const addBellBoyRequest = createAsyncThunk(
             Accept: "*/*",
             lang: language === "ar" ? 1 : 2,
 
-            RoomId: roomNum ?? "",
-            Latitude: coordinates?.lat ?? "",
-            Longitude: coordinates?.lng ?? "",
+            roomid: roomNum ?? "",
+            latitude: coordinates?.lat ?? "",
+            longitude: coordinates?.lng ?? "",
           },
         }
       );
@@ -35,7 +35,7 @@ export const addBellBoyRequest = createAsyncThunk(
 
       return response.data;
     } catch (err) {
-      console.log("Error in addBellBoyRequest:", err);
+      // console.log("Error in addBellBoyRequest:", err);
 
       return rejectWithValue(err.response?.data || err.message);
     }

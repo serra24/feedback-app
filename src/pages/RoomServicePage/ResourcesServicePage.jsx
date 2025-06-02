@@ -34,12 +34,12 @@ const ResourcesServicePage = () => {
   const { translations: t, language } = useContext(LanguageContext);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-    const [isSubmitting, setIsSubmitting] = useState(false);
- const [locationPopupOpen, setLocationPopupOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [locationPopupOpen, setLocationPopupOpen] = useState(false);
   const locationAsked = useSelector((state) => state.location.locationAsked);
   const [coordinates, setCoordinates] = useState({ lat: null, lng: null });
   const locationStatus = useSelector((state) => state.location.locationStatus);
- const getLocation = () => {
+  const getLocation = () => {
     return new Promise((resolve, reject) => {
       if (!navigator.geolocation) {
         reject(new Error("Geolocation is not supported"));
@@ -91,7 +91,7 @@ const ResourcesServicePage = () => {
       // .matches(/^(\+\d{1,2}\s?)?(\d{10})$/, "رقم الهاتف غير صالح")
       // .required("رقم الهاتف مطلوب"),
       .min(8, t.validation.phone.min),
-      email: Yup.string().email(t.emailInvalid),
+    email: Yup.string().email(t.emailInvalid),
     roomNumber: Yup.string().required(t.roomNumberRequired),
     complaintItems: Yup.array()
       .of(
@@ -121,113 +121,118 @@ const ResourcesServicePage = () => {
     initialValues: {
       fullName: "",
       phone: "",
-        email: "",
+      email: "",
       roomNumber: number || "Unknown Room",
       complaintItems: [],
       complaintDetails: "",
     },
     validationSchema,
     onSubmit: async (values) => {
-     if (
-    locationAsked &&
-    locationStatus === "allowed" &&
-    "geolocation" in navigator
-  ) {
-    try {
-      const position = await getLocation();
-      console.log("User location:", position);
+      if (
+        locationAsked &&
+        locationStatus === "allowed" &&
+        "geolocation" in navigator
+      ) {
+        try {
+          const position = await getLocation();
+          // console.log("User location:", position);
 
-      const freshCoordinates = {
-        lat: position?.latitude,
-        lng: position?.longitude,
-      };
+          const freshCoordinates = {
+            lat: position?.latitude,
+            lng: position?.longitude,
+          };
 
-      setCoordinates(freshCoordinates);
-              setIsSubmitting(true);
+          setCoordinates(freshCoordinates);
+          setIsSubmitting(true);
 
-      // console.log("Form submitted with values: ", values);
-      const requestData = {
-        name: values.fullName,
-        roomId: roomNum,
-        typeId: 3, // Main : 2, HK :1, Supp : 3
-        Items: values.complaintItems.map((item) => ({
-          supplyId: item.id,
-          quantity: item.quantity,
-        })),
-        Description: values.complaintDetails,
-         email: "",
-        phoneNumber: values.phone,
-        maintenanceData: null,
-      };
-      // Create a new FormData instance
-      const formData = new FormData();
+          // console.log("Form submitted with values: ", values);
+          const requestData = {
+            name: values.fullName,
+            roomId: roomNum,
+            typeId: 3, // Main : 2, HK :1, Supp : 3
+            Items: values.complaintItems.map((item) => ({
+              supplyId: item.id,
+              quantity: item.quantity,
+            })),
+            Description: values.complaintDetails,
+            email: "",
+            phoneNumber: values.phone,
+            maintenanceData: null,
+          };
+          // Create a new FormData instance
+          const formData = new FormData();
 
-      // Append text fields to FormData
-      formData.append("Name", values.fullName || null);
-      formData.append("RoomId", roomNum || null);
-      formData.append("TypeId", 3); // Main : 2, HK : 1, Supp : 3
-      formData.append("Description", values.complaintDetails || null);
-      formData.append("Email",  values.email || null); // Adjust as needed
-      formData.append("PhoneNumber", values.phone || null);
+          // Append text fields to FormData
+          formData.append("Name", values.fullName || null);
+          formData.append("RoomId", roomNum || null);
+          formData.append("TypeId", 3); // Main : 2, HK : 1, Supp : 3
+          formData.append("Description", values.complaintDetails || null);
+          formData.append("Email", values.email || null); // Adjust as needed
+          formData.append("PhoneNumber", values.phone || null);
 
-      // Handling items: map each item and append it to FormData
-      // if (values.complaintItems && values.complaintItems.length > 0) {
-      //   values.complaintItems.forEach((item, index) => {
-      //     formData.append(`items[${index}].supplyId`, item.id || null);
-      //     formData.append(`items[${index}].quantity`, item.quantity || null);
-      //   });
-      // }
-      if (values.complaintItems && values.complaintItems.length > 0) {
-        let index = 0;
-        values.complaintItems.forEach((item) => {
-          if (item.quantity != null && item.quantity !== "") {
-            formData.append(`Items[${index}].supplyId`, item.id);
-            formData.append(`Items[${index}].quantity`, item.quantity);
-            index++;
+          // Handling items: map each item and append it to FormData
+          // if (values.complaintItems && values.complaintItems.length > 0) {
+          //   values.complaintItems.forEach((item, index) => {
+          //     formData.append(`items[${index}].supplyId`, item.id || null);
+          //     formData.append(`items[${index}].quantity`, item.quantity || null);
+          //   });
+          // }
+          if (values.complaintItems && values.complaintItems.length > 0) {
+            let index = 0;
+            values.complaintItems.forEach((item) => {
+              if (item.quantity != null && item.quantity !== "") {
+                formData.append(`Items[${index}].supplyId`, item.id);
+                formData.append(`Items[${index}].quantity`, item.quantity);
+                index++;
+              }
+            });
           }
-        });
+
+          // Append maintenanceData as null (or adjust as needed)
+          formData.append("MaintenanceData", null);
+          dispatch(
+            createRequest({ formData, language, coordinates: freshCoordinates })
+          )
+            .then((response) => {
+              if (response?.payload?.successtate === 200) {
+                // Adjust according to your response structure
+                setPopupMessage(t.sucessRequest);
+                setPopupType("success");
+                setPopupOpen(true);
+                formik.resetForm();
+              } else {
+                // console.log("Error", response);
+
+                setPopupMessage(
+                  response?.payload?.errormessage || response?.payload
+                );
+                setPopupType("error");
+                setPopupOpen(true);
+              }
+            })
+            .catch((error) => {
+              // console.error("Error", error);
+              setIsSubmitting(false);
+              setPopupMessage("An unexpected error occurred.");
+              setPopupType("error");
+              setPopupOpen(true);
+            })
+            .finally(() => {
+              setIsSubmitting(false);
+            });
+          return; // ✅ prevent further execution
+        } catch (error) {
+          console.error("Location access failed:", error.message);
+          setLocationPopupOpen(true);
+          return;
+        }
+      } else {
+        setLocationPopupOpen(true);
+        return;
       }
-
-      // Append maintenanceData as null (or adjust as needed)
-      formData.append("MaintenanceData", null);
-      dispatch(createRequest({formData, language, coordinates: freshCoordinates}))
-        .then((response) => {
-          if (response?.payload?.successtate === 200) {
-            // Adjust according to your response structure
-            setPopupMessage(t.sucessRequest);
-            setPopupType("success");
-            setPopupOpen(true);
-            formik.resetForm();
-          } else {
-            // console.log("Error", response);
-
-            setPopupMessage(response?.payload?.errormessage || response?.payload);
-            setPopupType("error");
-            setPopupOpen(true);
-          }
-        })
-        .catch((error) => {
-          // console.error("Error", error); 
-           setIsSubmitting(false); 
-          setPopupMessage("An unexpected error occurred.");
-          setPopupType("error");
-          setPopupOpen(true);
-        })  .finally(() => {
-        setIsSubmitting(false); 
-      });
-     return; // ✅ prevent further execution
-    } catch (error) {
-      console.error("Location access failed:", error.message);
-      setLocationPopupOpen(true);
-      return;
-    }
-  } else {
-    setLocationPopupOpen(true);
-    return;
-  }
-},
+    },
   });
-const handleAllowLocation = () => {
+  const handleAllowLocation = () => {
     dispatch(setLocationAsked(true));
     dispatch(setLocationStatus("allowed"));
     setLocationPopupOpen(false);
@@ -290,21 +295,26 @@ const handleAllowLocation = () => {
       name: "fullName",
       label: t.cleaningForm.fullNameLabel,
       placeholder: t.cleaningForm.fullNamePlaceholder,
+      required: true,
     },
     {
       name: "phone",
       label: t.cleaningForm.phoneLabel,
       placeholder: t.cleaningForm.phonePlaceholder,
+      required: false,
     },
-     {
+    {
       name: "email",
       label: t.Complaint.email.label,
       placeholder: t.Complaint.email.placeholder,
+      required: false,
     },
     {
       name: "roomNumber",
       label: t.Complaint.roomNumber.label,
       placeholder: t.Complaint.roomNumber.placeholder,
+      required: false,
+
     },
   ];
   if (!isDataLoaded) return <Loading />;
@@ -393,6 +403,7 @@ const handleAllowLocation = () => {
                 touched={formik.touched[field.name]}
                 placeholder={field.placeholder}
                 disabled={index === 3}
+                  required={field.required}
               />
             </Box>
           ))}
@@ -410,6 +421,9 @@ const handleAllowLocation = () => {
             }}
           >
             {t.resourcesForm.selectItemsLabel}
+               <Typography component="span" sx={{ color: "red", marginRight:language==="ar"? "4px" :0,marginLeft:language==="en"?"4px":0}}>
+            *
+          </Typography>
           </Typography>
 
           <FormGroup
@@ -547,12 +561,10 @@ const handleAllowLocation = () => {
               ))}
           </FormGroup>
           {formik.touched.complaintItems && formik.errors.complaintItems && (
-  <Typography color="error" sx={{ mt: 1 }}>
-    {formik.errors.complaintItems}
-  </Typography>
-)}
-
-
+            <Typography color="error" sx={{ mt: 1 }}>
+              {formik.errors.complaintItems}
+            </Typography>
+          )}
         </Box>
 
         {/* Complaint Details */}
@@ -600,7 +612,7 @@ const handleAllowLocation = () => {
           <Button
             type="submit"
             variant="contained"
-              disabled={isSubmitting}
+            disabled={isSubmitting}
             sx={{
               flex: 1,
               minWidth: 150,
@@ -612,8 +624,7 @@ const handleAllowLocation = () => {
               fontSize: 18,
             }}
           >
-          
-             {isSubmitting ? (
+            {isSubmitting ? (
               <CircularProgress size={24} sx={{ color: "white" }} />
             ) : (
               t.rateServicePage.form.submitButton
@@ -649,22 +660,23 @@ const handleAllowLocation = () => {
       <ErrorPopup
         open={popupOpen && popupType === "error"}
         message={popupMessage}
-        onClose={() => {setPopupOpen(false);
+        onClose={() => {
+          setPopupOpen(false);
           setIsSubmitting(false);
         }}
       />
-       {locationPopupOpen && (
-              <LocationPopup
-                title={t.locationPopup.requireAccess}
-                onAllow={handleAllowLocation}
-                onDeny={handleDeny}
-              />
-              //         <LocationPopup
-              //   title="Would you like to enable location services?"
-              //   onAllow={handleAllow}
-              //   onDeny={handleDeny}
-              // />
-            )}
+      {locationPopupOpen && (
+        <LocationPopup
+          title={t.locationPopup.requireAccess}
+          onAllow={handleAllowLocation}
+          onDeny={handleDeny}
+        />
+        //         <LocationPopup
+        //   title="Would you like to enable location services?"
+        //   onAllow={handleAllow}
+        //   onDeny={handleDeny}
+        // />
+      )}
     </Box>
   );
 };

@@ -41,9 +41,9 @@ curl -X POST "http://38.170.230.82:3040/api/DisbursementRequest/save" \
 ### Add Evaluation Request
 POST http://38.170.230.82:3040/api/CRM/Evaluation/AddEvaluation
 Content-Type: application/json
-X-RoomId: 660106
-X-Latitude: 40.690323
-X-Longitude: -74.183552
+roomid: 660106
+latitude: 30.223678755602254
+longitude: 31.448064497017715
 
 {
   "name": "israa",

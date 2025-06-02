@@ -46,7 +46,7 @@ const MaintenanceServicePage = () => {
   const locationAsked = useSelector((state) => state.location.locationAsked);
   const [coordinates, setCoordinates] = useState({ lat: null, lng: null });
   const locationStatus = useSelector((state) => state.location.locationStatus);
- const getLocation = () => {
+  const getLocation = () => {
     return new Promise((resolve, reject) => {
       if (!navigator.geolocation) {
         reject(new Error("Geolocation is not supported"));
@@ -163,104 +163,114 @@ const MaintenanceServicePage = () => {
       email: Yup.string().email(t.emailInvalid),
     }),
     onSubmit: async (values) => {
-     if (
-    locationAsked &&
-    locationStatus === "allowed" &&
-    "geolocation" in navigator
-  ) {
-    try {
-      const position = await getLocation();
-      console.log("User location:", position);
+      if (
+        locationAsked &&
+        locationStatus === "allowed" &&
+        "geolocation" in navigator
+      ) {
+        try {
+          const position = await getLocation();
+          // console.log("User location:", position);
 
-      const freshCoordinates = {
-        lat: position?.latitude,
-        lng: position?.longitude,
-      };
+          const freshCoordinates = {
+            lat: position?.latitude,
+            lng: position?.longitude,
+          };
 
-      setCoordinates(freshCoordinates);
-      setIsSubmitting(true);
-      try {
-        const formData = new FormData();
+          setCoordinates(freshCoordinates);
+          setIsSubmitting(true);
+          try {
+            const formData = new FormData();
 
-        const normalize = (val) =>
-          val !== undefined && val !== "" ? val : null;
-        // 🧩 MaintenanceData fields
-        const maintenanceData = {
-          Description: normalize(values.notes),
-          Title: normalize(values.title),
-          From: new Date().toISOString(),
-          To: new Date().toISOString(),
-          MainMentananceCategoryId: normalize(parseInt(values.mainCategoryId)),
-          SubMentananceCategoryId: normalize(parseInt(values.subCategoryId)),
-          RoomId: normalize(parseInt(roomNum)),
-          PriorityId: normalize(parseInt(values.priorityId)),
-        };
+            const normalize = (val) =>
+              val !== undefined && val !== "" ? val : null;
+            // 🧩 MaintenanceData fields
+            const maintenanceData = {
+              Description: normalize(values.notes),
+              Title: normalize(values.title),
+              From: new Date().toISOString(),
+              To: new Date().toISOString(),
+              MainMentananceCategoryId: normalize(
+                parseInt(values.mainCategoryId)
+              ),
+              SubMentananceCategoryId: normalize(
+                parseInt(values.subCategoryId)
+              ),
+              RoomId: normalize(parseInt(roomNum)),
+              PriorityId: normalize(parseInt(values.priorityId)),
+            };
 
-        // 📎 Main request fields
-        formData.append("Name", normalize(values.fullName));
-        formData.append("RoomId", normalize(parseInt(roomNum)));
-        formData.append("TypeId", normalize(2)); // Set type accordingly
-        formData.append("Description", normalize(values.notes));
-        // formData.append("PreferredTime", normalize(new Date().toISOString()));
-        formData.append("Email", normalize(values.email));
-        formData.append("PhoneNumber", normalize(values.phone));
+            // 📎 Main request fields
+            formData.append("Name", normalize(values.fullName));
+            formData.append("RoomId", normalize(parseInt(roomNum)));
+            formData.append("TypeId", normalize(2)); // Set type accordingly
+            formData.append("Description", normalize(values.notes));
+            // formData.append("PreferredTime", normalize(new Date().toISOString()));
+            formData.append("Email", normalize(values.email));
+            formData.append("PhoneNumber", normalize(values.phone));
 
-        // 📎 MaintenanceData fields
-        Object.entries(maintenanceData).forEach(([key, val]) => {
-          formData.append(`MaintenanceData.${key}`, normalize(val));
-        });
+            // 📎 MaintenanceData fields
+            Object.entries(maintenanceData).forEach(([key, val]) => {
+              formData.append(`MaintenanceData.${key}`, normalize(val));
+            });
 
-        // 📎 File
-        if (uploadedFile) {
-          formData.append("MaintenanceData.Attachment", uploadedFile);
-        } else {
-          formData.append("MaintenanceData.Attachment", null); // Explicitly null if no file
+            // 📎 File
+            if (uploadedFile) {
+              formData.append("MaintenanceData.Attachment", uploadedFile);
+            } else {
+              formData.append("MaintenanceData.Attachment", null); // Explicitly null if no file
+            }
+
+            // 📨 Send
+            const response = await dispatch(
+              createRequest({
+                formData,
+                language,
+                coordinates: freshCoordinates,
+              })
+            );
+
+            // ✅ Debug
+            for (let [key, val] of formData.entries()) {
+              // console.log(`${key}:`, val);
+            }
+
+            // 🎯 Response handling
+            if (response?.payload?.successtate === 200) {
+              setPopupMessage(t.sucessRequest);
+              setPopupType("success");
+              formik.resetForm();
+              setUploadedFile(null);
+            } else {
+              setPopupMessage(
+                response?.payload?.errormessage || response?.payload
+              );
+              setPopupType("error");
+            }
+
+            setPopupOpen(true);
+          } catch (error) {
+            // console.error("Error", error);
+            setIsSubmitting(false);
+            setPopupMessage("An unexpected error occurred.");
+            setPopupType("error");
+            setPopupOpen(true);
+          } finally {
+            setIsSubmitting(false);
+          }
+          return; // ✅ prevent further execution
+        } catch (error) {
+          console.error("Location access failed:", error.message);
+          setLocationPopupOpen(true);
+          return;
         }
-
-        // 📨 Send
-        const response = await dispatch(createRequest({formData, language, coordinates: freshCoordinates}));
-
-        // ✅ Debug
-        for (let [key, val] of formData.entries()) {
-          // console.log(`${key}:`, val);
-        }
-
-        // 🎯 Response handling
-        if (response?.payload?.successtate === 200) {
-          setPopupMessage(t.sucessRequest);
-          setPopupType("success");
-          formik.resetForm();
-          setUploadedFile(null);
-        } else {
-          setPopupMessage(
-            response?.payload?.errormessage || response?.payload
-          );
-          setPopupType("error");
-        }
-
-        setPopupOpen(true);
-      } catch (error) {
-        // console.error("Error", error);
-        setIsSubmitting(false);
-        setPopupMessage("An unexpected error occurred.");
-        setPopupType("error");
-        setPopupOpen(true);
-      } finally {
-        setIsSubmitting(false);
+      } else {
+        setLocationPopupOpen(true);
+        return;
       }
-     return; // ✅ prevent further execution
-    } catch (error) {
-      console.error("Location access failed:", error.message);
-      setLocationPopupOpen(true);
-      return;
-    }
-  } else {
-    setLocationPopupOpen(true);
-    return;
-  }
-},
+    },
   });
- const handleAllowLocation = () => {
+  const handleAllowLocation = () => {
     dispatch(setLocationAsked(true));
     dispatch(setLocationStatus("allowed"));
     setLocationPopupOpen(false);
@@ -381,6 +391,7 @@ const MaintenanceServicePage = () => {
               error={formik.errors.fullName}
               touched={formik.touched.fullName}
               placeholder={t.cleaningForm.fullNamePlaceholder}
+              required
             />
           </Box>
 
@@ -423,7 +434,7 @@ const MaintenanceServicePage = () => {
             <InputField
               label={t.Complaint.roomNumber.label}
               name="roomNumber"
-            value={formik.values.roomNumber}
+              value={formik.values.roomNumber}
               // onChange={formik.handleChange}
               // onBlur={formik.handleBlur}
               // error={formik.errors.title}
@@ -443,6 +454,7 @@ const MaintenanceServicePage = () => {
               error={formik.errors.title}
               touched={formik.touched.title}
               placeholder={t.Maintenance.titlePlaceholder}
+              required
             />
           </Box>
           <Box
@@ -458,6 +470,16 @@ const MaintenanceServicePage = () => {
               }}
             >
               {t.Maintenance.priority}
+              <Typography
+                component="span"
+                sx={{
+                  color: "red",
+                  marginRight: language === "ar" ? "4px" : 0,
+                  marginLeft: language === "en" ? "4px" : 0,
+                }}
+              >
+                *
+              </Typography>
             </Typography>
             <FormControl
               fullWidth
@@ -532,6 +554,16 @@ const MaintenanceServicePage = () => {
                 }}
               >
                 {field.label}
+                <Typography
+                  component="span"
+                  sx={{
+                    color: "red",
+                    marginRight: language === "ar" ? "4px" : 0,
+                    marginLeft: language === "en" ? "4px" : 0,
+                  }}
+                >
+                  *
+                </Typography>
               </Typography>
 
               <FormControl
@@ -826,7 +858,7 @@ const MaintenanceServicePage = () => {
           setIsSubmitting(false);
         }}
       />
-        {locationPopupOpen && (
+      {locationPopupOpen && (
         <LocationPopup
           title={t.locationPopup.requireAccess}
           onAllow={handleAllowLocation}

@@ -116,7 +116,7 @@ const EvaluationPage = () => {
     ) {
       try {
         const position = await getLocation();
-        console.log("User location:", position);
+        // console.log("User location:", position);
 
         const freshCoordinates = {
           lat: position?.latitude,
@@ -163,6 +163,8 @@ const EvaluationPage = () => {
           addEvaluation({ evaluationData, coordinates: freshCoordinates })
         )
           .then((response) => {
+            // console.log("re", response);
+
             // console.log("Evaluation submitted successfully:", response);
             if (response.payload.successtate === 200) {
               setPopupMessage(response.payload?.message);
@@ -171,16 +173,35 @@ const EvaluationPage = () => {
               setComment("");
               setRatings(data?.map(() => 0));
               setHovered({ index: null, value: 0 });
+              // } else {
+              //   setPopupMessage(response.payload?.errormessage|| response?.payload?.payload);
+              //   // console.log("Error message:", response?.payload?.errormessage);
+
+              //   setPopupType("error");
+              //   setPopupOpen(true); // Show error popup
+              // }
             } else {
-              setPopupMessage(response.payload?.errormessage|| response.payload);
-              // console.log("Error message:", response?.payload?.errormessage);
+              const payload = response.payload;
+
+              if (payload?.status === 400) {
+                // Show a specific message for status 400
+                setPopupMessage(
+                  "Room and location are required. Please make sure you allow location and your room is selected."
+                );
+              } else {
+                // Fallback to error message or payload string
+                setPopupMessage(
+                  payload?.errormessage ||
+                    payload?.payload ||
+                    "Something went wrong."
+                );
+              }
 
               setPopupType("error");
-              setPopupOpen(true); // Show error popup
+              setPopupOpen(true);
             }
           })
           .catch((error) => {
-            
             // console.log("Error submitting evaluation:", error);
             setIsSubmitting(false);
             setPopupMessage(error?.errormessage);

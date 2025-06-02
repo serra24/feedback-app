@@ -42,11 +42,11 @@ const GuestServicePage = () => {
   const [popupMessage, setPopupMessage] = useState("");
   const [popupType, setPopupType] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
- const [locationPopupOpen, setLocationPopupOpen] = useState(false);
+  const [locationPopupOpen, setLocationPopupOpen] = useState(false);
   const locationAsked = useSelector((state) => state.location.locationAsked);
   const [coordinates, setCoordinates] = useState({ lat: null, lng: null });
   const locationStatus = useSelector((state) => state.location.locationStatus);
- const getLocation = () => {
+  const getLocation = () => {
     return new Promise((resolve, reject) => {
       if (!navigator.geolocation) {
         reject(new Error("Geolocation is not supported"));
@@ -125,80 +125,82 @@ const GuestServicePage = () => {
       priorityId: "",
     },
     validationSchema,
-  
-       onSubmit: async (values) => {
-     if (
-    locationAsked &&
-    locationStatus === "allowed" &&
-    "geolocation" in navigator
-  ) {
-    try {
-      const position = await getLocation();
-      console.log("User location:", position);
 
-      const freshCoordinates = {
-        lat: position?.latitude,
-        lng: position?.longitude,
-      };
+    onSubmit: async (values) => {
+      if (
+        locationAsked &&
+        locationStatus === "allowed" &&
+        "geolocation" in navigator
+      ) {
+        try {
+          const position = await getLocation();
+          // console.log("User location:", position);
 
-      setCoordinates(freshCoordinates);
-      setIsSubmitting(true);
+          const freshCoordinates = {
+            lat: position?.latitude,
+            lng: position?.longitude,
+          };
 
-      const payload = {
-        title: values.title,
-        description: values.complaintDetails,
-        expectedAction: values.expectedAction,
-        email: values.email,
-        phoneNumber: values.phone,
-        name: values.guestName,
-        roomId: roomNum,
-        priorityId: values.priorityId,
-        sourceId: 1,
-        itemsIds: values.complaintTypes,
-      };
-      // console.log("payload", payload);
+          setCoordinates(freshCoordinates);
+          setIsSubmitting(true);
 
-      // Dispatch the action and handle success/error
-      dispatch(createComplaint({payload, language, coordinates}))
-        .then((response) => {
-          // console.log("Response", response);
-          if (response?.payload?.successtate === 200) {
-            // Adjust according to your response structure
-            setPopupMessage(t.sucessRequest);
-            setPopupType("success");
-            setPopupOpen(true);
-            formik.resetForm();
-          } else {
-            // console.log("Error", response);
+          const payload = {
+            title: values.title,
+            description: values.complaintDetails,
+            expectedAction: values.expectedAction,
+            email: values.email,
+            phoneNumber: values.phone,
+            name: values.guestName,
+            roomId: roomNum,
+            priorityId: values.priorityId,
+            sourceId: 1,
+            itemsIds: values.complaintTypes,
+          };
+          // console.log("payload", payload);
 
-            setPopupMessage(response?.payload?.errormessage ||response?.payload);
-            setPopupType("error");
-            setPopupOpen(true);
-          }
-        })
-        .catch((error) => {
-          // console.error("Error", error);
-          setIsSubmitting(false); 
-          setPopupMessage("An unexpected error occurred.");
-          setPopupType("error");
-          setPopupOpen(true);
-        })
-        .finally(() => {
-          setIsSubmitting(false); 
-        });
-      return; // ✅ prevent further execution
-    } catch (error) {
-      console.error("Location access failed:", error.message);
-      setLocationPopupOpen(true);
-      return;
-    }
-  } else {
-    setLocationPopupOpen(true);
-    return;
-  }
-},
+          // Dispatch the action and handle success/error
+          dispatch(createComplaint({ payload, language, coordinates }))
+            .then((response) => {
+              // console.log("Response", response);
+              if (response?.payload?.successtate === 200) {
+                // Adjust according to your response structure
+                setPopupMessage(t.sucessRequest);
+                setPopupType("success");
+                setPopupOpen(true);
+                formik.resetForm();
+              } else {
+                // console.log("Error", response);
+
+                setPopupMessage(
+                  response?.payload?.errormessage || response?.payload
+                );
+                setPopupType("error");
+                setPopupOpen(true);
+              }
+            })
+            .catch((error) => {
+              // console.error("Error", error);
+              setIsSubmitting(false);
+              setPopupMessage("An unexpected error occurred.");
+              setPopupType("error");
+              setPopupOpen(true);
+            })
+            .finally(() => {
+              setIsSubmitting(false);
+            });
+          return; // ✅ prevent further execution
+        } catch (error) {
+          console.error("Location access failed:", error.message);
+          setLocationPopupOpen(true);
+          return;
+        }
+      } else {
+        setLocationPopupOpen(true);
+        return;
+      }
+    },
   });
-const handleAllowLocation = () => {
+  const handleAllowLocation = () => {
     dispatch(setLocationAsked(true));
     dispatch(setLocationStatus("allowed"));
     setLocationPopupOpen(false);
@@ -283,16 +285,19 @@ const handleAllowLocation = () => {
       name: "guestName",
       label: t.Complaint.guestName.label,
       placeholder: t.Complaint.guestName.placeholder,
+      required: true,
     },
     {
       name: "phone",
       label: t.Complaint.phone.label,
       placeholder: t.Complaint.phone.placeholder,
+      required: false,
     },
     {
       name: "email",
       label: t.Complaint.email.label,
       placeholder: t.Complaint.email.placeholder,
+      required: false,
     },
     // {
     //   name: "title",
@@ -401,6 +406,7 @@ const handleAllowLocation = () => {
                   placeholder={field.placeholder}
                   iconSrc={field.iconSrc}
                   disabled={index < 3}
+                  required={field.required}
                 />
               )}
             </Box>
@@ -506,7 +512,18 @@ const handleAllowLocation = () => {
             }}
           >
             {t.Complaint.complaintTypesTitle}
+            <Typography
+              component="span"
+              sx={{
+                color: "red",
+                marginRight: language === "ar" ? "4px" : 0,
+                marginLeft: language === "en" ? "4px" : 0,
+              }}
+            >
+              *
+            </Typography>
           </Typography>
+
           <Typography
             sx={{
               fontFamily: "Almarai",
@@ -598,6 +615,16 @@ const handleAllowLocation = () => {
             }}
           >
             {t.Complaint.complaintDetails.label}
+            <Typography
+              component="span"
+              sx={{
+                color: "red",
+                marginRight: language === "ar" ? "4px" : 0,
+                marginLeft: language === "en" ? "4px" : 0,
+              }}
+            >
+              *
+            </Typography>
           </Typography>
           {/* <Typography
             sx={{
@@ -755,11 +782,12 @@ const handleAllowLocation = () => {
       <ErrorPopup
         open={popupOpen && popupType === "error"}
         message={popupMessage}
-        onClose={() => {setPopupOpen(false);
-            setIsSubmitting(false); 
+        onClose={() => {
+          setPopupOpen(false);
+          setIsSubmitting(false);
         }}
       />
-       {locationPopupOpen && (
+      {locationPopupOpen && (
         <LocationPopup
           title={t.locationPopup.requireAccess}
           onAllow={handleAllowLocation}

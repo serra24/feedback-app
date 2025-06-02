@@ -6,8 +6,8 @@ import { LanguageContext } from "../../context/LanguageContext";
 
 // eslint-disable-next-line no-undef
 const LocationPopup = ({ title, onAllow, onDeny }) => {
-    const { translations: t } = useContext(LanguageContext);
-    // Use default title if not provided
+  const { translations: t } = useContext(LanguageContext);
+  // Use default title if not provided
   const popupTitle = title || t.locationPopup.allowLocationAccess;
 
   return (
@@ -28,23 +28,22 @@ const LocationPopup = ({ title, onAllow, onDeny }) => {
       <Box
         sx={{
           bgcolor: "#fff",
-          p: 4,
+          p: { md: 4, xs: 2 },
           borderRadius: 3,
-          width: "90%",
+          width: { md: "90%", xs: "80%" },
           maxWidth: 400,
           boxShadow: 8,
           textAlign: "center",
           position: "relative",
         }}
       >
-      <IconButton
-  onClick={onDeny}
-  aria-label="Close"
-  sx={{ position: "absolute", top: 8, right: 8 }}
->
-  <CloseIcon sx={{ color: "#9D7C47" }} />
-</IconButton>
-
+        <IconButton
+          onClick={onDeny}
+          aria-label="Close"
+          sx={{ position: "absolute", top: 8, right: 8 }}
+        >
+          <CloseIcon sx={{ color: "#9D7C47" }} />
+        </IconButton>
 
         <Box
           sx={{
@@ -61,8 +60,8 @@ const LocationPopup = ({ title, onAllow, onDeny }) => {
           <LocationOnIcon sx={{ fontSize: 32, color: "#9D7C47" }} />
         </Box>
 
-        <Typography variant="h6" sx={{ mb: 2, fontWeight: 600, color: "#333" }}>
-             {popupTitle}
+        <Typography  sx={{fontSize:{md:"32px",xs:"20px"}, mb: 2, fontWeight: 600, color: "#333" }}>
+          {popupTitle}
         </Typography>
 
         <Box sx={{ display: "flex", justifyContent: "center", gap: 2, mt: 3 }}>
@@ -90,8 +89,8 @@ const LocationPopup = ({ title, onAllow, onDeny }) => {
                 borderColor: "#9D7C47",
               },
             }}
-          >{t.locationPopup.deny}
-            
+          >
+            {t.locationPopup.deny}
           </Button>
         </Box>
       </Box>

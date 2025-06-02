@@ -1,5 +1,6 @@
-import React from "react";
+import React,{useContext} from "react";
 import { Box, Typography, TextField, InputAdornment } from "@mui/material";
+import { LanguageContext } from "../../context/LanguageContext";
 
 const InputField = ({
   label,
@@ -13,10 +14,12 @@ const InputField = ({
   name,
   type = "text",
   disabled = false,
+    required = false,
 }) => {
+    const { translations: t ,language:lang} = useContext(LanguageContext);
   return (
     <Box>
-      <Typography
+        <Typography
         sx={{
           fontFamily: "Almarai, sans-serif",
           fontWeight: 400,
@@ -27,8 +30,12 @@ const InputField = ({
         }}
       >
         {label}
+        {required && (
+          <Typography component="span" sx={{ color: "red", marginRight:lang==="ar"? "4px" :0,marginLeft:lang==="en"?"4px":0}}>
+            *
+          </Typography>
+        )}
       </Typography>
-
       <TextField
         variant="outlined"
         name={name}

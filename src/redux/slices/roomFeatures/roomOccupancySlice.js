@@ -1,13 +1,16 @@
-// features/room/roomOccupancySlice.js
+import axiosInstancePromise from '../../../api/axiosInstance'; // ✅ Import the promise
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const checkRoomOccupancy = createAsyncThunk(
   'room/checkRoomOccupancy',
   async (roomId, { rejectWithValue }) => {
+    
     try {
+          const axios = await axiosInstancePromise;    
+      
       const response = await axios.get(
-        `http://38.170.230.82:3040/api/Lockup/IsRoomOccupied?RoomId=${roomId}`
+        `/api/Lockup/IsRoomOccupied?RoomId=${roomId}`
       );
       return response.data.message.isOccupied;
     } catch (error) {

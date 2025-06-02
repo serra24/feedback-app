@@ -116,7 +116,7 @@ const CleaningServicePage = () => {
   ) {
     try {
       const position = await getLocation();
-      console.log("User location:", position);
+      // console.log("User location:", position);
 
       const freshCoordinates = {
         lat: position?.latitude,
@@ -239,21 +239,27 @@ const CleaningServicePage = () => {
       name: "fullName",
       label: t.cleaningForm.fullNameLabel,
       placeholder: t.cleaningForm.fullNamePlaceholder,
+      required:true
     },
     {
       name: "phone",
       label: t.cleaningForm.phoneLabel,
       placeholder: t.cleaningForm.phonePlaceholder,
+      required:false
     },
      {
       name: "email",
       label: t.Complaint.email.label,
       placeholder: t.Complaint.email.placeholder,
+      required:false
+
     },
     {
       name: "roomNumber",
       label: t.Complaint.roomNumber.label,
       placeholder: t.Complaint.roomNumber.placeholder,
+      required:false
+
     },
     {
       name: "preferredTime",
@@ -363,6 +369,7 @@ const CleaningServicePage = () => {
                   placeholder={field.placeholder}
                   iconSrc={field.iconSrc}
                   disabled={index === 3}
+                    required={field.required}
                 />
               )}
             </Box>
