@@ -14,7 +14,7 @@ const AnimatedHeader = ({ title, subtitle }) => {
           sx={{
             fontFamily: "Almarai, sans-serif",
             fontWeight: 700,
-            fontSize: { xs: "22px", sm: "30px" },
+            fontSize: { xs: "20px", sm: "30px" },
             textAlign: "center",
             mb: {md:1.5,xs:2},
             color: "#ffffff",

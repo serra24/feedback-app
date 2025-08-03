@@ -108,7 +108,8 @@ const CustomTimePicker = ({ label, name, value, onChange, onBlur, error, touched
           sx={{
             fontFamily: "Almarai, sans-serif",
             fontWeight: 400,
-            fontSize: "18px",
+                                 fontSize: { md: "18px", xs: "14px" },
+
             lineHeight: "100%",
             color: "var(--white-color)",
             marginBottom: "12px",

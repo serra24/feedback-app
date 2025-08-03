@@ -78,7 +78,7 @@ const SuccessPopup = ({ open, message, onClose }) => {
           sx={{
             fontFamily: "Almarai, sans-serif",
             fontWeight: 500,
-            fontSize: "18px",
+            fontSize: {md: "18px", xs: "14px"},
           }}
         >
           {message}

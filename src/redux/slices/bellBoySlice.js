@@ -34,10 +34,20 @@ export const addBellBoyRequest = createAsyncThunk(
       // console.log("response",response);
 
       return response.data;
-    } catch (err) {
-      // console.log("Error in addBellBoyRequest:", err);
+      } catch (error) {
+      const data = error.response?.data;
 
-      return rejectWithValue(err.response?.data || err.message);
+      if (data?.errors) {
+        // Extract all error messages from each field and join with a separator
+        const allErrors = Object.values(data.errors)
+          .flat() // flatten arrays of error messages
+          .join(" | "); // join into one string
+
+        // Return just the combined error string
+        return rejectWithValue(allErrors);
+      }
+      // fallback: if no structured errors, return the message string
+      return rejectWithValue(data?.title ||error.response?.data|| error.response?.data?.message  || error.message);
     }
   }
 );

@@ -164,6 +164,7 @@ const ResourcesServicePage = () => {
 
           // Append text fields to FormData
           formData.append("Name", values.fullName || null);
+          formData.append("Title", null);
           formData.append("RoomId", roomNum || null);
           formData.append("TypeId", 3); // Main : 2, HK : 1, Supp : 3
           formData.append("Description", values.complaintDetails || null);
@@ -314,7 +315,6 @@ const ResourcesServicePage = () => {
       label: t.Complaint.roomNumber.label,
       placeholder: t.Complaint.roomNumber.placeholder,
       required: false,
-
     },
   ];
   if (!isDataLoaded) return <Loading />;
@@ -403,7 +403,7 @@ const ResourcesServicePage = () => {
                 touched={formik.touched[field.name]}
                 placeholder={field.placeholder}
                 disabled={index === 3}
-                  required={field.required}
+                required={field.required}
               />
             </Box>
           ))}
@@ -415,15 +415,23 @@ const ResourcesServicePage = () => {
             sx={{
               fontFamily: "Almarai",
               fontWeight: 400,
-              fontSize: "18px",
+              fontSize: { md: "18px", xs: "14px" },
+
               color: "#fff",
               mb: "6px",
             }}
           >
             {t.resourcesForm.selectItemsLabel}
-               <Typography component="span" sx={{ color: "red", marginRight:language==="ar"? "4px" :0,marginLeft:language==="en"?"4px":0}}>
-            *
-          </Typography>
+            <Typography
+              component="span"
+              sx={{
+                color: "red",
+                marginRight: language === "ar" ? "4px" : 0,
+                marginLeft: language === "en" ? "4px" : 0,
+              }}
+            >
+              *
+            </Typography>
           </Typography>
 
           <FormGroup
@@ -510,7 +518,10 @@ const ResourcesServicePage = () => {
                             "& .MuiFormControlLabel-label": {
                               color: "#fff", // Label text color
                               // width: "200px",
-                              fontSize: "16px !important",
+                              fontSize: {
+                                md: "16px !important",
+                                xs: "14px !important",
+                              },
                             },
                           }}
                         />
@@ -573,7 +584,8 @@ const ResourcesServicePage = () => {
             sx={{
               fontFamily: "Almarai",
               fontWeight: 400,
-              fontSize: "18px",
+              fontSize: { md: "18px", xs: "14px" },
+
               color: "#fff",
               mb: 1,
             }}
@@ -616,12 +628,13 @@ const ResourcesServicePage = () => {
             sx={{
               flex: 1,
               minWidth: 150,
-              height: 48,
+              height: { md: 48, xs: 40 },
+
               borderRadius: "5px",
               backgroundColor: "#00395D",
               fontFamily: "Almarai",
               fontWeight: 400,
-              fontSize: 18,
+              fontSize: { md: "18px", xs: "14px" },
             }}
           >
             {isSubmitting ? (
@@ -635,13 +648,14 @@ const ResourcesServicePage = () => {
             variant="contained"
             sx={{
               flex: 1,
-              minWidth: 150,
-              height: 48,
+              // minWidth: 150,
+              height: { md: 48, xs: 40 },
+
               borderRadius: "5px",
               backgroundColor: "#7C8A93",
               fontFamily: "Almarai",
               fontWeight: 400,
-              fontSize: 18,
+              fontSize: { md: "18px", xs: "14px" },
             }}
             onClick={() => formik.resetForm()}
           >

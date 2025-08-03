@@ -1,31 +1,43 @@
 import React, { useContext } from "react";
-import { Box, Typography, Button } from "@mui/material";
+import { Box, Typography, Button, IconButton } from "@mui/material";
 import InputField from "../../components/InputField/InputField";
 import bookingNumberIcon from "../../assets/icons/booking-number.svg";
 import secretNumberIcon from "../../assets/icons/secret-number.svg";
 import { LanguageContext } from "../../context/LanguageContext";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import FormTitle from "../../components/FormTitle/FormTitle";
 import AnimatedHeader from "../../components/AnimatedHeader/AnimatedHeader";
-import { MdFaceUnlock } from "react-icons/md";
+// import { MdFaceUnlock } from "react-icons/md";
 import { FaClipboardList } from "react-icons/fa";
-import { MdPhone } from "react-icons/md";
-import { MdEmail } from "react-icons/md";
+// import { MdPhone } from "react-icons/md";
+// import { MdEmail } from "react-icons/md";
+import { MdFaceUnlock, MdPhone, MdEmail, MdArrowBack } from "react-icons/md";
 
 const RateServicePage = () => {
   const navigate = useNavigate();
   const { translations: t } = useContext(LanguageContext);
+  const location = useLocation();
+  // Extract ALL state values with defaults
+  const {
+    sourceId,
+    branchId,
+    ratings = [],
+    comment = "",
+    phone: prevPhone = "",
+    email: prevEmail = "",
+    guestName: prevGuestName = "",
+  } = location.state || {};
+  console.log("sourceId", sourceId, "branchId", branchId);
 
   // Validation Schema using Yup
   const validationSchema = Yup.object({
     guestName: Yup.string()
       .required(t.validation.guestName.required)
       .min(2, t.validation.guestName.min),
-      email: Yup.string()
-      .email(t.validation.email.invalid),
-      // .required("Email is required"),
+    email: Yup.string().email(t.validation.email.invalid),
+    // .required("Email is required"),
     phone: Yup.string()
       // .required(t.validation.phone.required)
       // .matches(/^[0-9]+$/, t.validation.phone.invalid)
@@ -34,16 +46,33 @@ const RateServicePage = () => {
   // Formik hook
   const formik = useFormik({
     initialValues: {
-      guestName: "",
-      email: "",
-      phone: "",
+      guestName: prevGuestName,
+      email: prevEmail,
+      phone: prevPhone,
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
       // console.log("Form values", values);
-      navigate("/evaluation", { state: values });
+      navigate("/evaluation", {
+        state: {
+          ...values,
+          sourceId,
+          branchId,
+          ratings,
+          comment,
+        },
+      });
     },
   });
+  // Handle back navigation
+  const handleBack = () => {
+    navigate("/select-evaluation", {
+      state: {
+       ...location.state, 
+      ...formik.values,  
+      },
+    });
+  };
 
   return (
     <Box
@@ -88,7 +117,11 @@ const RateServicePage = () => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           name="guestName"
-          iconSrc={<MdFaceUnlock  style={{ color: 'var(--gold-color)',fontSize:20 }} />}
+          iconSrc={
+            <MdFaceUnlock
+              style={{ color: "var(--gold-color)", fontSize: 20 }}
+            />
+          }
           placeholder={t.Complaint.guestName.placeholder}
           error={formik.errors.guestName}
           touched={formik.touched.guestName}
@@ -101,7 +134,9 @@ const RateServicePage = () => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           name="phone"
-          iconSrc={<MdPhone  style={{ color: 'var(--gold-color)',fontSize:20 }} />}
+          iconSrc={
+            <MdPhone style={{ color: "var(--gold-color)", fontSize: 20 }} />
+          }
           placeholder={t.Complaint.phone.placeholder}
           error={formik.errors.phone}
           touched={formik.touched.phone}
@@ -113,32 +148,66 @@ const RateServicePage = () => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           name="email"
-          iconSrc={<MdEmail  style={{ color: 'var(--gold-color)',fontSize:20 }} />}
+          iconSrc={
+            <MdEmail style={{ color: "var(--gold-color)", fontSize: 20 }} />
+          }
           placeholder={t.Complaint.email.placeholder}
           error={formik.errors.email}
           touched={formik.touched.email}
         />
-
-        {/* Submit Button */}
-        <Button
-          variant="contained"
+        <Box
           sx={{
+            display: "flex",
+            gap: 2,
+            mt: 3,
             width: "100%",
-            height: "48px",
-            borderRadius: "5px",
-            backgroundColor: "#00395D",
-            fontFamily: "Almarai, sans-serif",
-            fontWeight: 400,
-            fontSize: { xs: "16px", sm: "18px" }, // Smaller font size for small screens
-            textAlign: "center",
-            "&:hover": {
-              backgroundColor: "#002d4d",
-            },
           }}
-          onClick={formik.handleSubmit}
         >
-          {t.rateServicePage.form.submitButton}
-        </Button>
+          {/* Back Button - now positioned at bottom */}
+          <Button
+            variant="outlined"
+            onClick={handleBack}
+            sx={{
+              flex: 1,
+              height: { md: "48px", xs: "38px" },
+
+              borderRadius: "5px",
+              borderColor: "var(--gold-color)",
+              color: "var(--gold-color)",
+              fontFamily: "Almarai, sans-serif",
+              fontWeight: 400,
+              fontSize: { xs: "14px", sm: "18px" },
+              "&:hover": {
+                backgroundColor: "rgba(255, 215, 0, 0.1)",
+                borderColor: "var(--gold-color)",
+              },
+            }}
+            // startIcon={<MdArrowBack size={20} />}
+          >
+            {t.back}
+          </Button>
+          {/* Submit Button */}
+          <Button
+            variant="contained"
+            sx={{
+              flex: 2,
+              height: { md: "48px", xs: "38px" },
+
+              borderRadius: "5px",
+              backgroundColor: "#00395D",
+              fontFamily: "Almarai, sans-serif",
+              fontWeight: 400,
+              fontSize: { xs: "14px", sm: "18px" }, // Smaller font size for small screens
+              textAlign: "center",
+              "&:hover": {
+                backgroundColor: "#002d4d",
+              },
+            }}
+            onClick={formik.handleSubmit}
+          >
+            {t.rateServicePage.form.submitButton}
+          </Button>
+        </Box>
       </Box>
     </Box>
   );

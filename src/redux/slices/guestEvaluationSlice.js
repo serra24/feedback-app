@@ -4,7 +4,8 @@ import axiosInstancePromise from '../../api/axiosInstance'; // ✅ Import the pr
 // Create an async thunk to fetch data
 export const fetchGuestEvaluation = createAsyncThunk(
   'guestEvaluation/fetchGuestEvaluation',
-  async (language) => {
+  async ({ language, sourceId, branchId }) => {
+      // try {
     // console.log("language",language);
     const axios = await axiosInstancePromise; // ✅ Wait for Axios config to load
 
@@ -14,6 +15,10 @@ export const fetchGuestEvaluation = createAsyncThunk(
         lang:language=== 'ar' ? 1: 2,
       
       },
+       params: { 
+        sourceId,
+        branchId
+      }
     });
     // console.log(response,"response");
     

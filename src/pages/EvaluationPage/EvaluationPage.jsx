@@ -6,6 +6,7 @@ import {
   TextField,
   TextareaAutosize,
   CircularProgress,
+  IconButton,
 } from "@mui/material";
 import starFilled from "../../assets/icons/star-filled.svg";
 import starEmpty from "../../assets/icons/star-empty.svg";
@@ -21,23 +22,38 @@ import { fetchGuestEvaluation } from "../../redux/slices/guestEvaluationSlice";
 import Loading from "../../components/Loading/Loading";
 import { addEvaluation } from "../../redux/slices/evaluationSlice";
 import { useLocation, useNavigate } from "react-router-dom";
+import { MdArrowBack } from "react-icons/md";
 
 const EvaluationPage = () => {
   const { translations: t, language } = useContext(LanguageContext);
   const roomNum2 = useSelector((state) => state.room.roomNum);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  // console.log("Room Number from Redux:", roomNum2);
+  const { data, loading } = useSelector((state) => state.guestEvaluation);
   const location = useLocation();
-  const { phone, email, guestName } = location.state || {};
-  const [ratings, setRatings] = useState([]); // We will store individual ratings for each item here
+  const {
+    phone,
+    email,
+    guestName,
+    sourceId,
+    branchId,
+    ratings: prevRatings = [],
+    comment: prevComment = "",
+  } = location.state || {};
+  const [ratings, setRatings] = useState(
+    prevRatings?.length === data?.length
+      ? prevRatings
+      : data?.map(() => 0) || []
+  );
+  console.log("ratings:", ratings);
+
+  // const [ratings, setRatings] = useState([]);
   const [hovered, setHovered] = useState({ index: null, value: 0 });
   const locationAsked = useSelector((state) => state.location.locationAsked);
   const locationStatus = useSelector((state) => state.location.locationStatus);
   const [coordinates, setCoordinates] = useState({ lat: null, lng: null });
   const [locationPopupOpen, setLocationPopupOpen] = useState(false);
 
-  const [comment, setComment] = useState("");
+  const [comment, setComment] = useState(prevComment);
   const [popupOpen, setPopupOpen] = useState(false);
   const [popupType, setPopupType] = useState(""); // 'success' or 'error'
   const [popupMessage, setPopupMessage] = useState("");
@@ -47,7 +63,6 @@ const EvaluationPage = () => {
   const bookingNumber = useSelector((state) => state.room.bookingNumber);
   const roomNum = useSelector((state) => state.room.roomNum);
 
-  const { data, loading } = useSelector((state) => state.guestEvaluation);
   const getLocation = () => {
     return new Promise((resolve, reject) => {
       if (!navigator.geolocation) {
@@ -70,7 +85,8 @@ const EvaluationPage = () => {
 
   useEffect(() => {
     // Fetch guest evaluation data when the component mounts
-    dispatch(fetchGuestEvaluation(language))
+    dispatch(fetchGuestEvaluation({language, sourceId: sourceId,
+          branchId: branchId,}))
       .then(() => {
         // console.log("Guest evaluation data fetched successfully.");
       })
@@ -78,11 +94,11 @@ const EvaluationPage = () => {
         console.error("Error fetching guest evaluation data:", error);
       });
   }, [dispatch, language]);
-  useEffect(() => {
-    // Initialize ratings for each item (if data is available)
-    const initialRatings = data?.map(() => 0); // Initialize all ratings to 0
-    setRatings(initialRatings);
-  }, [data]);
+  // useEffect(() => {
+  //   // Initialize ratings for each item (if data is available)
+  //   const initialRatings = data?.map(() => 0); // Initialize all ratings to 0
+  //   setRatings(initialRatings);
+  // }, [data]);
 
   const handleRating = (index, value, e) => {
     const { left, width } = e.target.getBoundingClientRect();
@@ -156,6 +172,8 @@ const EvaluationPage = () => {
           phoneNumber: phone || null,
           language: language === "ar" ? 1 : 2,
           bookingNumber: bookingNumber,
+          sourceId: sourceId,
+          branchId: branchId,
         };
 
         // Dispatch the evaluation action
@@ -185,14 +203,13 @@ const EvaluationPage = () => {
 
               if (payload?.status === 400) {
                 // Show a specific message for status 400
-                setPopupMessage(
-                  "Room and location are required. Please make sure you allow location and your room is selected."
-                );
+                setPopupMessage(t.roomLocation);
               } else {
                 // Fallback to error message or payload string
                 setPopupMessage(
                   payload?.errormessage ||
                     payload?.payload ||
+                    payload ||
                     "Something went wrong."
                 );
               }
@@ -223,6 +240,19 @@ const EvaluationPage = () => {
     }
   };
 
+  const handleBack = () => {
+    navigate("/rate-service", {
+      state: {
+        phone,
+        email,
+        guestName,
+        sourceId,
+        branchId,
+        ratings: ratings || [], // Fallback if ratings not in state
+        comment: comment || "",
+      },
+    });
+  };
   if (loading) {
     return <Loading />;
   }
@@ -273,7 +303,7 @@ const EvaluationPage = () => {
               sx={{
                 fontFamily: "Almarai, sans-serif",
                 fontWeight: 700,
-                fontSize: "20px",
+                fontSize: { md: "20px", xs: "18px" },
               }}
             >
               {t.Evaluation.rateYourStay}
@@ -301,7 +331,7 @@ const EvaluationPage = () => {
                     sx={{
                       fontFamily: "Almarai, sans-serif",
                       fontWeight: 400,
-                      fontSize: "18px",
+                      fontSize: { md: "18px", xs: "16px" },
                       whiteSpace: "normal",
                       width: { xs: "95px", sm: "auto" },
                     }}
@@ -331,7 +361,13 @@ const EvaluationPage = () => {
                           sx={{
                             display: "inline-block",
                             transform:
-                              language === "en" ? "scaleX(-1)" : "none", // Flip visually for LTR
+                              language === "en" ? "scaleX(-1)" : "none",
+                            "& img": {
+                              width: { xs: 18, sm: 22 },
+                              height: { xs: 18, sm: 22 },
+                              cursor: "pointer",
+                              marginLeft: 1,
+                            },
                           }}
                         >
                           <motion.img
@@ -339,8 +375,8 @@ const EvaluationPage = () => {
                             src={starIcon}
                             alt="star"
                             style={{
-                              width: 22,
-                              height: 22,
+                              // width: 22,
+                              // height: 22,
                               cursor: "pointer",
                               marginLeft: 4,
                             }}
@@ -381,7 +417,7 @@ const EvaluationPage = () => {
                 sx={{
                   fontFamily: "Almarai, sans-serif",
                   fontWeight: 400,
-                  fontSize: "18px",
+                  fontSize: { md: "18px", xs: "16px" },
                   mb: 2,
                 }}
               >
@@ -404,39 +440,81 @@ const EvaluationPage = () => {
                 }}
               />
             </Box>
-
-            {/* Submit Button */}
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ duration: 0.2 }}
+            <Box
+              sx={{
+                display: "flex",
+                gap: 2,
+                mt: 3,
+                width: "100%",
+                alignItems: "center", // Ensures buttons are aligned vertically
+              }}
             >
-              <Button
-                variant="contained"
-                disabled={isSubmitting}
-                sx={{
-                  mt: "6px",
-                  width: "100%",
-                  height: 48,
-                  borderRadius: "5px",
-                  backgroundColor: "#00395D",
-                  fontFamily: "Almarai, sans-serif",
-                  fontWeight: 400,
-                  fontSize: "18px",
-                  lineHeight: "100%",
-                  "&:hover": {
-                    backgroundColor: "#002d4d",
-                  },
-                }}
-                onClick={handleSubmit}
+              {/* Back Button */}
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ duration: 0.2 }}
+                style={{ flex: 1, width: "100%" }} // Ensures motion div takes full width
               >
-                {isSubmitting ? (
-                  <CircularProgress size={24} sx={{ color: "white" }} />
-                ) : (
-                  t.Evaluation.submit
-                )}
-              </Button>
-            </motion.div>
+                <Button
+                  variant="outlined"
+                  fullWidth
+                  onClick={handleBack}
+                  sx={{
+                    height: { md: "48px", xs: "38px" },
+                    borderRadius: "5px",
+                    borderColor: "var(--gold-color)",
+                    color: "var(--gold-color)",
+                    fontWeight: 400,
+                    fontSize: { xs: "14px", sm: "18px" },
+                    textTransform: "none",
+                    "&:hover": {
+                      backgroundColor: "rgba(255, 215, 0, 0.1)",
+                      borderColor: "var(--gold-color)",
+                    },
+                  }}
+                >
+                  {t.back}
+                </Button>
+              </motion.div>
+
+              {/* Submit Button */}
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ duration: 0.2 }}
+                style={{ flex: 2, width: "100%" }} // Makes submit button wider
+              >
+                <Button
+                  variant="contained"
+                  fullWidth
+                  disabled={isSubmitting}
+                  sx={{
+                    height: { md: "48px", xs: "38px" },
+                    borderRadius: "5px",
+                    backgroundColor: "#00395D",
+                    fontFamily: "Almarai, sans-serif",
+                    fontWeight: 400,
+                    fontSize: { xs: "14px", sm: "18px" },
+                    textTransform: "none",
+                    "&:hover": {
+                      backgroundColor: "#002d4d",
+                    },
+                    "&:disabled": {
+                      backgroundColor: "rgba(0, 61, 93, 0.5)",
+                      color: "rgba(255, 255, 255, 0.5)",
+                    },
+                  }}
+                  onClick={handleSubmit}
+                >
+                  {isSubmitting ? (
+                    <CircularProgress size={24} sx={{ color: "white" }} />
+                  ) : (
+                    t.Evaluation.submit
+                  )}
+                </Button>
+              </motion.div>
+            </Box>
           </Box>
         </motion.div>
       </Box>

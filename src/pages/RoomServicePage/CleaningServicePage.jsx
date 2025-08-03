@@ -37,11 +37,11 @@ const CleaningServicePage = () => {
 
   const [isDataLoaded, setIsDataLoaded] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
- const [locationPopupOpen, setLocationPopupOpen] = useState(false);
+  const [locationPopupOpen, setLocationPopupOpen] = useState(false);
   const locationAsked = useSelector((state) => state.location.locationAsked);
   const [coordinates, setCoordinates] = useState({ lat: null, lng: null });
   const locationStatus = useSelector((state) => state.location.locationStatus);
- const getLocation = () => {
+  const getLocation = () => {
     return new Promise((resolve, reject) => {
       if (!navigator.geolocation) {
         reject(new Error("Geolocation is not supported"));
@@ -85,7 +85,7 @@ const CleaningServicePage = () => {
     phone: Yup.string()
       // .required("رقم الهاتف مطلوب")
       .min(8, t.validation.phone.min),
-      email: Yup.string().email(t.emailInvalid),
+    email: Yup.string().email(t.emailInvalid),
     roomNumber: Yup.string().required(t.roomNumberRequired),
     preferredTime: Yup.string().required(t.preferredTimeRequired),
     // complaintTypes: Yup.array().min(1, "يجب اختيار نوع واحد على الأقل"),
@@ -101,7 +101,7 @@ const CleaningServicePage = () => {
     initialValues: {
       fullName: "",
       phone: "",
-        email: "",
+      email: "",
       roomNumber: number || "Unknown Room",
       preferredTime: "",
       // complaintTypes: [], // ✅ this is the missing initialization
@@ -110,110 +110,116 @@ const CleaningServicePage = () => {
     validationSchema,
     onSubmit: async (values) => {
       if (
-    locationAsked &&
-    locationStatus === "allowed" &&
-    "geolocation" in navigator
-  ) {
-    try {
-      const position = await getLocation();
-      // console.log("User location:", position);
+        locationAsked &&
+        locationStatus === "allowed" &&
+        "geolocation" in navigator
+      ) {
+        try {
+          const position = await getLocation();
+          // console.log("User location:", position);
 
-      const freshCoordinates = {
-        lat: position?.latitude,
-        lng: position?.longitude,
-      };
+          const freshCoordinates = {
+            lat: position?.latitude,
+            lng: position?.longitude,
+          };
 
-      setCoordinates(freshCoordinates);
-      setIsSubmitting(true);
+          setCoordinates(freshCoordinates);
+          setIsSubmitting(true);
 
-      // Trigger the createRequest thunk here
-      const requestData = {
-        name: values.fullName,
-        roomId: roomNum,
-        typeId: 1, // Main : 2, HK :1, Supp : 3
-        items: null,
-        description: values.complaintDetails,
-        email: null,
-        phoneNumber: values.phone,
-        preferredTime: values.preferredTime,
-        maintenanceData: null,
-      };
-      const formData = new FormData();
+          // Trigger the createRequest thunk here
+          const requestData = {
+            name: values.fullName,
+            roomId: roomNum,
+            typeId: 1, // Main : 2, HK :1, Supp : 3
+            items: null,
+            description: values.complaintDetails,
+            email: null,
+            phoneNumber: values.phone,
+            preferredTime: values.preferredTime,
+            maintenanceData: null,
+          };
+          const formData = new FormData();
 
-      // Append fields to FormData
-      formData.append("Name", values.fullName); 
-      formData.append("RoomId", roomNum);
-      formData.append("TypeId", 1); // Main : 2, HK : 1, Supp : 3
-      formData.append("Email", values.email || null);
-      formData.append("Description", values.complaintDetails || null);
-      formData.append("PhoneNumber", values.phone || null);
-      formData.append("PreferredTime", values.preferredTime || null);
-      formData.append("MaintenanceData", null);
+          // Append fields to FormData
+          formData.append("Name", values.fullName);
+          formData.append("RoomId", roomNum);
+          formData.append("Items", null);
+          formData.append("Title", null);
+          formData.append("TypeId", 1); // Main : 2, HK : 1, Supp : 3
+          formData.append("Email", values.email || null);
+          formData.append("Description", values.complaintDetails || null);
+          formData.append("PhoneNumber", values.phone || null);
+          formData.append("PreferredTime", values.preferredTime || null);
+          formData.append("MaintenanceData", null);
 
-      dispatch(createRequest({formData, language, coordinates: freshCoordinates}))
-        .then((response) => {
-          // console.log("Response", response);
-          if (response?.payload?.successtate === 200) {
-            // Adjust according to your response structure
-            setPopupMessage(t.sucessRequest);
-            setPopupType("success");
-            setPopupOpen(true);
-            formik.resetForm();
-          } else {
-            // console.log("Error", response);
+          dispatch(
+            createRequest({ formData, language, coordinates: freshCoordinates })
+          )
+            .then((response) => {
+              // console.log("Response", response);
+              if (response?.payload?.successtate === 200) {
+                // Adjust according to your response structure
+                setPopupMessage(t.sucessRequest);
+                setPopupType("success");
+                setPopupOpen(true);
+                formik.resetForm();
+              } else {
+                // console.log("Error", response);
 
-            setPopupMessage(response?.payload?.errormessage || response?.payload);
-            setPopupType("error");
-            setPopupOpen(true);
-          }
-        })
-        .catch((error) => {
-          // console.error("Error", error); 
-           setIsSubmitting(false); 
-          setPopupMessage("An unexpected error occurred.");
-          setPopupType("error");
-          setPopupOpen(true);
-        })
-        .finally(() => {
-          setIsSubmitting(false);
-        });
-     return; // ✅ prevent further execution
-    } catch (error) {
-      console.error("Location access failed:", error.message);
-      setLocationPopupOpen(true);
-      return;
-    }
-  } else {
-    setLocationPopupOpen(true);
-    return;
-  }
-},
+                setPopupMessage(
+                  response?.payload?.errormessage || response?.payload
+                );
+                setPopupType("error");
+                setPopupOpen(true);
+              }
+            })
+            .catch((error) => {
+              console.error("Error", error);
+              setIsSubmitting(false);
+              setPopupMessage("An unexpected error occurred.");
+              setPopupType("error");
+              setPopupOpen(true);
+            })
+            .finally(() => {
+              setIsSubmitting(false);
+            });
+          return; // ✅ prevent further execution
+        } catch (error) {
+          console.error("Location access failed:", error.message);
+          setLocationPopupOpen(true);
+          return;
+        }
+      } else {
+        setLocationPopupOpen(true);
+        return;
+      }
+    },
   });
   const handleAllowLocation = () => {
-      dispatch(setLocationAsked(true));
-      dispatch(setLocationStatus("allowed"));
-      setLocationPopupOpen(false);
-  
-      if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            const { latitude, longitude } = position.coords;
-            setCoordinates({ lat: latitude, lng: longitude });
-            // console.log("Latitude:", latitude, "Longitude:", longitude);
-            formik.submitForm();
-            setIsSubmitting(true);
-          },
-          (error) => {
-            console.error("Location access denied:", error.message);
-          }
-        );
-      }
-    };
-    const handleDeny = () => {
-      dispatch(setLocationAsked(true));
-      setLocationPopupOpen(false);
-      // console.log("Location access denied by user.");
-    };
+    dispatch(setLocationAsked(true));
+    dispatch(setLocationStatus("allowed"));
+    setLocationPopupOpen(false);
+
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setCoordinates({ lat: latitude, lng: longitude });
+          // console.log("Latitude:", latitude, "Longitude:", longitude);
+          formik.submitForm();
+          setIsSubmitting(true);
+        },
+        (error) => {
+          console.error("Location access denied:", error.message);
+        }
+      );
+    }
+  };
+  const handleDeny = () => {
+    dispatch(setLocationAsked(true));
+    setLocationPopupOpen(false);
+    // console.log("Location access denied by user.");
+  };
   useEffect(() => {
     if (roomData?.data?.message?.floor?.building?.branch?.localizedName) {
       setIsDataLoaded(true);
@@ -239,27 +245,25 @@ const CleaningServicePage = () => {
       name: "fullName",
       label: t.cleaningForm.fullNameLabel,
       placeholder: t.cleaningForm.fullNamePlaceholder,
-      required:true
+      required: true,
     },
     {
       name: "phone",
       label: t.cleaningForm.phoneLabel,
       placeholder: t.cleaningForm.phonePlaceholder,
-      required:false
+      required: false,
     },
-     {
+    {
       name: "email",
       label: t.Complaint.email.label,
       placeholder: t.Complaint.email.placeholder,
-      required:false
-
+      required: false,
     },
     {
       name: "roomNumber",
       label: t.Complaint.roomNumber.label,
       placeholder: t.Complaint.roomNumber.placeholder,
-      required:false
-
+      required: false,
     },
     {
       name: "preferredTime",
@@ -369,7 +373,7 @@ const CleaningServicePage = () => {
                   placeholder={field.placeholder}
                   iconSrc={field.iconSrc}
                   disabled={index === 3}
-                    required={field.required}
+                  required={field.required}
                 />
               )}
             </Box>
@@ -474,7 +478,8 @@ const CleaningServicePage = () => {
             sx={{
               fontFamily: "Almarai",
               fontWeight: 400,
-              fontSize: "18px",
+              fontSize: { md: "18px", xs: "14px" },
+
               color: "#fff",
               mb: 1,
             }}
@@ -546,12 +551,13 @@ const CleaningServicePage = () => {
             sx={{
               flex: 1,
               minWidth: 150,
-              height: 48,
+              height: { md: 48, xs: 40 },
+
               borderRadius: "5px",
               backgroundColor: "#00395D",
               fontFamily: "Almarai",
               fontWeight: 400,
-              fontSize: 18,
+              fontSize: { md: "18px", xs: "14px" },
             }}
           >
             {isSubmitting ? (
@@ -564,13 +570,14 @@ const CleaningServicePage = () => {
             variant="contained"
             sx={{
               flex: 1,
-              minWidth: 150,
-              height: 48,
+              // minWidth: 150,
+              height: { md: 48, xs: 40 },
+
               borderRadius: "5px",
               backgroundColor: "#7C8A93",
               fontFamily: "Almarai",
               fontWeight: 400,
-              fontSize: 18,
+              fontSize: { md: "18px", xs: "14px" },
             }}
             onClick={() => formik.resetForm()}
           >
@@ -589,22 +596,23 @@ const CleaningServicePage = () => {
       <ErrorPopup
         open={popupOpen && popupType === "error"}
         message={popupMessage}
-        onClose={() => {setPopupOpen(false);
-            setIsSubmitting(false); 
+        onClose={() => {
+          setPopupOpen(false);
+          setIsSubmitting(false);
         }}
       />
-       {locationPopupOpen && (
-              <LocationPopup
-                title={t.locationPopup.requireAccess}
-                onAllow={handleAllowLocation}
-                onDeny={handleDeny}
-              />
-              //         <LocationPopup
-              //   title="Would you like to enable location services?"
-              //   onAllow={handleAllow}
-              //   onDeny={handleDeny}
-              // />
-            )}
+      {locationPopupOpen && (
+        <LocationPopup
+          title={t.locationPopup.requireAccess}
+          onAllow={handleAllowLocation}
+          onDeny={handleDeny}
+        />
+        //         <LocationPopup
+        //   title="Would you like to enable location services?"
+        //   onAllow={handleAllow}
+        //   onDeny={handleDeny}
+        // />
+      )}
     </Box>
   );
 };

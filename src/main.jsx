@@ -23,6 +23,7 @@ import { Provider } from 'react-redux';
 import {store,persistor } from './redux/store';
 import { PersistGate } from "redux-persist/integration/react"; // PersistGate for delay loading
 import RoomNotOccupiedPage from "./pages/RoomNotOccupiedPage/RoomNotOccupiedPage.jsx";
+import SelectEvaluationSource from "./pages/SelectEvaluationSource/SelectEvaluationSource.jsx";
 
 
 // Directly add routing logic here
@@ -44,6 +45,7 @@ createRoot(document.getElementById("root")).render(
               <Route path="/request-service" element={<RequestServicePage />} />
               <Route path="/evaluation" element={<EvaluationPage />} />
               <Route path="/guest-service" element={<GuestServicePage />} />
+                  <Route path="/select-evaluation" element={<SelectEvaluationSource/>} />
               <Route path="/scan" element={<QRCodeGenerator />} />
               <Route
                 path="/maintenance-service"

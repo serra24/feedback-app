@@ -60,7 +60,7 @@ const LocationPopup = ({ title, onAllow, onDeny }) => {
           <LocationOnIcon sx={{ fontSize: 32, color: "#9D7C47" }} />
         </Box>
 
-        <Typography  sx={{fontSize:{md:"32px",xs:"20px"}, mb: 2, fontWeight: 600, color: "#333" }}>
+        <Typography  sx={{fontSize:{md:"24px",xs:"20px"}, mb: 2, fontWeight: 600, color: "#333" }}>
           {popupTitle}
         </Typography>
 

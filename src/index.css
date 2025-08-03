@@ -314,15 +314,24 @@ input:-internal-autofill-selected {
   font-family: Almarai;
   font-weight: 300;
   font-size: 16px;
-  line-height: 100%;
+  line-height: 20px;
   letter-spacing: 0%;
   vertical-align: middle;
   color: #ffffff80;
   /* padding: 12px !important; */
 }
+.styled-placeholder2::placeholder {
+  font-size: 16px; 
+}
+
 @media (max-width: 600px) {
   .styled-placeholder {
     width: 90% !important; 
+
+  }
+.styled-placeholder::placeholder, .styled-placeholder2::placeholder,.complaint-textarea::placeholder {
+    font-size: 12px;
+    line-height: 14px;
   }
 }
 .css-gpxgpk {

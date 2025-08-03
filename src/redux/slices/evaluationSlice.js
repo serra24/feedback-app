@@ -1,6 +1,48 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstancePromise from "../../api/axiosInstance"; // ✅ Import the promise
 
+
+// Async thunk to fetch evaluation sources
+export const fetchEvaluationSources = createAsyncThunk(
+  "evaluation/fetchSources",
+  async (language, { rejectWithValue }) => {
+    try {
+      const axios = await axiosInstancePromise;
+      const response = await axios.get("/api/CRM/LockUp/GetGuestEvaluationSources",
+          { headers: {
+            "Content-Type": "application/json-patch+json",
+           lang: language === "ar" ? 1 : 2,
+            Accept: "*/*",
+          },}
+      );
+      return response.data.message.item1;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || error.message);
+    }
+  }
+);
+
+// Async thunk to fetch branches
+export const fetchBranches = createAsyncThunk(
+  "evaluation/fetchBranches",
+  async (language, { rejectWithValue }) => {
+    try {
+      const axios = await axiosInstancePromise;
+      const response = await axios.get("/api/Lockup/GetBranches",
+        { headers: {
+            "Content-Type": "application/json-patch+json",
+            lang: language === "ar" ? 1 : 2,
+            Accept: "*/*",
+          },}
+      );
+      return response.data.message;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || error.message);
+    }
+  }
+);
+
+
 // Async thunk to post evaluation
 export const addEvaluation = createAsyncThunk(
   "evaluation/addEvaluation",
@@ -48,6 +90,11 @@ const evaluationSlice = createSlice({
     successState: null,
     errorMessage: null,
     message: null,
+     // For data fetching
+    evaluationSources: [],
+    branches: [],
+    fetchLoading: false,
+    fetchError: null,
   },
   reducers: {
     resetEvaluationState: (state) => {
@@ -72,10 +119,41 @@ const evaluationSlice = createSlice({
       .addCase(addEvaluation.rejected, (state, action) => {
         state.loading = false;
         state.errorMessage = action.payload || "Something went wrong";
+      })
+      // Evaluation sources cases
+      .addCase(fetchEvaluationSources.pending, (state) => {
+        state.fetchLoading = true;
+        state.fetchError = null;
+      })
+      .addCase(fetchEvaluationSources.fulfilled, (state, action) => {
+        state.fetchLoading = false;
+        state.evaluationSources = action.payload;
+      })
+      .addCase(fetchEvaluationSources.rejected, (state, action) => {
+        state.fetchLoading = false;
+        state.fetchError = action.payload;
+      })
+      
+      // Branches cases
+      .addCase(fetchBranches.pending, (state) => {
+        state.fetchLoading = true;
+        state.fetchError = null;
+      })
+      .addCase(fetchBranches.fulfilled, (state, action) => {
+        state.fetchLoading = false;
+        state.branches = action.payload;
+      })
+      .addCase(fetchBranches.rejected, (state, action) => {
+        state.fetchLoading = false;
+        state.fetchError = action.payload;
       });
   },
 });
-
+// Export selectors
+export const selectEvaluationSources = (state) => state.evaluation.evaluationSources;
+export const selectBranches = (state) => state.evaluation.branches;
+export const selectFetchLoading = (state) => state.evaluation.fetchLoading;
+export const selectFetchError = (state) => state.evaluation.fetchError;
 export const { resetEvaluationState } = evaluationSlice.actions;
 
 export default evaluationSlice.reducer;

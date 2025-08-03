@@ -88,17 +88,22 @@ const GuestServicePage = () => {
 
   // Form validation schema
   const validationSchema = Yup.object().shape({
-    title: Yup.string().required(t.titleRequired),
+    title: Yup.string().required(t.validation.titleRequired),
     priorityId: Yup.string().required(t.priorityRequired),
-    guestName: Yup.string().required(t.guestNameRequired),
+    guestName: Yup.string().required(t.validation.guestNameRequired),
     phone: Yup.string()
       // .required("رقم التواصل مطلوب")
       // .matches(/^[0-9]+$/, "يجب أن يحتوي على أرقام فقط"),
       .min(8, t.validation.phone.min),
     email: Yup.string().email(t.emailInvalid),
     // .required("البريد الإلكتروني مطلوب"),
-    complaintDetails: Yup.string().required(t.complaintDetailsRequired),
+    complaintDetails: Yup.string().required(
+      t.validation.complaintDetailsRequired
+    ),
     // expectedAction: Yup.string().required(t.expectedActionRequired),
+    complaintTypes: Yup.array()
+      .min(1, t.complaintTypesRequired)
+      .required(t.complaintTypesRequired),
   });
   // console.log("roomData?.message?.floor?.building?.branch?.localizedName", roomData?.data?.message?.floor?.building?.branch?.localizedName);
   const hotelName =
@@ -159,7 +164,13 @@ const GuestServicePage = () => {
           // console.log("payload", payload);
 
           // Dispatch the action and handle success/error
-          dispatch(createComplaint({ payload, language, coordinates }))
+          dispatch(
+            createComplaint({
+              payload,
+              language,
+              coordinates: freshCoordinates,
+            })
+          )
             .then((response) => {
               // console.log("Response", response);
               if (response?.payload?.successtate === 200) {
@@ -443,21 +454,22 @@ const GuestServicePage = () => {
                 marginBottom: "3px",
                 fontFamily: "Almarai",
                 color: "var(--white-color)",
-                fontSize: 18,
+                fontSize: { md: "18px", xs: "14px" },
+
                 fontWeight: 400,
               }}
             >
               {t.Maintenance.priority}
-                <Typography
-                              component="span"
-                              sx={{
-                                color: "red",
-                                marginRight: language === "ar" ? "4px" : 0,
-                                marginLeft: language === "en" ? "4px" : 0,
-                              }}
-                            >
-                              *
-                            </Typography>
+              <Typography
+                component="span"
+                sx={{
+                  color: "red",
+                  marginRight: language === "ar" ? "4px" : 0,
+                  marginLeft: language === "en" ? "4px" : 0,
+                }}
+              >
+                *
+              </Typography>
             </Typography>
             <FormControl
               fullWidth
@@ -474,6 +486,7 @@ const GuestServicePage = () => {
                 sx={{
                   borderRadius: "4px",
                   height: "48px",
+                fontFamily: "Almarai",
 
                   color: "#fff",
                   "& .MuiSelect-icon": {
@@ -494,12 +507,25 @@ const GuestServicePage = () => {
                   },
                 }}
               >
-                <MenuItem value="" disabled>
+                <MenuItem value="" disabled   sx={{
+                fontSize: { md: "14px", xs: "12px" },
+                fontFamily: "Almarai",
+
+                minHeight: { md: "48px", xs: "36px" },
+              }}>
                   {t.Select} {t.Maintenance.priority}
                 </MenuItem>
 
                 {priorityOptions?.map((option) => (
-                  <MenuItem key={option.id} value={option.id}>
+                  <MenuItem key={option.id} value={option.id} sx={{
+                  fontSize: { md: "16px", xs: "14px" },
+                  minHeight: { md: "48px", xs: "36px" },
+                  fontFamily: "Almarai",
+
+                  "&:hover": {
+                    backgroundColor: "rgba(0, 61, 93, 0.1)",
+                  },
+                }}>
                     {option.name}
                   </MenuItem>
                 ))}
@@ -517,7 +543,8 @@ const GuestServicePage = () => {
             sx={{
               fontFamily: "Almarai",
               fontWeight: 400,
-              fontSize: "18px",
+              fontSize: { md: "18px", xs: "14px" },
+
               color: "#fff",
               mb: "6px",
             }}
@@ -539,7 +566,8 @@ const GuestServicePage = () => {
             sx={{
               fontFamily: "Almarai",
               fontWeight: 300,
-              fontSize: "16px",
+              fontSize: { md: "16px", xs: "12px" },
+
               color: "var(--gold-color)",
               mb: "12px",
             }}
@@ -604,7 +632,10 @@ const GuestServicePage = () => {
                         "& .MuiFormControlLabel-label": {
                           color: "#fff", // Label text color
                           width: { md: "240px", xs: "auto" },
-                          fontSize: "16px !important",
+                          fontSize: {
+                            md: "16px !important",
+                            xs: "14px !important",
+                          },
                         },
                       }}
                     />
@@ -612,6 +643,11 @@ const GuestServicePage = () => {
                 </Box>
               ))}
           </FormGroup>
+          {formik.touched.complaintTypes && formik.errors.complaintTypes && (
+            <Typography color="error" variant="caption">
+              {formik.errors.complaintTypes}
+            </Typography>
+          )}
         </Box>
 
         {/* Complaint Details */}
@@ -620,7 +656,8 @@ const GuestServicePage = () => {
             sx={{
               fontFamily: "Almarai",
               fontWeight: 400,
-              fontSize: "18px",
+              fontSize: { md: "18px", xs: "14px" },
+
               color: "#fff",
               mb: 1,
             }}
@@ -674,6 +711,7 @@ const GuestServicePage = () => {
               fontFamily: "Almarai",
               fontSize: "16px",
               color: "#fff",
+              
               "@media (maxWidth: 600px)": {
                 width: "90% !important", // Adjust the width for small screens
               },
@@ -694,7 +732,8 @@ const GuestServicePage = () => {
             sx={{
               fontFamily: "Almarai",
               fontWeight: 400,
-              fontSize: "18px",
+              fontSize: { md: "18px", xs: "14px" },
+
               color: "#fff",
               mb: 1,
             }}
@@ -751,12 +790,12 @@ const GuestServicePage = () => {
             sx={{
               flex: 1,
               minWidth: 150,
-              height: 48,
+              height: { md: 48, xs: 40 },
               borderRadius: "5px",
               backgroundColor: "#00395D",
               fontFamily: "Almarai",
               fontWeight: 400,
-              fontSize: 18,
+              fontSize: { md: "18px", xs: "14px" },
             }}
           >
             {isSubmitting ? (
@@ -769,13 +808,13 @@ const GuestServicePage = () => {
             variant="contained"
             sx={{
               flex: 1,
-              minWidth: 150,
-              height: 48,
+              // minWidth: 150,
+              height: { md: 48, xs: 40 },
               borderRadius: "5px",
               backgroundColor: "#7C8A93",
               fontFamily: "Almarai",
               fontWeight: 400,
-              fontSize: 18,
+              fontSize: { md: "18px", xs: "14px" },
             }}
           >
             {t.cancel}

@@ -10,7 +10,7 @@
   "home": {
     "mainHeading": "A Unique Religious Tourism Experience",
     "welcomeMessage": "Welcome to Nawazi Hotels, where we prioritize your comfort and satisfaction.",
-    "welcomeMessage2":"Welcome to Nawazi Hotels.",
+    "welcomeMessage2": "Welcome to Nawazi Hotels.",
     "subHeading": "At Nawazi, your comfort matters — rate your experience or request the service you need so we can serve you at our best during your religious journey.",
     "cards": {
       "rateService": {
@@ -44,9 +44,9 @@
   },
   "Maintenance": {
     "title": "Maintenance Service",
-     "titlefeild": "Request Title",
-  "titlePlaceholder": "Enter a brief title for your request",
-  "titleRequired": "Title is required",
+    "titlefeild": "Request Title",
+    "titlePlaceholder": "Enter a brief title for your request",
+    "titleRequired": "Title is required",
     "description": "We provide you with fast and secure maintenance service around the clock to meet any needs inside rooms or facilities.",
     "form_title": "Please fill out the following form to submit a maintenance request.",
     "notes": "Notes",
@@ -140,7 +140,7 @@
       "facilities": "Facilities",
       "location": "Location",
       "value": "Value for money",
-      "errorMessage":"Please provide at least one rating or a comment."
+      "errorMessage": "Please provide at least one rating or a comment."
     },
     "commentLabel": "Your comment (optional)",
     "commentPlaceholder": "Tell us about your experience at the hotel...",
@@ -288,22 +288,37 @@
     "complaintDetailsRequired": "Complaint details are required",
     "expectedActionRequired": "Expected action is required"
   },
-  "sucessRequest":"Request submitted successfully!"
-,
- "fullNameRequired": "Full name is required",
-"roomNumberRequired": "Room number is required",
-"preferredTimeRequired": "Preferred time is required",
-"complaintDetailsString": "You must choose at least one.",
-"priorityRequired": "Priority is required",
-"numberOfBagsRequired":"Number of Bags is Required",
-"Nonemergency":"Non-emergency",
-"emergency":"Emergency",
+  "sucessRequest": "Request submitted successfully!",
+  "fullNameRequired": "Full name is required",
+  "roomNumberRequired": "Room number is required",
+  "preferredTimeRequired": "Preferred time is required",
+  "complaintDetailsString": "You must choose at least one.",
+  "priorityRequired": "Priority is required",
+  "numberOfBagsRequired": "Number of Bags is Required",
+  "Nonemergency": "Non-emergency",
+  "emergency": "Emergency",
   "locationPopup": {
     "requireAccess": "You must allow location access before submitting your request.",
-      "allow": "Allow",
-       "allowLocationAccess": "Help us enhance your experience - allow location access",
+    "allow": "Allow",
+    "allowLocationAccess": "Help us enhance your experience - allow location access",
     "deny": "Deny"
   },
   "roomNotOccupiedTitle": "Room Not Occupied",
-  "roomNotOccupiedMessage":"It looks like this room is currently not occupied. Please double-check the QR code on the door or contact the front desk for assistance."
+  "roomNotOccupiedMessage": "It looks like this room is currently not occupied. Please double-check the QR code on the door or contact the front desk for assistance.",
+  "roomLocation": "Location and room QR code are required. Please enable location and scan your room QR code.",
+  "numberOfBagsMustBeGreaterThanZero": "Number of bags must be greater than zero",
+  "complaintTypesRequired": "Please select at least one complaint type",
+  "selectEvaluationPage": {
+    "header": {
+      "mainTitle": "Select Evaluation Type",
+      "subTitle": "Please choose the service you want to evaluate"
+    },
+    "form": {
+      "evaluationSourcesTitle": "Evaluation Sources",
+      "branchesTitle": "Branches",
+      "selectSource": "Select Evaluation Source",
+      "selectBranch": "Select Branch",
+      "submitButton": "Continue"
+    }
+  },"back":"Back"
 }

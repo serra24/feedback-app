@@ -9,7 +9,7 @@ const FormTitle = ({ title }) => {
         fontWeight: 400,
         fontSize: { xs: "16px", sm: "20px" },
         color: "var(--white-color)",
-        mb: 3,
+        mb: {md:3,xs:2},
       }}
     >
       {title}

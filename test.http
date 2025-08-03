@@ -61,3 +61,83 @@ longitude: 31.448064497017715
   "language": 1,
   "bookingNumber": "685"
 }
+###
+POST https://nawaziallapi.ekadsoft.org/api/CRM/GeneralRequest/CreateRequest
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+# Content-Type: application/json
+roomid: 660116
+latitude: 30.223678755602254
+longitude: 31.448064497017715
+
+roomid: 660116
+latitude: 30.223678755602254
+longitude: 31.448064497017715
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="Name"
+
+israa
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="Items"
+
+null
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="RoomId"
+
+660116
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="TypeId"
+
+2
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="Description"
+
+null
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="Email"
+
+israalotfy891@outlook.com
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="PhoneNumber"
+
+01020228967
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="MaintenanceData.Title"
+
+Title
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="MaintenanceData.Description"
+
+null
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="MaintenanceData.From"
+
+2025-06-03T12:37:31.860Z
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="MaintenanceData.To"
+
+2025-06-03T12:37:31.861Z
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="MaintenanceData.MainMentananceCategoryId"
+
+3
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="MaintenanceData.SubMentananceCategoryId"
+
+3
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="MaintenanceData.RoomId"
+
+660116
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="MaintenanceData.PriorityId"
+
+1
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="MaintenanceData.Attachment"; filename=""
+Content-Type: application/octet-stream
+
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW--

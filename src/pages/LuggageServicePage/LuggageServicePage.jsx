@@ -92,7 +92,9 @@ const LuggageServicePage = () => {
     complaintType: Yup.mixed().required(t.complaintDetailsString),
     email: Yup.string().email(t.emailInvalid),
     complaintDetails: Yup.string(),
-    numberOfBags: Yup.number().required(t.numberOfBagsRequired),
+    numberOfBags: Yup.number()
+      .required(t.numberOfBagsRequired)
+      .min(1, t.numberOfBagsMustBeGreaterThanZero),
   });
   const number = roomData?.data?.message?.number;
 
@@ -171,7 +173,7 @@ const LuggageServicePage = () => {
               }
             })
             .catch((error) => {
-              console.error("Request error:", error);
+              // console.error("Request error:", error);
               setPopupMessage(t.unexpectedError || "حدث خطأ غير متوقع");
               setPopupType("error");
               setPopupOpen(true);
@@ -180,7 +182,7 @@ const LuggageServicePage = () => {
               setIsSubmitting(false);
             });
 
-          return; // ✅ prevent further execution
+          return;
         } catch (error) {
           console.error("Location access failed:", error.message);
           setLocationPopupOpen(true);
@@ -402,7 +404,8 @@ const LuggageServicePage = () => {
             sx={{
               fontFamily: "Almarai",
               fontWeight: 400,
-              fontSize: "18px",
+              fontSize: { md: "18px", xs: "14px" },
+
               color: "#fff",
               mb: "6px",
             }}
@@ -451,6 +454,10 @@ const LuggageServicePage = () => {
                         "&.Mui-checked .MuiSvgIcon-root": {
                           color: "#CFAE78", // Icon color for checked state
                         },
+                        "& .css-1a6cdfp-MuiFormControlLabel-root":{
+                          marginLeft: "0px",
+                          marginRight: "0px"
+                        }
                       }}
                     />
                   }
@@ -458,7 +465,7 @@ const LuggageServicePage = () => {
                   sx={{
                     "& .MuiFormControlLabel-label": {
                       color: "#fff", // Label text color
-                      fontSize: "16px !important",
+                      fontSize: {md:"16px !important",xs:"14px !important"},
                     },
                   }}
                 />
@@ -478,7 +485,8 @@ const LuggageServicePage = () => {
             sx={{
               fontFamily: "Almarai",
               fontWeight: 400,
-              fontSize: "18px",
+                                     fontSize: { md: "18px", xs: "14px" },
+
               color: "#fff",
               mb: 1,
             }}
@@ -550,12 +558,14 @@ const LuggageServicePage = () => {
             sx={{
               flex: 1,
               minWidth: 150,
-              height: 48,
+                         height: { md: 48, xs: 40 },
+
               borderRadius: "5px",
               backgroundColor: "#00395D",
               fontFamily: "Almarai",
               fontWeight: 400,
-              fontSize: 18,
+                                   fontSize: { md: "18px", xs: "14px" },
+
             }}
           >
             {isSubmitting ? (
@@ -568,13 +578,14 @@ const LuggageServicePage = () => {
             variant="contained"
             sx={{
               flex: 1,
-              minWidth: 150,
-              height: 48,
+              // minWidth: 150,
+            height: { md: 48, xs: 40 },
               borderRadius: "5px",
               backgroundColor: "#7C8A93",
               fontFamily: "Almarai",
               fontWeight: 400,
-              fontSize: 18,
+                                   fontSize: { md: "18px", xs: "14px" },
+
             }}
             onClick={() => formik.resetForm()}
           >

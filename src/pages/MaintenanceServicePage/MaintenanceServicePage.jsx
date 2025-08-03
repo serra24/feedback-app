@@ -202,13 +202,14 @@ const MaintenanceServicePage = () => {
 
             // 📎 Main request fields
             formData.append("Name", normalize(values.fullName));
+            formData.append("Items", normalize(null));
             formData.append("RoomId", normalize(parseInt(roomNum)));
             formData.append("TypeId", normalize(2)); // Set type accordingly
             formData.append("Description", normalize(values.notes));
+            formData.append("Title", normalize(values.title));
             // formData.append("PreferredTime", normalize(new Date().toISOString()));
             formData.append("Email", normalize(values.email));
             formData.append("PhoneNumber", normalize(values.phone));
-
             // 📎 MaintenanceData fields
             Object.entries(maintenanceData).forEach(([key, val]) => {
               formData.append(`MaintenanceData.${key}`, normalize(val));
@@ -465,7 +466,7 @@ const MaintenanceServicePage = () => {
                 marginBottom: "3px",
                 fontFamily: "Almarai",
                 color: "var(--white-color)",
-                fontSize: 18,
+                fontSize: { md: "18px", xs: "14px" },
                 fontWeight: 400,
               }}
             >
@@ -515,12 +516,33 @@ const MaintenanceServicePage = () => {
                   },
                 }}
               >
-                <MenuItem value="" disabled>
+                <MenuItem
+                  value=""
+                  disabled
+                  sx={{
+                    fontSize: { md: "14px", xs: "12px" },
+                    minHeight: { md: "48px", xs: "36px" },
+                      fontFamily: "Almarai",
+
+                  }}
+                >
                   {t.Select} {t.Maintenance.priority}
                 </MenuItem>
 
                 {priorityOptions?.map((option) => (
-                  <MenuItem key={option.id} value={option.id}>
+                  <MenuItem
+                    key={option.id}
+                    value={option.id}
+                    sx={{
+                      fontSize: { md: "16px", xs: "14px" },
+                      minHeight: { md: "48px", xs: "36px" },
+                      fontFamily: "Almarai",
+
+                      "&:hover": {
+                        backgroundColor: "rgba(0, 61, 93, 0.1)",
+                      },
+                    }}
+                  >
                     {option.name}
                   </MenuItem>
                 ))}
@@ -549,7 +571,7 @@ const MaintenanceServicePage = () => {
                   mb: 1,
                   fontFamily: "Almarai",
                   color: "var(--white-color)",
-                  fontSize: 18,
+                  fontSize: { md: "18px", xs: "14px" },
                   fontWeight: 400,
                 }}
               >
@@ -631,11 +653,31 @@ const MaintenanceServicePage = () => {
                     },
                   }}
                 >
-                  <MenuItem value="" disabled>
+                  <MenuItem
+                    value=""
+                    disabled
+                    sx={{
+                      fontSize: { md: "14px", xs: "12px" },
+                      fontFamily: "Almarai",
+                      minHeight: { md: "48px", xs: "36px" },
+                    }}
+                  >
                     {t.Select} {field.label}
                   </MenuItem>
                   {field?.options?.map((option, idx) => (
-                    <MenuItem key={idx} value={option.id}>
+                    <MenuItem
+                      key={idx}
+                      value={option.id}
+                      sx={{
+                        fontSize: { md: "16px", xs: "14px" },
+                        minHeight: { md: "48px", xs: "36px" },
+                        fontFamily: "Almarai",
+
+                        "&:hover": {
+                          backgroundColor: "rgba(0, 61, 93, 0.1)",
+                        },
+                      }}
+                    >
                       {option.name}
                     </MenuItem>
                   ))}
@@ -675,7 +717,7 @@ const MaintenanceServicePage = () => {
                 mb: 1,
                 fontFamily: "Almarai",
                 color: "var(--white-color)",
-                fontSize: 18,
+                fontSize: { md: "18px", xs: "14px" },
                 fontWeight: 400,
               }}
             >
@@ -706,7 +748,7 @@ const MaintenanceServicePage = () => {
                 mb: 1,
                 fontFamily: "Almarai",
                 color: "var(--white-color)",
-                fontSize: 18,
+                fontSize: { md: "18px", xs: "14px" },
                 fontWeight: 400,
               }}
             >
@@ -807,12 +849,12 @@ const MaintenanceServicePage = () => {
             sx={{
               flex: 1,
               minWidth: 150,
-              height: 48,
+              height: { md: 48, xs: 40 },
               borderRadius: "5px",
               backgroundColor: "#00395D",
               fontFamily: "Almarai",
               fontWeight: 400,
-              fontSize: 18,
+              fontSize: { md: "18px", xs: "14px" },
             }}
           >
             {isSubmitting ? (
@@ -825,13 +867,14 @@ const MaintenanceServicePage = () => {
             variant="contained"
             sx={{
               flex: 1,
-              minWidth: 150,
-              height: 48,
+              // minWidth: 150,
+              height: { md: 48, xs: 40 },
+
               borderRadius: "5px",
               backgroundColor: "#7C8A93",
               fontFamily: "Almarai",
               fontWeight: 400,
-              fontSize: 18,
+              fontSize: { md: "18px", xs: "14px" },
             }}
             onClick={() => {
               formik.resetForm();

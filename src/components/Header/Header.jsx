@@ -43,7 +43,7 @@ const Header = ({
           justifyContent: "space-between",
           alignItems: "center",
           px: { xs: 0, sm: 0, md: 6.2},
-          py: 3,
+          py: {md:3,xs:1},
         }}
       >
         {/* Drawer for Small Screens */}

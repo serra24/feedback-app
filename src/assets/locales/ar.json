@@ -304,6 +304,23 @@
   },
   "roomNotOccupiedTitle": "الغرفة غير ساكنة",
     "roomNotOccupiedMessage":"يبدو أن هذه الغرفة غير ساكنة حاليًا. يُرجى التحقق من رمز الاستجابة السريعة الموجود على الباب أو التواصل مع مكتب الاستقبال للمساعدة."
+    ,"roomLocation":"م يُرجى تفعيل الموقع ومسح رمز الاستجابة السريعة للغرفة",
+    "numberOfBagsMustBeGreaterThanZero": "يجب أن يكون عدد الحقائب أكبر من صفر",
+        "complaintTypesRequired": "الرجاء اختيار نوع شكوى واحد على الأقل","selectEvaluationPage": {
+  "header": {
+    "mainTitle": "اختر نوع التقييم",
+    "subTitle": "الرجاء اختيار الخدمة التي تريد تقييمها"
+  },
+  "form": {
+    "evaluationSourcesTitle": "مصادر التقييم",
+    "branchesTitle": "الفروع",
+    "selectSource": "اختر مصدر التقييم",
+    "selectBranch": "اختر الفرع",
+    "submitButton": "متابعة"
+  }
+},
+"back":"عودة"
+
 
 
 }

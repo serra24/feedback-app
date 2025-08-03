@@ -1,4 +1,4 @@
-import React,{useContext} from "react";
+import React, { useContext } from "react";
 import { Box, Typography, TextField, InputAdornment } from "@mui/material";
 import { LanguageContext } from "../../context/LanguageContext";
 
@@ -14,24 +14,32 @@ const InputField = ({
   name,
   type = "text",
   disabled = false,
-    required = false,
+  required = false,
 }) => {
-    const { translations: t ,language:lang} = useContext(LanguageContext);
+  const { translations: t, language: lang } = useContext(LanguageContext);
   return (
     <Box>
-        <Typography
+      <Typography
         sx={{
           fontFamily: "Almarai, sans-serif",
           fontWeight: 400,
-          fontSize: "18px",
+          fontSize: { md: "18px", xs: "14px" },
           lineHeight: "100%",
+          
           color: "var(--white-color)",
           marginBottom: "12px",
         }}
       >
         {label}
         {required && (
-          <Typography component="span" sx={{ color: "red", marginRight:lang==="ar"? "4px" :0,marginLeft:lang==="en"?"4px":0}}>
+          <Typography
+            component="span"
+            sx={{
+              color: "red",
+              marginRight: lang === "ar" ? "4px" : 0,
+              marginLeft: lang === "en" ? "4px" : 0,
+            }}
+          >
             *
           </Typography>
         )}
@@ -42,9 +50,13 @@ const InputField = ({
         type={type} // Use native date input if type is date
         fullWidth
         sx={{
+          "& .css-2u11ia-MuiInputBase-input-MuiOutlinedInput-input": {
+            height: { md: "48px", xs: "8px !important" },
+          },
+         
           "& .MuiOutlinedInput-root": {
             borderRadius: "5px",
-            height: "48px",
+            height: { md: "48px", xs: "40px" },
             backgroundColor: "#084267",
             // backgroundColor: "transparent",
             // border: "1px solid #FFFFFF80",
@@ -52,7 +64,9 @@ const InputField = ({
               color: "#fff",
             },
             "& input::placeholder": {
-              fontSize: "15px",  
+              fontSize: { md: "15px", xs: "12px" },
+                fontFamily: "Almarai",
+
             },
           },
           // Hide the label float for date inputs
@@ -72,7 +86,7 @@ const InputField = ({
             iconSrc && type !== "date" ? (
               <InputAdornment position="start">
                 {/* <img src={iconSrc} alt="input-icon" /> */}
-             {iconSrc}
+                {iconSrc}
               </InputAdornment>
             ) : undefined,
         }}

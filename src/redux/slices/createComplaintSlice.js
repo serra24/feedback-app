@@ -5,6 +5,7 @@ import axiosInstancePromise from '../../api/axiosInstance'; // ✅ Import the pr
 export const createComplaint = createAsyncThunk(
   'complaints/createComplaint',
   async ({payload, language, coordinates}, { rejectWithValue, getState }) => {
+    // console.log("coordinates",coordinates);
     try {
       const axios = await axiosInstancePromise;
 
@@ -28,6 +29,10 @@ export const createComplaint = createAsyncThunk(
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data || error.message);
+      // return rejectWithValue({
+      //   status: error?.status,
+      //   payload: error.response?.data || error.message,
+      // });
     }
   }
 );
