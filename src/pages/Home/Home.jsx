@@ -17,6 +17,7 @@ import {
   setLocationStatus,
 } from "../../redux/slices/locationSlice";
 import { checkRoomOccupancy } from "../../redux/slices/roomFeatures/roomOccupancySlice";
+import InputField from "../../components/InputField/InputField";
 
 const Home = () => {
   const { translations: t } = useContext(LanguageContext);
@@ -196,6 +197,13 @@ const Home = () => {
                     
                     </Select>
                   </FormControl>
+                   <InputField
+                                label={t.Complaint.title.label}
+                                name="title"
+                              
+                                placeholder={t.Complaint.title.placeholder}
+                                required
+                              />
           {/* Welcome Heading - Simplified for mobile */}
           <Box
             sx={{
