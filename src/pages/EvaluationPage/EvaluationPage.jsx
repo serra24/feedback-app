@@ -44,7 +44,7 @@ const EvaluationPage = () => {
       ? prevRatings
       : data?.map(() => 0) || []
   );
-  console.log("ratings:", ratings);
+
 
   // const [ratings, setRatings] = useState([]);
   const [hovered, setHovered] = useState({ index: null, value: 0 });

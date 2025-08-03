@@ -44,29 +44,10 @@ const SelectEvaluationSource = () => {
   // Initialize state with previous values if they exist
   const [selectedSourceId, setSelectedSourceId] = useState(prevSourceId || "");
   const [selectedBranchId, setSelectedBranchId] = useState(prevBranchId || "");
-  console.log(
-    "selectedSourceId",
-    selectedSourceId,
-    prevSourceId,
-    selectedBranchId
-  );
-
   useEffect(() => {
     dispatch(fetchEvaluationSources(language));
     dispatch(fetchBranches(language));
   }, [dispatch, language]);
-
-  // useEffect(() => {
-  //   dispatch(fetchEvaluationSources());
-  //   dispatch(fetchBranches());
-  // }, [dispatch]);
-
-  // useEffect(() => {
-
-  //   if (prevSourceId) setSelectedSourceId(prevSourceId);
-  //   if (prevBranchId) setSelectedBranchId(prevBranchId);
-  // }, [prevSourceId, prevBranchId]);
-  console.log("selectedSourceId", selectedSourceId);
 
   const handleSubmit = () => {
     if (selectedSourceId && selectedBranchId) {

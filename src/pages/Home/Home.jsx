@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
-import { Box, FormControl, MenuItem, Select, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { LanguageContext } from "../../context/LanguageContext";
 import Card from "../../components/Card/Card";
 import star from "../../assets/icons/star.svg";
@@ -17,7 +17,6 @@ import {
   setLocationStatus,
 } from "../../redux/slices/locationSlice";
 import { checkRoomOccupancy } from "../../redux/slices/roomFeatures/roomOccupancySlice";
-import InputField from "../../components/InputField/InputField";
 
 const Home = () => {
   const { translations: t } = useContext(LanguageContext);
@@ -156,54 +155,7 @@ const Home = () => {
             py: 4,
           }}
         >
-            <FormControl fullWidth sx={{ mb: 3 }}>
-                    <Select
-                      displayEmpty
-                     
-                      sx={{
-                        borderRadius: "4px",
-                        height: { md: "48px", xs: "40px" },
-                          fontFamily: "Almarai",
           
-                        color: "#fff",
-                        "& .MuiSelect-icon": {
-                          color: "#fff",
-                        },
-                        backgroundColor: "transparent",
-          
-                        "& .MuiOutlinedInput-notchedOutline": {
-                          border: "1px solid rgba(255, 255, 255, 0.3) !important",
-                        },
-                        "&:hover .MuiOutlinedInput-notchedOutline": {
-                          border: "1px solid var(--gold-color) !important",
-                        },
-                        "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                          border: "1px solid var(--gold-color) !important",
-                        },
-                        
-                      }}
-                    >
-                      <MenuItem
-                        value=""
-                        disabled
-                        sx={{
-                          fontSize: { md: "14px", xs: "12px" },
-                          fontFamily: "Almarai",
-                          minHeight: { md: "48px", xs: "36px" },
-                        }}
-                      >
-                        {t.selectEvaluationPage.form.selectBranch}
-                      </MenuItem>
-                    
-                    </Select>
-                  </FormControl>
-                   <InputField
-                                label={t.Complaint.title.label}
-                                name="title"
-                              
-                                placeholder={t.Complaint.title.placeholder}
-                                required
-                              />
           {/* Welcome Heading - Simplified for mobile */}
           <Box
             sx={{

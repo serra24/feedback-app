@@ -406,6 +406,7 @@ const MaintenanceServicePage = () => {
               error={formik.errors.phone}
               touched={formik.touched.phone}
               placeholder={t.cleaningForm.phonePlaceholder}
+              
             />
           </Box>
           <Box sx={{ flex: 1 }}>

@@ -31,18 +31,20 @@ const InputField = ({
         }}
       >
         {label}
-        {required && (
+        {/* {required && ( */}
           <Typography
             component="span"
             sx={{
               color: "red",
               marginRight: lang === "ar" ? "4px" : 0,
               marginLeft: lang === "en" ? "4px" : 0,
+     opacity: required ? 1 : 0, 
+
             }}
           >
             *
           </Typography>
-        )}
+        {/* )} */}
       </Typography>
       <TextField
         variant="outlined"
@@ -58,6 +60,7 @@ const InputField = ({
             borderRadius: "5px",
             height: { md: "48px", xs: "40px" },
             backgroundColor: "#084267",
+            
             // backgroundColor: "transparent",
             // border: "1px solid #FFFFFF80",
             "& input": {

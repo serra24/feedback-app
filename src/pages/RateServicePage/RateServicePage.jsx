@@ -29,7 +29,7 @@ const RateServicePage = () => {
     email: prevEmail = "",
     guestName: prevGuestName = "",
   } = location.state || {};
-  console.log("sourceId", sourceId, "branchId", branchId);
+
 
   // Validation Schema using Yup
   const validationSchema = Yup.object({
