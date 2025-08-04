@@ -3,7 +3,7 @@ import { Box, AppBar, Toolbar, Link, IconButton, Drawer } from "@mui/material";
 import { RiCloseLargeLine } from "react-icons/ri"; // Import Close Icon
 import { HiMenuAlt2 } from "react-icons/hi"; // Import Menu Icon
 import { motion } from "framer-motion"; // Importing motion from framer-motion
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import logo from "../../assets/logos/logo.png";
 import MenuIcon from "@mui/icons-material/Menu";
 import LanguageSelector from "../LanguageSelector/LanguageSelector";
@@ -19,10 +19,25 @@ const Header = ({
   isRtl,
 }) => {
   const navigate = useNavigate();
-  // Handler for logo click (logs message and redirects to home)
+
+  const location = useLocation();
+  
+  // Check if we're on a source/form page
+  const isSourcePage = location.pathname.includes('-form') || 
+                      location.pathname.includes('select-source');
+  
+  // Handler for logo click - goes home or back based on context
   const handleLogoClick = () => {
-    navigate("/"); // Redirect to the home page
+    if (isSourcePage) {
+ 
+      navigate('rate-service/select-source');
+    } else {
+      // Otherwise go to home
+      navigate('/');
+    }
   };
+  const showNavigationLinks = !isSourcePage;
+
   // State for handling the drawer open/close
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false); // New state for menu open/close
@@ -55,6 +70,7 @@ const Header = ({
           aboutIcon={aboutIcon}
           isRtl={isRtl}
           t={t}
+           isSourcePage={isSourcePage}
         />
 
         <Box sx={{ display: "flex", alignItems: "center", gap: "50px" }}>
@@ -70,7 +86,8 @@ const Header = ({
                className="responsive-logo"
             />
           </Box>
-
+  {showNavigationLinks && (
+    <>
           {/* Navigation Links */}
           <Box sx={{ display: { xs: "none", sm: "flex" }, gap: 3, ml: "auto" }}>
             <motion.div
@@ -140,12 +157,14 @@ const Header = ({
                 {t.navigation.about}
               </Link>
             </motion.div>
-          </Box>
+          </Box></>
+  )}
         </Box>
         <Box sx={{ display: "flex",gap: "10px" }}>
           {/* Language Selector */}
           <LanguageSelector language={language} setLanguage={setLanguage} />
           {/* Menu Icon for Small Screens */}
+             {showNavigationLinks && (
           <IconButton
             sx={{
               display: { xs: "block", sm: "none" },
@@ -169,7 +188,7 @@ const Header = ({
                 />
               )}
             </motion.div>
-          </IconButton>
+          </IconButton>)}
         </Box>
       </Toolbar>
     </AppBar>

@@ -6,6 +6,7 @@ import {
   TextField,
   TextareaAutosize,
   CircularProgress,
+  IconButton,
 } from "@mui/material";
 import starFilled from "../../assets/icons/star-filled.svg";
 import starEmpty from "../../assets/icons/star-empty.svg";
@@ -21,37 +22,53 @@ import { fetchGuestEvaluation } from "../../redux/slices/guestEvaluationSlice";
 import Loading from "../../components/Loading/Loading";
 import { addEvaluation } from "../../redux/slices/evaluationSlice";
 import { useLocation, useNavigate } from "react-router-dom";
-import { fetchRoomData } from "../../redux/slices/roomFeatures/roomDataSlice";
+import { MdArrowBack } from "react-icons/md";
 
-const EvaluationPage = () => {
+const EvaluationSourcePage = () => {
   const { translations: t, language } = useContext(LanguageContext);
   const roomNum2 = useSelector((state) => state.room.roomNum);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  // console.log("Room Number from Redux:", roomNum2);
+  const { data, loading } = useSelector((state) => state.guestEvaluation);
   const location = useLocation();
-  const { phone, email, guestName } = location.state || {};
-  const [ratings, setRatings] = useState([]); // We will store individual ratings for each item here
+  const {
+    phone,
+    email,
+    guestName,
+    sourceId,
+    branchId,bookingNumber,
+    ratings: prevRatings = [],
+    comment: prevComment = "",
+
+  } = location.state || {};
+  const [ratings, setRatings] = useState(
+    prevRatings?.length === data?.length
+      ? prevRatings
+      : data?.map(() => 0) || []
+  );
+
+
+  // const [ratings, setRatings] = useState([]);
   const [hovered, setHovered] = useState({ index: null, value: 0 });
   const locationAsked = useSelector((state) => state.location.locationAsked);
   const locationStatus = useSelector((state) => state.location.locationStatus);
   const [coordinates, setCoordinates] = useState({ lat: null, lng: null });
   const [locationPopupOpen, setLocationPopupOpen] = useState(false);
 
-  const [comment, setComment] = useState("");
+  const [comment, setComment] = useState(prevComment);
   const [popupOpen, setPopupOpen] = useState(false);
   const [popupType, setPopupType] = useState(""); // 'success' or 'error'
   const [popupMessage, setPopupMessage] = useState("");
   const mainContentRef = useRef(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const bookingNumber = useSelector((state) => state.room.bookingNumber);
-  const roomNum = useSelector((state) => state.room.roomNum);
+  // const bookingNumber = useSelector((state) => state.room.bookingNumber);
+  // const roomNum = useSelector((state) => state.room.roomNum);
 
-  const { data, loading } = useSelector((state) => state.guestEvaluation);
+
   useEffect(() => {
     // Fetch guest evaluation data when the component mounts
-    dispatch(fetchGuestEvaluation({language}))
+    dispatch(fetchGuestEvaluation({language, sourceId: sourceId,
+          branchId: branchId,}))
       .then(() => {
         // console.log("Guest evaluation data fetched successfully.");
       })
@@ -59,11 +76,11 @@ const EvaluationPage = () => {
         console.error("Error fetching guest evaluation data:", error);
       });
   }, [dispatch, language]);
-  useEffect(() => {
-    // Initialize ratings for each item (if data is available)
-    const initialRatings = data?.map(() => 0); // Initialize all ratings to 0
-    setRatings(initialRatings);
-  }, [data]);
+  // useEffect(() => {
+  //   // Initialize ratings for each item (if data is available)
+  //   const initialRatings = data?.map(() => 0); // Initialize all ratings to 0
+  //   setRatings(initialRatings);
+  // }, [data]);
 
   const handleRating = (index, value, e) => {
     const { left, width } = e.target.getBoundingClientRect();
@@ -89,79 +106,114 @@ const EvaluationPage = () => {
     }
     setRatings(updatedRatings);
   };
-    const roomData = useSelector((state) => state.roomData);
-
-  
-    useEffect(() => {
-      // console.log("roomNum inside useEffect:", roomNum);  // Check if roomNum is defined
-      if (roomNum) {
-        dispatch(fetchRoomData({ roomId: roomNum, language }));
-      } else {
-        // console.error("roomNum is undefined or invalid");
-      }
-    }, [roomNum, dispatch, language]);
-   const handleSubmit = async () => {
+  const handleSubmit = async () => {
     if (isSubmitting) return;
   setIsSubmitting(true);
-    const hasAtLeastOneRating = ratings.some((rating) => rating > 0);
-    const hasComment = comment.trim().length > 0;
 
-    if (!hasAtLeastOneRating && !hasComment) {
-      setPopupMessage(
-        t.Evaluation.errorMessage ||
-          "Please provide at least one rating or a comment."
-      );
-      setPopupType("error");
-      setPopupOpen(true);
-      setIsSubmitting(false);
-      return;
-    }
+        // const isValid = ratings.every((rating) => rating !== 0); // Check if all ratings are selected
+        const hasAtLeastOneRating = ratings.some((rating) => rating > 0);
+        const hasComment = comment.trim().length > 0;
 
-     const evaluationData = {
-          name: guestName, 
-          roomId: roomNum,
-        
+        if (!hasAtLeastOneRating && !hasComment) {
+          setPopupMessage(
+            t.Evaluation.errorMessage ||
+              "Please provide at least one rating or a comment."
+          );
+          setPopupType("error");
+          setPopupOpen(true);
+          return; // Stop submission
+        }
+        // if (isValid) {
+        // Create the evaluation payload
+        const evaluationData = {
+          name: guestName, // You can replace this with a dynamic name if needed
+          // roomId: roomNum,
+          // roomId: roomNum2, // Use the room number from session storage
+          // roomId: roomNum, // Use the room number from session storage
+          // roomId: sessionStorage.getItem("roomNum"), // Use the room number from session storage
           items: data?.map((item, index) => ({
-            itemId: item.id,
-            rate: ratings[index], 
+            itemId: item.id, // Use the actual itemId from the data
+            rate: ratings[index], // The corresponding rating for that item
           })),
           description: comment,
-          sourceId: 1,
           email: email || null,
           phoneNumber: phone || null,
           language: language === "ar" ? 1 : 2,
           bookingNumber: bookingNumber,
-           branchId: roomData?.data?.message?.floor?.building?.branch?.id || null,
+          sourceId: sourceId,
+          branchId: branchId,
         };
 
-    dispatch(addEvaluation({ evaluationData }))
-      .then((response) => {
-        if (response.payload.successtate === 200) {
-          setPopupMessage(response.payload?.message);
-          setPopupType("success");
-          setPopupOpen(true);
-          setComment("");
-          setRatings(data?.map(() => 0));
-          setHovered({ index: null, value: 0 });
-        } else {
-          const payload = response.payload;
-          setPopupMessage(
-            payload?.errormessage || payload?.payload || "Something went wrong."
-          );
-          setPopupType("error");
-          setPopupOpen(true);
-        }
-      })
-      .catch((error) => {
-        setPopupMessage(error?.errormessage || "Submission failed");
-        setPopupType("error");
-        setPopupOpen(true);
-      })
-      .finally(() => {
-        setIsSubmitting(false);
-      });
+        // Dispatch the evaluation action
+        dispatch(
+          addEvaluation({ evaluationData})
+        )
+          .then((response) => {
+            // console.log("re", response);
+
+            // console.log("Evaluation submitted successfully:", response);
+            if (response.payload.successtate === 200) {
+              setPopupMessage(response.payload?.message);
+              setPopupType("success");
+              setPopupOpen(true);
+              setComment("");
+              setRatings(data?.map(() => 0));
+              setHovered({ index: null, value: 0 });
+              // } else {
+              //   setPopupMessage(response.payload?.errormessage|| response?.payload?.payload);
+              //   // console.log("Error message:", response?.payload?.errormessage);
+
+              //   setPopupType("error");
+              //   setPopupOpen(true); // Show error popup
+              // }
+            } else {
+              const payload = response.payload;
+
+              if (payload?.status === 400) {
+                // Show a specific message for status 400
+                setPopupMessage(t.roomLocation);
+              } else {
+                // Fallback to error message or payload string
+                setPopupMessage(
+                  payload?.errormessage ||
+                    payload?.payload ||
+                    payload ||
+                    "Something went wrong."
+                );
+              }
+
+              setPopupType("error");
+              setPopupOpen(true);
+            }
+          })
+          .catch((error) => {
+            // console.log("Error submitting evaluation:", error);
+            setIsSubmitting(false);
+            setPopupMessage(error?.errormessage);
+            setPopupType("error");
+            setPopupOpen(true); // Show error popup
+          })
+          .finally(() => {
+            setIsSubmitting(false);
+          });
+      
+    
   };
 
+  const handleBack = () => {
+    navigate("/rate-service/rate-form", {
+      state: {
+        phone,
+        email,
+        guestName,
+        sourceId,
+        branchId,
+        bookingNumber,
+        ratings: ratings || [], // Fallback if ratings not in state
+        comment: comment || "",
+      },
+    });
+  };
   if (loading) {
     return <Loading />;
   }
@@ -195,8 +247,8 @@ const EvaluationPage = () => {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-           style={{
-    width: "100%", // Make motion div take full width of parent
+         style={{
+    width: "100%", 
     display: "flex",
     justifyContent: "center"
   }}
@@ -245,8 +297,7 @@ const EvaluationPage = () => {
                     sx={{
                       fontFamily: "Almarai, sans-serif",
                       fontWeight: 400,
-                      fontSize: { md: "18px", xs: "14px" },
-
+                      fontSize: { md: "18px", xs: "16px" },
                       whiteSpace: "normal",
                       width: { xs: "95px", sm: "auto" },
                     }}
@@ -332,8 +383,7 @@ const EvaluationPage = () => {
                 sx={{
                   fontFamily: "Almarai, sans-serif",
                   fontWeight: 400,
-                  fontSize: { md: "18px", xs: "14px" },
-
+                  fontSize: { md: "18px", xs: "16px" },
                   mb: 2,
                 }}
               >
@@ -356,39 +406,81 @@ const EvaluationPage = () => {
                 }}
               />
             </Box>
-
-            {/* Submit Button */}
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ duration: 0.2 }}
+            <Box
+              sx={{
+                display: "flex",
+                gap: 2,
+                mt: 3,
+                width: "100%",
+                alignItems: "center", // Ensures buttons are aligned vertically
+              }}
             >
-              <Button
-                variant="contained"
-                disabled={isSubmitting}
-                sx={{
-                  mt: "6px",
-                  width: "100%",
-                  height: { md: "48px", xs: "38px" },
-                  borderRadius: "5px",
-                  backgroundColor: "#00395D",
-                  fontFamily: "Almarai, sans-serif",
-                  fontWeight: 400,
-                 fontSize: { xs: "16px", sm: "18px" },
-                  lineHeight: "100%",
-                  "&:hover": {
-                    backgroundColor: "#002d4d",
-                  },
-                }}
-                onClick={handleSubmit}
+              {/* Back Button */}
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ duration: 0.2 }}
+                style={{ flex: 1, width: "100%" }} // Ensures motion div takes full width
               >
-                {isSubmitting ? (
-                  <CircularProgress size={24} sx={{ color: "white" }} />
-                ) : (
-                  t.Evaluation.submit
-                )}
-              </Button>
-            </motion.div>
+                <Button
+                  variant="outlined"
+                  fullWidth
+                  onClick={handleBack}
+                  sx={{
+                    height: { md: "48px", xs: "38px" },
+                    borderRadius: "5px",
+                    borderColor: "var(--gold-color)",
+                    color: "var(--gold-color)",
+                    fontWeight: 400,
+                    fontSize: { xs: "14px", sm: "18px" },
+                    textTransform: "none",
+                    "&:hover": {
+                      backgroundColor: "rgba(255, 215, 0, 0.1)",
+                      borderColor: "var(--gold-color)",
+                    },
+                  }}
+                >
+                  {t.back}
+                </Button>
+              </motion.div>
+
+              {/* Submit Button */}
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ duration: 0.2 }}
+                style={{ flex: 2, width: "100%" }} // Makes submit button wider
+              >
+                <Button
+                  variant="contained"
+                  fullWidth
+                  disabled={isSubmitting}
+                  sx={{
+                    height: { md: "48px", xs: "38px" },
+                    borderRadius: "5px",
+                    backgroundColor: "#00395D",
+                    fontFamily: "Almarai, sans-serif",
+                    fontWeight: 400,
+                    fontSize: { xs: "14px", sm: "18px" },
+                    textTransform: "none",
+                    "&:hover": {
+                      backgroundColor: "#002d4d",
+                    },
+                    "&:disabled": {
+                      backgroundColor: "rgba(0, 61, 93, 0.5)",
+                      color: "rgba(255, 255, 255, 0.5)",
+                    },
+                  }}
+                  onClick={handleSubmit}
+                >
+                  {isSubmitting ? (
+                    <CircularProgress size={24} sx={{ color: "white" }} />
+                  ) : (
+                    t.Evaluation.submit
+                  )}
+                </Button>
+              </motion.div>
+            </Box>
           </Box>
         </motion.div>
       </Box>
@@ -400,7 +492,7 @@ const EvaluationPage = () => {
           message={popupMessage}
           onClose={() => {
             setPopupOpen(false);
-            navigate("/"); // Redirect to home
+            navigate("/rate-service/select-source"); 
           }}
         />
       )}
@@ -418,4 +510,4 @@ const EvaluationPage = () => {
   );
 };
 
-export default EvaluationPage;
+export default EvaluationSourcePage;

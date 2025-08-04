@@ -68,6 +68,10 @@
       "label": "Hotel Name",
       "placeholder": "Enter hotel name"
     },
+        "bookingNumber": {
+    "label": "Booking Number",
+    "placeholder": "Enter your booking number"
+  },
     "title": {
       "label": "Complaint Title",
       "placeholder": "Enter the complaint title"

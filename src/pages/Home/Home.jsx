@@ -263,7 +263,7 @@ const Home = () => {
               iconSize="50px"
               imageSrc={star}
               arrowIcon={arrowIcon}
-              navigateTo="/select-evaluation"
+            navigateTo="/rate-service"
             />
 
             <Card

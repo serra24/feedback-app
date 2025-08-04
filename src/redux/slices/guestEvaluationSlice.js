@@ -16,8 +16,8 @@ export const fetchGuestEvaluation = createAsyncThunk(
       
       },
        params: { 
-        sourceId,
-        branchId
+        sourceId:sourceId || 1,
+        branchId:branchId || null
       }
     });
     // console.log(response,"response");

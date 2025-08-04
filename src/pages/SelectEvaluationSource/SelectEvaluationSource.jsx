@@ -27,7 +27,10 @@ const SelectEvaluationSource = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const { translations: t, language } = useContext(LanguageContext);
-
+  const [hasCheckedRoom, setHasCheckedRoom] = useState(false);
+  const locationAsked = useSelector((state) => state.location.locationAsked);
+  const locationStatus = useSelector((state) => state.location.locationStatus);
+  
   // Redux selectors
   const evaluationSources = useSelector(selectEvaluationSources);
   const branches = useSelector(selectBranches);
@@ -48,10 +51,11 @@ const SelectEvaluationSource = () => {
     dispatch(fetchEvaluationSources(language));
     dispatch(fetchBranches(language));
   }, [dispatch, language]);
+  const filteredSources = evaluationSources.filter(source => source.id !== 1);
 
   const handleSubmit = () => {
     if (selectedSourceId && selectedBranchId) {
-      navigate("/rate-service", {
+      navigate("/rate-service/rate-form", {
         state: {
           ...restState, // Preserve other state
           sourceId: selectedSourceId,
@@ -121,7 +125,7 @@ const SelectEvaluationSource = () => {
           borderRadius: "10px",
         }}
       >
-        <FormTitle title={t.rateServicePage.form.bookingDetailsTitle} />
+        {/* <FormTitle title={t.rateServicePage.form.bookingDetailsTitle} /> */}
         <Typography
           sx={{
             fontFamily: "Almarai, sans-serif",
@@ -189,7 +193,7 @@ const SelectEvaluationSource = () => {
             >
               {t.selectEvaluationPage.form.selectSource}
             </MenuItem>
-            {evaluationSources.map((source) => (
+            {filteredSources.map((source) => (
               <MenuItem
                 key={source.id}
                 value={source.id}

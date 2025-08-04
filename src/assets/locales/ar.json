@@ -70,6 +70,10 @@
       "label": "اسم الفندق",
       "placeholder": "أدخل اسم الفندق"
     },
+     "bookingNumber": {
+      "label": "رقم الحجز",
+      "placeholder": "أدخل رقم الحجز الخاص بك"
+    },
     "title": {
       "label": "عنوان الشكوى",
       "placeholder": "أدخل عنوان الشكوى"

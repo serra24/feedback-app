@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; // Import BrowserRouter and routing components
 import App from "./App.jsx"; // Import App component
-import Home from "./pages/Home/Home"; 
+import Home from "./pages/Home/Home";
 import "./index.css";
 import LanguageProvider from "./context/LanguageContext.jsx";
 import RateServicePage from "./pages/RateServicePage/RateServicePage.jsx";
@@ -19,58 +19,85 @@ import ResourcesServicePage from "./pages/RoomServicePage/ResourcesServicePage.j
 import AboutUs from "./pages/AboutUs/AboutUs.jsx";
 import NotFound from "./pages/NotFound/NotFound.jsx";
 import QRCodeGenerator from "./components/QRCodeGenerator/QRCodeGenerator.jsx";
-import { Provider } from 'react-redux';
-import {store,persistor } from './redux/store';
+import { Provider } from "react-redux";
+import { store, persistor } from "./redux/store";
 import { PersistGate } from "redux-persist/integration/react"; // PersistGate for delay loading
 import RoomNotOccupiedPage from "./pages/RoomNotOccupiedPage/RoomNotOccupiedPage.jsx";
 import SelectEvaluationSource from "./pages/SelectEvaluationSource/SelectEvaluationSource.jsx";
-
+import RateServiceSourcePage from "./pages/RateServiceSourcePage/RateServiceSourcePage.jsx";
+import EvaluationSourcePage from "./pages/EvaluationSourcePage/EvaluationSourcePage.jsx";
 
 // Directly add routing logic here
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
+      <PersistGate loading={null} persistor={persistor}>
+        <LanguageProvider>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <Router>
+              <Routes>
+                {/* This will render App, and then inside it, Home will be rendered at the index path */}
+                <Route path="/" element={<App />}>
+                  <Route index element={<Home />} />
+                  <Route path="/about-us" element={<AboutUs />} />
+                  <Route path="/rate-service">
+                    <Route index element={<RateServicePage />} />
+                    <Route
+                      path="select-source"
+                      element={<SelectEvaluationSource />}
+                    />
+                    <Route
+                      path="rate-form"
+                      element={<RateServiceSourcePage />}
+                    />
+                  </Route>
 
-    <LanguageProvider>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <Router>
-          <Routes>
-            {/* This will render App, and then inside it, Home will be rendered at the index path */}
-            <Route path="/" element={<App />}>
-              <Route index element={<Home />} />
-              <Route path="/about-us" element={<AboutUs/>} />
-              <Route path="/rate-service" element={<RateServicePage />} />
-              {/* <Route path="/rate-service" element={<EvaluationPage />} /> */}
-              <Route path="/request-service" element={<RequestServicePage />} />
-              <Route path="/evaluation" element={<EvaluationPage />} />
-              <Route path="/guest-service" element={<GuestServicePage />} />
-                  <Route path="/select-evaluation" element={<SelectEvaluationSource/>} />
-              <Route path="/scan" element={<QRCodeGenerator />} />
-              <Route
-                path="/maintenance-service"
-                element={<MaintenanceServicePage />}
-              />
-              <Route path="/room-service" element={<RoomServicePage />} />
-              <Route
-                path="/cleaning-service"
-                element={<CleaningServicePage />}
-              />
-              <Route
-                path="/resources-service"
-                element={<ResourcesServicePage />}
-              />
-              <Route path="/luggage-service" element={<LuggageServicePage />} />
-              <Route path="/room-not-occupied" element={<RoomNotOccupiedPage />} />
+                  <Route path="/evaluation">
+                    <Route index element={<EvaluationPage />} />
+                    <Route
+                      path="evaluation-form"
+                      element={<EvaluationSourcePage />}
+                    />
+                  </Route>
+                  {/* <Route path="/rate-service" element={<RateServicePage />} /> */}
+                  {/* <Route path="/rate-service" element={<EvaluationPage />} /> */}
+                  <Route
+                    path="/request-service"
+                    element={<RequestServicePage />}
+                  />
+                  <Route path="/evaluation" element={<EvaluationPage />} />
+                  <Route path="/guest-service" element={<GuestServicePage />} />
+                  {/* <Route path="/select-evaluation" element={<SelectEvaluationSource/>} /> */}
+                  <Route path="/scan" element={<QRCodeGenerator />} />
+                  <Route
+                    path="/maintenance-service"
+                    element={<MaintenanceServicePage />}
+                  />
+                  <Route path="/room-service" element={<RoomServicePage />} />
+                  <Route
+                    path="/cleaning-service"
+                    element={<CleaningServicePage />}
+                  />
+                  <Route
+                    path="/resources-service"
+                    element={<ResourcesServicePage />}
+                  />
+                  <Route
+                    path="/luggage-service"
+                    element={<LuggageServicePage />}
+                  />
+                  <Route
+                    path="/room-not-occupied"
+                    element={<RoomNotOccupiedPage />}
+                  />
 
-              <Route path="*" element={<NotFound />} />
-          
-            </Route>
-          </Routes>
-        </Router>
-      </LocalizationProvider>
-    </LanguageProvider>
-    </PersistGate>
+                  <Route path="*" element={<NotFound />} />
+                </Route>
+              </Routes>
+            </Router>
+          </LocalizationProvider>
+        </LanguageProvider>
+      </PersistGate>
     </Provider>
   </StrictMode>
 );
