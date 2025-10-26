@@ -200,14 +200,12 @@ input:-internal-autofill-selected {
     transform: rotate(360deg);
   }
 }
-/* Responsive logo styles */
-.responsive-logo {
-  /* height: 70px;  */
-}
+
 
 @media (max-width: 600px) {
   .responsive-logo {
-    height: 80px;
+    height: 80px !important;
+    width: auto !important;
   }
 }
 .css-zsp0bh-MuiInputBase-root-MuiOutlinedInput-root {

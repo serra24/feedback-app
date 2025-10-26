@@ -17,6 +17,8 @@ import {
   setLocationStatus,
 } from "../../redux/slices/locationSlice";
 import { checkRoomOccupancy } from "../../redux/slices/roomFeatures/roomOccupancySlice";
+import CustomTimePicker from "../../components/CustomTimePicker/CustomTimePicker";
+import InputField from "../../components/InputField/InputField";
 
 const Home = () => {
   const { translations: t } = useContext(LanguageContext);
@@ -126,7 +128,15 @@ if (guestMobile) { dispatch(setGuestMobile(guestMobile));}
       {!locationAsked && locationStatus !== "allowed" && (
         <LocationPopup onAllow={handleAllowLocation} onDeny={handleDeny} />
       )}
-
+ <CustomTimePicker
+                   label="test"
+                  />
+              
+                <InputField
+                
+                  label="test"
+                
+                />
       <Box
         sx={{
           minHeight: { md: "70vh", xs: "auto" },
