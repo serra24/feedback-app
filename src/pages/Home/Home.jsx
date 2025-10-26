@@ -10,7 +10,7 @@ import { motion } from "framer-motion";
 import ComplaintIcon from "../../assets/icons/guest.svg";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setBookingNumber, setRoomNumber } from "../../redux/slices/roomSlice";
+import { setBookingNumber, setRoomNumber,  setGuestName, setGuestMobile } from "../../redux/slices/roomSlice";
 import LocationPopup from "../../components/LocationPopup/LocationPopup";
 import {
   setLocationAsked,
@@ -74,7 +74,11 @@ const Home = () => {
   const queryParams = new URLSearchParams(location.search);
   const roomNumber = queryParams.get("roomNumber");
   const bookingNumber = queryParams.get("bookingNumber");
-  // ✅ Handle room check & save in one effect
+  const guestName = queryParams.get("guestName");
+const guestMobile = queryParams.get("guestMobile");
+
+
+  // Handle room check & save in one effect
   useEffect(() => {
     const handleRoomValidation = async () => {
       if (!roomNumber || hasCheckedRoom) return;
@@ -109,24 +113,15 @@ const Home = () => {
     if (bookingNumber) {
       dispatch(setBookingNumber(bookingNumber));
     }
-  }, [roomNumber, bookingNumber, dispatch, navigate, hasCheckedRoom]);
-  // useEffect(() => {
-  //   if (roomNumber) {
-  //     // sessionStorage.setItem("roomNum", roomNumber);
-  //     dispatch(setRoomNumber(roomNumber));
-  //   }
-
-  //   if (bookingNumber) {
-  //     // sessionStorage.setItem("bookingNumber", bookingNumber);
-  //     dispatch(setBookingNumber(bookingNumber));
-  //   }
-  // }, [dispatch, roomNumber, bookingNumber]);
-
-  // console.log("Stored Room Number from Redux:", storedRoomNumber);
+    
+if (guestName) {dispatch(setGuestName(guestName));}
+if (guestMobile) { dispatch(setGuestMobile(guestMobile));}
+  }, [roomNumber, bookingNumber, guestName, guestMobile, dispatch, navigate, hasCheckedRoom]);
+ 
 
   return (
     <>
-      {/* ✅ Popup using Box */}
+      {/*  Popup using Box */}
 
       {!locationAsked && locationStatus !== "allowed" && (
         <LocationPopup onAllow={handleAllowLocation} onDeny={handleDeny} />

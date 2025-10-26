@@ -13,11 +13,12 @@ import { MdFaceUnlock } from "react-icons/md";
 import { FaClipboardList } from "react-icons/fa";
 import { MdPhone } from "react-icons/md";
 import { MdEmail } from "react-icons/md";
+import { useSelector } from "react-redux";
 
 const RateServicePage = () => {
   const navigate = useNavigate();
   const { translations: t } = useContext(LanguageContext);
-
+const { guestName, guestMobile } = useSelector((state) => state.room);
   // Validation Schema using Yup
   const validationSchema = Yup.object({
     guestName: Yup.string()
@@ -34,10 +35,11 @@ const RateServicePage = () => {
   // Formik hook
   const formik = useFormik({
     initialValues: {
-      guestName: "",
+      guestName: guestName || "",
       email: "",
-      phone: "",
+      phone: guestMobile || "",
     },
+    enableReinitialize: true, 
     validationSchema: validationSchema,
     onSubmit: (values) => {
       // console.log("Form values", values);

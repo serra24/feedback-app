@@ -65,11 +65,13 @@ const GuestServicePage = () => {
       );
     });
   };
-  const { roomNum, roomData, complaintItems } = useSelector(
+  const { roomNum, roomData, complaintItems,guestName, guestMobile } = useSelector(
     (state) => ({
       roomNum: state.room.roomNum,
       roomData: state.roomData,
       complaintItems: state.complaintItems.items,
+       guestName: state.room.guestName,
+    guestMobile: state.room.guestMobile,
     }),
     shallowEqual
   );
@@ -121,8 +123,8 @@ const GuestServicePage = () => {
       hotelName: hotelName || "Unknown Hotel",
       date: new Date().toISOString().split("T")[0],
       roomNumber: number || "Unknown Room",
-      guestName: "",
-      phone: "",
+      guestName: guestName || "",
+      phone: guestMobile || "",
       email: "",
       complaintTypes: [],
       complaintDetails: "",

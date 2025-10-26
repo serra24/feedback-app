@@ -18,7 +18,7 @@ import InputField from "../../components/InputField/InputField";
 import { LanguageContext } from "../../context/LanguageContext";
 import FormTitle from "../../components/FormTitle/FormTitle";
 import { createRequest } from "../../redux/slices/GeneralRequest/GeneralRequestSlice";
-import { useDispatch, useSelector } from "react-redux";
+import {shallowEqual, useDispatch, useSelector } from "react-redux";
 import ErrorPopup from "../../components/ErrorPopup/ErrorPopup";
 import SuccessPopup from "../../components/SuccessPopup/SuccessPopup";
 import { fetchRoomData } from "../../redux/slices/roomFeatures/roomDataSlice";
@@ -72,8 +72,15 @@ const ResourcesServicePage = () => {
   //   roomNum: state.room.roomNum,
   //   roomData: state.roomData,
   // }));
-  const roomNum = useSelector((state) => state.room.roomNum);
-  const roomData = useSelector((state) => state.roomData);
+const { roomNum, roomData, guestName, guestMobile } = useSelector(
+  (state) => ({
+    roomNum: state.room.roomNum,
+    roomData: state.roomData,
+    guestName: state.room.guestName,
+    guestMobile: state.room.guestMobile,
+  }),
+  shallowEqual
+);
 
   // console.log("roomData", roomData); // Check if roomData is defined
   useEffect(() => {
@@ -118,9 +125,10 @@ const ResourcesServicePage = () => {
     // console.warn("Localized Name is missing. Defaulting to 'Unknown Hotel'");
   }
   const formik = useFormik({
+    enableReinitialize: true,
     initialValues: {
-      fullName: "",
-      phone: "",
+      fullName: guestName || "",
+      phone: guestMobile || "",
       email: "",
       roomNumber: number || "Unknown Room",
       complaintItems: [],

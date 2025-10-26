@@ -67,13 +67,16 @@ const LuggageServicePage = () => {
   };
 
   const [isDataLoaded, setIsDataLoaded] = useState(false);
-  const { roomNum, roomData } = useSelector(
-    (state) => ({
-      roomNum: state.room.roomNum,
-      roomData: state.roomData,
-    }),
-    shallowEqual
-  );
+ const { roomNum, roomData, guestName, guestMobile } = useSelector(
+  (state) => ({
+    roomNum: state.room.roomNum,
+    roomData: state.roomData,
+    guestName: state.room.guestName,
+    guestMobile: state.room.guestMobile,
+  }),
+  shallowEqual
+);
+
 
   useEffect(() => {
     // console.log("roomNum inside useEffect:", roomNum);  // Check if roomNum is defined
@@ -99,9 +102,10 @@ const LuggageServicePage = () => {
   const number = roomData?.data?.message?.number;
 
   const formik = useFormik({
+      enableReinitialize: true,
     initialValues: {
-      fullName: "",
-      phone: "",
+      fullName: guestName || "",
+    phone: guestMobile || "",
       email: "",
       roomNumber: number || "Unknown Room",
       preferredTime: "",

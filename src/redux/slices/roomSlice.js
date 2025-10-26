@@ -1,29 +1,12 @@
 
-
-// const initialState = {
-//   roomNum: null,
-// };
-
-// const roomSlice = createSlice({
-//   name: "room",
-//   initialState,
-//   reducers: {
-//     setRoomNumber: (state, action) => {
-//       state.roomNum = action.payload;
-//     },
-//   },
-// });
-
-// export const { setRoomNumber } = roomSlice.actions;
-// export default roomSlice.reducer;
-// roomReducer.js
-// src/redux/slices/roomSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
 // Define the initial state
 const initialState = {
   roomNum: null,
   bookingNumber: null,
+  guestName: null,
+  guestMobile: null,
 };
 
 const roomSlice = createSlice({
@@ -36,10 +19,16 @@ const roomSlice = createSlice({
     setBookingNumber: (state, action) => {
       state.bookingNumber = action.payload;
     },
+     setGuestName: (state, action) => {
+      state.guestName = action.payload;
+    },
+    setGuestMobile: (state, action) => {
+      state.guestMobile = action.payload;
+    },
   },
 });
 
-export const { setRoomNumber, setBookingNumber } = roomSlice.actions;
+export const { setRoomNumber, setBookingNumber, setGuestName, setGuestMobile  } = roomSlice.actions;
 export default roomSlice.reducer;
 
 

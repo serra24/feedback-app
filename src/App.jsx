@@ -12,6 +12,7 @@ import Loader from './components/Loader/Loader';
 function App() {
   const { language, setLanguage, translations: t } = React.useContext(LanguageContext);
   const [loading, setLoading] = useState(true);  // State to control the loader visibility
+const [bgLoaded, setBgLoaded] = useState(false);
 
   useEffect(() => {
     // Simulating loading for 2 seconds (you can replace this with real data fetching logic)
@@ -40,6 +41,8 @@ if (loading) {
   return (
    
       <Box
+      loading="lazy"
+      onLoad={() => setBgLoaded(true)}
            sx={{
              position: "relative",
              minHeight: "100vh",

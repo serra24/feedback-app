@@ -459,3 +459,9 @@ textarea::placeholder{
 input[type=number]::-webkit-inner-spin-button {
   opacity: 1 !important;
 }
+
+.css-5ntsvz ,.css-zuja9c{
+ 
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+}

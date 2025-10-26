@@ -58,7 +58,7 @@ const InputField = ({
          
           "& .MuiOutlinedInput-root": {
             borderRadius: "5px",
-            height: { md: "48px", xs: "40px" },
+            height: { md: "48px", xs: "46px" },
             backgroundColor: "#084267",
             
             // backgroundColor: "transparent",

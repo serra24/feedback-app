@@ -21,6 +21,7 @@ const LanguageSelector = () => {
       <img src={worldIcon} alt="Language Icon" style={{ width: 18, height: 18 }} />
       <FormControl variant="standard" sx={{ minWidth: 100 }}>
         <Select
+        aria-label="Select language"
           value={language}
           onChange={handleLanguageChange}
           disableUnderline

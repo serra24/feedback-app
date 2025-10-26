@@ -168,6 +168,10 @@ const CustomTimePicker = ({ label, name, value, onChange, onBlur, error, touched
             ),
           }}
           sx={{
+             "& .MuiOutlinedInput-root": {
+            height: { md: "48px", xs: "46px"  },
+
+          },
             "& input::placeholder": {
               color: "#FFFFFF80",
               opacity: 1,
